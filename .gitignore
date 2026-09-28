@@ -1,0 +1,12 @@
+# Temporary frames generated during GIF compilation
+temp_frames/
+temp_frames*/
+*.tmp
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+
+# OS artifacts
+.DS_Store
+Thumbs.db
