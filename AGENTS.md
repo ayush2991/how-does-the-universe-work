@@ -99,6 +99,7 @@ When updating blog posts or interactive simulations, **always keep the correspon
 | # | Container ID | Function | Purpose |
 |---|--------------|----------|---------|
 | **01** | `widget-dual-bridge` | `initWidgetDualSpeedSpacetime` | Side-by-side comparison: Speed Space vs Coordinate Spacetime Map |
+| **01b** | `widget-expanding-circles` | `initWidgetExpandingCircles` | 2×2 grid of four static panels showing the outgoing circle of light at $t=0,1,2,3$ in the $x$–$y$ plane (eases reader into the 3D cone) |
 | **02** | `widget-3d-light-cone` | `initWidget3DLightConeExplorer` | Full 3D rotatable Light Cone volume ($x_1, x_2, ct$) with dynamic Now-Slice |
 | **03** | `widget-cosmic-horizon` | `initWidgetCosmicHorizon` | Human lifespan horizon vs. celestial events (Sun, Proxima, Vega, Betelgeuse) |
 

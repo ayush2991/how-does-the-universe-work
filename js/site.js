@@ -3668,6 +3668,158 @@
     renderAll();
   }
 
+  // SIMULATION 1b: Expanding Circles — 2×2 grid of light ripple snapshots at t=0,1,2,3
+  function initWidgetExpandingCircles(containerId) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var panels = container.querySelectorAll('canvas.circle-panel');
+    if (!panels || panels.length === 0) return;
+
+    // Maximum time value drives the coordinate scale so all four panels share the same grid
+    var MAX_T = 3;
+
+    function drawPanel(canvas, t) {
+      var ret = setupRetinaCanvas(canvas);
+      var ctx = ret.ctx, w = ret.width, h = ret.height;
+      var colors = getThemeColors();
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Padding around the axes
+      var pad = Math.max(28, Math.min(38, w * 0.11));
+      var plotW = w - pad * 2;
+      var plotH = h - pad * 2;
+      var ox = pad + plotW / 2;   // origin x
+      var oy = pad + plotH / 2;   // origin y
+      // Scale: the full plot width spans [-MAX_T … +MAX_T]
+      var scale = Math.min(plotW, plotH) / 2 / MAX_T;
+
+      // ── Background subtle grid ──────────────────────────────────────────────
+      ctx.strokeStyle = colors.gridLine;
+      ctx.lineWidth = 0.5;
+      for (var g = -MAX_T; g <= MAX_T; g++) {
+        var gx = ox + g * scale;
+        ctx.beginPath();
+        ctx.moveTo(gx, pad);
+        ctx.lineTo(gx, h - pad);
+        ctx.stroke();
+        var gy = oy + g * scale;
+        ctx.beginPath();
+        ctx.moveTo(pad, gy);
+        ctx.lineTo(w - pad, gy);
+        ctx.stroke();
+      }
+
+      // ── Axes ────────────────────────────────────────────────────────────────
+      ctx.strokeStyle = colors.axisLine;
+      ctx.lineWidth = 1.5;
+      // x-axis
+      ctx.beginPath();
+      ctx.moveTo(pad, oy);
+      ctx.lineTo(w - pad + 6, oy);
+      ctx.stroke();
+      // y-axis
+      ctx.beginPath();
+      ctx.moveTo(ox, pad);
+      ctx.lineTo(ox, h - pad + 6);
+      ctx.stroke();
+
+      // Arrowheads
+      ctx.fillStyle = colors.axisArrow;
+      ctx.beginPath();
+      ctx.moveTo(w - pad + 6, oy - 3);
+      ctx.lineTo(w - pad + 11, oy);
+      ctx.lineTo(w - pad + 6, oy + 3);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(ox - 3, pad);
+      ctx.lineTo(ox, pad - 5);
+      ctx.lineTo(ox + 3, pad);
+      ctx.fill();
+
+      // Axis labels
+      ctx.font = '700 9px "JetBrains Mono", monospace';
+      ctx.fillStyle = colors.spaceColor;
+      ctx.fillText('x', w - pad + 13, oy + 3);
+      ctx.fillStyle = colors.spaceColor;
+      ctx.fillText('y', ox + 5, pad - 7);
+
+      // ── Light circle (or origin dot for t=0) ────────────────────────────────
+      var radius = t * scale;
+
+      if (t === 0) {
+        // Just a glowing origin dot — the flash "here and now"
+        drawGlowingDot(ctx, ox, oy, colors.photonColor, 5);
+      } else {
+        // Filled disc with low alpha showing the interior (inside the light shell)
+        ctx.fillStyle = colors.isLight
+          ? 'rgba(250, 204, 21, 0.10)'
+          : 'rgba(250, 204, 21, 0.13)';
+        ctx.beginPath();
+        ctx.arc(ox, oy, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // The circle itself (the wavefront)
+        ctx.strokeStyle = colors.photonColor;
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = colors.photonColor;
+        ctx.shadowBlur = 6;
+        ctx.beginPath();
+        ctx.arc(ox, oy, radius, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Radius arrow from origin to right edge of circle
+        ctx.strokeStyle = colors.isLight ? 'rgba(148,163,184,0.8)' : 'rgba(100,116,139,0.8)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(ox, oy);
+        ctx.lineTo(ox + radius, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // 'r = ct' label along the radius arrow
+        ctx.font = '600 8px "JetBrains Mono", monospace';
+        ctx.fillStyle = colors.photonColor;
+        var labelX = Math.min(w - pad - 4, ox + radius / 2 - 12);
+        ctx.fillText('r=' + t + 'c', labelX, oy - 5);
+
+        // Origin dot
+        drawGlowingDot(ctx, ox, oy, colors.invariantColor, 3);
+      }
+
+      // ── Panel time label (top-left pill) ────────────────────────────────────
+      var pillW = 46, pillH = 20, pillX = 8, pillY = 8;
+      ctx.fillStyle = colors.pillBg;
+      ctx.strokeStyle = colors.pillBorder;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(pillX, pillY, pillW, pillH, 5);
+      } else {
+        ctx.rect(pillX, pillY, pillW, pillH);
+      }
+      ctx.fill();
+      ctx.stroke();
+      ctx.font = '700 9.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = colors.pillText;
+      ctx.fillText('t = ' + t, pillX + 7, pillY + 13);
+    }
+
+    function renderAll() {
+      for (var i = 0; i < panels.length; i++) {
+        var t = parseInt(panels[i].getAttribute('data-t'), 10);
+        drawPanel(panels[i], t);
+      }
+    }
+
+    registerDraw(renderAll);
+    window.addEventListener('resize', renderAll);
+    renderAll();
+  }
+
   // SIMULATION 2: 3D Light Cone Explorer
   function initWidget3DLightConeExplorer(containerId) {
     var container = document.getElementById(containerId);
@@ -4257,6 +4409,7 @@
     initThemeManager();
     initReadingProgress();
     initWidgetDualSpeedSpacetime('widget-dual-bridge');
+    initWidgetExpandingCircles('widget-expanding-circles');
     initWidget3DLightConeExplorer('widget-3d-light-cone');
     initWidgetCosmicHorizon('widget-cosmic-horizon');
   }
@@ -4290,6 +4443,7 @@
     initWidgetMuon: initWidgetMuon,
     initWidget3DSpacetime: initWidget3DSpacetime,
     initWidgetDualSpeedSpacetime: initWidgetDualSpeedSpacetime,
+    initWidgetExpandingCircles: initWidgetExpandingCircles,
     initWidget3DLightConeExplorer: initWidget3DLightConeExplorer,
     initWidgetCosmicHorizon: initWidgetCosmicHorizon,
     initWidgetLoafAlice: initWidgetLoafAlice,
