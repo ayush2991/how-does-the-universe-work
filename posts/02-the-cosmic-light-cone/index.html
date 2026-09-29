@@ -420,7 +420,7 @@
                 <div class="control-item">
                   <div class="control-header"><span>Elevation (Tilt)</span></div>
                   <input type="range" class="range-slider slider-elevation" min="-0.6" max="1.2" step="0.05"
-                    value="0.38">
+                    value="0.05">
                 </div>
               </div>
             </div>
@@ -524,142 +524,197 @@
         </li>
       </ul>
 
-      <!-- WIDGET 3: COSMIC HORIZON SIMULATOR -->
-      <div id="widget-cosmic-horizon" class="interactive-artifact">
+      <!-- WIDGET 3: DUAL HORIZON SIMULATOR -->
+      <div id="widget-cosmic-horizon" class="interactive-artifact artifact-wide">
         <div class="artifact-header">
           <div>
-            <div class="artifact-badge">SIMULATION 03 · CELESTIAL HORIZON</div>
-            <div class="artifact-title">The Cosmic Horizon & Human Lifespan Simulator</div>
+            <div class="artifact-badge">SIMULATION 03 · DUAL HORIZON</div>
+            <div class="artifact-title">The Lifespan Light Cone & Cosmic Bubble</div>
             <div class="artifact-desc">
-              Choose a celestial event happening today. Adjust your age and see whether the event's light enters your
-              lifetime light cone or remains forever in your personal Elsewhere.
+              Watch your 80-year causal horizon expand across the stellar neighborhood (left) while your worldline climbs through spacetime (right).
             </div>
           </div>
         </div>
-        <div class="artifact-split">
-          <!-- Left Column: Canvas Viewport -->
-          <div class="split-canvas-col">
-            <canvas></canvas>
+
+        <div class="comparison-grid">
+          <!-- Left: Top-down Physical Galaxy View -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>PHYSICAL SPACE</span>
+              <span class="canvas-col-tag">Stellar Neighborhood & Causal Horizon</span>
+            </div>
+            <canvas class="canvas-radar" style="width: 100%; height: 320px;"></canvas>
           </div>
-          <!-- Right Column: Control Deck & Telemetry -->
-          <div class="split-controls-col">
-            <div>
-              <div
-                style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; padding: 0.35rem 0.65rem; border-radius: 0.375rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);">
-                <span
-                  style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">SELECTED
-                  EVENT:</span>
-                <span class="val-event-name"
-                  style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--text-primary);">Vega
-                  Flare (25 ly)</span>
+
+          <!-- Right: Spacetime Coordinate View -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>SPACETIME DIAGRAM</span>
+              <span class="canvas-col-tag">Worldline & Past Light Cone (x vs ct)</span>
+            </div>
+            <canvas class="canvas-spacetime-cone" style="width: 100%; height: 320px;"></canvas>
+          </div>
+        </div>
+
+        <!-- Shared Telemetry Banner -->
+        <div class="telemetry-row">
+          <div class="telemetry-item">
+            <div class="label">CURRENT AGE</div>
+            <div class="value val-age-display" style="color: var(--color-time);">25.0 yrs</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">CAUSAL RADIUS (ct)</div>
+            <div class="value val-horizon-radius" style="color: var(--color-space);">25.0 ly</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">TARGET CELESTIAL BODY</div>
+            <div class="value val-target-name" style="color: var(--color-photon);">Vega (25.0 ly)</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">CAUSAL STATUS</div>
+            <div class="value val-causal-status" style="color: var(--color-invariant);">ENTERING PAST CONE</div>
+          </div>
+        </div>
+
+        <!-- Controls Deck -->
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Scrub Your Age (0 to 80 Years)</span>
+              <span class="range-val val-age-num">25 yrs</span>
+            </div>
+            <input type="range" class="range-slider slider-lifespan-age" min="0" max="80" step="0.5" value="25">
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.75rem; margin-top:0.5rem;">
+            <div class="preset-chips">
+              <button class="chip-btn preset-star" data-dist="0.000016" data-name="The Sun">Sun (8.3m)</button>
+              <button class="chip-btn preset-star" data-dist="4.2" data-name="Proxima Centauri">Proxima (4.2 ly)</button>
+              <button class="chip-btn preset-star" data-dist="8.6" data-name="Sirius">Sirius (8.6 ly)</button>
+              <button class="chip-btn preset-star" data-dist="25" data-name="Vega">Vega (25 ly)</button>
+              <button class="chip-btn preset-star" data-dist="640" data-name="Betelgeuse">Betelgeuse (640 ly)</button>
+            </div>
+            <button class="btn-primary btn-auto-age"><span>▶</span><span>Simulate Lifespan</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4 -->
+      <h2>4. Unifying the Two Pictures: From Velocity to Spacetime</h2>
+      <p>
+        Throughout this journey, we have looked at motion through two different lenses.
+      </p>
+      <p>
+        In Part 1, we drew <strong>Velocity Space</strong>: a circle showing how an object partitions its fixed cosmic speed <span class="math-badge">c</span> between moving through space (<span class="math-badge">v_x = c · sin θ</span>) and moving through time (<span class="math-badge">v_t = c · cos θ</span>). In Part 2, we drew <strong>Coordinate Spacetime</strong>: an actual map of positions and timestamps where worldlines climb upward through time at tilt angle <span class="math-badge">φ</span>.
+      </p>
+      <p>
+        How does the angle of velocity <span class="math-badge">θ</span> on the speed circle create the geometric tilt <span class="math-badge">φ</span> of a worldline on the map?
+      </p>
+      <p>
+        The slope of a worldline is its rate of spatial progress per unit of coordinate time:
+      </p>
+      <div class="math-display-card">
+        <div>tan φ = Δx / cΔt = v_x / c = sin θ</div>
+        <div class="formula-note">The spatial component on the speed circle directly dictates the slope of the worldline in spacetime.</div>
+      </div>
+      <p>
+        Taking the arctangent gives the fundamental bridge connecting both worlds:
+      </p>
+      <div class="math-display-card">
+        <div>tan φ = sin θ &nbsp;⟹&nbsp; φ = arctan(sin θ)</div>
+        <div class="formula-note">The spacetime tilt angle φ is directly governed by the velocity-space angle θ.</div>
+      </div>
+
+      <!-- WIDGET 1c: 2x2 SYNTHESIS GRID -->
+      <div id="widget-synthesis-grid" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <div class="artifact-badge">ILLUSTRATION · THE FOUR MILESTONES</div>
+            <div class="artifact-title">Connecting the Speed Circle to the Worldline Map</div>
+            <div class="artifact-desc">
+              Four canonical states showing side-by-side how Velocity Space partitions speed (left) and how the resulting worldline tilts in Spacetime (right), with proper-time tick marks revealing clock dilation.
+            </div>
+          </div>
+        </div>
+        <div class="canvas-viewport" style="padding: 1rem;">
+          <div class="synthesis-grid">
+            <!-- Panel 1: At Rest -->
+            <div class="synthesis-panel-card">
+              <div class="synthesis-panel-header">
+                <span class="synthesis-panel-title">1. Stationary Observer</span>
+                <span class="synthesis-panel-tag">θ = 0° · v = 0</span>
               </div>
-              <div
-                style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 0.65rem 0.85rem; border-radius: 0.5rem; background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); margin-bottom: 0.85rem;">
-                <div>
-                  <div
-                    style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">
-                    DISTANCE</div>
-                  <div class="val-event-dist"
-                    style="font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--color-space);">
-                    25.0 ly</div>
-                </div>
-                <div>
-                  <div
-                    style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">
-                    LIGHT ARRIVAL</div>
-                  <div class="val-light-arrival"
-                    style="font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--color-time);">
-                    25.0 years</div>
-                </div>
+              <div class="synthesis-canvas-wrap">
+                <canvas data-preset="0"></canvas>
               </div>
-              <!-- Dynamic Status Banner -->
-              <div class="banner-status"
-                style="margin: 0 0 1rem 0; padding: 0.75rem 0.85rem; border-radius: 0.5rem; border: 1px solid var(--border-subtle); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.45;">
-                <strong>★ IN YOUR PAST LIGHT CONE:</strong> Arrived when you were <strong>age 25.0</strong>. You can see
-                and experience it right now.
-              </div>
-              <div class="control-item" style="margin-bottom: 0.85rem;">
-                <div class="control-header">
-                  <span>Your Current Age (0 to 80 Years)</span>
-                </div>
-                <input type="range" class="range-slider slider-age" min="0" max="80" step="1" value="30">
-              </div>
-              <div class="control-item" style="margin-bottom: 1rem;">
-                <div class="control-header">
-                  <span>Event Distance (0 to 100 Light-Years)</span>
-                </div>
-                <input type="range" class="range-slider slider-distance" min="0" max="100" step="1" value="25">
+              <div class="synthesis-panel-footer">
+                <span>Worldline: <strong>Vertical (φ = 0°)</strong></span>
+                <span>Aging: <strong>100% Rate</strong></span>
               </div>
             </div>
-            <div>
-              <div
-                style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); margin-bottom: 0.35rem; text-transform: uppercase;">
-                CELESTIAL PRESETS:</div>
-              <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
-                <button class="chip-btn preset-celestial" data-dist="0.000016"
-                  data-name="The Sun (8.3 light-minutes)">The Sun (8.3m)</button>
-                <button class="chip-btn preset-celestial" data-dist="4.2" data-name="Proxima Centauri (4.2 ly)">Proxima
-                  (4.2 ly)</button>
-                <button class="chip-btn preset-celestial" data-dist="8.6" data-name="Sirius (8.6 ly)">Sirius (8.6
-                  ly)</button>
-                <button class="chip-btn preset-celestial" data-dist="25" data-name="Vega (25 ly)">Vega (25 ly)</button>
-                <button class="chip-btn preset-celestial" data-dist="640"
-                  data-name="Betelgeuse Supernova (640 ly)">Betelgeuse (640 ly)</button>
+
+            <!-- Panel 2: Sub-light Cruising -->
+            <div class="synthesis-panel-card">
+              <div class="synthesis-panel-header">
+                <span class="synthesis-panel-title">2. Sub-Light Cruising</span>
+                <span class="synthesis-panel-tag">θ = 30° · v = 0.50c</span>
+              </div>
+              <div class="synthesis-canvas-wrap">
+                <canvas data-preset="30"></canvas>
+              </div>
+              <div class="synthesis-panel-footer">
+                <span>Worldline: <strong>Mild Tilt (φ = 26.6°)</strong></span>
+                <span>Aging: <strong>86.6% Rate</strong></span>
+              </div>
+            </div>
+
+            <!-- Panel 3: Ultra-Relativistic -->
+            <div class="synthesis-panel-card">
+              <div class="synthesis-panel-header">
+                <span class="synthesis-panel-title">3. Relativistic Cruise</span>
+                <span class="synthesis-panel-tag">θ = 60° · v = 0.866c</span>
+              </div>
+              <div class="synthesis-canvas-wrap">
+                <canvas data-preset="60"></canvas>
+              </div>
+              <div class="synthesis-panel-footer">
+                <span>Worldline: <strong>Steep Tilt (φ = 40.9°)</strong></span>
+                <span>Aging: <strong>50.0% Rate (Half)</strong></span>
+              </div>
+            </div>
+
+            <!-- Panel 4: The Photon Bound -->
+            <div class="synthesis-panel-card">
+              <div class="synthesis-panel-header">
+                <span class="synthesis-panel-title">4. The Photon Bound</span>
+                <span class="synthesis-panel-tag">θ = 90° · v = c</span>
+              </div>
+              <div class="synthesis-canvas-wrap">
+                <canvas data-preset="90"></canvas>
+              </div>
+              <div class="synthesis-panel-footer">
+                <span>Worldline: <strong>Boundary (φ = 45.0°)</strong></span>
+                <span>Aging: <strong>0% (Frozen)</strong></span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SECTION 4 -->
-      <h2>4. The Mathematical Synthesis</h2>
       <p>
-        We can now state the mathematical relationship between Part 1 and Part 2 with complete precision.
-      </p>
-      <p>
-        In Part 1's Velocity Space, an observer's 4-velocity vector has components:
-      </p>
-      <div class="math-display-card">
-        <div>v_space = c · sin θ, &nbsp; v_time = c · cos θ</div>
-        <div class="formula-note">Spatial speed and speed through time partition the total cosmic speed c
-          trigonometrically.</div>
-      </div>
-      <p>
-        In Part 2's Coordinate Spacetime, an observer's position changes over coordinate time according to:
-      </p>
-      <div class="math-display-card">
-        <div>dx / dt = v_space = c · sin θ &nbsp;⟹&nbsp; dx / d(ct) = sin θ</div>
-        <div class="formula-note">The coordinate slope in spacetime simplifies cleanly when scaled by c.</div>
-      </div>
-      <p>
-        The tilt angle <span class="math-badge">φ</span> of the worldline relative to the vertical time axis is:
-      </p>
-      <div class="math-display-card">
-        <div>tan φ = dx / d(ct) = sin θ &nbsp;⟹&nbsp; φ = arctan(sin θ)</div>
-        <div class="formula-note">The spacetime tilt angle φ is directly governed by the velocity-space angle θ.</div>
-      </div>
-      <p>
-        This elegant formula explains the entire correspondence:
+        Studying these four panels side by side clarifies three profound principles of relativistic motion:
       </p>
       <ul>
-        <li>For an observer at rest: <span class="math-badge">θ = 0° ⟹ φ = arctan(0) = 0°</span> (vertical line).</li>
-        <li>For a photon at light speed: <span class="math-badge">θ = 90° ⟹ φ = arctan(1) = 45°</span> (light cone
-          surface).</li>
-        <li>An angle of <span class="math-badge">φ = 90°</span> would require <span class="math-badge">tan 90° =
-            ∞</span>, which corresponds to infinite speed—a physically forbidden trajectory lying in the Elsewhere.</li>
+        <li>
+          <strong>Why 90° in Velocity Space becomes 45° in Spacetime</strong>: In Velocity Space, turning 90° points all motion into space (<span class="math-badge">v_x = c</span>, <span class="math-badge">v_t = 0</span>). On the coordinate map, moving at light speed covers 1 light-second of space in 1 light-second of time (<span class="math-badge">tan φ = 1</span>), creating an exact <span class="math-badge">45°</span> diagonal.
+        </li>
+        <li>
+          <strong>Why Moving Clocks Slow Down Along the Worldline</strong>: The tick marks drawn along each worldline represent intervals of personal time (<span class="math-badge">dτ</span>). Because <span class="math-badge">dτ = dt · √(1 − v²/c²) = dt · cos θ</span>, the rate of aging directly matches the vertical time velocity <span class="math-badge">v_t</span>. As the worldline tilts toward 45°, personal time stretches out until, for light itself, <span class="math-badge">cos 90° = 0</span> and no personal time ticks ever occur.
+        </li>
+        <li>
+          <strong>The Unreachable Elsewhere</strong>: A worldline tilted past <span class="math-badge">45°</span> would require <span class="math-badge">tan φ &gt; 1 ⟹ sin θ &gt; 1</span>, which is mathematically impossible for the unit circle and physically impossible for the cosmos. Everything outside the 45° diagonal is causal Elsewhere.
+        </li>
       </ul>
-      <p>
-        And what of the time dilation from Part 1? It is preserved perfectly in the metric interval along the worldline:
-      </p>
-      <div class="math-display-card">
-        <div>dτ = √( dt² − dx²/c² ) = dt · √( 1 − sin²θ ) = dt · cos θ</div>
-        <div class="formula-note">Proper time elapsed along the worldline scales directly with the time-velocity
-          component.</div>
-      </div>
-      <p>
-        When <span class="math-badge">θ = 90°</span>, <span class="math-badge">cos 90° = 0</span>, meaning proper time
-        along the 45° light cone is exactly zero.
-      </p>
 
       <!-- SECTION 5 -->
       <h2>5. Looking Ahead: Slicing the Loaf in Part 3</h2>

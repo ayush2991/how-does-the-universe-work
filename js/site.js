@@ -3820,6 +3820,279 @@
     renderAll();
   }
 
+  // SIMULATION 1c: The Mathematical Synthesis Grid — 2×2 archetypes connecting Velocity Space & Spacetime
+  function initWidgetSynthesisGrid(containerId) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var panels = container.querySelectorAll('.synthesis-canvas-wrap canvas');
+    if (!panels || panels.length === 0) return;
+
+    // Archetype definitions for the 4 panels
+    var archetypes = {
+      '0': {
+        thetaDeg: 0,
+        thetaRad: 0,
+        vx: 0,
+        vt: 1,
+        phiDeg: 0,
+        properRate: 1.0,
+        title: 'Stationary Observer (At Rest)',
+        desc: 'All speed directed through time'
+      },
+      '30': {
+        thetaDeg: 30,
+        thetaRad: (30 * Math.PI) / 180,
+        vx: 0.5,
+        vt: Math.cos((30 * Math.PI) / 180), // 0.866
+        phiDeg: (Math.atan(0.5) * 180) / Math.PI, // 26.57°
+        properRate: Math.cos((30 * Math.PI) / 180),
+        title: 'Cruising Sub-light (v = 0.50c)',
+        desc: 'Balanced space and time motion'
+      },
+      '60': {
+        thetaDeg: 60,
+        thetaRad: (60 * Math.PI) / 180,
+        vx: Math.sin((60 * Math.PI) / 180), // 0.866
+        vt: 0.5,
+        phiDeg: (Math.atan(Math.sin((60 * Math.PI) / 180)) * 180) / Math.PI, // 40.89°
+        properRate: 0.5,
+        title: 'Ultra-Relativistic (v = 0.866c)',
+        desc: 'Heavily tilted, clock runs at ½ rate'
+      },
+      '90': {
+        thetaDeg: 90,
+        thetaRad: (90 * Math.PI) / 180,
+        vx: 1.0,
+        vt: 0,
+        phiDeg: 45.0,
+        properRate: 0.0,
+        title: 'The Photon Bound (v = c)',
+        desc: 'Pure spatial speed, clock stands still'
+      }
+    };
+
+    function drawPanel(canvas, key) {
+      var data = archetypes[key];
+      if (!data) return;
+
+      var ret = setupRetinaCanvas(canvas);
+      var ctx = ret.ctx, w = ret.width, h = ret.height;
+      var c = getThemeColors();
+
+      ctx.clearRect(0, 0, w, h);
+
+      // We split the canvas horizontally: Left = Velocity Space (mini circle), Right = Coordinate Spacetime
+      var dividerX = Math.round(w * 0.44);
+
+      // Subtle divider line
+      ctx.strokeStyle = c.gridLine;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(dividerX, 8);
+      ctx.lineTo(dividerX, h - 8);
+      ctx.stroke();
+
+      // ==========================================
+      // 1. LEFT SIDE: VELOCITY CIRCLE (PART 1)
+      // ==========================================
+      var leftW = dividerX;
+      var lPad = Math.max(16, Math.min(24, leftW * 0.12));
+      var lOx = lPad + (leftW - lPad * 2) * 0.35;
+      var lOy = h - lPad - 16;
+      var lRadius = Math.min((leftW - lPad * 2) * 0.85, (h - lPad * 2 - 28));
+
+      // Velocity axes
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 1.25;
+      // vx axis (horizontal)
+      ctx.beginPath();
+      ctx.moveTo(lOx - 4, lOy);
+      ctx.lineTo(lOx + lRadius + 14, lOy);
+      ctx.stroke();
+      // vt axis (vertical)
+      ctx.beginPath();
+      ctx.moveTo(lOx, lOy + 4);
+      ctx.lineTo(lOx, lOy - lRadius - 14);
+      ctx.stroke();
+
+      // Axis labels
+      ctx.font = '700 8.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = c.spaceColor;
+      ctx.fillText('v_x', lOx + lRadius + 4, lOy + 11);
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('v_t', lOx - 16, lOy - lRadius - 4);
+
+      // The circular constraint arc (|V| = c)
+      ctx.strokeStyle = c.isLight ? 'rgba(15, 23, 42, 0.15)' : 'rgba(255, 255, 255, 0.18)';
+      ctx.lineWidth = 1.25;
+      ctx.setLineDash([2.5, 2.5]);
+      ctx.beginPath();
+      ctx.arc(lOx, lOy, lRadius, -Math.PI / 2, 0, false);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Speed vector tip
+      var tipX = lOx + Math.sin(data.thetaRad) * lRadius;
+      var tipY = lOy - Math.cos(data.thetaRad) * lRadius;
+
+      // Projection lines
+      ctx.strokeStyle = c.isLight ? 'rgba(148, 163, 184, 0.6)' : 'rgba(100, 116, 139, 0.6)';
+      ctx.lineWidth = 0.8;
+      ctx.setLineDash([2, 2]);
+      ctx.beginPath();
+      ctx.moveTo(tipX, tipY);
+      ctx.lineTo(tipX, lOy);
+      ctx.moveTo(tipX, tipY);
+      ctx.lineTo(lOx, tipY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Theta arc
+      if (data.thetaDeg > 0) {
+        ctx.strokeStyle = c.photonColor;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(lOx, lOy, Math.min(22, lRadius * 0.4), -Math.PI / 2, -Math.PI / 2 + data.thetaRad, false);
+        ctx.stroke();
+      }
+
+      // 4-Velocity Vector
+      ctx.strokeStyle = c.photonColor;
+      ctx.lineWidth = 2.25;
+      ctx.beginPath();
+      ctx.moveTo(lOx, lOy);
+      ctx.lineTo(tipX, tipY);
+      ctx.stroke();
+      drawGlowingDot(ctx, tipX, tipY, c.photonColor, 3.5);
+
+      // Mini Header Left
+      ctx.font = '700 8px "JetBrains Mono", monospace';
+      ctx.fillStyle = c.subtleText;
+      ctx.fillText('SPEED SPACE: θ = ' + data.thetaDeg + '°', lPad - 6, 16);
+
+      // Readouts Left
+      ctx.font = '600 7.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = c.spaceColor;
+      ctx.fillText('v_x=' + data.vx.toFixed(2) + 'c', lOx + 8, lOy + 11);
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('v_t=' + data.vt.toFixed(2) + 'c', lPad - 6, lOy - lRadius + 10);
+
+      // ==========================================
+      // 2. RIGHT SIDE: COORDINATE SPACETIME (PART 2)
+      // ==========================================
+      var rightW = w - dividerX;
+      var rPad = Math.max(16, Math.min(24, rightW * 0.12));
+      var rOx = dividerX + rPad + (rightW - rPad * 2) * 0.28;
+      var rOy = h - rPad - 16;
+      var rScale = Math.min((rightW - rPad * 2) * 0.72, (h - rPad * 2 - 28));
+
+      // 45° Light cone reference line
+      var coneX = rOx + rScale;
+      var coneY = rOy - rScale;
+
+      ctx.fillStyle = c.isLight ? 'rgba(2, 132, 199, 0.05)' : 'rgba(56, 189, 248, 0.06)';
+      ctx.beginPath();
+      ctx.moveTo(rOx, rOy);
+      ctx.lineTo(coneX, coneY);
+      ctx.lineTo(rOx, coneY);
+      ctx.closePath();
+      ctx.fill();
+
+      // 45° photon line
+      ctx.strokeStyle = c.photonColor;
+      ctx.lineWidth = 1.25;
+      ctx.setLineDash([3, 2]);
+      ctx.beginPath();
+      ctx.moveTo(rOx, rOy);
+      ctx.lineTo(coneX, coneY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Spacetime axes
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 1.25;
+      // x axis
+      ctx.beginPath();
+      ctx.moveTo(rOx - 4, rOy);
+      ctx.lineTo(rOx + rScale + 14, rOy);
+      ctx.stroke();
+      // ct axis
+      ctx.beginPath();
+      ctx.moveTo(rOx, rOy + 4);
+      ctx.lineTo(rOx, rOy - rScale - 14);
+      ctx.stroke();
+
+      // Axis labels
+      ctx.font = '700 8.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = c.spaceColor;
+      ctx.fillText('x', rOx + rScale + 4, rOy + 11);
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('ct', rOx - 14, rOy - rScale - 4);
+
+      // Worldline
+      var wlTopX = rOx + data.vx * rScale;
+      var wlTopY = rOy - rScale;
+
+      ctx.strokeStyle = data.thetaDeg === 90 ? c.photonColor : c.spaceColor;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(rOx, rOy);
+      ctx.lineTo(wlTopX, wlTopY);
+      ctx.stroke();
+      drawGlowingDot(ctx, wlTopX, wlTopY, data.thetaDeg === 90 ? c.photonColor : c.spaceColor, 3.5);
+
+      // Proper time ticks along worldline
+      if (data.thetaDeg < 90) {
+        var numTicks = 3;
+        for (var t = 1; t <= numTicks; t++) {
+          var frac = t / numTicks;
+          // In coordinate time ct, each tick appears at dt = dtau / cos(theta)
+          // For visual clarity, ticks are spaced by proper time dtau
+          var tickFrac = frac / (data.properRate > 0 ? 1 : 1);
+          if (tickFrac <= 1.0) {
+            var tx = rOx + (wlTopX - rOx) * frac;
+            var ty = rOy + (wlTopY - rOy) * frac;
+            
+            // Draw cross tick mark perpendicular to worldline
+            var perpAngle = Math.atan2(wlTopY - rOy, wlTopX - rOx) + Math.PI / 2;
+            var tickLen = 3.5;
+            ctx.strokeStyle = c.timeColor;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(tx - Math.cos(perpAngle) * tickLen, ty - Math.sin(perpAngle) * tickLen);
+            ctx.lineTo(tx + Math.cos(perpAngle) * tickLen, ty + Math.sin(perpAngle) * tickLen);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Mini Header Right
+      ctx.font = '700 8px "JetBrains Mono", monospace';
+      ctx.fillStyle = c.subtleText;
+      ctx.fillText('SPACETIME: φ = ' + data.phiDeg.toFixed(1) + '°', dividerX + 12, 16);
+
+      // Readouts Right
+      ctx.font = '600 7.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = c.spaceColor;
+      ctx.fillText('tan φ = ' + data.vx.toFixed(2), dividerX + 12, 28);
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('dτ = ' + (data.properRate * 100).toFixed(0) + '% dt', dividerX + 12, 40);
+    }
+
+    function renderAll() {
+      for (var i = 0; i < panels.length; i++) {
+        var p = panels[i];
+        var key = p.getAttribute('data-preset');
+        drawPanel(p, key);
+      }
+    }
+
+    registerDraw(renderAll);
+    window.addEventListener('resize', renderAll);
+    renderAll();
+  }
+
   // SIMULATION 2: 3D Light Cone Explorer
   function initWidget3DLightConeExplorer(containerId) {
     var container = document.getElementById(containerId);
@@ -3838,7 +4111,7 @@
     var elWaveRadius = container.querySelector('.val-wave-radius');
 
     var azimuth = 0.65;
-    var elevation = 0.38;
+    var elevation = parseFloat(sliderElevation ? sliderElevation.value : 0.05) || 0.05;
     var sliceT = parseFloat(sliderTime ? sliderTime.value : 0.4) || 0.4;
 
     var isDragging = false;
@@ -4097,11 +4370,11 @@
     if (btnReset) {
       btnReset.addEventListener('click', function () {
         azimuth = 0.65;
-        elevation = 0.38;
+        elevation = 0.05;
         sliceT = 0.4;
         if (sliderTime) sliderTime.value = 0.4;
         if (sliderAzimuth) sliderAzimuth.value = 0.65;
-        if (sliderElevation) sliderElevation.value = 0.38;
+        if (sliderElevation) sliderElevation.value = 0.05;
         draw();
       });
     }
@@ -4111,264 +4384,452 @@
     draw();
   }
 
-  // SIMULATION 3: Cosmic Horizon & Human Lifespan Simulator
+  // SIMULATION 3: Cosmic Horizon & Human Lifespan Simulator (Dual-View Cosmic Bubble)
   function initWidgetCosmicHorizon(containerId) {
     var container = document.getElementById(containerId);
     if (!container) return;
 
-    var canvas = container.querySelector('canvas');
-    if (!canvas) return;
+    var canvasRadar = container.querySelector('.canvas-radar');
+    var canvasCone = container.querySelector('.canvas-spacetime-cone');
+    if (!canvasRadar || !canvasCone) return;
 
-    var sliderDist = container.querySelector('.slider-distance');
-    var sliderAge = container.querySelector('.slider-age');
-    var presetBtns = container.querySelectorAll('.preset-celestial');
+    var sliderAge = container.querySelector('.slider-lifespan-age');
+    var elAgeNum = container.querySelector('.val-age-num');
+    var elAgeDisplay = container.querySelector('.val-age-display');
+    var elHorizonRadius = container.querySelector('.val-horizon-radius');
+    var elTargetName = container.querySelector('.val-target-name');
+    var elCausalStatus = container.querySelector('.val-causal-status');
+    var presetBtns = container.querySelectorAll('.preset-star');
+    var btnAutoAge = container.querySelector('.btn-auto-age');
 
-    var elEventName = container.querySelector('.val-event-name');
-    var elEventDist = container.querySelector('.val-event-dist');
-    var elLightArrival = container.querySelector('.val-light-arrival');
-    var elStatusBanner = container.querySelector('.banner-status');
+    var currentAge = parseFloat(sliderAge ? sliderAge.value : 25) || 25;
+    var selectedStar = {
+      name: 'Vega',
+      dist: 25.0,
+      angle: -0.45 // angle in physical radar space (radians)
+    };
 
-    var eventDistLy = parseFloat(sliderDist ? sliderDist.value : 25) || 25;
-    var eventName = 'Vega Flare (25 ly)';
-    var currentAge = parseFloat(sliderAge ? sliderAge.value : 30) || 30;
+    var stars = [
+      { name: 'The Sun', label: 'Sun (8.3m)', dist: 0.000016, angle: 0 },
+      { name: 'Proxima Centauri', label: 'Proxima (4.2 ly)', dist: 4.2, angle: 1.85 },
+      { name: 'Sirius', label: 'Sirius (8.6 ly)', dist: 8.6, angle: 3.6 },
+      { name: 'Vega', label: 'Vega (25 ly)', dist: 25.0, angle: -0.45 },
+      { name: 'Betelgeuse', label: 'Betelgeuse (640 ly)', dist: 640.0, angle: -2.35 }
+    ];
 
-    var maxDistView = 100;
-    var lifespanMax = 80;
+    var isPlaying = false;
+    var animFrameId = null;
+    var maxLifespan = 80;
+    var maxRadarDist = 100; // coordinate radius for radar map view
 
-    function updateStatus() {
-      var arrivalAge = eventDistLy;
+    function updateTelemetry() {
       var colors = getThemeColors();
       var emerald = colors.isLight ? '#059669' : '#10b981';
-      var emeraldBg = colors.isLight ? 'rgba(5, 150, 105, 0.1)' : 'rgba(16, 185, 129, 0.15)';
       var danger = colors.isLight ? '#dc2626' : '#f87171';
-      var dangerBg = colors.isLight ? 'rgba(220, 38, 38, 0.08)' : 'rgba(248, 113, 113, 0.12)';
 
-      if (elEventName) elEventName.textContent = eventName;
-      if (elEventDist) elEventDist.textContent = eventDistLy.toFixed(1) + ' light-years';
-
-      if (eventDistLy < 0.001) {
-        if (elLightArrival) elLightArrival.textContent = '8.3 minutes';
-      } else {
-        if (elLightArrival) elLightArrival.textContent = arrivalAge.toFixed(1) + ' years';
+      if (sliderAge) sliderAge.value = currentAge.toFixed(1);
+      if (elAgeNum) elAgeNum.textContent = currentAge.toFixed(1) + ' yrs';
+      if (elAgeDisplay) elAgeDisplay.textContent = currentAge.toFixed(1) + ' yrs';
+      if (elHorizonRadius) elHorizonRadius.textContent = currentAge.toFixed(1) + ' ly';
+      if (elTargetName) {
+        if (selectedStar.dist < 0.001) {
+          elTargetName.textContent = selectedStar.name + ' (8.3m)';
+        } else {
+          elTargetName.textContent = selectedStar.name + ' (' + selectedStar.dist.toFixed(1) + ' ly)';
+        }
       }
 
-      if (elStatusBanner) {
-        if (arrivalAge <= currentAge) {
-          elStatusBanner.innerHTML = '<strong>★ IN YOUR PAST LIGHT CONE:</strong> Arrived when you were <strong>age ' + arrivalAge.toFixed(1) + '</strong>. You can see, photograph, and experience it right now.';
-          elStatusBanner.style.borderColor = emerald;
-          elStatusBanner.style.backgroundColor = emeraldBg;
-          elStatusBanner.style.color = emerald;
-        } else if (arrivalAge <= lifespanMax) {
-          elStatusBanner.innerHTML = '<strong>⏳ EN ROUTE (Future Experience):</strong> Light is currently traveling through space. It will enter your light cone at <strong>age ' + arrivalAge.toFixed(1) + '</strong> (' + (arrivalAge - currentAge).toFixed(1) + ' years from your current age).';
-          elStatusBanner.style.borderColor = colors.timeColor;
-          elStatusBanner.style.backgroundColor = colors.timeColorSubtle;
-          elStatusBanner.style.color = colors.timeColor;
+      if (elCausalStatus) {
+        if (currentAge >= selectedStar.dist) {
+          if (selectedStar.dist < 0.001) {
+            elCausalStatus.textContent = 'WITNESSED (Arrived in 8.3 mins)';
+          } else {
+            elCausalStatus.textContent = 'IN PAST CONE (Witnessed at age ' + selectedStar.dist.toFixed(1) + ')';
+          }
+          elCausalStatus.style.color = emerald;
+        } else if (selectedStar.dist <= maxLifespan) {
+          var waitYrs = (selectedStar.dist - currentAge).toFixed(1);
+          elCausalStatus.textContent = 'EN ROUTE (Arrives at age ' + selectedStar.dist.toFixed(1) + ' · in ' + waitYrs + 'y)';
+          elCausalStatus.style.color = colors.timeColor;
         } else {
-          elStatusBanner.innerHTML = '<strong>⛔ PERMANENTLY IN YOUR ELSEWHERE:</strong> Light will take <strong>' + arrivalAge.toFixed(0) + ' years</strong> to reach Earth. Because human lifespan is ~80 years, you will never see or experience this event. Across your entire life, it exists beyond your horizon of causality.';
-          elStatusBanner.style.borderColor = danger;
-          elStatusBanner.style.backgroundColor = dangerBg;
-          elStatusBanner.style.color = danger;
+          elCausalStatus.textContent = 'PERMANENTLY ELSEWHERE (Takes ' + selectedStar.dist.toFixed(0) + 'y · > 80y Life)';
+          elCausalStatus.style.color = danger;
         }
       }
     }
 
-    function draw() {
-      var ret = setupRetinaCanvas(canvas);
-      var ctx = ret.ctx, width = ret.width, height = ret.height;
+    // ── 1. Physical Stellar Radar Canvas ───────────────────────────────────
+    function drawRadar() {
+      var ret = setupRetinaCanvas(canvasRadar);
+      var ctx = ret.ctx, w = ret.width, h = ret.height;
       var colors = getThemeColors();
       var emerald = colors.isLight ? '#059669' : '#10b981';
-      var emeraldBg = colors.isLight ? 'rgba(5, 150, 105, 0.1)' : 'rgba(16, 185, 129, 0.15)';
       var danger = colors.isLight ? '#dc2626' : '#f87171';
-      var dangerBg = colors.isLight ? 'rgba(220, 38, 38, 0.08)' : 'rgba(248, 113, 113, 0.12)';
 
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, w, h);
 
-      var ox = 70;
-      var oy = height - 55;
-      var graphW = width - ox - 40;
-      var graphH = oy - 40;
+      var cx = w / 2;
+      var cy = h / 2;
+      var maxPlotR = Math.min(cx, cy) - 22;
+      var scale = maxPlotR / maxRadarDist; // pixels per light-year
 
-      drawGrid(ctx, ox, oy, width, height, 40);
+      // Background concentric radar rings (20, 40, 60, 80, 100 ly)
+      ctx.strokeStyle = colors.gridLine;
+      ctx.lineWidth = 0.75;
+      var rings = [20, 40, 60, 80, 100];
+      for (var r = 0; r < rings.length; r++) {
+        var radiusPx = rings[r] * scale;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radiusPx, 0, Math.PI * 2);
+        ctx.stroke();
 
-      var px80 = ox + (80 / maxDistView) * graphW;
-      var py80 = oy - (80 / lifespanMax) * graphH;
+        ctx.font = '500 8.5px "JetBrains Mono", monospace';
+        ctx.fillStyle = colors.subtleText;
+        ctx.fillText(rings[r] + ' ly', cx + 4, cy - radiusPx + 10);
+      }
 
-      ctx.fillStyle = emeraldBg;
+      // 80-Year Lifespan boundary ring (dashed red)
+      var r80Px = 80 * scale;
+      ctx.strokeStyle = danger;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
       ctx.beginPath();
-      ctx.moveTo(ox, oy);
-      ctx.lineTo(px80, oy);
-      ctx.lineTo(ox, py80);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.fillStyle = dangerBg;
-      ctx.beginPath();
-      ctx.moveTo(ox, oy);
-      ctx.lineTo(px80, oy);
-      ctx.lineTo(ox + graphW, oy);
-      ctx.lineTo(ox + graphW, py80);
-      ctx.lineTo(ox, py80);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.strokeStyle = colors.photonColor;
-      ctx.lineWidth = 2.5;
-      ctx.setLineDash([5, 4]);
-      ctx.beginPath();
-      ctx.moveTo(ox, oy);
-      ctx.lineTo(px80, py80);
+      ctx.arc(cx, cy, r80Px, 0, Math.PI * 2);
       ctx.stroke();
       ctx.setLineDash([]);
 
-      ctx.font = '600 10.5px "JetBrains Mono", monospace';
-      ctx.fillStyle = colors.photonColor;
-      ctx.fillText('Photon Path (45°: 1 ly / yr)', px80 * 0.45 + ox * 0.55 + 10, py80 * 0.5 + oy * 0.5 - 10);
+      ctx.font = '600 8.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = danger;
+      ctx.fillText('80-Year Life Horizon', cx - 50, cy - r80Px - 4);
 
+      // Expanding Causal Bubble (r = currentAge * c)
+      var bubbleR = currentAge * scale;
+      if (bubbleR > 0) {
+        ctx.fillStyle = colors.isLight ? 'rgba(2, 132, 199, 0.12)' : 'rgba(56, 189, 248, 0.16)';
+        ctx.beginPath();
+        ctx.arc(cx, cy, bubbleR, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = colors.timeColor;
+        ctx.lineWidth = 2;
+        ctx.shadowColor = colors.timeColor;
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(cx, cy, bubbleR, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Radius label
+        if (currentAge >= 12) {
+          ctx.font = '600 8.5px "JetBrains Mono", monospace';
+          ctx.fillStyle = colors.timeColor;
+          ctx.fillText('r = ' + currentAge.toFixed(1) + ' ly', cx + bubbleR * 0.5 - 18, cy + 12);
+        }
+      }
+
+      // Draw Earth at the center
+      drawGlowingDot(ctx, cx, cy, emerald, 5);
+      ctx.font = '700 9.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = emerald;
+      ctx.fillText('Earth (You)', cx + 8, cy + 3);
+
+      // Draw Stars
+      for (var s = 0; s < stars.length; s++) {
+        var star = stars[s];
+        if (star.dist < 0.001) continue; // Earth / Sun handled or virtually on center
+
+        var isSelected = star.name === selectedStar.name;
+        var hasReached = currentAge >= star.dist;
+
+        if (star.dist <= maxRadarDist) {
+          // Within radar bounds
+          var sx = cx + Math.cos(star.angle) * star.dist * scale;
+          var sy = cy + Math.sin(star.angle) * star.dist * scale;
+
+          if (hasReached) {
+            // Reached / Witnessed: glowing golden flare
+            drawGlowingDot(ctx, sx, sy, colors.photonColor, isSelected ? 6.5 : 4.5);
+            if (isSelected) {
+              ctx.strokeStyle = colors.photonColor;
+              ctx.lineWidth = 1;
+              ctx.setLineDash([2, 2]);
+              ctx.beginPath();
+              ctx.arc(sx, sy, 11, 0, Math.PI * 2);
+              ctx.stroke();
+              ctx.setLineDash([]);
+            }
+            ctx.font = '700 9px "JetBrains Mono", monospace';
+            ctx.fillStyle = colors.photonColor;
+            ctx.fillText(star.label, sx + 8, sy - 2);
+            ctx.font = '500 8px "JetBrains Mono", monospace';
+            ctx.fillStyle = emerald;
+            ctx.fillText('✓ Reached at ' + star.dist.toFixed(1) + 'y', sx + 8, sy + 8);
+          } else {
+            // Not yet reached: dimmed / waiting
+            ctx.fillStyle = colors.isLight ? '#94a3b8' : '#64748b';
+            ctx.beginPath();
+            ctx.arc(sx, sy, isSelected ? 4.5 : 3.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (isSelected) {
+              ctx.strokeStyle = colors.timeColor;
+              ctx.lineWidth = 1.25;
+              ctx.beginPath();
+              ctx.arc(sx, sy, 8, 0, Math.PI * 2);
+              ctx.stroke();
+            }
+
+            ctx.font = (isSelected ? '700' : '600') + ' 8.5px "JetBrains Mono", monospace';
+            ctx.fillStyle = isSelected ? colors.textPrimary : colors.subtleText;
+            ctx.fillText(star.label, sx + 8, sy + 3);
+          }
+        } else {
+          // Outside radar window (Betelgeuse at 640 ly)
+          // Draw radial arrow pointing outward at radar edge
+          var arrowDistPx = maxPlotR;
+          var ax = cx + Math.cos(star.angle) * arrowDistPx;
+          var ay = cy + Math.sin(star.angle) * arrowDistPx;
+
+          ctx.fillStyle = danger;
+          ctx.beginPath();
+          ctx.arc(ax, ay, 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Outward radial tick / pointer
+          var outX = cx + Math.cos(star.angle) * (arrowDistPx + 8);
+          var outY = cy + Math.sin(star.angle) * (arrowDistPx + 8);
+          ctx.strokeStyle = danger;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(ax, ay);
+          ctx.lineTo(outX, outY);
+          ctx.stroke();
+
+          ctx.font = '700 9px "JetBrains Mono", monospace';
+          ctx.fillStyle = danger;
+          ctx.fillText(star.label + ' ──►', ax - 70, ay - 8);
+          ctx.font = '500 7.5px "JetBrains Mono", monospace';
+          ctx.fillText('(Beyond 80y Horizon)', ax - 70, ay + 3);
+        }
+      }
+    }
+
+    // ── 2. Spacetime Coordinate Canvas (x vs ct) ───────────────────────────
+    function drawSpacetimeCone() {
+      var ret = setupRetinaCanvas(canvasCone);
+      var ctx = ret.ctx, w = ret.width, h = ret.height;
+      var colors = getThemeColors();
+      var emerald = colors.isLight ? '#059669' : '#10b981';
+      var danger = colors.isLight ? '#dc2626' : '#f87171';
+
+      ctx.clearRect(0, 0, w, h);
+
+      var padLeft = 45;
+      var padRight = 35;
+      var padBottom = 32;
+      var padTop = 25;
+
+      var ox = padLeft + (w - padLeft - padRight) / 2;
+      var oy = h - padBottom;
+      var plotW = (w - padLeft - padRight) / 2;
+      var plotH = oy - padTop;
+
+      var scaleX = plotW / maxRadarDist; // pixels per light-year
+      var scaleY = plotH / maxLifespan;  // pixels per year
+
+      drawGrid(ctx, ox, oy, w, h, 36);
+
+      // Axes
       ctx.strokeStyle = colors.axisLine;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1.75;
 
+      // Horizontal space axis: -100 to +100 ly
       ctx.beginPath();
-      ctx.moveTo(ox, oy);
-      ctx.lineTo(ox + graphW + 20, oy);
+      ctx.moveTo(padLeft - 10, oy);
+      ctx.lineTo(w - padRight + 15, oy);
       ctx.stroke();
 
+      // Vertical time axis: 0 to 80 yr
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ox, padTop - 12);
+      ctx.stroke();
+
+      // Arrowheads
       ctx.fillStyle = colors.axisArrow;
       ctx.beginPath();
-      ctx.moveTo(ox + graphW + 20, oy - 4);
-      ctx.lineTo(ox + graphW + 27, oy);
-      ctx.lineTo(ox + graphW + 20, oy + 4);
+      ctx.moveTo(w - padRight + 15, oy - 3);
+      ctx.lineTo(w - padRight + 21, oy);
+      ctx.lineTo(w - padRight + 15, oy + 3);
       ctx.fill();
 
       ctx.beginPath();
-      ctx.moveTo(ox, oy);
-      ctx.lineTo(ox, oy - graphH - 20);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(ox - 4, oy - graphH - 20);
-      ctx.lineTo(ox, oy - graphH - 27);
-      ctx.lineTo(ox + 4, oy - graphH - 20);
+      ctx.moveTo(ox - 3, padTop - 12);
+      ctx.lineTo(ox, padTop - 18);
+      ctx.lineTo(ox + 3, padTop - 12);
       ctx.fill();
 
-      ctx.font = '700 11px "JetBrains Mono", monospace';
+      // Axis labels
+      ctx.font = '700 9.5px "JetBrains Mono", monospace';
       ctx.fillStyle = colors.spaceColor;
-      ctx.fillText('Distance from Earth (Light-Years)', ox + graphW - 190, oy + 32);
-
+      ctx.fillText('+x (ly)', w - padRight - 15, oy + 18);
+      ctx.fillText('-x', padLeft - 8, oy + 18);
       ctx.fillStyle = colors.timeColor;
-      ctx.fillText('Time / Age (Years)', ox - 20, oy - graphH - 12);
+      ctx.fillText('ct (Years)', ox + 8, padTop - 8);
 
-      ctx.font = '500 9.5px "JetBrains Mono", monospace';
-      for (var d = 20; d <= 100; d += 20) {
-        var tx = ox + (d / maxDistView) * graphW;
+      // Axis tick marks (Space: ±40, ±80 ly)
+      ctx.font = '500 8px "JetBrains Mono", monospace';
+      ctx.fillStyle = colors.subtleText;
+      var spaceTicks = [-80, -40, 40, 80];
+      for (var st = 0; st < spaceTicks.length; st++) {
+        var tickX = ox + spaceTicks[st] * scaleX;
         ctx.strokeStyle = colors.axisLine;
-        ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.moveTo(tx, oy - 3);
-        ctx.lineTo(tx, oy + 3);
+        ctx.moveTo(tickX, oy - 3);
+        ctx.lineTo(tickX, oy + 3);
         ctx.stroke();
-
-        ctx.fillStyle = colors.subtleText;
-        ctx.fillText(d + ' ly', tx - 14, oy + 18);
+        ctx.fillText(spaceTicks[st], tickX - 8, oy + 14);
       }
 
-      for (var a = 20; a <= 80; a += 20) {
-        var ty = oy - (a / lifespanMax) * graphH;
+      // Time ticks: 20, 40, 60, 80 yr
+      for (var tt = 20; tt <= 80; tt += 20) {
+        var tickY = oy - tt * scaleY;
         ctx.strokeStyle = colors.axisLine;
-        ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.moveTo(ox - 3, ty);
-        ctx.lineTo(ox + 3, ty);
+        ctx.moveTo(ox - 3, tickY);
+        ctx.lineTo(ox + 3, tickY);
         ctx.stroke();
-
-        ctx.fillStyle = colors.subtleText;
-        ctx.fillText(a + ' yr', ox - 42, ty + 3);
+        ctx.fillText(tt + 'y', ox - 24, tickY + 3);
       }
 
+      // Maximum 80-year lifespan horizontal line
+      var y80 = oy - 80 * scaleY;
+      ctx.strokeStyle = danger;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(ox - 80 * scaleX, y80);
+      ctx.lineTo(ox + 80 * scaleX, y80);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Past Light Cone at Current Age
+      // Apex is at (ox, oy - currentAge * scaleY)
+      // Left foot on t=0 is at ox - currentAge * scaleX
+      // Right foot on t=0 is at ox + currentAge * scaleX
+      var apexY = oy - currentAge * scaleY;
+      var coneLeftX = ox - currentAge * scaleX;
+      var coneRightX = ox + currentAge * scaleX;
+
+      if (currentAge > 0) {
+        // Shaded Past Light Cone interior
+        ctx.fillStyle = colors.isLight ? 'rgba(2, 132, 199, 0.12)' : 'rgba(56, 189, 248, 0.14)';
+        ctx.beginPath();
+        ctx.moveTo(ox, apexY);
+        ctx.lineTo(coneLeftX, oy);
+        ctx.lineTo(coneRightX, oy);
+        ctx.closePath();
+        ctx.fill();
+
+        // Light cone boundaries (45° photon paths)
+        ctx.strokeStyle = colors.photonColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(ox, apexY);
+        ctx.lineTo(coneLeftX, oy);
+        ctx.moveTo(ox, apexY);
+        ctx.lineTo(coneRightX, oy);
+        ctx.stroke();
+
+        ctx.font = '600 8.5px "JetBrains Mono", monospace';
+        ctx.fillStyle = colors.photonColor;
+        ctx.fillText('Past Light Cone', ox + (currentAge * scaleX) * 0.4 + 4, apexY + (currentAge * scaleY) * 0.5);
+      }
+
+      // Observer's Worldline (at x = 0, climbs from t = 0 to t = currentAge)
       ctx.strokeStyle = colors.timeColor;
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 3.5;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
-      ctx.lineTo(ox, py80);
+      ctx.lineTo(ox, apexY);
       ctx.stroke();
 
-      var currentAgeY = oy - (currentAge / lifespanMax) * graphH;
-      drawGlowingDot(ctx, ox, currentAgeY, colors.timeColor, 7);
-
-      ctx.font = '700 10.5px "JetBrains Mono", monospace';
+      // Glowing dot for observer's current moment
+      drawGlowingDot(ctx, ox, apexY, colors.timeColor, 6);
+      ctx.font = '700 9.5px "JetBrains Mono", monospace';
       ctx.fillStyle = colors.timeColor;
-      ctx.fillText('YOU: Age ' + currentAge.toFixed(0), ox + 14, currentAgeY + 4);
+      ctx.fillText('You: Age ' + currentAge.toFixed(1), ox + 10, apexY + 3);
 
-      var clampedDist = Math.min(eventDistLy, maxDistView);
-      var eventX = ox + (clampedDist / maxDistView) * graphW;
-      var eventY = oy;
+      // Star events at t = 0 (emitted on day you were born)
+      for (var s = 0; s < stars.length; s++) {
+        var star = stars[s];
+        if (star.dist < 0.001) continue;
 
-      drawGlowingDot(ctx, eventX, eventY, colors.photonColor, 6);
+        var isSelected = star.name === selectedStar.name;
+        var hasReached = currentAge >= star.dist;
 
-      ctx.font = '700 10px "JetBrains Mono", monospace';
-      ctx.fillStyle = colors.photonColor;
-      ctx.fillText(eventName, Math.min(eventX - 30, width - 150), eventY + 32);
+        if (star.dist <= maxRadarDist) {
+          var starX = ox + star.dist * scaleX;
+          var starY = oy;
 
-      var arrivalTime = eventDistLy;
-      var arrivalY = oy - (Math.min(arrivalTime, lifespanMax) / lifespanMax) * graphH;
+          // Event dot on t=0 axis
+          drawGlowingDot(ctx, starX, starY, hasReached ? colors.photonColor : (colors.isLight ? '#94a3b8' : '#64748b'), isSelected ? 5.5 : 3.5);
 
-      ctx.strokeStyle = colors.photonColor;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(eventX, eventY);
-      if (arrivalTime <= lifespanMax) {
-        ctx.lineTo(ox, arrivalY);
-        ctx.stroke();
+          // Worldline of star (vertical line at x = star.dist)
+          ctx.strokeStyle = colors.isLight ? 'rgba(148, 163, 184, 0.4)' : 'rgba(100, 116, 139, 0.35)';
+          ctx.lineWidth = 1;
+          ctx.setLineDash([2, 2]);
+          ctx.beginPath();
+          ctx.moveTo(starX, oy);
+          ctx.lineTo(starX, padTop);
+          ctx.stroke();
+          ctx.setLineDash([]);
 
-        drawGlowingDot(ctx, ox, arrivalY, emerald, 5.5);
-        ctx.font = '700 10px "JetBrains Mono", monospace';
-        ctx.fillStyle = emerald;
-        ctx.fillText('Light arrives at age ' + arrivalTime.toFixed(1) + ' yr', ox + 14, arrivalY - 8);
-      } else {
-        var interceptX = eventX - (graphH / ((arrivalTime / lifespanMax) * graphH)) * (eventX - ox);
-        ctx.lineTo(interceptX, oy - graphH);
-        ctx.stroke();
+          // Ray of light racing to Earth (reaches observer's worldline at t = star.dist)
+          if (star.dist <= maxLifespan) {
+            var arrivalY = oy - star.dist * scaleY;
+            ctx.strokeStyle = colors.photonColor;
+            ctx.lineWidth = isSelected ? 1.75 : 1;
+            ctx.beginPath();
+            ctx.moveTo(starX, starY);
+            ctx.lineTo(ox, arrivalY);
+            ctx.stroke();
 
-        ctx.font = '700 10px "JetBrains Mono", monospace';
-        ctx.fillStyle = danger;
-        ctx.fillText('Light takes ' + arrivalTime.toFixed(0) + ' yrs (Past 80-yr lifespan!)', eventX - 80, oy - graphH + 18);
+            if (isSelected) {
+              drawGlowingDot(ctx, ox, arrivalY, emerald, 4.5);
+              ctx.font = '700 8.5px "JetBrains Mono", monospace';
+              ctx.fillStyle = emerald;
+              ctx.fillText('Arrival: t=' + star.dist.toFixed(1) + 'y', ox - 95, arrivalY - 4);
+            }
+          }
+
+          ctx.font = (isSelected ? '700' : '500') + ' 8px "JetBrains Mono", monospace';
+          ctx.fillStyle = isSelected ? colors.photonColor : colors.subtleText;
+          ctx.fillText(star.name, starX - 12, oy + 24);
+        } else {
+          // Off-screen indicator (Betelgeuse)
+          ctx.fillStyle = danger;
+          ctx.beginPath();
+          ctx.arc(w - padRight, oy, 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.font = '700 8px "JetBrains Mono", monospace';
+          ctx.fillStyle = danger;
+          ctx.fillText('Betelgeuse (640 ly ──►)', w - padRight - 110, oy - 8);
+        }
       }
-
-      ctx.fillStyle = colors.pillBg;
-      ctx.strokeStyle = colors.pillBorder;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      if (ctx.roundRect) {
-        ctx.roundRect(14, 12, width - 28, 26, 6);
-      } else {
-        ctx.rect(14, 12, width - 28, 26);
-      }
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.font = '600 10px "JetBrains Mono", monospace';
-      ctx.fillStyle = emerald;
-      ctx.fillText('■ Accessible within 80-yr Life (d ≤ 80 ly)', 24, 28);
-
-      ctx.fillStyle = danger;
-      ctx.fillText('■ Lifetime Elsewhere (d > 80 ly: Never Experienced)', width - 360, 28);
     }
 
     function renderAll() {
-      updateStatus();
-      draw();
-    }
-
-    if (sliderDist) {
-      sliderDist.addEventListener('input', function (e) {
-        eventDistLy = parseFloat(e.target.value);
-        eventName = 'Custom Event (' + eventDistLy.toFixed(1) + ' ly)';
-        renderAll();
-      });
+      updateTelemetry();
+      drawRadar();
+      drawSpacetimeCone();
     }
 
     if (sliderAge) {
       sliderAge.addEventListener('input', function (e) {
         currentAge = parseFloat(e.target.value);
+        if (isPlaying) stopAnimation();
         renderAll();
       });
     }
@@ -4377,15 +4838,63 @@
       (function (btn) {
         btn.addEventListener('click', function () {
           var dist = parseFloat(btn.getAttribute('data-dist'));
-          var name = btn.getAttribute('data-name') || btn.textContent.trim();
-          if (!isNaN(dist)) {
-            eventDistLy = dist;
-            eventName = name;
-            if (sliderDist) sliderDist.value = Math.min(dist, 100);
-            renderAll();
+          var name = btn.getAttribute('data-name');
+          for (var i = 0; i < stars.length; i++) {
+            if (stars[i].name === name || Math.abs(stars[i].dist - dist) < 0.01) {
+              selectedStar = stars[i];
+              break;
+            }
           }
+          if (isPlaying) stopAnimation();
+          renderAll();
         });
       })(presetBtns[b]);
+    }
+
+    function stopAnimation() {
+      isPlaying = false;
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      if (btnAutoAge) {
+        btnAutoAge.innerHTML = '<span>▶</span><span>Simulate Lifespan</span>';
+      }
+    }
+
+    function startAnimation() {
+      isPlaying = true;
+      if (btnAutoAge) {
+        btnAutoAge.innerHTML = '<span>⏸</span><span>Pause</span>';
+      }
+      var lastTime = performance.now();
+
+      function step(now) {
+        if (!isPlaying) return;
+        var dt = (now - lastTime) / 1000;
+        lastTime = now;
+
+        currentAge += dt * 10; // 10 years per second
+        if (currentAge >= maxLifespan) {
+          currentAge = maxLifespan;
+          renderAll();
+          stopAnimation();
+          return;
+        }
+
+        renderAll();
+        animFrameId = requestAnimationFrame(step);
+      }
+
+      animFrameId = requestAnimationFrame(step);
+    }
+
+    if (btnAutoAge) {
+      btnAutoAge.addEventListener('click', function () {
+        if (isPlaying) {
+          stopAnimation();
+        } else {
+          if (currentAge >= maxLifespan) currentAge = 0;
+          startAnimation();
+        }
+      });
     }
 
     registerDraw(renderAll);
@@ -4412,6 +4921,7 @@
     initWidgetExpandingCircles('widget-expanding-circles');
     initWidget3DLightConeExplorer('widget-3d-light-cone');
     initWidgetCosmicHorizon('widget-cosmic-horizon');
+    initWidgetSynthesisGrid('widget-synthesis-grid');
   }
 
   function initAllPost03() {
@@ -4444,6 +4954,7 @@
     initWidget3DSpacetime: initWidget3DSpacetime,
     initWidgetDualSpeedSpacetime: initWidgetDualSpeedSpacetime,
     initWidgetExpandingCircles: initWidgetExpandingCircles,
+    initWidgetSynthesisGrid: initWidgetSynthesisGrid,
     initWidget3DLightConeExplorer: initWidget3DLightConeExplorer,
     initWidgetCosmicHorizon: initWidgetCosmicHorizon,
     initWidgetLoafAlice: initWidgetLoafAlice,

@@ -638,7 +638,7 @@ export function initWidget3DLightConeExplorer(containerId) {
 
   // Camera angles
   let azimuth = 0.65;    // ~37 degrees
-  let elevation = 0.38;  // ~22 degrees
+  let elevation = parseFloat(sliderElevation ? sliderElevation.value : 0.05) || 0.05;  // ~3 degrees
   let sliceT = parseFloat(sliderTime ? sliderTime.value : 0.4) || 0.4; // -1 to +1
 
   let isDragging = false;
@@ -891,11 +891,11 @@ export function initWidget3DLightConeExplorer(containerId) {
   if (btnReset) {
     btnReset.addEventListener('click', () => {
       azimuth = 0.65;
-      elevation = 0.38;
+      elevation = 0.05;
       sliceT = 0.4;
       if (sliderTime) sliderTime.value = 0.4;
       if (sliderAzimuth) sliderAzimuth.value = 0.65;
-      if (sliderElevation) sliderElevation.value = 0.38;
+      if (sliderElevation) sliderElevation.value = 0.05;
       draw();
     });
   }
@@ -1204,9 +1204,16 @@ export function initWidgetCosmicHorizon(containerId) {
   document.addEventListener('themeChanged', renderAll);
 }
 
+export function initWidgetSynthesisGrid(containerId) {
+  if (window.UniverseSimulations && window.UniverseSimulations.initWidgetSynthesisGrid) {
+    return window.UniverseSimulations.initWidgetSynthesisGrid(containerId);
+  }
+}
+
 // Module export list for post-02-widgets.js
 export default {
   initWidgetDualSpeedSpacetime,
+  initWidgetSynthesisGrid,
   initWidget3DLightConeExplorer,
   initWidgetCosmicHorizon
 };

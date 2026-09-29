@@ -173,7 +173,7 @@ body {
 }
 
 .site-nav-inner {
-  max-width: 1040px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
   height: 3.75rem;
@@ -1590,22 +1590,29 @@ body {
    Balanced Editorial Grid + Split-Screen Sim Panels (Option A)
    ========================================================================== */
 .wide-reading-container {
-  max-width: 1080px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 3.5rem 2rem 6rem;
 }
 
 .wide-reading-container .article-header {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 3rem;
 }
 
+.wide-reading-container .editorial-prose {
+  width: 100%;
+}
+
 .wide-reading-container .editorial-prose > p {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   font-size: 1.18rem;
   line-height: 1.84;
   letter-spacing: -0.002em;
@@ -1614,9 +1621,10 @@ body {
 
 .wide-reading-container .editorial-prose > ul,
 .wide-reading-container .editorial-prose > ol {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   font-size: 1.16rem;
   line-height: 1.8;
   margin-bottom: 1.6rem;
@@ -1628,9 +1636,10 @@ body {
 }
 
 .wide-reading-container .editorial-prose > h2 {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   font-size: 1.75rem;
   font-weight: 750;
   letter-spacing: -0.025em;
@@ -1640,9 +1649,10 @@ body {
 }
 
 .wide-reading-container .editorial-prose > h3 {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   font-size: 1.3rem;
   font-weight: 650;
   letter-spacing: -0.015em;
@@ -1651,9 +1661,10 @@ body {
 }
 
 .wide-reading-container .editorial-prose > h4 {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   font-size: 1.05rem;
   font-weight: 650;
   margin-top: 1.5rem;
@@ -1661,39 +1672,44 @@ body {
 }
 
 .wide-reading-container .editorial-prose > blockquote {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .wide-reading-container .editorial-prose > .formula-card,
 .wide-reading-container .editorial-prose > .math-display-card {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
 .wide-reading-container .editorial-prose > .insight-callout {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   margin-top: 2.25rem;
   margin-bottom: 2.25rem;
 }
 
 .wide-reading-container .editorial-prose > .article-author,
 .wide-reading-container .editorial-prose > .series-pager {
-  max-width: 860px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .wide-reading-container .interactive-artifact {
-  max-width: 1040px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   margin-top: 2.75rem;
   margin-bottom: 3.25rem;
 }
@@ -2263,6 +2279,16 @@ body {
       </p>
       <p>
         This effect is known as <strong>Time Dilation</strong>. It is not a mechanical defect in clocks or an optical trick of delayed signals; it is a direct consequence of how motion is distributed between space and time.
+      </p>
+      <p>
+        The factor by which time stretches has a celebrated name in physics: the <strong>Lorentz factor</strong>, represented by the Greek letter <span class="math-badge">γ</span> (gamma). Because the traveler moves through time at rate <span class="math-badge">v_time = √(c² - v²)</span> instead of the full speed <span class="math-badge">c</span>, the ratio between Earth’s time and the traveler’s time is:
+      </p>
+      <div class="formula-card">
+        <div>γ = c / v_time = 1 / √( 1 - v² / c² )</div>
+        <div class="formula-note">At v = 0.866c, v_time = 0.50c, which yields γ = 2.00: Earth records exactly 2 seconds for every 1 second experienced on board.</div>
+      </div>
+      <p>
+        Whenever you adjust the spacecraft's speed in the simulation above, notice how <span class="math-badge">γ</span> updates alongside <span class="math-badge">v_time</span>. As spatial speed approaches the speed of light, <span class="math-badge">v_time</span> shrinks toward zero, causing <span class="math-badge">γ</span> to soar toward infinity.
       </p>
 
       <!-- SECTION 5 -->

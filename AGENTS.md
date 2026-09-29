@@ -100,8 +100,9 @@ When updating blog posts or interactive simulations, **always keep the correspon
 |---|--------------|----------|---------|
 | **01** | `widget-dual-bridge` | `initWidgetDualSpeedSpacetime` | Side-by-side comparison: Speed Space vs Coordinate Spacetime Map |
 | **01b** | `widget-expanding-circles` | `initWidgetExpandingCircles` | 2×2 grid of four static panels showing the outgoing circle of light at $t=0,1,2,3$ in the $x$–$y$ plane (eases reader into the 3D cone) |
+| **01c** | `widget-synthesis-grid` | `initWidgetSynthesisGrid` | 2×2 visual synthesis grid bridging Velocity Space ($v_x, v_t$) to Coordinate Spacetime ($\phi$) across 4 archetypes |
 | **02** | `widget-3d-light-cone` | `initWidget3DLightConeExplorer` | Full 3D rotatable Light Cone volume ($x_1, x_2, ct$) with dynamic Now-Slice |
-| **03** | `widget-cosmic-horizon` | `initWidgetCosmicHorizon` | Human lifespan horizon vs. celestial events (Sun, Proxima, Vega, Betelgeuse) |
+| **03** | `widget-cosmic-horizon` | `initWidgetCosmicHorizon` | Coordinated Dual-View: physical stellar radar & lifespan bubble vs $(x, ct)$ spacetime past light cone |
 
 ### Part 3: The Spacetime Loaf & Length Contraction
 | # | Container ID | Function | Purpose |
