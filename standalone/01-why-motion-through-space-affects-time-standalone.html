@@ -17,49 +17,49 @@
   color-scheme: light;
 
   /* Surface & Background Hierarchy */
-  --bg-space: #f8fafc;              /* Slate-50 background */
-  --bg-card: #ffffff;               /* Crisp white card surface */
-  --bg-card-subtle: #f1f5f9;        /* Slate-100 container / header */
+  --bg-space: #f1f5f9;              /* Crisp slate-100 background for card pop */
+  --bg-card: #ffffff;               /* Pure white card surface */
+  --bg-card-subtle: #f8fafc;        /* Slate-50 container / header */
   --bg-surface-elevated: #e2e8f0;   /* Slate-200 badge / controls */
 
   /* Borders */
-  --border-subtle: #e2e8f0;         /* Clean slate-200 dividers */
-  --border-medium: #cbd5e1;         /* Slate-300 on hover */
-  --border-active: #0284c7;         /* Sky-600 */
+  --border-subtle: #cbd5e1;         /* Defined slate-300 dividers */
+  --border-medium: #94a3b8;         /* Slate-400 on hover / active */
+  --border-active: #0369a1;         /* Deep Sky-700 */
 
   /* Typography Colors */
   --text-primary: #0f172a;          /* Slate-900: sharp headings */
-  --text-secondary: #334155;        /* Slate-700: body text */
-  --text-prose: #334155;            /* Rich legible serif prose */
+  --text-secondary: #1e293b;        /* Slate-800: high-contrast body */
+  --text-prose: #1e293b;            /* Rich legible serif prose */
   --text-emphasis: #0f172a;         /* High-contrast emphasis */
-  --text-muted: #64748b;            /* Slate-500 descriptions */
-  --text-faint: #94a3b8;            /* Slate-400 footnotes & meta */
+  --text-muted: #475569;            /* Slate-600: 5.9:1 contrast */
+  --text-faint: #64748b;            /* Slate-500: 4.6:1 contrast */
 
   /* Physics Semantic Palette (High-Contrast for Light Theme) */
-  --color-time: #0284c7;            /* Deep Sky-600: Time / Earth / Rest */
-  --color-time-glow: rgba(2, 132, 199, 0.2);
-  --color-space: #ea580c;           /* Deep Radiant Orange-600: Space / Motion */
-  --color-space-glow: rgba(234, 88, 12, 0.2);
-  --color-invariant: #7c3aed;       /* Deep Violet-600: Total Speed Arc (c) */
-  --color-photon: #ca8a04;          /* Amber-600: Light / Bound */
-  --color-emerald: #059669;         /* Emerald-600: Verified / Sync */
-  --color-danger: #dc2626;          /* Red-600: Lag / Forbidden */
+  --color-time: #0369a1;            /* Deep Sky-700: Time / Earth / Rest (5.6:1) */
+  --color-time-glow: rgba(3, 105, 161, 0.2);
+  --color-space: #c2410c;           /* Deep Radiant Orange-700: Space / Motion (5.1:1) */
+  --color-space-glow: rgba(194, 65, 12, 0.2);
+  --color-invariant: #6d28d9;       /* Deep Violet-700: Total Speed Arc c (7.9:1) */
+  --color-photon: #b45309;          /* Deep Amber-700: Light / Bound (4.6:1) */
+  --color-emerald: #047857;         /* Emerald-700: Verified / Sync (6.2:1) */
+  --color-danger: #b91c1c;          /* Red-700: Lag / Forbidden (6.8:1) */
 
   /* Chrome & Structural Variables */
-  --nav-bg: rgba(248, 250, 252, 0.88);
-  --bg-canvas-outer: #f8fafc;
+  --nav-bg: rgba(241, 245, 249, 0.92);
+  --bg-canvas-outer: #f1f5f9;
   --bg-canvas: #ffffff;
   --border-canvas: #cbd5e1;
-  --shadow-canvas: inset 0 0 24px rgba(0, 0, 0, 0.04);
-  --slider-track: #e2e8f0;
-  --chip-bg: #f1f5f9;
-  --chip-hover: #e2e8f0;
-  --btn-secondary-bg: #f1f5f9;
-  --btn-secondary-hover: #e2e8f0;
-  --math-badge-bg: #f1f5f9;
-  --bg-footer: #f1f5f9;
-  --shadow-artifact: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 8px 24px -8px rgba(0, 0, 0, 0.08);
+  --shadow-canvas: inset 0 0 24px rgba(0, 0, 0, 0.05);
+  --slider-track: #cbd5e1;
+  --chip-bg: #e2e8f0;
+  --chip-hover: #cbd5e1;
+  --btn-secondary-bg: #e2e8f0;
+  --btn-secondary-hover: #cbd5e1;
+  --math-badge-bg: #f8fafc;
+  --bg-footer: #e2e8f0;
+  --shadow-artifact: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 4px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
 
   /* Fonts */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -78,17 +78,17 @@
   --bg-surface-elevated: #131b2e;
 
   /* Borders */
-  --border-subtle: #1c263c;
-  --border-medium: #273652;
+  --border-subtle: #222f49;
+  --border-medium: #334466;
   --border-active: #38bdf8;
 
   /* Typography Colors */
   --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-prose: #cbd5e1;
-  --text-emphasis: #f1f5f9;
-  --text-muted: #8899b5;
-  --text-faint: #475569;
+  --text-secondary: #e2e8f0;
+  --text-prose: #e2e8f0;
+  --text-emphasis: #ffffff;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
 
   /* Physics Semantic Palette */
   --color-time: #38bdf8;        /* Electric Cyan: Time / Earth / Rest */
@@ -101,17 +101,17 @@
   --color-danger: #f87171;      /* Red: Lag / Forbidden Beyond-c */
 
   /* Chrome & Structural Variables */
-  --nav-bg: rgba(7, 10, 18, 0.88);
+  --nav-bg: rgba(7, 10, 18, 0.92);
   --bg-canvas-outer: #05080f;
   --bg-canvas: #05080f;
-  --border-canvas: #131b2e;
-  --shadow-canvas: inset 0 0 40px rgba(0, 0, 0, 0.6);
-  --slider-track: #172238;
+  --border-canvas: #222f49;
+  --shadow-canvas: inset 0 0 40px rgba(0, 0, 0, 0.7);
+  --slider-track: #1e293b;
   --chip-bg: #131b2e;
-  --chip-hover: #1a253e;
+  --chip-hover: #1e293b;
   --btn-secondary-bg: #131b2e;
-  --btn-secondary-hover: #1a253e;
-  --math-badge-bg: #05080f;
+  --btn-secondary-hover: #1e293b;
+  --math-badge-bg: #090e1a;
   --bg-footer: #05080f;
   --shadow-artifact: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
   --shadow-card: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
@@ -215,10 +215,10 @@ body {
 }
 
 .nav-links a {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .nav-links a:hover, .nav-links a.active {
@@ -290,15 +290,15 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-time);
-  background: rgba(2, 132, 199, 0.08);
-  padding: 0.25rem 0.75rem;
+  background: rgba(3, 105, 161, 0.1);
+  padding: 0.3rem 0.8rem;
   border-radius: 9999px;
   border: 1px solid var(--color-time-glow);
   margin-bottom: 1.25rem;
 }
 
 [data-theme="dark"] .category-tag {
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(56, 189, 248, 0.15);
 }
 
 .article-title {
@@ -341,7 +341,7 @@ body {
 
 .editorial-prose strong {
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .editorial-prose em {
@@ -371,7 +371,7 @@ body {
 .formula-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--color-time);
+  border-left: 4px solid var(--color-time);
   padding: 1.25rem 1.5rem;
   border-radius: 0 0.75rem 0.75rem 0;
   margin: 1.75rem 0;
@@ -383,9 +383,10 @@ body {
 
 .formula-card .formula-note {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
   margin-top: 0.5rem;
+  line-height: 1.5;
 }
 
 /* Interactive Explorable Card Container */
@@ -419,18 +420,18 @@ body {
   align-items: center;
   gap: 0.35rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--color-time);
-  background: rgba(2, 132, 199, 0.08);
-  padding: 0.2rem 0.55rem;
+  background: rgba(3, 105, 161, 0.1);
+  padding: 0.25rem 0.6rem;
   border-radius: 0.35rem;
   border: 1px solid var(--color-time-glow);
 }
 
 [data-theme="dark"] .artifact-badge {
-  background: rgba(56, 189, 248, 0.12);
+  background: rgba(56, 189, 248, 0.15);
 }
 
 .artifact-title {
@@ -492,11 +493,13 @@ body {
 }
 
 .clock-card.cyan {
-  border-color: var(--color-time-glow);
+  border-color: var(--color-time);
+  border-left: 3px solid var(--color-time);
 }
 
 .clock-card.amber {
-  border-color: var(--color-space-glow);
+  border-color: var(--color-space);
+  border-left: 3px solid var(--color-space);
 }
 
 .clock-meta {
@@ -519,10 +522,11 @@ body {
 .clock-badge {
   font-family: var(--font-mono);
   font-size: 0.68rem;
+  font-weight: 600;
   padding: 0.15rem 0.45rem;
   border-radius: 0.25rem;
   background: var(--bg-surface-elevated);
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .clock-time {
@@ -585,6 +589,7 @@ body {
   height: 6px;
   background: var(--slider-track);
   border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
   outline: none;
   cursor: pointer;
 }
@@ -619,11 +624,12 @@ body {
 .chip-btn {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  padding: 0.3rem 0.65rem;
+  padding: 0.35rem 0.7rem;
   border-radius: 0.375rem;
   background: var(--chip-bg);
   border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -635,14 +641,14 @@ body {
 }
 
 .chip-btn.active {
-  background: rgba(2, 132, 199, 0.1);
+  background: rgba(3, 105, 161, 0.14);
   border-color: var(--color-time);
   color: var(--color-time);
   font-weight: 700;
 }
 
 [data-theme="dark"] .chip-btn.active {
-  background: rgba(56, 189, 248, 0.15);
+  background: rgba(56, 189, 248, 0.2);
 }
 
 .toolbar-bottom {
@@ -685,6 +691,7 @@ body {
   background: var(--btn-secondary-bg);
   color: var(--text-secondary);
   font-size: 0.8rem;
+  font-weight: 600;
   border: 1px solid var(--border-subtle);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -716,12 +723,13 @@ body {
 
 .math-badge {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  padding: 0.4rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
   border-radius: 0.5rem;
   background: var(--math-badge-bg);
   border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .math-badge strong {
@@ -792,7 +800,8 @@ body {
 .card-meta {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-faint);
+  color: var(--text-muted);
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -805,12 +814,13 @@ body {
   padding: 3rem 1.5rem;
   text-align: center;
   font-size: 0.85rem;
-  color: var(--text-faint);
+  color: var(--text-muted);
   transition: background 0.25s ease;
 }
 
 .site-footer a {
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -818,7 +828,7 @@ body {
   color: var(--color-time);
 }
 
-</style>
+  </style>
   <meta name="description" content="A curiosity-driven, visual exploration of why moving through space naturally alters our experience of time in Special Relativity.">
   <script>
     (function () {
@@ -1565,30 +1575,33 @@ body {
       return {
         isLight: true,
         gridLine: '#e2e8f0',
-        axisLine: '#94a3b8',
-        axisArrow: '#64748b',
-        axisLabel: '#475569',
-        constraintArc: '#cbd5e1',
-        timeColor: '#0284c7',       // Sky 600
-        timeColorSubtle: 'rgba(2, 132, 199, 0.15)',
-        spaceColor: '#ea580c',      // Radiant Orange 600
-        spaceColorSubtle: 'rgba(234, 88, 12, 0.15)',
-        invariantColor: '#7c3aed',  // Violet 600
-        photonColor: '#ca8a04',     // Amber 600
-        dangerColor: '#dc2626',     // Red 600
-        subtleText: '#64748b',
+        axisLine: '#475569',        // Slate 600: strong visible axes
+        axisArrow: '#334155',       // Slate 700: sharp arrowheads
+        axisLabel: '#0f172a',       // Slate 900: high contrast labels
+        constraintArc: '#94a3b8',   // Slate 400: clearly visible speed limit arc
+        timeColor: '#0369a1',       // Sky 700 (5.6:1 contrast)
+        timeColorSubtle: 'rgba(3, 105, 161, 0.15)',
+        spaceColor: '#c2410c',      // Radiant Orange 700 (5.1:1 contrast)
+        spaceColorSubtle: 'rgba(194, 65, 12, 0.15)',
+        invariantColor: '#6d28d9',  // Violet 700 (7.9:1 contrast)
+        photonColor: '#b45309',     // Amber 700 (4.6:1 contrast)
+        dangerColor: '#b91c1c',     // Red 700 (6.8:1 contrast)
+        subtleText: '#475569',
         dotCenter: '#ffffff',
-        muonAtmosphereTop: 'rgba(2, 132, 199, 0.05)',
-        muonAtmosphereBottom: 'rgba(2, 132, 199, 0.18)'
+        pillBg: 'rgba(255, 255, 255, 0.94)',
+        pillBorder: '#cbd5e1',
+        pillText: '#0f172a',
+        muonAtmosphereTop: 'rgba(3, 105, 161, 0.08)',
+        muonAtmosphereBottom: 'rgba(3, 105, 161, 0.22)'
       };
     } else {
       return {
         isLight: false,
-        gridLine: '#121b2d',
-        axisLine: '#475569',
-        axisArrow: '#64748b',
-        axisLabel: '#94a3b8',
-        constraintArc: '#27344d',
+        gridLine: '#172338',
+        axisLine: '#64748b',        // Brightened for clear dark-mode axes
+        axisArrow: '#94a3b8',
+        axisLabel: '#f8fafc',       // High-contrast white labels
+        constraintArc: '#3b4e70',   // Visible defined speed limit arc
         timeColor: '#38bdf8',       // Electric Cyan
         timeColorSubtle: 'rgba(56, 189, 248, 0.25)',
         spaceColor: '#fb923c',      // Radiant Coral
@@ -1596,10 +1609,13 @@ body {
         invariantColor: '#a855f7',  // Luminous Violet
         photonColor: '#facc15',     // Golden Sun
         dangerColor: '#f87171',     // Soft Red
-        subtleText: '#8899b5',
+        subtleText: '#94a3b8',
         dotCenter: '#ffffff',
-        muonAtmosphereTop: 'rgba(56, 189, 248, 0.05)',
-        muonAtmosphereBottom: 'rgba(56, 189, 248, 0.2)'
+        pillBg: 'rgba(5, 8, 15, 0.92)',
+        pillBorder: '#273652',
+        pillText: '#f8fafc',
+        muonAtmosphereTop: 'rgba(56, 189, 248, 0.06)',
+        muonAtmosphereBottom: 'rgba(56, 189, 248, 0.25)'
       };
     }
   }
@@ -1612,6 +1628,64 @@ body {
     var ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
     return { ctx: ctx, width: rect.width, height: rect.height, dpr: dpr };
+  }
+
+  function drawLabelPill(ctx, text, x, y, options) {
+    options = options || {};
+    var c = getThemeColors();
+    var font = options.font || 'bold 11px "JetBrains Mono", monospace';
+    var textColor = options.textColor || c.pillText;
+    var bgColor = options.bgColor || c.pillBg;
+    var borderColor = options.borderColor || c.pillBorder;
+    var align = options.align || 'center';
+    var baseline = options.baseline || 'middle';
+    var padX = options.paddingX !== undefined ? options.paddingX : 6;
+    var padY = options.paddingY !== undefined ? options.paddingY : 3;
+
+    ctx.save();
+    ctx.font = font;
+    var textMetrics = ctx.measureText(text);
+    var textW = textMetrics.width;
+    var textH = 11;
+    var match = font.match(/(\d+)px/);
+    if (match) textH = parseInt(match[1], 10);
+
+    var pillW = textW + padX * 2;
+    var pillH = textH + padY * 2;
+
+    var pillX = x;
+    if (align === 'center') pillX = x - pillW / 2;
+    else if (align === 'right') pillX = x - pillW;
+
+    var pillY = y;
+    if (baseline === 'middle') pillY = y - pillH / 2;
+    else if (baseline === 'bottom') pillY = y - pillH;
+
+    // Draw background pill
+    ctx.fillStyle = bgColor;
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    var r = 4;
+    ctx.moveTo(pillX + r, pillY);
+    ctx.lineTo(pillX + pillW - r, pillY);
+    ctx.quadraticCurveTo(pillX + pillW, pillY, pillX + pillW, pillY + r);
+    ctx.lineTo(pillX + pillW, pillY + pillH - r);
+    ctx.quadraticCurveTo(pillX + pillW, pillY + pillH, pillX + pillW - r, pillY + pillH);
+    ctx.lineTo(pillX + r, pillY + pillH);
+    ctx.quadraticCurveTo(pillX, pillY + pillH, pillX, pillY + pillH - r);
+    ctx.lineTo(pillX, pillY + r);
+    ctx.quadraticCurveTo(pillX, pillY, pillX + r, pillY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Text inside pill
+    ctx.fillStyle = textColor;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, pillX + padX, pillY + pillH / 2);
+    ctx.restore();
   }
 
   function drawGrid(ctx, ox, oy, width, height, step) {
@@ -1634,7 +1708,7 @@ body {
   function drawAxes(ctx, ox, oy, width, height, xLabel, yLabel) {
     var c = getThemeColors();
     ctx.strokeStyle = c.axisLine;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.2;
 
     // Horizontal Axis
     ctx.beginPath();
@@ -1645,9 +1719,9 @@ body {
     // Horizontal Arrowhead
     ctx.fillStyle = c.axisArrow;
     ctx.beginPath();
-    ctx.moveTo(width - 25, oy - 4);
-    ctx.lineTo(width - 17, oy);
-    ctx.lineTo(width - 25, oy + 4);
+    ctx.moveTo(width - 25, oy - 5);
+    ctx.lineTo(width - 15, oy);
+    ctx.lineTo(width - 25, oy + 5);
     ctx.fill();
 
     // Vertical Axis
@@ -1658,23 +1732,33 @@ body {
 
     // Vertical Arrowhead
     ctx.beginPath();
-    ctx.moveTo(ox - 4, 25);
-    ctx.lineTo(ox, 17);
-    ctx.lineTo(ox + 4, 25);
+    ctx.moveTo(ox - 5, 25);
+    ctx.lineTo(ox, 15);
+    ctx.lineTo(ox + 5, 25);
     ctx.fill();
 
-    // Labels
-    ctx.font = '600 11px "JetBrains Mono", monospace';
-    ctx.fillStyle = c.axisLabel;
-    ctx.fillText(xLabel, width - 85, oy + 18);
-    ctx.fillText(yLabel, ox - 35, 18);
+    // Labels with crisp pill background
+    drawLabelPill(ctx, xLabel, width - 60, oy + 18, {
+      font: 'bold 11px "JetBrains Mono", monospace',
+      align: 'center',
+      baseline: 'middle',
+      paddingX: 5,
+      paddingY: 2
+    });
+    drawLabelPill(ctx, yLabel, ox, 14, {
+      font: 'bold 11px "JetBrains Mono", monospace',
+      align: 'center',
+      baseline: 'middle',
+      paddingX: 5,
+      paddingY: 2
+    });
   }
 
   function drawConstraintArc(ctx, ox, oy, radius, color) {
     var c = getThemeColors();
     ctx.strokeStyle = color || c.constraintArc;
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
     ctx.beginPath();
     ctx.arc(ox, oy, radius, -Math.PI / 2, 0, false);
     ctx.stroke();
@@ -1847,15 +1931,14 @@ body {
 
         // Theta label badge
         var midA = -Math.PI / 2 + rad / 2;
-        var badgeDist = arcR + 18;
+        var badgeDist = arcR + 20;
         var badgeX = ox + badgeDist * Math.cos(midA);
         var badgeY = oy + badgeDist * Math.sin(midA);
 
-        ctx.font = 'bold 12px "JetBrains Mono", monospace';
-        ctx.fillStyle = c.spaceColor;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('θ = ' + Math.round(angleDeg) + '°', badgeX + (rad > 0.8 ? 8 : 0), badgeY);
+        drawLabelPill(ctx, 'θ = ' + Math.round(angleDeg) + '°', badgeX + (rad > 0.8 ? 8 : 0), badgeY, {
+          textColor: c.spaceColor,
+          font: 'bold 11px "JetBrains Mono", monospace'
+        });
       }
 
       // 2. Dashed Projections (Right Triangle Components for Car 2)
@@ -1891,20 +1974,18 @@ body {
 
         // Horizontal Eastward Component Value Label (v_East = 52.0 mph)
         if (c2_x - ox > 35) {
-          ctx.font = 'bold 11px "JetBrains Mono", monospace';
-          ctx.fillStyle = c.spaceColor;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'bottom';
-          ctx.fillText('V_East = ' + vEast + ' mph', (ox + c2_x) / 2, c2_y - 4);
+          drawLabelPill(ctx, 'V_East = ' + vEast + ' mph', (ox + c2_x) / 2, c2_y - 12, {
+            textColor: c.spaceColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
         }
 
         // Vertical Northward Component Value Label (v_North = 30.0 mph)
         if (oy - c2_y > 25) {
-          ctx.font = 'bold 11px "JetBrains Mono", monospace';
-          ctx.fillStyle = c.spaceColor;
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('V_North = ' + vNorth + ' mph', c2_x + 8, (oy + c2_y) / 2);
+          drawLabelPill(ctx, 'V_North = ' + vNorth + ' mph', c2_x + 55, (oy + c2_y) / 2, {
+            textColor: c.spaceColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
         }
       }
 
@@ -1918,11 +1999,10 @@ body {
 
       // Car 1 Speed Value Label along vertical vector
       if (oy - c1_y > 35) {
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.fillStyle = c.timeColor;
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('60 mph', ox - 10, (oy + c1_y) / 2);
+        drawLabelPill(ctx, '60 mph', ox - 32, (oy + c1_y) / 2, {
+          textColor: c.timeColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 4. Car 2 Vector (Diagonal)
@@ -1939,11 +2019,10 @@ body {
         var diagMidY = (oy + c2_y) / 2;
         var nx = -Math.cos(rad);
         var ny = -Math.sin(rad);
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.fillStyle = c.spaceColor;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('60 mph', diagMidX + nx * 14, diagMidY + ny * 14);
+        drawLabelPill(ctx, '60 mph', diagMidX + nx * 18, diagMidY + ny * 18, {
+          textColor: c.spaceColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 5. Northward Lag Indicator
@@ -1961,23 +2040,25 @@ body {
         ctx.arc(lagX, c2_y, 2.5, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = '600 10px sans-serif';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('Northward Lag (' + lagMiles + ' mi)', lagX + 8, (c1_y + c2_y) / 2);
+        drawLabelPill(ctx, 'Northward Lag: ' + lagMiles + ' mi', lagX + 68, (c1_y + c2_y) / 2, {
+          textColor: c.dangerColor,
+          borderColor: c.dangerColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 6. Glowing Dots & Vehicle Names
       drawGlowingDot(ctx, c1_x, c1_y, c.timeColor, 6);
       drawGlowingDot(ctx, c2_x, c2_y, c.spaceColor, 6);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'alphabetic';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Car 1 (60 mph North)', c1_x - 45, c1_y - 12);
-      ctx.fillStyle = c.spaceColor;
-      ctx.fillText('Car 2 (' + angleDeg + '°)', c2_x + 10, c2_y + 4);
+      drawLabelPill(ctx, 'Car 1 (60 mph North)', c1_x, c1_y - 18, {
+        textColor: c.timeColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
+      drawLabelPill(ctx, 'Car 2 (' + angleDeg + '°)', c2_x + 48, c2_y + 4, {
+        textColor: c.spaceColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
     }
 
     function loop(now) {
@@ -2085,8 +2166,11 @@ body {
       ctx.beginPath();
       ctx.arc(ox, oy, 4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.font = '600 11px monospace';
-      ctx.fillText('x = 0 (No spatial movement)', ox + 10, oy + 18);
+
+      drawLabelPill(ctx, 'x = 0 (No spatial motion)', ox + 95, oy + 18, {
+        textColor: c.axisLabel,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
 
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3.5;
@@ -2097,9 +2181,10 @@ body {
 
       drawGlowingDot(ctx, ox, currY, c.timeColor, 7);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Observer at Rest', ox - 110, currY - 5);
+      drawLabelPill(ctx, 'Observer at Rest (v = 0)', ox - 90, currY - 6, {
+        textColor: c.timeColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
     }
 
     function loop(now) {
@@ -2206,11 +2291,14 @@ body {
 
       drawGlowingDot(ctx, tipX, tipY, c.invariantColor, 6.5);
 
-      ctx.font = '600 11px monospace';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('v_time = ' + (vt * 100).toFixed(0) + '%', ox - 95, tipY + 4);
-      ctx.fillStyle = c.spaceColor;
-      ctx.fillText('v_space = ' + (speedFraction * 100).toFixed(0) + '%', tipX - 30, oy + 18);
+      drawLabelPill(ctx, 'v_time = ' + (vt * 100).toFixed(0) + '%', ox - 55, tipY + 4, {
+        textColor: c.timeColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, 'v_space = ' + (speedFraction * 100).toFixed(0) + '%', tipX, oy + 22, {
+        textColor: c.spaceColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
     }
 
     if (sliderSpeed) {
@@ -2323,11 +2411,14 @@ body {
       drawGlowingDot(ctx, e_x, e_y, c.timeColor, 6);
       drawGlowingDot(ctx, r_x, r_y, c.spaceColor, 6);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Earth (Rest)', e_x - 30, e_y - 12);
-      ctx.fillStyle = c.spaceColor;
-      ctx.fillText('Rocket', r_x + 10, r_y + 4);
+      drawLabelPill(ctx, 'Earth (Rest)', e_x - 10, e_y - 18, {
+        textColor: c.timeColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
+      drawLabelPill(ctx, 'Rocket (Moving)', r_x + 55, r_y + 4, {
+        textColor: c.spaceColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
     }
 
     function loop(now) {
@@ -2439,15 +2530,16 @@ body {
       ctx.setLineDash([]);
 
       // Forbidden Text clearly centered in the forbidden area
-      ctx.font = 'bold 11px "JetBrains Mono", monospace';
-      ctx.fillStyle = c.dangerColor;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText('FORBIDDEN (v > c)', forbidMidX, oy - 10);
+      drawLabelPill(ctx, 'FORBIDDEN (v > c)', forbidMidX, oy - 14, {
+        textColor: c.dangerColor,
+        borderColor: c.dangerColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
 
-      ctx.font = '600 9px sans-serif';
-      ctx.textBaseline = 'top';
-      ctx.fillText('(Exceeds total motion)', forbidMidX, oy + 8);
+      drawLabelPill(ctx, 'Exceeds total motion', forbidMidX, oy + 12, {
+        textColor: c.dangerColor,
+        font: '600 10px sans-serif'
+      });
 
       // Boundary Tick at v = c
       ctx.strokeStyle = c.photonColor;
@@ -2457,11 +2549,11 @@ body {
       ctx.lineTo(forbidStartX, oy + 8);
       ctx.stroke();
 
-      ctx.font = 'bold 10px "JetBrains Mono", monospace';
-      ctx.fillStyle = c.photonColor;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-      ctx.fillText('v = c', forbidStartX, oy + 12);
+      drawLabelPill(ctx, 'v = c', forbidStartX, oy + 14, {
+        textColor: c.photonColor,
+        borderColor: c.photonColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
 
       // 2. Active Mode Vector
       var v_space = 1.0;
@@ -2494,21 +2586,21 @@ body {
 
       drawGlowingDot(ctx, tipX, tipY, color, 7);
 
-      ctx.font = 'bold 12px sans-serif';
-      ctx.fillStyle = color;
-
       if (mode === 'photon') {
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'bottom';
-        ctx.fillText('Photon (Speed of Light, v = c)', tipX - 12, oy - 10);
+        drawLabelPill(ctx, 'Photon (Speed of Light, v = c)', tipX - 105, oy - 14, {
+          textColor: c.photonColor,
+          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+        });
       } else if (mode === 'rocket') {
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'bottom';
-        ctx.fillText('Fast Rocket (v = 0.866c)', tipX + 12, tipY - 4);
+        drawLabelPill(ctx, 'Fast Rocket (v = 0.866c)', tipX + 90, tipY - 8, {
+          textColor: c.spaceColor,
+          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+        });
       } else {
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('Observer at Rest (v = 0)', tipX + 14, tipY);
+        drawLabelPill(ctx, 'Observer at Rest (v = 0)', tipX + 90, tipY, {
+          textColor: c.timeColor,
+          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+        });
       }
     }
 
@@ -2591,10 +2683,14 @@ body {
       ctx.fillStyle = grad;
       ctx.fillRect(padLeft, topY, width - padLeft - padRight, trackH);
 
-      ctx.font = '600 11px monospace';
-      ctx.fillStyle = c.axisLabel;
-      ctx.fillText('10 km (Creation)', 10, topY + 4);
-      ctx.fillText('0 km (Sea Level)', 10, bottomY + 4);
+      drawLabelPill(ctx, '10 km (Creation)', 52, topY, {
+        textColor: c.axisLabel,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, '0 km (Sea Level)', 52, bottomY, {
+        textColor: c.axisLabel,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
 
       var decayY = topY + (0.66 / 10.0) * trackH;
       ctx.strokeStyle = c.dangerColor;
@@ -2605,8 +2701,12 @@ body {
       ctx.lineTo(width - padRight, decayY);
       ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle = c.dangerColor;
-      ctx.fillText('Classical Limit (660m)', width - 170, decayY - 6);
+
+      drawLabelPill(ctx, 'Classical Limit (660m)', width - 90, decayY, {
+        textColor: c.dangerColor,
+        borderColor: c.dangerColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
 
       var dist = 10.0 - altitudeKm;
       var muonY = topY + (dist / 10.0) * trackH;
@@ -2625,13 +2725,17 @@ body {
         ctx.fillStyle = c.dangerColor;
         ctx.font = 'bold 16px sans-serif';
         ctx.fillText('💥', muonX - 8, muonY + 6);
-        ctx.font = '600 11px sans-serif';
-        ctx.fillText('Decayed into electron + neutrinos', muonX + 15, muonY + 4);
+        drawLabelPill(ctx, 'Decayed into electron + neutrinos', muonX + 115, muonY, {
+          textColor: c.dangerColor,
+          borderColor: c.dangerColor,
+          font: 'bold 11px sans-serif'
+        });
       } else {
         drawGlowingDot(ctx, muonX, muonY, c.timeColor, 6);
-        ctx.fillStyle = c.timeColor;
-        ctx.font = 'bold 11px monospace';
-        ctx.fillText('Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonX + 12, muonY + 4);
+        drawLabelPill(ctx, 'Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonX + 80, muonY, {
+          textColor: c.timeColor,
+          font: 'bold 11px "JetBrains Mono", monospace'
+        });
       }
     }
 
@@ -2895,12 +2999,18 @@ body {
       ctx.stroke();
 
       // Axis Labels
-      ctx.font = '600 11px monospace';
-      ctx.fillStyle = c.axisLabel;
-      ctx.fillText('East (x₁)', pX1.x + 8, pX1.y + 4);
-      ctx.fillText('North (x₂)', pX2.x - 12, pX2.y + 16);
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Time (ct)', pZ.x - 28, pZ.y - 10);
+      drawLabelPill(ctx, 'East (x₁)', pX1.x + 35, pX1.y + 4, {
+        textColor: c.axisLabel,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, 'North (x₂)', pX2.x - 35, pX2.y + 14, {
+        textColor: c.axisLabel,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, 'Time (ct)', pZ.x, pZ.y - 14, {
+        textColor: c.timeColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
 
       // Velocity Components
       var rad = headingDeg * Math.PI / 180;
@@ -2922,8 +3032,8 @@ body {
         var pCorn3 = p3(sliceSize, sliceSize, vt);
         var pCorn4 = p3(-sliceSize, sliceSize, vt);
 
-        ctx.fillStyle = c.isLight ? 'rgba(2, 132, 199, 0.08)' : 'rgba(56, 189, 248, 0.12)';
-        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.4)' : 'rgba(56, 189, 248, 0.4)';
+        ctx.fillStyle = c.isLight ? 'rgba(3, 105, 161, 0.08)' : 'rgba(56, 189, 248, 0.12)';
+        ctx.strokeStyle = c.isLight ? 'rgba(3, 105, 161, 0.4)' : 'rgba(56, 189, 248, 0.4)';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([4, 4]);
 
@@ -2937,9 +3047,10 @@ body {
         ctx.stroke();
         ctx.setLineDash([]);
 
-        ctx.font = '600 10px monospace';
-        ctx.fillStyle = c.timeColor;
-        ctx.fillText('Spacetime Loaf Slice ("Now" Plane at t = ' + vt.toFixed(2) + ' c)', pCorn2.x - 30, pCorn2.y - 8);
+        drawLabelPill(ctx, 'Spacetime Loaf Slice ("Now" Plane: t = ' + vt.toFixed(2) + ' c)', pCorn2.x - 20, pCorn2.y - 10, {
+          textColor: c.timeColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 5. Ground Velocity Components (Shadow on Space Floor)
@@ -2964,14 +3075,15 @@ body {
 
         drawGlowingDot(ctx, pGroundTip.x, pGroundTip.y, c.spaceColor, 5);
 
-        ctx.font = 'bold 10px monospace';
-        ctx.fillStyle = c.spaceColor;
-        ctx.fillText('v_space = ' + vSpaceFraction.toFixed(2) + 'c', (pOrigin.x + pGroundTip.x) / 2 + 8, (pOrigin.y + pGroundTip.y) / 2 + 12);
+        drawLabelPill(ctx, 'v_space = ' + vSpaceFraction.toFixed(2) + 'c', (pOrigin.x + pGroundTip.x) / 2 + 10, (pOrigin.y + pGroundTip.y) / 2 + 14, {
+          textColor: c.spaceColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // Vertical projection from tip down to floor
       if (vSpaceFraction > 0.05 && vt > 0.05) {
-        ctx.strokeStyle = c.isLight ? 'rgba(234, 88, 12, 0.6)' : 'rgba(251, 146, 60, 0.6)';
+        ctx.strokeStyle = c.isLight ? 'rgba(194, 65, 12, 0.6)' : 'rgba(251, 146, 60, 0.6)';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
@@ -2979,7 +3091,7 @@ body {
         ctx.lineTo(pGroundTip.x, pGroundTip.y);
         ctx.stroke();
 
-        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.6)' : 'rgba(56, 189, 248, 0.6)';
+        ctx.strokeStyle = c.isLight ? 'rgba(3, 105, 161, 0.6)' : 'rgba(56, 189, 248, 0.6)';
         ctx.beginPath();
         ctx.moveTo(pVectorTip.x, pVectorTip.y);
         ctx.lineTo(pTimeAxisPt.x, pTimeAxisPt.y);
@@ -3006,13 +3118,15 @@ body {
 
       drawGlowingDot(ctx, pVectorTip.x, pVectorTip.y, c.invariantColor, 7);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillStyle = c.invariantColor;
-      ctx.fillText('Spacetime Velocity (|V| = c)', pVectorTip.x + 12, pVectorTip.y - 8);
+      drawLabelPill(ctx, 'Spacetime Velocity (|V| = c)', pVectorTip.x + 90, pVectorTip.y - 10, {
+        textColor: c.invariantColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
 
-      ctx.font = '600 10px monospace';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('v_time = ' + vt.toFixed(3) + 'c', pVectorTip.x + 12, pVectorTip.y + 6);
+      drawLabelPill(ctx, 'v_time = ' + vt.toFixed(3) + 'c', pVectorTip.x + 65, pVectorTip.y + 12, {
+        textColor: c.timeColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
     }
 
     if (sliderSpeed) {
@@ -3108,7 +3222,7 @@ body {
 
 })(window);
 
-</script>
+  </script>
   <script>
     window.addEventListener('DOMContentLoaded', function () {
       if (window.UniverseSimulations) {

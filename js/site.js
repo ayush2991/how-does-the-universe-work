@@ -16,30 +16,33 @@
       return {
         isLight: true,
         gridLine: '#e2e8f0',
-        axisLine: '#94a3b8',
-        axisArrow: '#64748b',
-        axisLabel: '#475569',
-        constraintArc: '#cbd5e1',
-        timeColor: '#0284c7',       // Sky 600
-        timeColorSubtle: 'rgba(2, 132, 199, 0.15)',
-        spaceColor: '#ea580c',      // Radiant Orange 600
-        spaceColorSubtle: 'rgba(234, 88, 12, 0.15)',
-        invariantColor: '#7c3aed',  // Violet 600
-        photonColor: '#ca8a04',     // Amber 600
-        dangerColor: '#dc2626',     // Red 600
-        subtleText: '#64748b',
+        axisLine: '#475569',        // Slate 600: strong visible axes
+        axisArrow: '#334155',       // Slate 700: sharp arrowheads
+        axisLabel: '#0f172a',       // Slate 900: high contrast labels
+        constraintArc: '#94a3b8',   // Slate 400: clearly visible speed limit arc
+        timeColor: '#0369a1',       // Sky 700 (5.6:1 contrast)
+        timeColorSubtle: 'rgba(3, 105, 161, 0.15)',
+        spaceColor: '#c2410c',      // Radiant Orange 700 (5.1:1 contrast)
+        spaceColorSubtle: 'rgba(194, 65, 12, 0.15)',
+        invariantColor: '#6d28d9',  // Violet 700 (7.9:1 contrast)
+        photonColor: '#b45309',     // Amber 700 (4.6:1 contrast)
+        dangerColor: '#b91c1c',     // Red 700 (6.8:1 contrast)
+        subtleText: '#475569',
         dotCenter: '#ffffff',
-        muonAtmosphereTop: 'rgba(2, 132, 199, 0.05)',
-        muonAtmosphereBottom: 'rgba(2, 132, 199, 0.18)'
+        pillBg: 'rgba(255, 255, 255, 0.94)',
+        pillBorder: '#cbd5e1',
+        pillText: '#0f172a',
+        muonAtmosphereTop: 'rgba(3, 105, 161, 0.08)',
+        muonAtmosphereBottom: 'rgba(3, 105, 161, 0.22)'
       };
     } else {
       return {
         isLight: false,
-        gridLine: '#121b2d',
-        axisLine: '#475569',
-        axisArrow: '#64748b',
-        axisLabel: '#94a3b8',
-        constraintArc: '#27344d',
+        gridLine: '#172338',
+        axisLine: '#64748b',        // Brightened for clear dark-mode axes
+        axisArrow: '#94a3b8',
+        axisLabel: '#f8fafc',       // High-contrast white labels
+        constraintArc: '#3b4e70',   // Visible defined speed limit arc
         timeColor: '#38bdf8',       // Electric Cyan
         timeColorSubtle: 'rgba(56, 189, 248, 0.25)',
         spaceColor: '#fb923c',      // Radiant Coral
@@ -47,10 +50,13 @@
         invariantColor: '#a855f7',  // Luminous Violet
         photonColor: '#facc15',     // Golden Sun
         dangerColor: '#f87171',     // Soft Red
-        subtleText: '#8899b5',
+        subtleText: '#94a3b8',
         dotCenter: '#ffffff',
-        muonAtmosphereTop: 'rgba(56, 189, 248, 0.05)',
-        muonAtmosphereBottom: 'rgba(56, 189, 248, 0.2)'
+        pillBg: 'rgba(5, 8, 15, 0.92)',
+        pillBorder: '#273652',
+        pillText: '#f8fafc',
+        muonAtmosphereTop: 'rgba(56, 189, 248, 0.06)',
+        muonAtmosphereBottom: 'rgba(56, 189, 248, 0.25)'
       };
     }
   }
@@ -63,6 +69,64 @@
     var ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
     return { ctx: ctx, width: rect.width, height: rect.height, dpr: dpr };
+  }
+
+  function drawLabelPill(ctx, text, x, y, options) {
+    options = options || {};
+    var c = getThemeColors();
+    var font = options.font || 'bold 11px "JetBrains Mono", monospace';
+    var textColor = options.textColor || c.pillText;
+    var bgColor = options.bgColor || c.pillBg;
+    var borderColor = options.borderColor || c.pillBorder;
+    var align = options.align || 'center';
+    var baseline = options.baseline || 'middle';
+    var padX = options.paddingX !== undefined ? options.paddingX : 6;
+    var padY = options.paddingY !== undefined ? options.paddingY : 3;
+
+    ctx.save();
+    ctx.font = font;
+    var textMetrics = ctx.measureText(text);
+    var textW = textMetrics.width;
+    var textH = 11;
+    var match = font.match(/(\d+)px/);
+    if (match) textH = parseInt(match[1], 10);
+
+    var pillW = textW + padX * 2;
+    var pillH = textH + padY * 2;
+
+    var pillX = x;
+    if (align === 'center') pillX = x - pillW / 2;
+    else if (align === 'right') pillX = x - pillW;
+
+    var pillY = y;
+    if (baseline === 'middle') pillY = y - pillH / 2;
+    else if (baseline === 'bottom') pillY = y - pillH;
+
+    // Draw background pill
+    ctx.fillStyle = bgColor;
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    var r = 4;
+    ctx.moveTo(pillX + r, pillY);
+    ctx.lineTo(pillX + pillW - r, pillY);
+    ctx.quadraticCurveTo(pillX + pillW, pillY, pillX + pillW, pillY + r);
+    ctx.lineTo(pillX + pillW, pillY + pillH - r);
+    ctx.quadraticCurveTo(pillX + pillW, pillY + pillH, pillX + pillW - r, pillY + pillH);
+    ctx.lineTo(pillX + r, pillY + pillH);
+    ctx.quadraticCurveTo(pillX, pillY + pillH, pillX, pillY + pillH - r);
+    ctx.lineTo(pillX, pillY + r);
+    ctx.quadraticCurveTo(pillX, pillY, pillX + r, pillY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Text inside pill
+    ctx.fillStyle = textColor;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, pillX + padX, pillY + pillH / 2);
+    ctx.restore();
   }
 
   function drawGrid(ctx, ox, oy, width, height, step) {
@@ -85,7 +149,7 @@
   function drawAxes(ctx, ox, oy, width, height, xLabel, yLabel) {
     var c = getThemeColors();
     ctx.strokeStyle = c.axisLine;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.2;
 
     // Horizontal Axis
     ctx.beginPath();
@@ -96,9 +160,9 @@
     // Horizontal Arrowhead
     ctx.fillStyle = c.axisArrow;
     ctx.beginPath();
-    ctx.moveTo(width - 25, oy - 4);
-    ctx.lineTo(width - 17, oy);
-    ctx.lineTo(width - 25, oy + 4);
+    ctx.moveTo(width - 25, oy - 5);
+    ctx.lineTo(width - 15, oy);
+    ctx.lineTo(width - 25, oy + 5);
     ctx.fill();
 
     // Vertical Axis
@@ -109,23 +173,33 @@
 
     // Vertical Arrowhead
     ctx.beginPath();
-    ctx.moveTo(ox - 4, 25);
-    ctx.lineTo(ox, 17);
-    ctx.lineTo(ox + 4, 25);
+    ctx.moveTo(ox - 5, 25);
+    ctx.lineTo(ox, 15);
+    ctx.lineTo(ox + 5, 25);
     ctx.fill();
 
-    // Labels
-    ctx.font = '600 11px "JetBrains Mono", monospace';
-    ctx.fillStyle = c.axisLabel;
-    ctx.fillText(xLabel, width - 85, oy + 18);
-    ctx.fillText(yLabel, ox - 35, 18);
+    // Labels with crisp pill background
+    drawLabelPill(ctx, xLabel, width - 60, oy + 18, {
+      font: 'bold 11px "JetBrains Mono", monospace',
+      align: 'center',
+      baseline: 'middle',
+      paddingX: 5,
+      paddingY: 2
+    });
+    drawLabelPill(ctx, yLabel, ox, 14, {
+      font: 'bold 11px "JetBrains Mono", monospace',
+      align: 'center',
+      baseline: 'middle',
+      paddingX: 5,
+      paddingY: 2
+    });
   }
 
   function drawConstraintArc(ctx, ox, oy, radius, color) {
     var c = getThemeColors();
     ctx.strokeStyle = color || c.constraintArc;
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
     ctx.beginPath();
     ctx.arc(ox, oy, radius, -Math.PI / 2, 0, false);
     ctx.stroke();
@@ -298,15 +372,14 @@
 
         // Theta label badge
         var midA = -Math.PI / 2 + rad / 2;
-        var badgeDist = arcR + 18;
+        var badgeDist = arcR + 20;
         var badgeX = ox + badgeDist * Math.cos(midA);
         var badgeY = oy + badgeDist * Math.sin(midA);
 
-        ctx.font = 'bold 12px "JetBrains Mono", monospace';
-        ctx.fillStyle = c.spaceColor;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('θ = ' + Math.round(angleDeg) + '°', badgeX + (rad > 0.8 ? 8 : 0), badgeY);
+        drawLabelPill(ctx, 'θ = ' + Math.round(angleDeg) + '°', badgeX + (rad > 0.8 ? 8 : 0), badgeY, {
+          textColor: c.spaceColor,
+          font: 'bold 11px "JetBrains Mono", monospace'
+        });
       }
 
       // 2. Dashed Projections (Right Triangle Components for Car 2)
@@ -342,20 +415,18 @@
 
         // Horizontal Eastward Component Value Label (v_East = 52.0 mph)
         if (c2_x - ox > 35) {
-          ctx.font = 'bold 11px "JetBrains Mono", monospace';
-          ctx.fillStyle = c.spaceColor;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'bottom';
-          ctx.fillText('V_East = ' + vEast + ' mph', (ox + c2_x) / 2, c2_y - 4);
+          drawLabelPill(ctx, 'V_East = ' + vEast + ' mph', (ox + c2_x) / 2, c2_y - 12, {
+            textColor: c.spaceColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
         }
 
         // Vertical Northward Component Value Label (v_North = 30.0 mph)
         if (oy - c2_y > 25) {
-          ctx.font = 'bold 11px "JetBrains Mono", monospace';
-          ctx.fillStyle = c.spaceColor;
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('V_North = ' + vNorth + ' mph', c2_x + 8, (oy + c2_y) / 2);
+          drawLabelPill(ctx, 'V_North = ' + vNorth + ' mph', c2_x + 55, (oy + c2_y) / 2, {
+            textColor: c.spaceColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
         }
       }
 
@@ -369,11 +440,10 @@
 
       // Car 1 Speed Value Label along vertical vector
       if (oy - c1_y > 35) {
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.fillStyle = c.timeColor;
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('60 mph', ox - 10, (oy + c1_y) / 2);
+        drawLabelPill(ctx, '60 mph', ox - 32, (oy + c1_y) / 2, {
+          textColor: c.timeColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 4. Car 2 Vector (Diagonal)
@@ -390,11 +460,10 @@
         var diagMidY = (oy + c2_y) / 2;
         var nx = -Math.cos(rad);
         var ny = -Math.sin(rad);
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.fillStyle = c.spaceColor;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('60 mph', diagMidX + nx * 14, diagMidY + ny * 14);
+        drawLabelPill(ctx, '60 mph', diagMidX + nx * 18, diagMidY + ny * 18, {
+          textColor: c.spaceColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 5. Northward Lag Indicator
@@ -412,23 +481,25 @@
         ctx.arc(lagX, c2_y, 2.5, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = '600 10px sans-serif';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('Northward Lag (' + lagMiles + ' mi)', lagX + 8, (c1_y + c2_y) / 2);
+        drawLabelPill(ctx, 'Northward Lag: ' + lagMiles + ' mi', lagX + 68, (c1_y + c2_y) / 2, {
+          textColor: c.dangerColor,
+          borderColor: c.dangerColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 6. Glowing Dots & Vehicle Names
       drawGlowingDot(ctx, c1_x, c1_y, c.timeColor, 6);
       drawGlowingDot(ctx, c2_x, c2_y, c.spaceColor, 6);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'alphabetic';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Car 1 (60 mph North)', c1_x - 45, c1_y - 12);
-      ctx.fillStyle = c.spaceColor;
-      ctx.fillText('Car 2 (' + angleDeg + '°)', c2_x + 10, c2_y + 4);
+      drawLabelPill(ctx, 'Car 1 (60 mph North)', c1_x, c1_y - 18, {
+        textColor: c.timeColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
+      drawLabelPill(ctx, 'Car 2 (' + angleDeg + '°)', c2_x + 48, c2_y + 4, {
+        textColor: c.spaceColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
     }
 
     function loop(now) {
@@ -536,8 +607,11 @@
       ctx.beginPath();
       ctx.arc(ox, oy, 4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.font = '600 11px monospace';
-      ctx.fillText('x = 0 (No spatial movement)', ox + 10, oy + 18);
+
+      drawLabelPill(ctx, 'x = 0 (No spatial motion)', ox + 95, oy + 18, {
+        textColor: c.axisLabel,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
 
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3.5;
@@ -548,9 +622,10 @@
 
       drawGlowingDot(ctx, ox, currY, c.timeColor, 7);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Observer at Rest', ox - 110, currY - 5);
+      drawLabelPill(ctx, 'Observer at Rest (v = 0)', ox - 90, currY - 6, {
+        textColor: c.timeColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
     }
 
     function loop(now) {
@@ -657,11 +732,14 @@
 
       drawGlowingDot(ctx, tipX, tipY, c.invariantColor, 6.5);
 
-      ctx.font = '600 11px monospace';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('v_time = ' + (vt * 100).toFixed(0) + '%', ox - 95, tipY + 4);
-      ctx.fillStyle = c.spaceColor;
-      ctx.fillText('v_space = ' + (speedFraction * 100).toFixed(0) + '%', tipX - 30, oy + 18);
+      drawLabelPill(ctx, 'v_time = ' + (vt * 100).toFixed(0) + '%', ox - 55, tipY + 4, {
+        textColor: c.timeColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, 'v_space = ' + (speedFraction * 100).toFixed(0) + '%', tipX, oy + 22, {
+        textColor: c.spaceColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
     }
 
     if (sliderSpeed) {
@@ -774,11 +852,14 @@
       drawGlowingDot(ctx, e_x, e_y, c.timeColor, 6);
       drawGlowingDot(ctx, r_x, r_y, c.spaceColor, 6);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Earth (Rest)', e_x - 30, e_y - 12);
-      ctx.fillStyle = c.spaceColor;
-      ctx.fillText('Rocket', r_x + 10, r_y + 4);
+      drawLabelPill(ctx, 'Earth (Rest)', e_x - 10, e_y - 18, {
+        textColor: c.timeColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
+      drawLabelPill(ctx, 'Rocket (Moving)', r_x + 55, r_y + 4, {
+        textColor: c.spaceColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
     }
 
     function loop(now) {
@@ -890,15 +971,16 @@
       ctx.setLineDash([]);
 
       // Forbidden Text clearly centered in the forbidden area
-      ctx.font = 'bold 11px "JetBrains Mono", monospace';
-      ctx.fillStyle = c.dangerColor;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText('FORBIDDEN (v > c)', forbidMidX, oy - 10);
+      drawLabelPill(ctx, 'FORBIDDEN (v > c)', forbidMidX, oy - 14, {
+        textColor: c.dangerColor,
+        borderColor: c.dangerColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
 
-      ctx.font = '600 9px sans-serif';
-      ctx.textBaseline = 'top';
-      ctx.fillText('(Exceeds total motion)', forbidMidX, oy + 8);
+      drawLabelPill(ctx, 'Exceeds total motion', forbidMidX, oy + 12, {
+        textColor: c.dangerColor,
+        font: '600 10px sans-serif'
+      });
 
       // Boundary Tick at v = c
       ctx.strokeStyle = c.photonColor;
@@ -908,11 +990,11 @@
       ctx.lineTo(forbidStartX, oy + 8);
       ctx.stroke();
 
-      ctx.font = 'bold 10px "JetBrains Mono", monospace';
-      ctx.fillStyle = c.photonColor;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-      ctx.fillText('v = c', forbidStartX, oy + 12);
+      drawLabelPill(ctx, 'v = c', forbidStartX, oy + 14, {
+        textColor: c.photonColor,
+        borderColor: c.photonColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
 
       // 2. Active Mode Vector
       var v_space = 1.0;
@@ -945,21 +1027,21 @@
 
       drawGlowingDot(ctx, tipX, tipY, color, 7);
 
-      ctx.font = 'bold 12px sans-serif';
-      ctx.fillStyle = color;
-
       if (mode === 'photon') {
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'bottom';
-        ctx.fillText('Photon (Speed of Light, v = c)', tipX - 12, oy - 10);
+        drawLabelPill(ctx, 'Photon (Speed of Light, v = c)', tipX - 105, oy - 14, {
+          textColor: c.photonColor,
+          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+        });
       } else if (mode === 'rocket') {
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'bottom';
-        ctx.fillText('Fast Rocket (v = 0.866c)', tipX + 12, tipY - 4);
+        drawLabelPill(ctx, 'Fast Rocket (v = 0.866c)', tipX + 90, tipY - 8, {
+          textColor: c.spaceColor,
+          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+        });
       } else {
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('Observer at Rest (v = 0)', tipX + 14, tipY);
+        drawLabelPill(ctx, 'Observer at Rest (v = 0)', tipX + 90, tipY, {
+          textColor: c.timeColor,
+          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+        });
       }
     }
 
@@ -1042,10 +1124,14 @@
       ctx.fillStyle = grad;
       ctx.fillRect(padLeft, topY, width - padLeft - padRight, trackH);
 
-      ctx.font = '600 11px monospace';
-      ctx.fillStyle = c.axisLabel;
-      ctx.fillText('10 km (Creation)', 10, topY + 4);
-      ctx.fillText('0 km (Sea Level)', 10, bottomY + 4);
+      drawLabelPill(ctx, '10 km (Creation)', 52, topY, {
+        textColor: c.axisLabel,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, '0 km (Sea Level)', 52, bottomY, {
+        textColor: c.axisLabel,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
 
       var decayY = topY + (0.66 / 10.0) * trackH;
       ctx.strokeStyle = c.dangerColor;
@@ -1056,8 +1142,12 @@
       ctx.lineTo(width - padRight, decayY);
       ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle = c.dangerColor;
-      ctx.fillText('Classical Limit (660m)', width - 170, decayY - 6);
+
+      drawLabelPill(ctx, 'Classical Limit (660m)', width - 90, decayY, {
+        textColor: c.dangerColor,
+        borderColor: c.dangerColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
 
       var dist = 10.0 - altitudeKm;
       var muonY = topY + (dist / 10.0) * trackH;
@@ -1076,13 +1166,17 @@
         ctx.fillStyle = c.dangerColor;
         ctx.font = 'bold 16px sans-serif';
         ctx.fillText('💥', muonX - 8, muonY + 6);
-        ctx.font = '600 11px sans-serif';
-        ctx.fillText('Decayed into electron + neutrinos', muonX + 15, muonY + 4);
+        drawLabelPill(ctx, 'Decayed into electron + neutrinos', muonX + 115, muonY, {
+          textColor: c.dangerColor,
+          borderColor: c.dangerColor,
+          font: 'bold 11px sans-serif'
+        });
       } else {
         drawGlowingDot(ctx, muonX, muonY, c.timeColor, 6);
-        ctx.fillStyle = c.timeColor;
-        ctx.font = 'bold 11px monospace';
-        ctx.fillText('Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonX + 12, muonY + 4);
+        drawLabelPill(ctx, 'Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonX + 80, muonY, {
+          textColor: c.timeColor,
+          font: 'bold 11px "JetBrains Mono", monospace'
+        });
       }
     }
 
@@ -1346,12 +1440,18 @@
       ctx.stroke();
 
       // Axis Labels
-      ctx.font = '600 11px monospace';
-      ctx.fillStyle = c.axisLabel;
-      ctx.fillText('East (x₁)', pX1.x + 8, pX1.y + 4);
-      ctx.fillText('North (x₂)', pX2.x - 12, pX2.y + 16);
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('Time (ct)', pZ.x - 28, pZ.y - 10);
+      drawLabelPill(ctx, 'East (x₁)', pX1.x + 35, pX1.y + 4, {
+        textColor: c.axisLabel,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, 'North (x₂)', pX2.x - 35, pX2.y + 14, {
+        textColor: c.axisLabel,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
+      drawLabelPill(ctx, 'Time (ct)', pZ.x, pZ.y - 14, {
+        textColor: c.timeColor,
+        font: 'bold 11px "JetBrains Mono", monospace'
+      });
 
       // Velocity Components
       var rad = headingDeg * Math.PI / 180;
@@ -1373,8 +1473,8 @@
         var pCorn3 = p3(sliceSize, sliceSize, vt);
         var pCorn4 = p3(-sliceSize, sliceSize, vt);
 
-        ctx.fillStyle = c.isLight ? 'rgba(2, 132, 199, 0.08)' : 'rgba(56, 189, 248, 0.12)';
-        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.4)' : 'rgba(56, 189, 248, 0.4)';
+        ctx.fillStyle = c.isLight ? 'rgba(3, 105, 161, 0.08)' : 'rgba(56, 189, 248, 0.12)';
+        ctx.strokeStyle = c.isLight ? 'rgba(3, 105, 161, 0.4)' : 'rgba(56, 189, 248, 0.4)';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([4, 4]);
 
@@ -1388,9 +1488,10 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        ctx.font = '600 10px monospace';
-        ctx.fillStyle = c.timeColor;
-        ctx.fillText('Spacetime Loaf Slice ("Now" Plane at t = ' + vt.toFixed(2) + ' c)', pCorn2.x - 30, pCorn2.y - 8);
+        drawLabelPill(ctx, 'Spacetime Loaf Slice ("Now" Plane: t = ' + vt.toFixed(2) + ' c)', pCorn2.x - 20, pCorn2.y - 10, {
+          textColor: c.timeColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // 5. Ground Velocity Components (Shadow on Space Floor)
@@ -1415,14 +1516,15 @@
 
         drawGlowingDot(ctx, pGroundTip.x, pGroundTip.y, c.spaceColor, 5);
 
-        ctx.font = 'bold 10px monospace';
-        ctx.fillStyle = c.spaceColor;
-        ctx.fillText('v_space = ' + vSpaceFraction.toFixed(2) + 'c', (pOrigin.x + pGroundTip.x) / 2 + 8, (pOrigin.y + pGroundTip.y) / 2 + 12);
+        drawLabelPill(ctx, 'v_space = ' + vSpaceFraction.toFixed(2) + 'c', (pOrigin.x + pGroundTip.x) / 2 + 10, (pOrigin.y + pGroundTip.y) / 2 + 14, {
+          textColor: c.spaceColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
       }
 
       // Vertical projection from tip down to floor
       if (vSpaceFraction > 0.05 && vt > 0.05) {
-        ctx.strokeStyle = c.isLight ? 'rgba(234, 88, 12, 0.6)' : 'rgba(251, 146, 60, 0.6)';
+        ctx.strokeStyle = c.isLight ? 'rgba(194, 65, 12, 0.6)' : 'rgba(251, 146, 60, 0.6)';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
@@ -1430,7 +1532,7 @@
         ctx.lineTo(pGroundTip.x, pGroundTip.y);
         ctx.stroke();
 
-        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.6)' : 'rgba(56, 189, 248, 0.6)';
+        ctx.strokeStyle = c.isLight ? 'rgba(3, 105, 161, 0.6)' : 'rgba(56, 189, 248, 0.6)';
         ctx.beginPath();
         ctx.moveTo(pVectorTip.x, pVectorTip.y);
         ctx.lineTo(pTimeAxisPt.x, pTimeAxisPt.y);
@@ -1457,13 +1559,15 @@
 
       drawGlowingDot(ctx, pVectorTip.x, pVectorTip.y, c.invariantColor, 7);
 
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillStyle = c.invariantColor;
-      ctx.fillText('Spacetime Velocity (|V| = c)', pVectorTip.x + 12, pVectorTip.y - 8);
+      drawLabelPill(ctx, 'Spacetime Velocity (|V| = c)', pVectorTip.x + 90, pVectorTip.y - 10, {
+        textColor: c.invariantColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
 
-      ctx.font = '600 10px monospace';
-      ctx.fillStyle = c.timeColor;
-      ctx.fillText('v_time = ' + vt.toFixed(3) + 'c', pVectorTip.x + 12, pVectorTip.y + 6);
+      drawLabelPill(ctx, 'v_time = ' + vt.toFixed(3) + 'c', pVectorTip.x + 65, pVectorTip.y + 12, {
+        textColor: c.timeColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
     }
 
     if (sliderSpeed) {
