@@ -78,35 +78,35 @@ The repository uses a strict **Single Source of Truth** architecture with **zero
 ## Simulation Catalog
 
 ### Part 1: Why Motion Through Space Affects Time
-| # | Container ID | Function | Purpose |
-|---|--------------|----------|---------|
-| **Hero** | `widget-hero` (on `index.html`) | `initWidgetTimeDilation` | Live speed-tradeoff and twin clocks preview on landing page |
-| **01** | `widget-cars` | `initWidgetCars` | Two cars on 2D grid ($V_E = 60\sin\theta, V_N = 60\cos\theta$) |
-| **02** | `widget-stationary` | `initWidgetStationary` | Sitting at rest ($x=0$) carries you forward through Time at 100% |
-| **03** | `widget-tradeoff` | `initWidgetTradeoff` | Thought experiment: trading space for time ($v_t = \sqrt{V^2 - v_x^2}$) |
-| **04** | `widget-time-dilation` | `initWidgetTimeDilation` | Live Twin Clocks and time dilation ($t' = t / \gamma$) |
-| **05** | `widget-speed-limit` | `initWidgetSpeedLimit` | Cosmic speed limit $c$ and the timeless photon |
-| **06** | `widget-muon` | `initWidgetMuon` | Relativistic atmospheric muon decay vs. Newtonian prediction |
-| **07** | `widget-3d-spacetime` | `initWidget3DSpacetime` | 3D spacetime volume ($x_1, x_2, t$) with rotatable camera and Now-Slice |
+| #        | Container ID                    | Function                 | Purpose                                                                 |
+| -------- | ------------------------------- | ------------------------ | ----------------------------------------------------------------------- |
+| **Hero** | `widget-hero` (on `index.html`) | `initWidgetTimeDilation` | Live speed-tradeoff and twin clocks preview on landing page             |
+| **01**   | `widget-cars`                   | `initWidgetCars`         | Two cars on 2D grid ($V_E = 60\sin\theta, V_N = 60\cos\theta$)          |
+| **02**   | `widget-stationary`             | `initWidgetStationary`   | Sitting at rest ($x=0$) carries you forward through Time at 100%        |
+| **03**   | `widget-tradeoff`               | `initWidgetTradeoff`     | Thought experiment: trading space for time ($v_t = \sqrt{V^2 - v_x^2}$) |
+| **04**   | `widget-time-dilation`          | `initWidgetTimeDilation` | Live Twin Clocks and time dilation ($t' = t / \gamma$)                  |
+| **05**   | `widget-speed-limit`            | `initWidgetSpeedLimit`   | Cosmic speed limit $c$ and the timeless photon                          |
+| **06**   | `widget-muon`                   | `initWidgetMuon`         | Relativistic atmospheric muon decay vs. Newtonian prediction            |
+| **07**   | `widget-3d-spacetime`           | `initWidget3DSpacetime`  | 3D spacetime volume ($x_1, x_2, t$) with rotatable camera and Now-Slice |
 
 ### Part 2: The Cosmic Light Cone: Mapping Space & Time
-| # | Container ID | Function | Purpose |
-|---|--------------|----------|---------|
-| **01** | `widget-dual-bridge` | `initWidgetDualSpeedSpacetime` | Side-by-side comparison: Speed Space vs Coordinate Spacetime Map |
-| **01b** | `widget-expanding-circles` | `initWidgetExpandingCircles` | 2×2 grid of four static panels showing the outgoing circle of light at $t=0,1,2,3$ in the $x$–$y$ plane (eases reader into the 3D cone) |
-| **01c** | `widget-synthesis-grid` | `initWidgetSynthesisGrid` | 2×2 visual synthesis grid bridging Velocity Space ($v_x, v_t$) to Coordinate Spacetime ($\phi$) across 4 archetypes |
-| **02** | `widget-3d-light-cone` | `initWidget3DLightConeExplorer` | Full 3D rotatable Light Cone volume ($x_1, x_2, ct$) with dynamic Now-Slice |
-| **03** | `widget-cosmic-horizon` | `initWidgetCosmicHorizon` | Coordinated Dual-View: physical stellar radar & lifespan bubble vs $(x, ct)$ spacetime past light cone |
+| #       | Container ID               | Function                        | Purpose                                                                                                                                 |
+| ------- | -------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **01**  | `widget-dual-bridge`       | `initWidgetDualSpeedSpacetime`  | Side-by-side comparison: Speed Space vs Coordinate Spacetime Map                                                                        |
+| **01b** | `widget-expanding-circles` | `initWidgetExpandingCircles`    | 2×2 grid of four static panels showing the outgoing circle of light at $t=0,1,2,3$ in the $x$–$y$ plane (eases reader into the 3D cone) |
+| **01c** | `widget-synthesis-grid`    | `initWidgetSynthesisGrid`       | 2×2 visual synthesis grid bridging Velocity Space ($v_x, v_t$) to Coordinate Spacetime ($\phi$) across 4 archetypes                     |
+| **02**  | `widget-3d-light-cone`     | `initWidget3DLightConeExplorer` | Full 3D rotatable Light Cone volume ($x_1, x_2, ct$) with dynamic Now-Slice                                                             |
+| **03**  | `widget-cosmic-horizon`    | `initWidgetCosmicHorizon`       | Coordinated Dual-View: physical stellar radar & lifespan bubble vs $(x, ct)$ spacetime past light cone                                  |
 
 ### Part 3: The Spacetime Loaf & Length Contraction
-| # | Container ID | Function | Purpose |
-|---|--------------|----------|---------|
-| **01** | `widget-loaf-alice` | `initWidgetLoafAlice` | 3D spacetime loaf volume with Alice's horizontal slice and expanding light wavefront |
-| **02** | `widget-loaf-bob` | `initWidgetLoafBob` | Bob in motion: slanting the worldtube across the spacetime loaf |
+| #      | Container ID                | Function                      | Purpose                                                                              |
+| ------ | --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------ |
+| **01** | `widget-loaf-alice`         | `initWidgetLoafAlice`         | 3D spacetime loaf volume with Alice's horizontal slice and expanding light wavefront |
+| **02** | `widget-loaf-bob`           | `initWidgetLoafBob`           | Bob in motion: slanting the worldtube across the spacetime loaf                      |
 | **03** | `widget-simultaneity-slice` | `initWidgetSimultaneitySlice` | The angle of "Now": tilting the simultaneity hyperplane obliquely ($\tan\phi = v/c$) |
-| **04** | `widget-length-contraction` | `initWidgetLengthContraction` | Oblique slicing: 3D loaf cutting Bob's tilted ribbon & 2D retina measurement |
-| **05** | `widget-dual-frame` | `initWidgetDualFrame` | Mutual relativity: switching between Alice's frame and Bob's frame |
-| **06** | `widget-muon-contraction` | `initWidgetMuonContraction` | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction) |
+| **04** | `widget-length-contraction` | `initWidgetLengthContraction` | Oblique slicing: 3D loaf cutting Bob's tilted ribbon & 2D retina measurement         |
+| **05** | `widget-dual-frame`         | `initWidgetDualFrame`         | Mutual relativity: switching between Alice's frame and Bob's frame                   |
+| **06** | `widget-muon-contraction`   | `initWidgetMuonContraction`   | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction)       |
 
 ---
 
