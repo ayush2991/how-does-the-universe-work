@@ -128,6 +128,7 @@ body {
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -356,13 +357,67 @@ body {
 }
 
 /* Editorial Prose */
-.editorial-prose p {
+.editorial-prose p,
+.editorial-prose ul,
+.editorial-prose ol,
+.editorial-prose li,
+.editorial-prose blockquote,
+.editorial-prose dl,
+.editorial-prose dt,
+.editorial-prose dd {
   font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+.editorial-prose p {
   font-size: 1.15rem;
   line-height: 1.8;
   color: var(--text-prose);
   margin-bottom: 1.5rem;
   letter-spacing: -0.003em;
+}
+
+.editorial-prose ul,
+.editorial-prose ol {
+  margin: 0 0 1.5rem 0;
+  padding-left: 1.75rem;
+}
+
+.editorial-prose li {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--text-prose);
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.003em;
+}
+
+.editorial-prose li::marker {
+  color: var(--color-time);
+  font-weight: 600;
+}
+
+.editorial-prose ul ul,
+.editorial-prose ol ol,
+.editorial-prose ul ol,
+.editorial-prose ol ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.editorial-prose blockquote {
+  border-left: 3px solid var(--color-time);
+  background: var(--bg-card-subtle);
+  padding: 1.125rem 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0 0.625rem 0.625rem 0;
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.editorial-prose blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 .editorial-prose strong {
@@ -376,26 +431,74 @@ body {
 
 .editorial-prose h2 {
   font-family: var(--font-sans);
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 750;
   letter-spacing: -0.025em;
   color: var(--text-primary);
   margin-top: 3.5rem;
   margin-bottom: 1.25rem;
   padding-top: 0.5rem;
+  line-height: 1.25;
 }
 
 .editorial-prose h3 {
   font-family: var(--font-sans);
-  font-size: 1.2rem;
-  font-weight: 650;
+  font-size: 1.25rem;
+  font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--text-primary);
-  margin-top: 2rem;
+  margin-top: 2.25rem;
   margin-bottom: 0.75rem;
+  line-height: 1.35;
 }
 
-.formula-card {
+.editorial-prose h4 {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Insight Callout */
+.insight-callout {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--color-invariant);
+  border-radius: 0 0.875rem 0.875rem 0;
+  padding: 1.35rem 1.6rem;
+  margin: 2.25rem 0;
+  box-shadow: var(--shadow-card);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.insight-callout h4 {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.015em;
+}
+
+.insight-callout p {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  line-height: 1.72;
+  color: var(--text-prose);
+  margin-bottom: 0.85rem;
+}
+
+.insight-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Formula & Math Display Cards */
+.formula-card,
+.math-display-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-left: 3px solid var(--color-time);
@@ -403,17 +506,27 @@ body {
   border-radius: 0 0.75rem 0.75rem 0;
   margin: 2rem 0;
   font-family: var(--font-mono);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--text-primary);
   box-shadow: var(--shadow-card);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-.formula-card .formula-note {
+.math-display-card {
+  border-left-color: var(--color-invariant);
+  text-align: center;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.formula-card .formula-note,
+.math-display-card .formula-note {
   font-family: var(--font-sans);
   font-size: 0.85rem;
   color: var(--text-muted);
   margin-top: 0.5rem;
   line-height: 1.5;
+  text-align: left;
 }
 
 /* Interactive Explorable Card Container (Unibody Design) */
@@ -433,11 +546,11 @@ body {
 
 /* Desktop Breakout: Gives canvas diagrams generous breathing space */
 @media (min-width: 840px) {
-  .editorial-prose .interactive-artifact {
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
-    width: calc(100% + 5rem);
-    max-width: 760px;
+  .reading-container .editorial-prose .interactive-artifact {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 820px;
   }
 }
 
@@ -821,8 +934,9 @@ body {
   color: var(--color-time);
 }
 
-/* Subtle styling for inline math inside editorial paragraphs */
-.editorial-prose p .math-badge {
+/* Subtle styling for inline math inside editorial prose (paragraphs, lists, callouts, quotes) */
+.editorial-prose .math-badge,
+.insight-callout .math-badge {
   font-size: 0.85em;
   padding: 0.12rem 0.42rem;
   margin: 0 0.15rem;
@@ -831,6 +945,7 @@ body {
   border: 1px solid var(--border-subtle);
   vertical-align: baseline;
   line-height: normal;
+  display: inline-block;
 }
 
 /* Series Hub Cards */
@@ -896,6 +1011,34 @@ body {
   margin-bottom: 1.5rem;
 }
 
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 550;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: default;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.series-card:hover .card-tag {
+  border-color: var(--border-medium);
+  color: var(--text-secondary);
+}
+
 .card-meta {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -904,6 +1047,65 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Series Pager Navigation */
+.series-pager {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.series-pager a {
+  text-decoration: none;
+}
+
+.series-pager .btn-primary,
+.series-pager .btn-secondary {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+/* Article Author Bio */
+.article-author {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+}
+
+.article-author .brand-badge {
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.article-author h4 {
+  font-family: var(--font-sans);
+  margin: 0 0 0.35rem 0;
+  font-size: 1.05rem;
+  font-weight: 750;
+  color: var(--text-primary);
+}
+
+.article-author p {
+  font-family: var(--font-sans);
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
 /* Footer */
@@ -999,6 +1201,28 @@ body {
   padding: 2.5rem;
   max-width: 780px;
   margin: 0 auto;
+}
+
+.philosophy-card h3 {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+.philosophy-card p {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.15rem;
+}
+
+.philosophy-card p:last-child {
+  margin-bottom: 0;
 }
 
 /* ==========================================================================
@@ -1131,6 +1355,16 @@ body {
     line-height: 1.65;
     margin-bottom: 1.125rem;
   }
+  .editorial-prose ul,
+  .editorial-prose ol {
+    padding-left: 1.35rem;
+    margin-bottom: 1.125rem;
+  }
+  .editorial-prose li {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
   .editorial-prose h2 {
     font-size: 1.35rem;
     margin-top: 1.75rem;
@@ -1142,15 +1376,59 @@ body {
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
   }
-  .formula-card {
+  .editorial-prose h4 {
+    font-size: 1.02rem;
+    margin-top: 1.15rem;
+    margin-bottom: 0.4rem;
+  }
+  .editorial-prose blockquote {
+    padding: 0.75rem 1rem;
+    margin: 1.25rem 0;
+    font-size: 1.02rem;
+  }
+  .insight-callout {
+    padding: 1rem 1.15rem;
+    margin: 1.5rem 0;
+    border-radius: 0 0.625rem 0.625rem 0;
+  }
+  .insight-callout h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .insight-callout p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.65rem;
+  }
+  .formula-card,
+  .math-display-card {
     padding: 0.75rem 1rem;
     margin: 1.125rem 0;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     border-radius: 0 0.5rem 0.5rem 0;
   }
-  .formula-card .formula-note {
+  .formula-card .formula-note,
+  .math-display-card .formula-note {
     font-size: 0.78rem;
     margin-top: 0.3rem;
+  }
+  .series-pager {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+  .series-pager a {
+    text-align: center;
+    justify-content: center;
+  }
+  .article-author {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+    padding: 1.125rem;
+    margin-top: 2rem;
   }
 
   /* Interactive Artifact Card */
@@ -1257,12 +1535,16 @@ body {
     padding: 0.4rem 0.8rem;
     font-size: 0.75rem;
   }
-  .math-badge {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.5rem;
+  .toolbar-bottom .math-badge {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.65rem;
     width: 100%;
     text-align: center;
     border-radius: 0.375rem;
+  }
+  .editorial-prose .math-badge {
+    width: auto;
+    display: inline-block;
   }
 
   /* Footer */
@@ -1295,3 +1577,285 @@ body {
     padding-right: 0.75rem;
   }
 }
+
+/* ==========================================================================
+   Wide Reading Container & Desktop Layout System
+   Balanced Editorial Grid + Split-Screen Sim Panels (Option A)
+   ========================================================================== */
+.wide-reading-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 6rem;
+}
+
+.wide-reading-container .article-header {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+}
+
+.wide-reading-container .editorial-prose > p {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.18rem;
+  line-height: 1.84;
+  letter-spacing: -0.002em;
+  margin-bottom: 1.6rem;
+}
+
+.wide-reading-container .editorial-prose > ul,
+.wide-reading-container .editorial-prose > ol {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.16rem;
+  line-height: 1.8;
+  margin-bottom: 1.6rem;
+  padding-left: 1.85rem;
+}
+
+.wide-reading-container .editorial-prose > li {
+  margin-bottom: 0.75rem;
+}
+
+.wide-reading-container .editorial-prose > h2 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.75rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.wide-reading-container .editorial-prose > h3 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.wide-reading-container .editorial-prose > h4 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.wide-reading-container .editorial-prose > blockquote {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wide-reading-container .editorial-prose > .formula-card,
+.wide-reading-container .editorial-prose > .math-display-card {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.wide-reading-container .editorial-prose > .insight-callout {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.wide-reading-container .editorial-prose > .article-author,
+.wide-reading-container .editorial-prose > .series-pager {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wide-reading-container .interactive-artifact {
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.75rem;
+  margin-bottom: 3.25rem;
+}
+
+/* --- Comparison Grid (Simulation 01 Dual View) --- */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-canvas-outer);
+}
+
+@media (max-width: 880px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+}
+
+.canvas-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.canvas-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 0.2rem 0.5rem;
+}
+
+.canvas-col-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.canvas-col canvas {
+  width: 100%;
+  height: 380px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .canvas-col canvas {
+    height: 250px;
+  }
+  .wide-reading-container {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+}
+
+/* --- Split-Screen Desktop Layout (Simulations 02 & 03) --- */
+.artifact-split {
+  display: grid;
+  grid-template-columns: 1.32fr 1fr;
+  background: var(--bg-canvas-outer);
+}
+
+@media (max-width: 900px) {
+  .artifact-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.split-canvas-col {
+  position: relative;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-canvas);
+  min-width: 0;
+}
+
+.split-canvas-col canvas {
+  width: 100%;
+  height: 420px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .split-canvas-col canvas {
+    height: 340px;
+  }
+}
+
+@media (max-width: 640px) {
+  .split-canvas-col canvas {
+    height: 260px;
+  }
+  .split-canvas-col {
+    padding: 0.625rem;
+  }
+}
+
+.split-controls-col {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.125rem;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .split-controls-col {
+    border-left: none;
+    border-top: 1px solid var(--border-subtle);
+    padding: 1rem 1.25rem;
+  }
+}
+
+.split-controls-col .artifact-controls,
+.split-controls-col .twin-clocks-panel {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+/* Telemetry display rows */
+.telemetry-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-card-subtle);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.telemetry-item {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.telemetry-item .label {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.telemetry-item .value {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+

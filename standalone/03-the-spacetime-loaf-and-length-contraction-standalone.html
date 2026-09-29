@@ -1,3 +1,2612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Spacetime Loaf & Length Contraction · How Does the Universe Work?</title>
+  <style>
+/* ==========================================================================
+   How Does The Universe Work? - Core Design System & Styling
+   Minimal, Modern, Precision Scientific Aesthetic
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap');
+
+/* Default Theme: LIGHT MODE (Warm Minimal Paper) */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Surface & Background Hierarchy */
+  --bg-space: #fafafc;              /* Warm off-white minimal canvas */
+  --bg-card: #ffffff;               /* Pure white card surface */
+  --bg-card-subtle: #f8fafc;        /* Soft container / header tint */
+  --bg-surface-elevated: #f1f5f9;   /* Subtle elevated controls / pills */
+
+  /* Hairline Borders */
+  --border-subtle: rgba(15, 23, 42, 0.08);       /* Soft modern hairline divider */
+  --border-medium: rgba(15, 23, 42, 0.16);       /* Hover / active divider */
+  --border-active: #0284c7;                      /* Active Sky-600 */
+
+  /* Typography Colors */
+  --text-primary: #0f172a;          /* Slate-900: sharp titles & headings */
+  --text-secondary: #334155;        /* Slate-700: UI labels & meta */
+  --text-prose: #1e293b;            /* Slate-800: high-contrast editorial prose */
+  --text-emphasis: #0f172a;         /* High-contrast emphasis */
+  --text-muted: #64748b;            /* Slate-500: descriptions & subtext */
+  --text-faint: #94a3b8;            /* Slate-400: secondary timestamps & tags */
+
+  /* Physics Semantic Palette (Calibrated Contrast) */
+  --color-time: #0284c7;            /* Sky-600: Time / Earth / Rest */
+  --color-time-glow: rgba(2, 132, 199, 0.16);
+  --color-space: #ea580c;           /* Radiant Orange-600: Space / Motion */
+  --color-space-glow: rgba(234, 88, 12, 0.16);
+  --color-invariant: #7c3aed;       /* Violet-600: Total Speed Arc c */
+  --color-photon: #d97706;          /* Amber-600: Light / Bound */
+  --color-emerald: #059669;         /* Emerald-600: Verified / Synchronized */
+  --color-danger: #dc2626;          /* Red-600: Lag / Beyond-c Forbidden */
+
+  /* Chrome & Structural Variables */
+  --nav-bg: rgba(250, 250, 252, 0.88);
+  --bg-canvas-outer: #ffffff;
+  --bg-canvas: #ffffff;
+  --border-canvas: rgba(15, 23, 42, 0.07);
+  --shadow-canvas: none;
+  --slider-track: #e2e8f0;
+  --chip-bg: #f1f5f9;
+  --chip-hover: #e2e8f0;
+  --btn-secondary-bg: #f1f5f9;
+  --btn-secondary-hover: #e2e8f0;
+  --math-badge-bg: #f8fafc;
+  --bg-footer: #f8fafc;
+  --shadow-artifact: 0 4px 24px -2px rgba(15, 23, 42, 0.06), 0 1px 4px -1px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 2px 12px -2px rgba(15, 23, 42, 0.05), 0 1px 3px -1px rgba(15, 23, 42, 0.03);
+
+  /* Fonts */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* DARK MODE (Obsidian Deep Scientific Theme) */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surface & Background Hierarchy */
+  --bg-space: #090b10;              /* True obsidian deep space */
+  --bg-card: #0e121a;               /* Refined dark card surface */
+  --bg-card-subtle: #0a0d14;        /* Darker container / header */
+  --bg-surface-elevated: #161c27;   /* Elevated dark badges & controls */
+
+  /* Hairline Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);   /* Clean, non-intrusive hairline */
+  --border-medium: rgba(255, 255, 255, 0.16);   /* Hover / active outline */
+  --border-active: #38bdf8;                      /* Electric Cyan active ring */
+
+  /* Typography Colors */
+  --text-primary: #f8fafc;          /* High-clarity white headings */
+  --text-secondary: #cbd5e1;        /* Crisp slate-300 UI text */
+  --text-prose: #e2e8f0;            /* Warm readable prose */
+  --text-emphasis: #ffffff;         /* Pure white emphasis */
+  --text-muted: #94a3b8;            /* Slate-400 subtext */
+  --text-faint: #64748b;            /* Slate-500 secondary labels */
+
+  /* Physics Semantic Palette */
+  --color-time: #38bdf8;            /* Electric Cyan: Time / Earth / Rest */
+  --color-time-glow: rgba(56, 189, 248, 0.2);
+  --color-space: #fb923c;           /* Radiant Coral: Space / Motion */
+  --color-space-glow: rgba(251, 146, 60, 0.2);
+  --color-invariant: #a855f7;       /* Luminous Violet: Total Speed Arc (c) */
+  --color-photon: #facc15;          /* Golden Sun: Light / Bound */
+  --color-emerald: #10b981;         /* Emerald: Synchronized / Verified */
+  --color-danger: #f87171;          /* Soft Red: Lag / Forbidden Beyond-c */
+
+  /* Chrome & Structural Variables */
+  --nav-bg: rgba(9, 11, 16, 0.88);
+  --bg-canvas-outer: #0a0d14;
+  --bg-canvas: #0a0d14;
+  --border-canvas: rgba(255, 255, 255, 0.07);
+  --shadow-canvas: none;
+  --slider-track: #1a2232;
+  --chip-bg: #161c27;
+  --chip-hover: #1f2838;
+  --btn-secondary-bg: #161c27;
+  --btn-secondary-hover: #1f2838;
+  --math-badge-bg: #0a0d14;
+  --bg-footer: #06080c;
+  --shadow-artifact: 0 16px 36px -8px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Base Reset & Document Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-space);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+
+::selection {
+  background: var(--color-time);
+  color: #ffffff;
+}
+
+/* Reading Progress Bar (Fixed Top hairline) */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-time), var(--color-invariant));
+  z-index: 100;
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+/* Masthead Navigation */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.site-nav-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 3.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: opacity 0.2s ease;
+}
+
+.brand-link:hover {
+  opacity: 0.85;
+}
+
+.brand-badge {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 0.45rem;
+  background: linear-gradient(135deg, var(--color-time), var(--color-invariant));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #ffffff;
+  font-size: 0.9rem;
+  box-shadow: 0 0 12px var(--color-time-glow);
+}
+
+.brand-title {
+  font-weight: 750;
+  font-size: 0.88rem;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.brand-tag {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  background: var(--bg-surface-elevated);
+  padding: 0.12rem 0.45rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  font-weight: 550;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-time);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  padding: 0;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, border-color 0.2s;
+}
+
+.theme-toggle-btn svg {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--chip-hover);
+  color: var(--color-time);
+  border-color: var(--border-medium);
+  transform: scale(1.06);
+}
+
+.theme-toggle-btn:hover svg {
+  transform: rotate(15deg);
+}
+
+/* Toggle Icons: Sun shows in Dark Mode, Moon shows in Light Mode */
+[data-theme="light"] .theme-toggle-btn .sun-icon {
+  display: none;
+}
+[data-theme="light"] .theme-toggle-btn .moon-icon {
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle-btn .sun-icon {
+  display: block;
+}
+[data-theme="dark"] .theme-toggle-btn .moon-icon {
+  display: none;
+}
+
+/* Layout Containers */
+.reading-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 6rem;
+}
+
+.wide-container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+/* Editorial Typography */
+.article-header {
+  margin-bottom: 2.75rem;
+}
+
+.category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-time);
+  background: rgba(2, 132, 199, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  margin-bottom: 1.25rem;
+}
+
+[data-theme="dark"] .category-tag {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.article-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.article-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.25rem;
+}
+
+/* Editorial Prose */
+.editorial-prose p,
+.editorial-prose ul,
+.editorial-prose ol,
+.editorial-prose li,
+.editorial-prose blockquote,
+.editorial-prose dl,
+.editorial-prose dt,
+.editorial-prose dd {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+.editorial-prose p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-prose);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.003em;
+}
+
+.editorial-prose ul,
+.editorial-prose ol {
+  margin: 0 0 1.5rem 0;
+  padding-left: 1.75rem;
+}
+
+.editorial-prose li {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--text-prose);
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.003em;
+}
+
+.editorial-prose li::marker {
+  color: var(--color-time);
+  font-weight: 600;
+}
+
+.editorial-prose ul ul,
+.editorial-prose ol ol,
+.editorial-prose ul ol,
+.editorial-prose ol ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.editorial-prose blockquote {
+  border-left: 3px solid var(--color-time);
+  background: var(--bg-card-subtle);
+  padding: 1.125rem 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0 0.625rem 0.625rem 0;
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.editorial-prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.editorial-prose strong {
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+.editorial-prose em {
+  color: var(--text-emphasis);
+}
+
+.editorial-prose h2 {
+  font-family: var(--font-sans);
+  font-size: 1.65rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  padding-top: 0.5rem;
+  line-height: 1.25;
+}
+
+.editorial-prose h3 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.editorial-prose h4 {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Insight Callout */
+.insight-callout {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--color-invariant);
+  border-radius: 0 0.875rem 0.875rem 0;
+  padding: 1.35rem 1.6rem;
+  margin: 2.25rem 0;
+  box-shadow: var(--shadow-card);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.insight-callout h4 {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.015em;
+}
+
+.insight-callout p {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  line-height: 1.72;
+  color: var(--text-prose);
+  margin-bottom: 0.85rem;
+}
+
+.insight-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Formula & Math Display Cards */
+.formula-card,
+.math-display-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--color-time);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  margin: 2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.math-display-card {
+  border-left-color: var(--color-invariant);
+  text-align: center;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.formula-card .formula-note,
+.math-display-card .formula-note {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Interactive Explorable Card Container (Unibody Design) */
+.interactive-artifact {
+  margin: 2.75rem 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-artifact);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
+}
+
+.interactive-artifact:hover {
+  border-color: var(--border-medium);
+}
+
+/* Desktop Breakout: Gives canvas diagrams generous breathing space */
+@media (min-width: 840px) {
+  .reading-container .editorial-prose .interactive-artifact {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 820px;
+  }
+}
+
+.artifact-header {
+  padding: 1.125rem 1.5rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.artifact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-time);
+  background: rgba(2, 132, 199, 0.08);
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+[data-theme="dark"] .artifact-badge {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.artifact-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+}
+
+.artifact-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  line-height: 1.45;
+}
+
+/* Canvas Viewport */
+.canvas-viewport {
+  position: relative;
+  background: var(--bg-canvas);
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.25s ease;
+}
+
+.canvas-viewport canvas {
+  width: 100%;
+  max-width: 100%;
+  height: 380px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+/* Clocks Display (Precision Telemetry Layout) */
+.twin-clocks-panel {
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+}
+
+.clock-card {
+  padding: 0.875rem 1.125rem;
+  border-radius: 0.625rem;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+}
+
+.clock-card.cyan {
+  border-color: var(--border-subtle);
+  border-left: 3px solid var(--color-time);
+}
+
+.clock-card.amber {
+  border-color: var(--border-subtle);
+  border-left: 3px solid var(--color-space);
+}
+
+.clock-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.clock-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.clock-card.cyan .clock-label { color: var(--color-time); }
+.clock-card.amber .clock-label { color: var(--color-space); }
+
+.clock-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.12rem 0.45rem;
+  border-radius: 0.25rem;
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+}
+
+.clock-time {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.clock-time span {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.clock-subtext {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Artifact Controls Panel */
+.artifact-controls {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.control-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.control-val {
+  font-family: var(--font-mono);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.control-val.cyan { color: var(--color-time); }
+.control-val.amber { color: var(--color-space); }
+
+/* Range Slider Styling */
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  background: var(--slider-track);
+  border-radius: 9999px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--color-time);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 0 0 4px var(--color-time-glow);
+}
+
+.range-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.08);
+}
+
+.range-slider.amber::-webkit-slider-thumb {
+  border-color: var(--color-space);
+}
+
+.range-slider.amber::-webkit-slider-thumb:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 0 0 4px var(--color-space-glow);
+}
+
+.range-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--color-time);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  cursor: grab;
+}
+
+.range-slider.amber::-moz-range-thumb {
+  border-color: var(--color-space);
+}
+
+/* Presets & Buttons (Segmented Aesthetics) */
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.375rem;
+  background: var(--chip-bg);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip-btn:hover {
+  background: var(--chip-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.chip-btn.active {
+  background: rgba(2, 132, 199, 0.1);
+  border-color: var(--color-time);
+  color: var(--color-time);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .chip-btn.active {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--color-time);
+  color: var(--color-time);
+}
+
+.toolbar-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  background: var(--color-time);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .btn-primary {
+  color: #070a12;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px var(--color-time-glow);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  background: var(--btn-secondary-bg);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--btn-secondary-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.btn-hero-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 9999px;
+  background: var(--text-primary);
+  color: var(--bg-card);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-hero-read:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.math-badge {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 550;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.375rem;
+  background: var(--math-badge-bg);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  vertical-align: baseline;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.math-badge strong {
+  color: var(--color-time);
+}
+
+/* Subtle styling for inline math inside editorial prose (paragraphs, lists, callouts, quotes) */
+.editorial-prose .math-badge,
+.insight-callout .math-badge {
+  font-size: 0.85em;
+  padding: 0.12rem 0.42rem;
+  margin: 0 0.15rem;
+  border-radius: 0.28rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  vertical-align: baseline;
+  line-height: normal;
+  display: inline-block;
+}
+
+/* Series Hub Cards */
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.series-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-card);
+}
+
+.series-card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-artifact);
+}
+
+.series-card.coming-soon {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.series-card.coming-soon:hover {
+  border-color: var(--border-subtle);
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+.card-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-time);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 550;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: default;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.series-card:hover .card-tag {
+  border-color: var(--border-medium);
+  color: var(--text-secondary);
+}
+
+.card-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Series Pager Navigation */
+.series-pager {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.series-pager a {
+  text-decoration: none;
+}
+
+.series-pager .btn-primary,
+.series-pager .btn-secondary {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+/* Article Author Bio */
+.article-author {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+}
+
+.article-author .brand-badge {
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.article-author h4 {
+  font-family: var(--font-sans);
+  margin: 0 0 0.35rem 0;
+  font-size: 1.05rem;
+  font-weight: 750;
+  color: var(--text-primary);
+}
+
+.article-author p {
+  font-family: var(--font-sans);
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-footer);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: background 0.25s ease;
+}
+
+.site-footer a {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--color-time);
+}
+
+/* ==========================================================================
+   Hero & Hub Layout Classes
+   ========================================================================== */
+.hero-header {
+  padding: 4.5rem 1.5rem 2.5rem;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-widget-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.series-section-divider {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 3rem;
+}
+
+.series-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.series-section-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+}
+
+.series-section-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.philosophy-section {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.philosophy-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.philosophy-card h3 {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+.philosophy-card p {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.15rem;
+}
+
+.philosophy-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints & Mobile Optimization
+   ========================================================================== */
+
+/* Tablets and below (<= 768px) */
+@media (max-width: 768px) {
+  .canvas-viewport canvas {
+    height: 300px;
+  }
+  .article-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* Mobile Devices (<= 640px) */
+@media (max-width: 640px) {
+  /* Navigation Bar */
+  .site-nav-inner {
+    height: 3.25rem;
+    padding: 0 1rem;
+  }
+  .brand-badge {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.85rem;
+    border-radius: 0.375rem;
+  }
+  .brand-link {
+    gap: 0.5rem;
+  }
+  .brand-title {
+    font-size: 0.82rem;
+    max-width: 155px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-tag {
+    display: none;
+  }
+  .nav-links {
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+  .nav-link-secondary {
+    display: none;
+  }
+  .theme-toggle-btn {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Page Layout Containers */
+  .reading-container {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+  .wide-container {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Hero & Hub Typography */
+  .hero-header {
+    padding: 2.25rem 1rem 1.5rem;
+  }
+  .hero-title {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  .series-section-divider {
+    padding-top: 1.75rem;
+  }
+  .series-section-title {
+    font-size: 1.35rem;
+  }
+  .series-section-desc {
+    font-size: 0.82rem;
+  }
+  .series-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .series-card {
+    padding: 1.25rem;
+  }
+  .philosophy-section {
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .philosophy-card {
+    padding: 1.25rem;
+    border-radius: 0.875rem;
+  }
+
+  /* Editorial Content & Headings */
+  .article-header {
+    margin-bottom: 1.5rem;
+  }
+  .category-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+  .article-title {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .article-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .article-meta {
+    padding-top: 0.875rem;
+    font-size: 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .editorial-prose p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 1.125rem;
+  }
+  .editorial-prose ul,
+  .editorial-prose ol {
+    padding-left: 1.35rem;
+    margin-bottom: 1.125rem;
+  }
+  .editorial-prose li {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  .editorial-prose h2 {
+    font-size: 1.35rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    padding-top: 0;
+  }
+  .editorial-prose h3 {
+    font-size: 1.15rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .editorial-prose h4 {
+    font-size: 1.02rem;
+    margin-top: 1.15rem;
+    margin-bottom: 0.4rem;
+  }
+  .editorial-prose blockquote {
+    padding: 0.75rem 1rem;
+    margin: 1.25rem 0;
+    font-size: 1.02rem;
+  }
+  .insight-callout {
+    padding: 1rem 1.15rem;
+    margin: 1.5rem 0;
+    border-radius: 0 0.625rem 0.625rem 0;
+  }
+  .insight-callout h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .insight-callout p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.65rem;
+  }
+  .formula-card,
+  .math-display-card {
+    padding: 0.75rem 1rem;
+    margin: 1.125rem 0;
+    font-size: 0.88rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+  .formula-card .formula-note,
+  .math-display-card .formula-note {
+    font-size: 0.78rem;
+    margin-top: 0.3rem;
+  }
+  .series-pager {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+  .series-pager a {
+    text-align: center;
+    justify-content: center;
+  }
+  .article-author {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+    padding: 1.125rem;
+    margin-top: 2rem;
+  }
+
+  /* Interactive Artifact Card */
+  .interactive-artifact {
+    margin: 1.25rem 0;
+    border-radius: 0.875rem;
+  }
+  .artifact-header {
+    padding: 0.75rem 1rem;
+    gap: 0.4rem;
+  }
+  .artifact-badge {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.5rem;
+  }
+  .artifact-title {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  .artifact-desc {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-top: 0.1rem;
+  }
+
+  /* Canvas Viewport */
+  .canvas-viewport {
+    padding: 0.5rem;
+  }
+  .canvas-viewport canvas {
+    height: 240px;
+    border-radius: 0.5rem;
+  }
+
+  /* Twin Clocks: Side-by-side comparison preserved on mobile */
+  .twin-clocks-panel {
+    padding: 0.625rem 0.75rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .clock-card {
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.5rem;
+  }
+  .clock-meta {
+    margin-bottom: 0.2rem;
+    gap: 0.25rem;
+  }
+  .clock-label {
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+  .clock-badge {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+  }
+  .clock-time {
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  .clock-time span {
+    font-size: 0.65rem;
+  }
+  .clock-subtext {
+    font-size: 0.65rem;
+    margin-top: 0.15rem;
+    line-height: 1.25;
+  }
+
+  /* Controls Panel */
+  .artifact-controls {
+    padding: 0.75rem 0.875rem;
+    gap: 0.625rem;
+  }
+  .control-item {
+    gap: 0.35rem;
+  }
+  .control-header {
+    font-size: 0.75rem;
+  }
+  .control-val {
+    font-size: 0.75rem;
+  }
+  .range-slider {
+    height: 4px;
+  }
+  .range-slider::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+  }
+  .preset-chips {
+    gap: 0.35rem;
+  }
+  .chip-btn {
+    font-size: 0.66rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.3rem;
+  }
+  .toolbar-bottom {
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .btn-primary, .btn-secondary, .btn-hero-read {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  .toolbar-bottom .math-badge {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.65rem;
+    width: 100%;
+    text-align: center;
+    border-radius: 0.375rem;
+  }
+  .editorial-prose .math-badge {
+    width: auto;
+    display: inline-block;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 2rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra-small screens (<= 380px) */
+@media (max-width: 380px) {
+  .brand-title {
+    max-width: 125px;
+    font-size: 0.78rem;
+  }
+  .nav-links {
+    gap: 0.5rem;
+  }
+  .canvas-viewport canvas {
+    height: 220px;
+  }
+  .clock-time {
+    font-size: 1.15rem;
+  }
+  .clock-label {
+    font-size: 0.58rem;
+  }
+  .reading-container, .wide-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   Wide Reading Container & Desktop Layout System
+   Balanced Editorial Grid + Split-Screen Sim Panels (Option A)
+   ========================================================================== */
+.wide-reading-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 6rem;
+}
+
+.wide-reading-container .article-header {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+}
+
+.wide-reading-container .editorial-prose > p {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.18rem;
+  line-height: 1.84;
+  letter-spacing: -0.002em;
+  margin-bottom: 1.6rem;
+}
+
+.wide-reading-container .editorial-prose > ul,
+.wide-reading-container .editorial-prose > ol {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.16rem;
+  line-height: 1.8;
+  margin-bottom: 1.6rem;
+  padding-left: 1.85rem;
+}
+
+.wide-reading-container .editorial-prose > li {
+  margin-bottom: 0.75rem;
+}
+
+.wide-reading-container .editorial-prose > h2 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.75rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.wide-reading-container .editorial-prose > h3 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.wide-reading-container .editorial-prose > h4 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.wide-reading-container .editorial-prose > blockquote {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wide-reading-container .editorial-prose > .formula-card,
+.wide-reading-container .editorial-prose > .math-display-card {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.wide-reading-container .editorial-prose > .insight-callout {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.wide-reading-container .editorial-prose > .article-author,
+.wide-reading-container .editorial-prose > .series-pager {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wide-reading-container .interactive-artifact {
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.75rem;
+  margin-bottom: 3.25rem;
+}
+
+/* --- Comparison Grid (Simulation 01 Dual View) --- */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-canvas-outer);
+}
+
+@media (max-width: 880px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+}
+
+.canvas-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.canvas-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 0.2rem 0.5rem;
+}
+
+.canvas-col-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.canvas-col canvas {
+  width: 100%;
+  height: 380px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .canvas-col canvas {
+    height: 250px;
+  }
+  .wide-reading-container {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+}
+
+/* --- Split-Screen Desktop Layout (Simulations 02 & 03) --- */
+.artifact-split {
+  display: grid;
+  grid-template-columns: 1.32fr 1fr;
+  background: var(--bg-canvas-outer);
+}
+
+@media (max-width: 900px) {
+  .artifact-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.split-canvas-col {
+  position: relative;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-canvas);
+  min-width: 0;
+}
+
+.split-canvas-col canvas {
+  width: 100%;
+  height: 420px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .split-canvas-col canvas {
+    height: 340px;
+  }
+}
+
+@media (max-width: 640px) {
+  .split-canvas-col canvas {
+    height: 260px;
+  }
+  .split-canvas-col {
+    padding: 0.625rem;
+  }
+}
+
+.split-controls-col {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.125rem;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .split-controls-col {
+    border-left: none;
+    border-top: 1px solid var(--border-subtle);
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* Telemetry display rows */
+.telemetry-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-card-subtle);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.telemetry-item {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.telemetry-item .label {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.telemetry-item .value {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+
+
+</style>
+  <meta name="description" content="A visual, curiosity-driven exploration of why there is no universal 'Now', how relative motion tilts our slice of spacetime, and why moving rulers naturally shorten.">
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('universe_theme'); } catch (e) {}
+      var theme = saved ? saved : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <div class="reading-progress-bar" id="reading-progress"></div>
+
+  <!-- Top Navigation -->
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="../index.html" class="brand-link">
+        <div class="brand-badge">c</div>
+        <div>
+          <span class="brand-title">HOW DOES THE UNIVERSE WORK?</span>
+          <span class="brand-tag">SERIES</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">← All Essays</a>
+        <a href="01-why-motion-through-space-affects-time-standalone.html" class="nav-link-secondary">Part 1</a>
+        <a href="02-the-cosmic-light-cone-standalone.html" class="nav-link-secondary">Part 2</a>
+        <a href="#interactive-loaf" class="active nav-link-secondary">Part 3: The Loaf & Length</a>
+        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener" class="nav-link-secondary">GitHub</a>
+        <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="12" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Article Body -->
+  <main class="wide-reading-container">
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="category-tag">Part 03 · Special Relativity</div>
+      <h1 class="article-title">The Spacetime Loaf & Length Contraction</h1>
+      <p class="article-subtitle">
+        Why there is no universal "Now". How relative motion tilts an observer’s slice through spacetime, and why moving rulers must physically shorten.
+      </p>
+      <div class="article-meta">
+        <span>By Aayush Agarwal</span>
+        <span>•</span>
+        <span>Interactive Explorable</span>
+        <span>•</span>
+        <span>12 min read</span>
+      </div>
+    </header>
+
+    <!-- Editorial Prose -->
+    <article class="editorial-prose">
+      <p>
+        In <a href="01-why-motion-through-space-affects-time-standalone.html" style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 1</a>, we uncovered a simple geometric truth: every object in existence is moving through the combined fabric of spacetime at a single constant speed, bounded by <em>c</em>. When you sit completely still in your chair, 100% of that speed carries you forward through time. The moment you begin moving across space, part of that total speed is diverted, and your internal clock inevitably ticks more slowly.
+      </p>
+      <p>
+        This discovery naturally leaves a profound question hanging in the air:
+      </p>
+      <p>
+        <em>If two people in relative motion have clocks that tick at different rates, what does it mean to say that two events are happening at the "same time"? Whose clock defines what is happening right now across the cosmos?</em>
+      </p>
+      <p>
+        Most of us instinctively carry an intuitive picture of the universe as a universal stage: we imagine that there is a cosmic clock ticking for everyone everywhere, and that this very moment—the present instant—is shared by all beings from Earth to the edge of the Andromeda galaxy.
+      </p>
+      <p>
+        In this essay, we will set that comforting intuition aside. By visualizing spacetime as an extended three-dimensional volume—a concept physicists call the <strong>Spacetime Loaf</strong>—we will discover that there is no universal "Now". Motion through space does not merely slow down your clock; it <strong>tilts the angle at which you slice reality</strong>.
+      </p>
+      <p>
+        And from this single geometric tilt, another famous mystery of Einstein’s relativity emerges as an undeniable necessity: <strong>Length Contraction</strong>.
+      </p>
+
+      <!-- SECTION 1 -->
+      <h2>1. The Bridge: From the Speed Circle to the Spacetime Map</h2>
+      <p>
+        In Part 1, we introduced the <strong>Cosmic Speed Circle</strong>: an abstract graph of <em>speeds</em> (<span class="math-badge">v_space</span> vs. <span class="math-badge">v_time</span>). In that speed graph, an observer sitting still pointed straight up along the time axis (<span class="math-badge">θ = 0°</span>), while a photon diverted 100% of its velocity into space, pointing purely horizontally (<span class="math-badge">θ = 90°</span>).
+      </p>
+      <p>
+        Now, in Part 2, we ask a fundamentally different question:
+      </p>
+      <p>
+        <em>If you map out an entity's actual physical path—its complete history of locations across space and time—what shape does it carve out in the universe?</em>
+      </p>
+      <p>
+        To answer this, we transition from a graph of <em>velocities</em> to a map of <em>coordinates</em>: a 2D spatial floor (<span class="math-badge">x₁</span> and <span class="math-badge">x₂</span>) combined with a vertical <strong>Time axis (<span class="math-badge">ct</span>)</strong>.
+      </p>
+      <p>
+        Notice immediately why a photon cannot trace a horizontal line in this coordinate map. A horizontal line at <span class="math-badge">ct = 0</span> would mean being at multiple places in space at the exact same instant—which would require <strong>infinite speed</strong>! Light does not possess infinite speed; in our universe, light travels at roughly <span class="math-badge">300,000 km/s</span>. In one second, light travels exactly one light-second of distance (<span class="math-badge">x = ct</span>).
+      </p>
+      <p>
+        Imagine a flash of light emitted at the origin <span class="math-badge">(0, 0)</span> at time <span class="math-badge">t = 0</span>. As time unfolds, the light ripples outward across the 2D floor as an expanding circle of radius <span class="math-badge">r = ct</span>. Stacking these expanding circular wavefronts one above another carves out a majestic, three-dimensional cone tilted at exactly <strong>45°</strong>: the <strong>Cosmic Light Cone</strong>.
+      </p>
+      <div class="formula-card">
+        <div><strong>The Light Cone Equation:</strong> x₁² + x₂² = (ct)²  (Slope: Δx / cΔt = 1  →  45°)</div>
+        <div class="formula-note">Inside the cone lies your causal Future (v &lt; c). Outside lies the "Elsewhere"—regions of space permanently unreachable without exceeding the speed of light.</div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <h2>2. Alice at Rest: The Vertical Worldtube & The Slice of "Now"</h2>
+      <p>
+        Let us place an entity in this world: a 2D observer named <strong>Alice</strong>.
+      </p>
+      <p>
+        Alice lives on the flat 2D ground plane. She holds her arms out, spanning a standard physical width of <span class="math-badge">L₀ = 10 meters</span>. 
+      </p>
+      <p>
+        Suppose Alice decides to stand completely still at coordinates <span class="math-badge">(x₁ = 0, x₂ = 0)</span>. What does Alice look like in the spacetime loaf?
+      </p>
+      <p>
+        Because Alice is stationary in space, her spatial coordinates never change. As time advances from the past toward the future, her successive snapshots stack perfectly on top of each other. Stacking these infinite snapshots creates an unbroken vertical column stretching straight upward through the loaf: her <strong>worldtube</strong> (or worldline).
+      </p>
+      <p>
+        Now consider Alice’s experience of reality at any chosen instant <span class="math-badge">t</span>:
+      </p>
+      <p>
+        • Her <strong>Present ("Now")</strong>: Alice experiences the universe as a single flat, horizontal plane cutting through the loaf at her current time <span class="math-badge">ct</span>. Everything lying on this flat planar slice is happening <em>right now</em> in Alice’s frame of reference.<br>
+        • Her <strong>Expanding Light Wavefront</strong>: The intersection of Alice's horizontal slice with the Light Cone forms an expanding circular ripple of radius <span class="math-badge">r = ct</span>.<br>
+        • Her <strong>Past & Future</strong>: Everything inside the cone <em>below</em> her slice is her past history; everything inside the cone <em>above</em> is her reachable future. Everything outside the cone is the unreachable "Elsewhere".
+      </p>
+
+      <!-- INTERACTIVE WIDGET 1: ALICE AT REST -->
+      <div id="widget-loaf-alice" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 01</span>
+            <div class="artifact-title">The Spacetime Loaf & Cosmic Light Cone: Alice at Rest</div>
+            <div class="artifact-desc">Orbit the 3D volume, scrub time, and watch the circular light wavefront expand outward on Alice's horizontal slice of Now.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Alice's Slice of "Now"</span>
+              <span class="clock-badge">Horizontal (t = const)</span>
+            </div>
+            <div class="clock-time readout-alice-time">3.00 <span>s</span></div>
+            <p class="clock-subtext">100% of motion directed into time (ct). Spatial speed: v = 0.</p>
+          </div>
+          <div class="clock-card" style="border-left: 3px solid #facc15;">
+            <div class="clock-meta">
+              <span class="clock-label">Cosmic Light Cone</span>
+              <span class="clock-badge" style="background:rgba(250,204,21,0.15); color:#d97706;">45° Boundary</span>
+            </div>
+            <div class="clock-time" style="color:#d97706;"><span style="font-size:1.4rem;">45.0°</span> <span>cone</span></div>
+            <p class="clock-subtext">The universal speed limit of causality: light travels at x = ct.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Scrub Elapsed Time (Slide the Slice of "Now")</span>
+              <span class="control-val cyan val-time">t = 3.00 s</span>
+            </div>
+            <input type="range" class="range-slider slider-time" min="0" max="600" value="300">
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Camera Orbit Rotation (or Drag Canvas Directly)</span>
+              <span class="control-val" style="color:var(--text-muted);">3D View</span>
+            </div>
+            <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-35">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge">
+              Inside Cone: <strong>v &lt; c (Causal Future)</strong> | Surface: <strong>v = c (Light)</strong> | Outside: <strong>Elsewhere</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <div><strong>Alice's Plane of Simultaneity:</strong> ct = constant</div>
+        <div class="formula-note">For anyone sitting at rest, every point on their horizontal plane occurs at the exact same instant of time.</div>
+      </div>
+
+      <!-- SECTION 3 -->
+      <h2>3. Enter Bob: Motion Slants the Worldtube</h2>
+      <p>
+        Now, just as we did with the second car in Part 1, let us introduce a second 2D entity: <strong>Bob</strong>.
+      </p>
+      <p>
+        Bob is identical to Alice: he holds an identical measuring rod of rest length <span class="math-badge">L₀ = 10 meters</span>. But Bob is not sitting still. At time <span class="math-badge">t = 0</span>, Bob glides past Alice, skating across the floor in the <span class="math-badge">x₁</span> direction with constant velocity <span class="math-badge">v</span>.
+      </p>
+      <p>
+        What does Bob’s sequence of snapshots look like in the 3D loaf?
+      </p>
+      <p>
+        • At <span class="math-badge">t = 0</span>, Bob is at <span class="math-badge">x₁ = 0</span>.<br>
+        • At <span class="math-badge">t = 1</span>, Bob has shifted along the floor to <span class="math-badge">x₁ = v × 1</span>.<br>
+        • At <span class="math-badge">t = 2</span>, Bob has shifted further to <span class="math-badge">x₁ = v × 2</span>.
+      </p>
+      <p>
+        Because Bob’s spatial position changes with every passing second, his stacked snapshots do not rise straight up. Instead, they climb upward at a diagonal, forming a <strong>tilted worldtube</strong>.
+      </p>
+      <p>
+        Notice how naturally this connects directly to the <strong>Orange Car from Part 1</strong>: Bob’s speed allocation is governed by the angle <span class="math-badge">θ</span> on the Cosmic Speed Circle. Because his total speed through spacetime is constant (<span class="math-badge">c</span>), his velocity components follow the exact same trigonometric rules:
+      </p>
+      <p>
+        • <strong>Speed across Space:</strong> <span class="math-badge">v = c × sin(θ)</span><br>
+        • <strong>Speed through Time:</strong> <span class="math-badge">v_time = c × cos(θ)</span>
+      </p>
+      <p>
+        When Bob dials his angle to <span class="math-badge">θ = 60°</span>, his spatial speed is <span class="math-badge">v = c × sin(60°) = 0.866c</span>, and his speed through time is cut in half to <span class="math-badge">v_time = c × cos(60°) = 0.500c</span>!
+      </p>
+      <p>
+        <strong>A Subtle but Crucial Distinction: Heading Angle vs. Loaf Tilt</strong><br>
+        In Part 1's speed-tradeoff diagram, a particle at <span class="math-badge">θ = 90°</span> pointed purely horizontally because 100% of its velocity was directed into space and 0% into time. Why doesn't Bob’s worldline in the 3D Loaf lie flat on the floor at <span class="math-badge">90°</span>?<br>
+        Because the 3D Loaf is <em>Alice’s coordinate map</em> of space and time. A horizontal line in Alice’s map would mean being in multiple places at the exact same Alice second (<span class="math-badge">Δt = 0</span>)—which would require <em>infinite speed</em>! Light does not travel at infinite speed; in Alice’s room, it takes 1 second to cross 1 light-second (<span class="math-badge">x = ct</span>). Therefore, the coordinate tilt in the loaf is <span class="math-badge">arctan(v/c)</span>, which reaches a maximum of <strong>45° (the Light Cone)</strong> at <span class="math-badge">v = c</span>. The <span class="math-badge">θ = 90°</span> speed-tradeoff is reflected in Bob's <strong>proper time</strong>: his onboard clock is frozen at <span class="math-badge">τ = 0.00 s</span> along that entire 45° path!
+      </p>
+      <div class="formula-card">
+        <div><strong>Speed Allocation vs. Loaf Tilt:</strong> v = c × sin(θ)  |  Loaf Tilt = arctan(v / c)</div>
+        <div class="formula-note">θ is the angle on the Cosmic Speed Circle. The physical slope in Alice's spacetime loaf is v/c, topping out at 45° for light.</div>
+      </div>
+
+      <!-- INTERACTIVE WIDGET 2: BOB IN MOTION -->
+      <div id="widget-loaf-bob" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 02</span>
+            <div class="artifact-title">Two Observers: Alice at Rest vs Bob in Motion</div>
+            <div class="artifact-desc">Orbit the 3D volume, adjust Bob's heading angle θ, and watch his sequence of snapshots tilt across the spacetime loaf.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Alice's Wristwatch (At Rest)</span>
+              <span class="clock-badge">θ = 0° (1.00x Rate)</span>
+            </div>
+            <div class="clock-time readout-alice-clock">3.50 <span>s</span></div>
+            <p class="clock-subtext">100% of motion in time. v_time = 1.00 c.</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Bob's Onboard Clock (Moving)</span>
+              <span class="clock-badge readout-bob-speed">θ = 60° (0.50x Rate)</span>
+            </div>
+            <div class="clock-time readout-bob-clock" style="color:var(--color-space);">1.75 <span>s</span></div>
+            <p class="clock-subtext readout-bob-disp">Ticks at cos(60°) = 50.0% rate.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Bob's Spacetime Heading Angle (θ from Time Axis)</span>
+              <span class="control-val amber readout-speed-val">θ = 60° (v = 0.866 c)</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="90" value="60">
+            <div class="preset-chips">
+              <button class="chip-btn chip-speed" data-val="0">θ = 0° (At Rest: v = 0)</button>
+              <button class="chip-btn chip-speed" data-val="30">θ = 30° (v = 0.500c | v_time = 0.866c)</button>
+              <button class="chip-btn chip-speed active" data-val="60">θ = 60° (v = 0.866c | v_time = 0.500c)</button>
+              <button class="chip-btn chip-speed" data-val="90">θ = 90° (v = 1.000c | v_time = 0)</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Elapsed Time (ct)</span>
+              <span class="control-val cyan val-time">t = 3.50 s</span>
+            </div>
+            <input type="range" class="range-slider slider-time" min="0" max="600" value="350">
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Camera Orbit Rotation (or Drag Canvas Directly)</span>
+              <span class="control-val" style="color:var(--text-muted);">3D View</span>
+            </div>
+            <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-35">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge readout-components">
+              East (x₁): <strong>0.00 ls</strong> | North (x₂): <strong>0.00 ls</strong> | Time (ct): <strong>3.50 s</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4 -->
+      <h2 id="interactive-loaf">4. The Crucial Question: How Does Bob Slice His "Now"?</h2>
+      <p>
+        Now we arrive at the pivotal turning point of relativity.
+      </p>
+      <p>
+        We know that Alice slices the loaf horizontally: to her, all events at the same vertical height <span class="math-badge">t</span> are happening at the same time.
+      </p>
+      <p>
+        Does Bob slice the loaf at the exact same horizontal angle?
+      </p>
+      <p>
+        Consider Bob’s point of view. From inside Bob’s frame of reference, Bob does not feel moving. When you sit aboard a smoothly gliding high-speed train or airplane, your coffee doesn't spill, and a ball dropped from your hand falls straight down. According to the <strong>Principle of Relativity</strong>, all constant-velocity motion is completely smooth and indistinguishable from being at rest.
+      </p>
+      <p>
+        Because Bob considers himself at rest, his tilted worldtube serves as his <strong>personal time axis</strong>.
+      </p>
+      <p>
+        And here is the astonishing rule revealed by Einstein and Minkowski: <strong>in spacetime geometry, an observer's spatial slice of "Now" is always perpendicular to their time axis!</strong>
+      </p>
+      <p>
+        Because Bob’s time axis is tilted by his velocity, his plane of simultaneity—his slice of "Now"—<strong>must tilt as well!</strong>
+      </p>
+
+      <!-- INTERACTIVE WIDGET 3: SIMULTANEITY SLICE -->
+      <div id="widget-simultaneity-slice" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 03</span>
+            <div class="artifact-title">The Angle of "Now": Slicing the Loaf Obliquely</div>
+            <div class="artifact-desc">Tilt Bob's slice of simultaneity by adjusting velocity. Notice how Bob's "Now" cuts into Alice's future ahead and past behind.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Alice's Slice (Cyan)</span>
+              <span class="clock-badge">Horizontal (Δt = 0)</span>
+            </div>
+            <div class="clock-time">t = 2.50 <span>s</span></div>
+            <p class="clock-subtext">Events at Left & Right beacons happen at the exact same time.</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Bob's Slice (Amber)</span>
+              <span class="clock-badge readout-tilt-badge">Tilted by θ = 31°</span>
+            </div>
+            <div class="clock-time readout-desync-val" style="color:var(--color-space);">Δt = 1.80 <span>s</span></div>
+            <p class="clock-subtext readout-desync-text">Front beacon is in Alice's future; rear beacon is in Alice's past!</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Bob's Velocity (v)</span>
+              <span class="control-val amber readout-speed-sim">v = 0.600 c</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="866" value="600">
+            <div class="preset-chips">
+              <button class="chip-btn chip-speed-sim" data-val="0">v = 0 (Horizontal)</button>
+              <button class="chip-btn chip-speed-sim" data-val="300">v = 0.300 c</button>
+              <button class="chip-btn chip-speed-sim active" data-val="600">v = 0.600 c</button>
+              <button class="chip-btn chip-speed-sim" data-val="800">v = 0.800 c</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Slice Display Mode</span>
+            </div>
+            <div class="preset-chips">
+              <button class="chip-btn chip-slice-mode active" data-mode="both">Show Both Slices</button>
+              <button class="chip-btn chip-slice-mode" data-mode="alice">Alice Only (Horizontal)</button>
+              <button class="chip-btn chip-slice-mode" data-mode="bob">Bob Only (Tilted)</button>
+            </div>
+          </div>
+          <div class="toolbar-bottom">
+            <div class="math-badge readout-simultaneity-summary">
+              Clock Desynchronization: <strong>Δt = (v / c²) × Δx</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Look closely at the intersection of the two slices in the simulation above:
+      </p>
+      <p>
+        1. Right where Alice and Bob pass each other at <span class="math-badge">x₁ = 0</span>, their slices intersect. They agree that they are meeting <em>right now</em>.<br>
+        2. But look far ahead along Bob's direction of travel (<span class="math-badge">+x₁</span>): Bob’s amber slice slopes <strong>upward into Alice’s future</strong>! An event that Alice considers years away has already occurred in Bob’s present.<br>
+        3. Look far behind Bob (<span class="math-badge">-x₁</span>): Bob’s slice dips <strong>downward into Alice’s past</strong>! An event that Alice remembers as ancient history is still in the present for Bob.
+      </p>
+      <p>
+        This phenomenon is known as the <strong>Relativity of Simultaneity</strong>. There is no cosmic master clock. What is "Now" depends entirely on your velocity through spacetime.
+      </p>
+
+      <!-- SECTION 5 -->
+      <h2>5. What Is "Length"?</h2>
+      <p>
+        With the concept of the tilted slice in hand, we are now ready to tackle one of the most famous and perplexing predictions in all of physics: <strong>Length Contraction</strong>.
+      </p>
+      <p>
+        Before we can understand why moving objects shorten, we must ask a fundamental question that seems so obvious it is rarely asked:
+      </p>
+      <p>
+        <strong>What does it actually mean to measure the "length" of something?</strong>
+      </p>
+      <p>
+        If you want to measure the length of a table in your dining room, you place a tape measure at the left edge and check the reading at the right edge. Because the table is stationary relative to you, it doesn't matter whether you read the left edge at 12:00 PM and the right edge at 12:05 PM—the table isn't going anywhere.
+      </p>
+      <p>
+        Now, imagine trying to measure the length of a fast-moving bullet train zooming through a railway station.
+      </p>
+      <p>
+        Suppose an observer on the platform notes where the front bumper of the train is at <strong>12:00:00 PM</strong>, but doesn't check where the rear bumper is until <strong>12:00:02 PM</strong>. In those two seconds, the train has sped forward by 100 meters! Measuring the distance between those two recorded points would give a wildly incorrect measurement.
+      </p>
+      <p>
+        To get the true length of any moving object, you must answer one strict requirement: <strong>you must locate where the front and the back are at the exact same instant of time!</strong>
+      </p>
+      <div class="formula-card">
+        <div><strong>The Universal Definition of Physical Length:</strong></div>
+        <div class="formula-note">Length is the spatial distance between the two ends of an object measured <em>simultaneously along the observer's own slice of "Now"</em>.</div>
+      </div>
+
+      <!-- SECTION 6 -->
+      <h2>6. The Oblique Slice: Length Contraction Revealed</h2>
+      <p>
+        Let us connect the universal definition of length to our spacetime loaf.
+      </p>
+      <p>
+        In spacetime, Bob’s measuring rod (or Bob’s extended stick figure body) is not a single point. It is an extended object of rest length <span class="math-badge">L₀ = 10 meters</span>. As Bob glides forward through time, this 10-meter width sweeps out a continuous <strong>tilted ribbon (worldsheet)</strong> through the 3D volume.
+      </p>
+      <p>
+        Now, Alice wants to measure how long Bob’s rod is.
+      </p>
+      <p>
+        How does Alice measure it? According to the rule we just established, Alice must measure where the front and rear of Bob’s rod are <strong>at the exact same instant in Alice's time</strong>. That means Alice must take a cross-section of Bob’s tilted ribbon using <strong>her horizontal slice of Now</strong>!
+      </p>
+      <p>
+        Observe what happens in the simulation below:
+      </p>
+
+      <!-- INTERACTIVE WIDGET 4: LENGTH CONTRACTION -->
+      <div id="widget-length-contraction" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 04</span>
+            <div class="artifact-title">The Oblique Slice: Why Moving Objects Shorten</div>
+            <div class="artifact-desc">Left: 3D loaf showing Alice's horizontal slice cutting Bob's tilted ribbon. Right: Alice's live retinal view measuring Bob with a ruler.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Rest Length (In Bob's Own Frame)</span>
+              <span class="clock-badge">L₀</span>
+            </div>
+            <div class="clock-time">10.0 <span>m</span></div>
+            <p class="clock-subtext">Measured by Bob along his tilted slice of simultaneity.</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Apparent Length (Measured by Alice)</span>
+              <span class="clock-badge readout-gamma-badge">γ = 2.00</span>
+            </div>
+            <div class="clock-time readout-contracted-length" style="color:var(--color-space);">5.0 <span>m</span></div>
+            <p class="clock-subtext readout-contracted-percent">Narrowed to 50.0% along direction of motion.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Bob's Velocity (v)</span>
+              <span class="control-val amber readout-speed-contract">v = 0.866 c</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="980" value="866">
+            <div class="preset-chips">
+              <button class="chip-btn chip-preset-contract" data-val="0">v = 0 (100% Length: 10.0m)</button>
+              <button class="chip-btn chip-preset-contract" data-val="500">v = 0.500 c (86.6%: 8.66m)</button>
+              <button class="chip-btn chip-preset-contract active" data-val="866">v = 0.866 c (50%: 5.0m)</button>
+              <button class="chip-btn chip-preset-contract" data-val="980">v = 0.980 c (20%: 2.0m)</button>
+            </div>
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge readout-contraction-formula">
+              Formula: <strong>L = L₀ × √(1 - v² / c²) = L₀ / γ</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Notice two critical geometric insights:
+      </p>
+      <p>
+        • <strong>Notice the ratio:</strong> At <span class="math-badge">v = 0.866c</span>, Alice measures Bob’s 10-meter rod to be exactly <span class="math-badge">5.0 meters</span>—cut down by exactly 50%! Does that number look familiar? It is the exact same <span class="math-badge">cos(60°) = 0.50</span> factor that cut the orange car’s northward progress in half in Part 1, and that halved the ticking rate of the rocket clock! Time dilation and length contraction are governed by the exact same geometric factor:
+      </p>
+      <div class="formula-card">
+        <div><strong>The Lorentz Factor:</strong> γ = 1 / √(1 - v² / c²)</div>
+        <div class="formula-note">When moving at speed v, time stretches by γ, and spatial length contracts by 1/γ.</div>
+      </div>
+      <p>
+        • <strong>Only the direction of motion contracts:</strong> Look at Bob’s stick figure on the right side of the simulation above. While Bob’s horizontal width (arms, shoulders, and measuring rod along <span class="math-badge">x₁</span>) flattens dramatically, his vertical height (along <span class="math-badge">x₂</span>) remains completely unchanged. Perpendicular directions do not trade off with time, so transverse dimensions never contract!
+      </p>
+
+      <!-- SECTION 7 -->
+      <h2>7. Mutual Symmetry: The Apparent Paradox Dispelled</h2>
+      <p>
+        At this point, a sharp-eyed reader might protest:
+      </p>
+      <p>
+        <em>"Wait! If Alice sees Bob's rod contracted to 5 meters, doesn't Bob see Alice's rod stretched out to 20 meters? If motion is truly relative, who is really shortened?"</em>
+      </p>
+      <p>
+        This is the famous symmetry paradox. And the resolution lies right inside the geometry of our slices:
+      </p>
+      <p>
+        From Bob’s point of view, <strong>Bob is sitting at rest, and Alice is the one traveling backward at speed -v!</strong>
+      </p>
+      <p>
+        When Bob measures Alice’s rod, Bob does not use Alice’s horizontal slice. Bob must measure Alice’s front and rear edges simultaneously in <strong>Bob's own frame—which means using Bob's tilted slice!</strong>
+      </p>
+      <p>
+        When Bob’s tilted slice intersects Alice’s vertical worldtube, it slices her obliquely, yielding a contracted cross-section of <span class="math-badge">5.0 meters</span>!
+      </p>
+      <p>
+        Both observers measure the other to be contracted, and <strong>both observers are 100% correct in their own frame of reference!</strong> Length contraction is not a physical crushing of molecules under mechanical force; it is a direct geometric consequence of how 3D spacetime tubes are sliced by different planes of simultaneity.
+      </p>
+
+      <!-- INTERACTIVE WIDGET 5: DUAL FRAME -->
+      <div id="widget-dual-frame" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 05</span>
+            <div class="artifact-title">Mutual Relativity: Slicing From Both Perspectives</div>
+            <div class="artifact-desc">Switch between Alice's reference frame and Bob's reference frame. Observe how each observer symmetrically measures the other as contracted.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Active Rest Frame</span>
+              <span class="clock-badge readout-frame-badge">Alice's Frame</span>
+            </div>
+            <div class="clock-time readout-frame-title">Alice at Rest</div>
+            <p class="clock-subtext readout-frame-sub">Alice's worldtube is vertical; her slice of Now is horizontal.</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Measured Rod of Other Observer</span>
+              <span class="clock-badge">Contracted</span>
+            </div>
+            <div class="clock-time readout-dual-measured" style="color:var(--color-space);">5.0 <span>m</span></div>
+            <p class="clock-subtext readout-dual-note">Bob's 10.0 m rod appears shortened to 5.0 m.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Select Reference Frame (Whose Perspective?)</span>
+            </div>
+            <div class="preset-chips">
+              <button class="chip-btn chip-frame-btn active" data-frame="alice">1. Alice's Rest Frame (Bob is Moving)</button>
+              <button class="chip-btn chip-frame-btn" data-frame="bob">2. Bob's Rest Frame (Alice is Moving)</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Relative Velocity (v)</span>
+              <span class="control-val amber readout-dual-speed">v = 0.866 c (γ = 2.00)</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="950" value="866">
+          </div>
+          <div class="toolbar-bottom">
+            <div class="math-badge">
+              The laws of physics are identical in all inertial frames: each observer measures the moving rod contracted by exactly 1/γ.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 8 -->
+      <h2>8. Unifying the Story: Atmospheric Muons from Both Sides</h2>
+      <p>
+        In Part 1, we introduced nature’s built-in proof of relativity: the <strong>atmospheric muon</strong>.
+      </p>
+      <p>
+        We showed that high-altitude muons created 10 kilometers above the Earth survive the trip to sea-level detectors because their high speed (<span class="math-badge">0.999c</span>, <span class="math-badge">γ ≈ 22.4</span>) slows down their internal clocks from 2.2 microseconds to nearly 50 microseconds.
+      </p>
+      <p>
+        Now ask yourself a thrilling question: <strong>What does the descent look like from the muon’s own point of view?</strong>
+      </p>
+      <p>
+        To a muon riding inside its own rest frame, its clock ticks at its completely standard rate: it decays in exactly 2.2 microseconds. The muon does <em>not</em> experience time dilation.
+      </p>
+      <p>
+        How on Earth does the muon manage to reach the ground in just 2.2 microseconds if light can only travel 660 meters in that time?
+      </p>
+      <p>
+        Because from the muon’s perspective, the muon is stationary—and the <strong>entire Earth and its 10-kilometer atmosphere are rushing toward it at 0.999c!</strong>
+      </p>
+      <p>
+        Because the atmosphere is moving at relativistic speed, it undergoes <strong>Length Contraction</strong>:
+      </p>
+      <div class="formula-card">
+        <div>L_contracted = L_Earth / γ = 10,000 meters / 22.4 ≈ 447 meters!</div>
+        <div class="formula-note">The entire 10-kilometer blanket of atmosphere is compressed into a thin sliver under half a kilometer deep!</div>
+      </div>
+      <p>
+        In 2.2 microseconds, traveling at nearly <em>c</em>, the muon can travel 660 meters—more than enough distance to easily pierce the 447-meter contracted atmosphere and strike the Earth's surface!
+      </p>
+
+      <!-- INTERACTIVE WIDGET 6: MUON CONTRACTION -->
+      <div id="widget-muon-contraction" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 06</span>
+            <div class="artifact-title">The Muon's Cockpit: Two Sides of the Same Coin</div>
+            <div class="artifact-desc">Toggle between Earth's View (Time Dilation) and Muon's View (Length Contraction) to see how physics guarantees the exact same survival outcome.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Effective Atmospheric Thickness</span>
+              <span class="clock-badge readout-muon-dist-badge">Earth View</span>
+            </div>
+            <div class="clock-time readout-muon-dist">10.0 <span>km</span></div>
+            <p class="clock-subtext readout-muon-dist-sub">Standard atmospheric depth measured from ground.</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Muon Internal Clock at Impact</span>
+              <span class="clock-badge">Lifespan = 2.2 µs</span>
+            </div>
+            <div class="clock-time readout-muon-clock-val" style="color:var(--color-space);">1.50 <span>µs</span></div>
+            <p class="clock-subtext readout-muon-clock-sub">Muon survives easily (reaches surface before 2.2 µs).</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Select Observer Perspective</span>
+            </div>
+            <div class="preset-chips">
+              <button class="chip-btn chip-muon-view active" data-view="earth">1. Earth Observer: Atmosphere = 10 km (Time Dilation ON)</button>
+              <button class="chip-btn chip-muon-view" data-view="muon">2. Muon Cockpit: Atmosphere = 447 m (Length Contraction ON)</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Descent Progress (Scrubber)</span>
+              <span class="control-val cyan readout-descent-val">Altitude: 5.0 km</span>
+            </div>
+            <input type="range" class="range-slider slider-altitude" min="0" max="1000" value="500">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge readout-muon-unified-badge">
+              Time Dilation and Length Contraction are not separate phenomena—they are the exact same spacetime geometry seen from two different frames.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 9 -->
+      <h2>9. Looking Ahead: Slicing into Curved Spacetime</h2>
+      <p>
+        Across these first three essays, we have uncovered the complete foundations of Special Relativity:
+      </p>
+      <p>
+        1. <strong>The Speed Limit:</strong> All objects move through 4D spacetime with magnitude bounded by <em>c</em>.<br>
+        2. <strong>Time Dilation:</strong> Moving across space diverts your speed through time, causing your clock to tick slower.<br>
+        3. <strong>The Spacetime Loaf:</strong> Reality is an extended 3D/4D block formed by stacking moments of space across time.<br>
+        4. <strong>Relativity of Simultaneity:</strong> Motion through space slants your worldtube and tilts your plane of "Now", so observers disagree on which distant events are simultaneous.<br>
+        5. <strong>Length Contraction:</strong> Measuring the length of an object requires measuring its ends simultaneously; because moving observers slice the spacetime loaf obliquely, moving objects naturally measure shorter along their direction of travel.
+      </p>
+      <p>
+        Throughout all of this, the spacetime loaf remained flat and uniform: grid lines were straight, and planes of simultaneity were flat surfaces.
+      </p>
+      <p>
+        What happens when massive objects—like planets, stars, and black holes—enter the picture?
+      </p>
+      <p>
+        In <strong>Part 4: Gravity as Geometry</strong>, we will warp the spacetime loaf itself, discovering how mass curves the geometry of space and time, why what we call "gravity" is simply objects following straight paths through curved spacetime, and how time slows down near the edge of a black hole.
+      </p>
+
+      <!-- SERIES PAGER -->
+      <div class="series-pager">
+        <a href="02-the-cosmic-light-cone-standalone.html" class="btn-secondary">
+          ← Part 2: The Cosmic Light Cone
+        </a>
+        <a href="../index.html" class="btn-primary">
+          Series Overview →
+        </a>
+      </div>
+
+      <!-- AUTHOR BIO -->
+      <div class="article-author">
+        <div class="brand-badge">c</div>
+        <div>
+          <h4>Aayush Agarwal</h4>
+          <p>
+            Exploring fundamental physics through intuitive geometric visual models and explorable interactive simulations.
+          </p>
+        </div>
+      </div>
+
+    </article>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="wide-container">
+      <p>How Does the Universe Work? · An Explorable Physics Series by Aayush Agarwal</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="../index.html">Series Home</a> · <a href="01-why-motion-through-space-affects-time-standalone.html">Part 1: Motion & Time</a> · <a href="02-the-cosmic-light-cone-standalone.html">Part 2: The Cosmic Light Cone</a> · <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Universal Client-Side Script (100% Static & file:// compatible) -->
+  <script>
 /**
  * site.js - Universal Client-Side Physics Simulation Suite
  * 100% Static, Serverless, Zero-Dependency. Works over file:// and any static host.
@@ -4305,3 +6914,15 @@
 
 })(window);
 
+
+</script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.UniverseSimulations && window.UniverseSimulations.initAllPost03) {
+        window.UniverseSimulations.initAllPost03();
+      }
+    });
+  </script>
+
+</body>
+</html>

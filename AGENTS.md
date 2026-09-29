@@ -6,6 +6,52 @@ The project is **100% static** (zero build step, zero npm dependencies, runs dir
 
 ---
 
+## Editorial Philosophy
+
+This series teaches physics **bottom-up**, not top-down. Every agent working on prose must internalise and consistently apply the following principles.
+
+### 1. Build from what the reader already knows — never from what they don't
+
+Every new concept must grow organically out of something the reader already holds: direct physical intuition, everyday experience, or knowledge established in a previous section or article. We do not start from the destination (a fact, a formula, a named concept) and work backward to justify it. We start from what is already solid and ask the natural next question.
+
+- ✅ *"That picture tells us how velocity is partitioned — but not where anyone actually is. The natural next question is: can we draw a map?"*
+- ❌ *"Textbooks use a spacetime diagram with space on the horizontal axis. This can be confusing because…"*
+
+### 2. Never introduce confusion first
+
+Do not frame a new section by announcing what is confusing, contradictory, or commonly misunderstood before the reader has encountered it themselves. That approach assumes prior textbook exposure and makes the reader feel lost before they have a reason to be. A reader who has never seen a spacetime diagram is not confused by it — they simply haven't seen it yet. Approach it as something new to discover, not something to fix.
+
+- ✅ Pose open questions from within the narrative: *"But what angle does a photon's worldline actually make?"*
+- ❌ Pre-announce the answer: *"Watch how 90° in Velocity Space maps directly into a 45° diagonal."*
+- ❌ Frame via contrast with external knowledge: *"In those textbook diagrams, the photon is at 45°, not 90° — why?"*
+
+### 3. Let visualizations deliver the insight — prose sets up the question
+
+Interactive simulations are not illustrations of something the prose has already fully explained. They are the moment of discovery. Prose before a widget should build the setup, name the travellers, pose the open question, and explain what the axes mean. The widget then answers the question. Prose after the widget unpacks what was observed and draws conclusions.
+
+- **Before the widget**: establish context, introduce characters, name the open question.
+- **The widget itself**: delivers the answer through direct interaction.
+- **After the widget**: explain why the answer is what it is, connect it to the broader picture.
+
+### 4. Introduce characters and terms before using them
+
+Any named entity (Alice, Bob, a photon, a muon) must be introduced with a clear description of their situation before being referenced. The reader should never encounter a name that hasn't been given a face. Similarly, any technical term (worldline, proper time, light cone) must be coined within the prose at the moment it first becomes necessary — not assumed.
+
+### 5. The series is self-contained — no assumed external knowledge
+
+The reader is assumed to arrive with only everyday intuition and curiosity. No physics education, no textbook exposure. Do not reference how "physicists" map things, what "any textbook" shows, or what "general relativity" says. If a concept matters, we derive or motivate it ourselves from first principles within the series.
+
+### 6. Section headings reflect discovery, not taxonomy
+
+Section headings should sound like the next step in an unfolding journey, not like chapter labels in a textbook.
+
+- ✅ *"Drawing the Map: Coordinate Spacetime"*
+- ✅ *"Building Up the Picture"*
+- ❌ *"The Side-by-Side Bridge: Speed Space vs Coordinate Spacetime"*
+- ❌ *"Why Spacetime Cannot Have a 90° Worldline"*
+
+---
+
 ## File Architecture & Sync Requirements
 
 When updating blog posts or interactive simulations, **always keep the corresponding files synchronized**:
@@ -16,24 +62,28 @@ When updating blog posts or interactive simulations, **always keep the correspon
    - Contains the live interactive hero widget (`#widget-hero` powered by `initWidgetTimeDilation`) and series directory cards.
 2. **Live Essay Articles**:
    - Part 1: `posts/01-why-motion-through-space-affects-time/index.html`
-   - Part 2 (Upcoming): `posts/02-the-spacetime-loaf-and-length-contraction/index.html`
+   - Part 2: `posts/02-the-cosmic-light-cone/index.html`
+   - Part 3: `posts/03-the-spacetime-loaf-and-length-contraction/index.html`
    - Loads `js/site.js` and `css/style.css`.
 3. **Universal Script (Primary Widget Engine)**:
-   - `js/site.js`: Contains all active widget logic, theme manager, and reading progress tracking initialized by post-specific init functions (e.g. `window.UniverseSimulations.initAllPost01()`, `initAllPost02()`).
+   - `js/site.js`: Contains all active widget logic, theme manager, and reading progress tracking initialized by post-specific init functions (`window.UniverseSimulations.initAllPost01()`, `initAllPost02()`, `initAllPost03()`).
 4. **Modular Widget Modules**:
    - `js/widgets/post-01-widgets.js`: ES module export versions of Part 1 widgets.
    - `js/widgets/post-02-widgets.js`: ES module export versions of Part 2 widgets.
+   - `js/widgets/post-03-widgets.js`: ES module export versions of Part 3 widgets.
 5. **All-in-One Standalone Distributions**:
    - `standalone/01-why-motion-through-space-affects-time-standalone.html`
-   - `standalone/02-the-spacetime-loaf-and-length-contraction-standalone.html`
+   - `standalone/02-the-cosmic-light-cone-standalone.html`
+   - `standalone/03-the-spacetime-loaf-and-length-contraction-standalone.html`
    - Fully self-contained versions with inlined CSS, HTML, and JS. Any simulation or markup change in an essay must also be reflected in its standalone file.
 6. **Shared Styles**:
    - `css/style.css`: Unified design system supporting Light Mode (default, warm paper minimal), Obsidian Dark Mode (`[data-theme="dark"]`), reading progress bar, math badges, and responsive mobile layouts.
 
 ---
 
-## Simulation Catalog (Part 1)
+## Simulation Catalog
 
+### Part 1: Why Motion Through Space Affects Time
 | # | Container ID | Function | Purpose |
 |---|--------------|----------|---------|
 | **Hero** | `widget-hero` (on `index.html`) | `initWidgetTimeDilation` | Live speed-tradeoff and twin clocks preview on landing page |
@@ -45,20 +95,22 @@ When updating blog posts or interactive simulations, **always keep the correspon
 | **06** | `widget-muon` | `initWidgetMuon` | Relativistic atmospheric muon decay vs. Newtonian prediction |
 | **07** | `widget-3d-spacetime` | `initWidget3DSpacetime` | 3D spacetime volume ($x_1, x_2, t$) with rotatable camera and Now-Slice |
 
----
+### Part 2: The Cosmic Light Cone: Mapping Space & Time
+| # | Container ID | Function | Purpose |
+|---|--------------|----------|---------|
+| **01** | `widget-dual-bridge` | `initWidgetDualSpeedSpacetime` | Side-by-side comparison: Speed Space vs Coordinate Spacetime Map |
+| **02** | `widget-3d-light-cone` | `initWidget3DLightConeExplorer` | Full 3D rotatable Light Cone volume ($x_1, x_2, ct$) with dynamic Now-Slice |
+| **03** | `widget-cosmic-horizon` | `initWidgetCosmicHorizon` | Human lifespan horizon vs. celestial events (Sun, Proxima, Vega, Betelgeuse) |
 
-## Part 2 Blueprint: Starting Fresh
-
-All legacy/outdated draft folders (`post_02_*`) have been removed to build Part 2 cleanly from the ground up matching Part 1's architecture:
-
-- **Article Location**: `posts/02-the-spacetime-loaf-and-length-contraction/index.html`
-- **Standalone Location**: `standalone/02-the-spacetime-loaf-and-length-contraction-standalone.html`
-- **Core Topics & Simulations to Build**:
-  1. **The Spacetime Loaf & Angle of "Now"**: Slicing the 3D block of space and time. Motion tilts the simultaneity hyperplane.
-  2. **Relativity of Simultaneity**: Front and rear clock desynchronization ($\Delta t' = -\gamma v \Delta x / c^2$).
-  3. **Length Contraction as Oblique Slicing**: How tilted slices of 2D/3D worldlines/worldtubes yield contracted physical measurements ($L = L_0 \sqrt{1 - v^2/c^2}$).
-  4. **The Twin Paradox Resolution**: The acceleration turnaround and the sweeping "Now" slice across the distant twin's timeline.
-  5. **Interactive Spacetime Slicer**: Scrubber allowing readers to dial velocity $v$ and visually observe the simultaneous slice tilt and length contract in real time.
+### Part 3: The Spacetime Loaf & Length Contraction
+| # | Container ID | Function | Purpose |
+|---|--------------|----------|---------|
+| **01** | `widget-loaf-alice` | `initWidgetLoafAlice` | 3D spacetime loaf volume with Alice's horizontal slice and expanding light wavefront |
+| **02** | `widget-loaf-bob` | `initWidgetLoafBob` | Bob in motion: slanting the worldtube across the spacetime loaf |
+| **03** | `widget-simultaneity-slice` | `initWidgetSimultaneitySlice` | The angle of "Now": tilting the simultaneity hyperplane obliquely ($\tan\phi = v/c$) |
+| **04** | `widget-length-contraction` | `initWidgetLengthContraction` | Oblique slicing: 3D loaf cutting Bob's tilted ribbon & 2D retina measurement |
+| **05** | `widget-dual-frame` | `initWidgetDualFrame` | Mutual relativity: switching between Alice's frame and Bob's frame |
+| **06** | `widget-muon-contraction` | `initWidgetMuonContraction` | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction) |
 
 ---
 

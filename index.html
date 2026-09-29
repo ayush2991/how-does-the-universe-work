@@ -149,10 +149,10 @@
             </p>
           </div>
           <div>
-            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom: 1.25rem;">
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Time Dilation</span>
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Speed of Light</span>
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">7 Interactive Simulations</span>
+            <div class="card-tags">
+              <span class="card-tag">Time Dilation</span>
+              <span class="card-tag">Speed of Light</span>
+              <span class="card-tag">7 Interactive Simulations</span>
             </div>
             <div class="card-meta">
               <span style="color: var(--color-time); font-weight: 700;">Explore Essay →</span>
@@ -161,46 +161,70 @@
           </div>
         </a>
 
-        <!-- Post 2 Card (In Development) -->
-        <div class="series-card coming-soon">
+        <!-- Post 2 Card (Live) -->
+        <a href="posts/02-the-cosmic-light-cone/index.html" class="series-card">
           <div>
-            <div class="card-num" style="color: var(--text-muted);">ESSAY 02 · SPECIAL RELATIVITY</div>
-            <h3 class="card-title">The Spacetime Loaf & Length Contraction</h3>
+            <div class="card-num">ESSAY 02 · SPECIAL RELATIVITY</div>
+            <h3 class="card-title">The Cosmic Light Cone: Mapping Space & Time</h3>
             <p class="card-desc">
-              Why there is no universal "Now". How relative motion tilts an observer’s slice through spacetime, resolving the Twin Paradox, and why moving rulers shorten.
+              Bridging the speed-tradeoff into coordinate spacetime. Why 90° in velocity space becomes 45° in the light cone, and how celestial events live inside or outside our human lifespan.
             </p>
           </div>
           <div>
-            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom: 1.25rem;">
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Spacetime Loaf</span>
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Simultaneity</span>
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Length Contraction</span>
+            <div class="card-tags">
+              <span class="card-tag">Light Cone</span>
+              <span class="card-tag">The "Elsewhere"</span>
+              <span class="card-tag">Cosmic Horizon</span>
+              <span class="card-tag">Dual-Engine Simulator</span>
             </div>
             <div class="card-meta">
-              <span style="color: var(--text-muted); font-weight: 600;">In Development</span>
-              <span>Part 2</span>
+              <span style="color: var(--color-time); font-weight: 700;">Explore Essay →</span>
+              <span>10 min read</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <!-- Post 3 Card (Planned) -->
+        <!-- Post 3 Card (Live) -->
+        <a href="posts/03-the-spacetime-loaf-and-length-contraction/index.html" class="series-card">
+          <div>
+            <div class="card-num" style="color: var(--color-invariant);">ESSAY 03 · SPECIAL RELATIVITY</div>
+            <h3 class="card-title">The Spacetime Loaf & Length Contraction</h3>
+            <p class="card-desc">
+              Why there is no universal "Now". How relative motion tilts an observer’s slice through spacetime, and why moving rulers naturally shorten along their path of motion.
+            </p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="card-tag">Spacetime Loaf</span>
+              <span class="card-tag">Simultaneity Slicing</span>
+              <span class="card-tag">Length Contraction</span>
+              <span class="card-tag">Muon Cockpit</span>
+            </div>
+            <div class="card-meta">
+              <span style="color: var(--color-invariant); font-weight: 700;">Explore Essay →</span>
+              <span>12 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post 4 Card (Planned) -->
         <div class="series-card coming-soon">
           <div>
-            <div class="card-num" style="color: var(--text-faint);">ESSAY 03 · GENERAL RELATIVITY</div>
+            <div class="card-num" style="color: var(--text-faint);">ESSAY 04 · GENERAL RELATIVITY</div>
             <h3 class="card-title">Gravity as Geometry: The Curved Fabric</h3>
             <p class="card-desc">
               Einstein's "happiest thought": why free fall is truly weightless, how acceleration mimics gravity, and how mass curves the geometry of spacetime.
             </p>
           </div>
           <div>
-            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom: 1.25rem;">
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Equivalence Principle</span>
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Curvature</span>
-              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Geodesics</span>
+            <div class="card-tags">
+              <span class="card-tag">Equivalence Principle</span>
+              <span class="card-tag">Curvature</span>
+              <span class="card-tag">Geodesics</span>
             </div>
             <div class="card-meta">
               <span style="color: var(--text-faint); font-weight: 600;">Planned</span>
-              <span>Part 3</span>
+              <span>Part 4</span>
             </div>
           </div>
         </div>
@@ -212,13 +236,11 @@
   <!-- Learning Philosophy Section -->
   <section id="philosophy" class="wide-container philosophy-section">
     <div class="philosophy-card">
-      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.75rem;">
-        Why Explorable Explanations?
-      </h3>
-      <p style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+      <h3>Why Explorable Explanations?</h3>
+      <p>
         Physics is often taught backwards: first you are given mathematical equations, and only later are you invited to guess what they physically mean. 
       </p>
-      <p style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7;">
+      <p>
         By creating interactive simulations with active controls, sliders, and live clocks, we allow you to play with the underlying parameters of nature directly. When you see how steering a vector sideways reduces its vertical component, time dilation stops being an abstract puzzle—it becomes an intuitive geometric certainty.
       </p>
     </div>

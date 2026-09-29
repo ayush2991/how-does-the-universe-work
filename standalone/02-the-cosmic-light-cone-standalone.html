@@ -1,3 +1,2420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cosmic Light Cone: Mapping Space & Time · How Does the Universe Work?</title>
+  <style>
+/* ==========================================================================
+   How Does The Universe Work? - Core Design System & Styling
+   Minimal, Modern, Precision Scientific Aesthetic
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap');
+
+/* Default Theme: LIGHT MODE (Warm Minimal Paper) */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Surface & Background Hierarchy */
+  --bg-space: #fafafc;              /* Warm off-white minimal canvas */
+  --bg-card: #ffffff;               /* Pure white card surface */
+  --bg-card-subtle: #f8fafc;        /* Soft container / header tint */
+  --bg-surface-elevated: #f1f5f9;   /* Subtle elevated controls / pills */
+
+  /* Hairline Borders */
+  --border-subtle: rgba(15, 23, 42, 0.08);       /* Soft modern hairline divider */
+  --border-medium: rgba(15, 23, 42, 0.16);       /* Hover / active divider */
+  --border-active: #0284c7;                      /* Active Sky-600 */
+
+  /* Typography Colors */
+  --text-primary: #0f172a;          /* Slate-900: sharp titles & headings */
+  --text-secondary: #334155;        /* Slate-700: UI labels & meta */
+  --text-prose: #1e293b;            /* Slate-800: high-contrast editorial prose */
+  --text-emphasis: #0f172a;         /* High-contrast emphasis */
+  --text-muted: #64748b;            /* Slate-500: descriptions & subtext */
+  --text-faint: #94a3b8;            /* Slate-400: secondary timestamps & tags */
+
+  /* Physics Semantic Palette (Calibrated Contrast) */
+  --color-time: #0284c7;            /* Sky-600: Time / Earth / Rest */
+  --color-time-glow: rgba(2, 132, 199, 0.16);
+  --color-space: #ea580c;           /* Radiant Orange-600: Space / Motion */
+  --color-space-glow: rgba(234, 88, 12, 0.16);
+  --color-invariant: #7c3aed;       /* Violet-600: Total Speed Arc c */
+  --color-photon: #d97706;          /* Amber-600: Light / Bound */
+  --color-emerald: #059669;         /* Emerald-600: Verified / Synchronized */
+  --color-danger: #dc2626;          /* Red-600: Lag / Beyond-c Forbidden */
+
+  /* Chrome & Structural Variables */
+  --nav-bg: rgba(250, 250, 252, 0.88);
+  --bg-canvas-outer: #ffffff;
+  --bg-canvas: #ffffff;
+  --border-canvas: rgba(15, 23, 42, 0.07);
+  --shadow-canvas: none;
+  --slider-track: #e2e8f0;
+  --chip-bg: #f1f5f9;
+  --chip-hover: #e2e8f0;
+  --btn-secondary-bg: #f1f5f9;
+  --btn-secondary-hover: #e2e8f0;
+  --math-badge-bg: #f8fafc;
+  --bg-footer: #f8fafc;
+  --shadow-artifact: 0 4px 24px -2px rgba(15, 23, 42, 0.06), 0 1px 4px -1px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 2px 12px -2px rgba(15, 23, 42, 0.05), 0 1px 3px -1px rgba(15, 23, 42, 0.03);
+
+  /* Fonts */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* DARK MODE (Obsidian Deep Scientific Theme) */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surface & Background Hierarchy */
+  --bg-space: #090b10;              /* True obsidian deep space */
+  --bg-card: #0e121a;               /* Refined dark card surface */
+  --bg-card-subtle: #0a0d14;        /* Darker container / header */
+  --bg-surface-elevated: #161c27;   /* Elevated dark badges & controls */
+
+  /* Hairline Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);   /* Clean, non-intrusive hairline */
+  --border-medium: rgba(255, 255, 255, 0.16);   /* Hover / active outline */
+  --border-active: #38bdf8;                      /* Electric Cyan active ring */
+
+  /* Typography Colors */
+  --text-primary: #f8fafc;          /* High-clarity white headings */
+  --text-secondary: #cbd5e1;        /* Crisp slate-300 UI text */
+  --text-prose: #e2e8f0;            /* Warm readable prose */
+  --text-emphasis: #ffffff;         /* Pure white emphasis */
+  --text-muted: #94a3b8;            /* Slate-400 subtext */
+  --text-faint: #64748b;            /* Slate-500 secondary labels */
+
+  /* Physics Semantic Palette */
+  --color-time: #38bdf8;            /* Electric Cyan: Time / Earth / Rest */
+  --color-time-glow: rgba(56, 189, 248, 0.2);
+  --color-space: #fb923c;           /* Radiant Coral: Space / Motion */
+  --color-space-glow: rgba(251, 146, 60, 0.2);
+  --color-invariant: #a855f7;       /* Luminous Violet: Total Speed Arc (c) */
+  --color-photon: #facc15;          /* Golden Sun: Light / Bound */
+  --color-emerald: #10b981;         /* Emerald: Synchronized / Verified */
+  --color-danger: #f87171;          /* Soft Red: Lag / Forbidden Beyond-c */
+
+  /* Chrome & Structural Variables */
+  --nav-bg: rgba(9, 11, 16, 0.88);
+  --bg-canvas-outer: #0a0d14;
+  --bg-canvas: #0a0d14;
+  --border-canvas: rgba(255, 255, 255, 0.07);
+  --shadow-canvas: none;
+  --slider-track: #1a2232;
+  --chip-bg: #161c27;
+  --chip-hover: #1f2838;
+  --btn-secondary-bg: #161c27;
+  --btn-secondary-hover: #1f2838;
+  --math-badge-bg: #0a0d14;
+  --bg-footer: #06080c;
+  --shadow-artifact: 0 16px 36px -8px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Base Reset & Document Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-space);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+
+::selection {
+  background: var(--color-time);
+  color: #ffffff;
+}
+
+/* Reading Progress Bar (Fixed Top hairline) */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-time), var(--color-invariant));
+  z-index: 100;
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+/* Masthead Navigation */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.site-nav-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 3.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: opacity 0.2s ease;
+}
+
+.brand-link:hover {
+  opacity: 0.85;
+}
+
+.brand-badge {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 0.45rem;
+  background: linear-gradient(135deg, var(--color-time), var(--color-invariant));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #ffffff;
+  font-size: 0.9rem;
+  box-shadow: 0 0 12px var(--color-time-glow);
+}
+
+.brand-title {
+  font-weight: 750;
+  font-size: 0.88rem;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.brand-tag {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  background: var(--bg-surface-elevated);
+  padding: 0.12rem 0.45rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  font-weight: 550;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-time);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  padding: 0;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, border-color 0.2s;
+}
+
+.theme-toggle-btn svg {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--chip-hover);
+  color: var(--color-time);
+  border-color: var(--border-medium);
+  transform: scale(1.06);
+}
+
+.theme-toggle-btn:hover svg {
+  transform: rotate(15deg);
+}
+
+/* Toggle Icons: Sun shows in Dark Mode, Moon shows in Light Mode */
+[data-theme="light"] .theme-toggle-btn .sun-icon {
+  display: none;
+}
+[data-theme="light"] .theme-toggle-btn .moon-icon {
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle-btn .sun-icon {
+  display: block;
+}
+[data-theme="dark"] .theme-toggle-btn .moon-icon {
+  display: none;
+}
+
+/* Layout Containers */
+.reading-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 6rem;
+}
+
+.wide-container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+/* Editorial Typography */
+.article-header {
+  margin-bottom: 2.75rem;
+}
+
+.category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-time);
+  background: rgba(2, 132, 199, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  margin-bottom: 1.25rem;
+}
+
+[data-theme="dark"] .category-tag {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.article-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.article-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.25rem;
+}
+
+/* Editorial Prose */
+.editorial-prose p,
+.editorial-prose ul,
+.editorial-prose ol,
+.editorial-prose li,
+.editorial-prose blockquote,
+.editorial-prose dl,
+.editorial-prose dt,
+.editorial-prose dd {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+.editorial-prose p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-prose);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.003em;
+}
+
+.editorial-prose ul,
+.editorial-prose ol {
+  margin: 0 0 1.5rem 0;
+  padding-left: 1.75rem;
+}
+
+.editorial-prose li {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--text-prose);
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.003em;
+}
+
+.editorial-prose li::marker {
+  color: var(--color-time);
+  font-weight: 600;
+}
+
+.editorial-prose ul ul,
+.editorial-prose ol ol,
+.editorial-prose ul ol,
+.editorial-prose ol ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.editorial-prose blockquote {
+  border-left: 3px solid var(--color-time);
+  background: var(--bg-card-subtle);
+  padding: 1.125rem 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0 0.625rem 0.625rem 0;
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.editorial-prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.editorial-prose strong {
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+.editorial-prose em {
+  color: var(--text-emphasis);
+}
+
+.editorial-prose h2 {
+  font-family: var(--font-sans);
+  font-size: 1.65rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  padding-top: 0.5rem;
+  line-height: 1.25;
+}
+
+.editorial-prose h3 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.editorial-prose h4 {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Insight Callout */
+.insight-callout {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--color-invariant);
+  border-radius: 0 0.875rem 0.875rem 0;
+  padding: 1.35rem 1.6rem;
+  margin: 2.25rem 0;
+  box-shadow: var(--shadow-card);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.insight-callout h4 {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.015em;
+}
+
+.insight-callout p {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  line-height: 1.72;
+  color: var(--text-prose);
+  margin-bottom: 0.85rem;
+}
+
+.insight-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Formula & Math Display Cards */
+.formula-card,
+.math-display-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--color-time);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  margin: 2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.math-display-card {
+  border-left-color: var(--color-invariant);
+  text-align: center;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.formula-card .formula-note,
+.math-display-card .formula-note {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Interactive Explorable Card Container (Unibody Design) */
+.interactive-artifact {
+  margin: 2.75rem 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-artifact);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
+}
+
+.interactive-artifact:hover {
+  border-color: var(--border-medium);
+}
+
+/* Desktop Breakout: Gives canvas diagrams generous breathing space */
+@media (min-width: 840px) {
+  .reading-container .editorial-prose .interactive-artifact {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 820px;
+  }
+}
+
+.artifact-header {
+  padding: 1.125rem 1.5rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.artifact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-time);
+  background: rgba(2, 132, 199, 0.08);
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+[data-theme="dark"] .artifact-badge {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.artifact-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+}
+
+.artifact-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  line-height: 1.45;
+}
+
+/* Canvas Viewport */
+.canvas-viewport {
+  position: relative;
+  background: var(--bg-canvas);
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.25s ease;
+}
+
+.canvas-viewport canvas {
+  width: 100%;
+  max-width: 100%;
+  height: 380px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+/* Clocks Display (Precision Telemetry Layout) */
+.twin-clocks-panel {
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+}
+
+.clock-card {
+  padding: 0.875rem 1.125rem;
+  border-radius: 0.625rem;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+}
+
+.clock-card.cyan {
+  border-color: var(--border-subtle);
+  border-left: 3px solid var(--color-time);
+}
+
+.clock-card.amber {
+  border-color: var(--border-subtle);
+  border-left: 3px solid var(--color-space);
+}
+
+.clock-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.clock-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.clock-card.cyan .clock-label { color: var(--color-time); }
+.clock-card.amber .clock-label { color: var(--color-space); }
+
+.clock-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.12rem 0.45rem;
+  border-radius: 0.25rem;
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+}
+
+.clock-time {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.clock-time span {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.clock-subtext {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Artifact Controls Panel */
+.artifact-controls {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.control-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.control-val {
+  font-family: var(--font-mono);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.control-val.cyan { color: var(--color-time); }
+.control-val.amber { color: var(--color-space); }
+
+/* Range Slider Styling */
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  background: var(--slider-track);
+  border-radius: 9999px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--color-time);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 0 0 4px var(--color-time-glow);
+}
+
+.range-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.08);
+}
+
+.range-slider.amber::-webkit-slider-thumb {
+  border-color: var(--color-space);
+}
+
+.range-slider.amber::-webkit-slider-thumb:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 0 0 4px var(--color-space-glow);
+}
+
+.range-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--color-time);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  cursor: grab;
+}
+
+.range-slider.amber::-moz-range-thumb {
+  border-color: var(--color-space);
+}
+
+/* Presets & Buttons (Segmented Aesthetics) */
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.375rem;
+  background: var(--chip-bg);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip-btn:hover {
+  background: var(--chip-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.chip-btn.active {
+  background: rgba(2, 132, 199, 0.1);
+  border-color: var(--color-time);
+  color: var(--color-time);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .chip-btn.active {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--color-time);
+  color: var(--color-time);
+}
+
+.toolbar-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  background: var(--color-time);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .btn-primary {
+  color: #070a12;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px var(--color-time-glow);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  background: var(--btn-secondary-bg);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--btn-secondary-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.btn-hero-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 9999px;
+  background: var(--text-primary);
+  color: var(--bg-card);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-hero-read:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.math-badge {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 550;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.375rem;
+  background: var(--math-badge-bg);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  vertical-align: baseline;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.math-badge strong {
+  color: var(--color-time);
+}
+
+/* Subtle styling for inline math inside editorial prose (paragraphs, lists, callouts, quotes) */
+.editorial-prose .math-badge,
+.insight-callout .math-badge {
+  font-size: 0.85em;
+  padding: 0.12rem 0.42rem;
+  margin: 0 0.15rem;
+  border-radius: 0.28rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  vertical-align: baseline;
+  line-height: normal;
+  display: inline-block;
+}
+
+/* Series Hub Cards */
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.series-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-card);
+}
+
+.series-card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-artifact);
+}
+
+.series-card.coming-soon {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.series-card.coming-soon:hover {
+  border-color: var(--border-subtle);
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+.card-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-time);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 550;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  cursor: default;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.series-card:hover .card-tag {
+  border-color: var(--border-medium);
+  color: var(--text-secondary);
+}
+
+.card-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Series Pager Navigation */
+.series-pager {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.series-pager a {
+  text-decoration: none;
+}
+
+.series-pager .btn-primary,
+.series-pager .btn-secondary {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+/* Article Author Bio */
+.article-author {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+}
+
+.article-author .brand-badge {
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.article-author h4 {
+  font-family: var(--font-sans);
+  margin: 0 0 0.35rem 0;
+  font-size: 1.05rem;
+  font-weight: 750;
+  color: var(--text-primary);
+}
+
+.article-author p {
+  font-family: var(--font-sans);
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-footer);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: background 0.25s ease;
+}
+
+.site-footer a {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--color-time);
+}
+
+/* ==========================================================================
+   Hero & Hub Layout Classes
+   ========================================================================== */
+.hero-header {
+  padding: 4.5rem 1.5rem 2.5rem;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-widget-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.series-section-divider {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 3rem;
+}
+
+.series-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.series-section-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+}
+
+.series-section-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.philosophy-section {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.philosophy-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.philosophy-card h3 {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+.philosophy-card p {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.15rem;
+}
+
+.philosophy-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints & Mobile Optimization
+   ========================================================================== */
+
+/* Tablets and below (<= 768px) */
+@media (max-width: 768px) {
+  .canvas-viewport canvas {
+    height: 300px;
+  }
+  .article-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* Mobile Devices (<= 640px) */
+@media (max-width: 640px) {
+  /* Navigation Bar */
+  .site-nav-inner {
+    height: 3.25rem;
+    padding: 0 1rem;
+  }
+  .brand-badge {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.85rem;
+    border-radius: 0.375rem;
+  }
+  .brand-link {
+    gap: 0.5rem;
+  }
+  .brand-title {
+    font-size: 0.82rem;
+    max-width: 155px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-tag {
+    display: none;
+  }
+  .nav-links {
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+  .nav-link-secondary {
+    display: none;
+  }
+  .theme-toggle-btn {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Page Layout Containers */
+  .reading-container {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+  .wide-container {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Hero & Hub Typography */
+  .hero-header {
+    padding: 2.25rem 1rem 1.5rem;
+  }
+  .hero-title {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  .series-section-divider {
+    padding-top: 1.75rem;
+  }
+  .series-section-title {
+    font-size: 1.35rem;
+  }
+  .series-section-desc {
+    font-size: 0.82rem;
+  }
+  .series-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .series-card {
+    padding: 1.25rem;
+  }
+  .philosophy-section {
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .philosophy-card {
+    padding: 1.25rem;
+    border-radius: 0.875rem;
+  }
+
+  /* Editorial Content & Headings */
+  .article-header {
+    margin-bottom: 1.5rem;
+  }
+  .category-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+  .article-title {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .article-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .article-meta {
+    padding-top: 0.875rem;
+    font-size: 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .editorial-prose p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 1.125rem;
+  }
+  .editorial-prose ul,
+  .editorial-prose ol {
+    padding-left: 1.35rem;
+    margin-bottom: 1.125rem;
+  }
+  .editorial-prose li {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  .editorial-prose h2 {
+    font-size: 1.35rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    padding-top: 0;
+  }
+  .editorial-prose h3 {
+    font-size: 1.15rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .editorial-prose h4 {
+    font-size: 1.02rem;
+    margin-top: 1.15rem;
+    margin-bottom: 0.4rem;
+  }
+  .editorial-prose blockquote {
+    padding: 0.75rem 1rem;
+    margin: 1.25rem 0;
+    font-size: 1.02rem;
+  }
+  .insight-callout {
+    padding: 1rem 1.15rem;
+    margin: 1.5rem 0;
+    border-radius: 0 0.625rem 0.625rem 0;
+  }
+  .insight-callout h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .insight-callout p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.65rem;
+  }
+  .formula-card,
+  .math-display-card {
+    padding: 0.75rem 1rem;
+    margin: 1.125rem 0;
+    font-size: 0.88rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+  .formula-card .formula-note,
+  .math-display-card .formula-note {
+    font-size: 0.78rem;
+    margin-top: 0.3rem;
+  }
+  .series-pager {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+  .series-pager a {
+    text-align: center;
+    justify-content: center;
+  }
+  .article-author {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+    padding: 1.125rem;
+    margin-top: 2rem;
+  }
+
+  /* Interactive Artifact Card */
+  .interactive-artifact {
+    margin: 1.25rem 0;
+    border-radius: 0.875rem;
+  }
+  .artifact-header {
+    padding: 0.75rem 1rem;
+    gap: 0.4rem;
+  }
+  .artifact-badge {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.5rem;
+  }
+  .artifact-title {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  .artifact-desc {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-top: 0.1rem;
+  }
+
+  /* Canvas Viewport */
+  .canvas-viewport {
+    padding: 0.5rem;
+  }
+  .canvas-viewport canvas {
+    height: 240px;
+    border-radius: 0.5rem;
+  }
+
+  /* Twin Clocks: Side-by-side comparison preserved on mobile */
+  .twin-clocks-panel {
+    padding: 0.625rem 0.75rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .clock-card {
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.5rem;
+  }
+  .clock-meta {
+    margin-bottom: 0.2rem;
+    gap: 0.25rem;
+  }
+  .clock-label {
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+  .clock-badge {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+  }
+  .clock-time {
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  .clock-time span {
+    font-size: 0.65rem;
+  }
+  .clock-subtext {
+    font-size: 0.65rem;
+    margin-top: 0.15rem;
+    line-height: 1.25;
+  }
+
+  /* Controls Panel */
+  .artifact-controls {
+    padding: 0.75rem 0.875rem;
+    gap: 0.625rem;
+  }
+  .control-item {
+    gap: 0.35rem;
+  }
+  .control-header {
+    font-size: 0.75rem;
+  }
+  .control-val {
+    font-size: 0.75rem;
+  }
+  .range-slider {
+    height: 4px;
+  }
+  .range-slider::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+  }
+  .preset-chips {
+    gap: 0.35rem;
+  }
+  .chip-btn {
+    font-size: 0.66rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.3rem;
+  }
+  .toolbar-bottom {
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .btn-primary, .btn-secondary, .btn-hero-read {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  .toolbar-bottom .math-badge {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.65rem;
+    width: 100%;
+    text-align: center;
+    border-radius: 0.375rem;
+  }
+  .editorial-prose .math-badge {
+    width: auto;
+    display: inline-block;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 2rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra-small screens (<= 380px) */
+@media (max-width: 380px) {
+  .brand-title {
+    max-width: 125px;
+    font-size: 0.78rem;
+  }
+  .nav-links {
+    gap: 0.5rem;
+  }
+  .canvas-viewport canvas {
+    height: 220px;
+  }
+  .clock-time {
+    font-size: 1.15rem;
+  }
+  .clock-label {
+    font-size: 0.58rem;
+  }
+  .reading-container, .wide-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   Wide Reading Container & Desktop Layout System
+   Balanced Editorial Grid + Split-Screen Sim Panels (Option A)
+   ========================================================================== */
+.wide-reading-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 6rem;
+}
+
+.wide-reading-container .article-header {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+}
+
+.wide-reading-container .editorial-prose > p {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.18rem;
+  line-height: 1.84;
+  letter-spacing: -0.002em;
+  margin-bottom: 1.6rem;
+}
+
+.wide-reading-container .editorial-prose > ul,
+.wide-reading-container .editorial-prose > ol {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.16rem;
+  line-height: 1.8;
+  margin-bottom: 1.6rem;
+  padding-left: 1.85rem;
+}
+
+.wide-reading-container .editorial-prose > li {
+  margin-bottom: 0.75rem;
+}
+
+.wide-reading-container .editorial-prose > h2 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.75rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.wide-reading-container .editorial-prose > h3 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.wide-reading-container .editorial-prose > h4 {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.wide-reading-container .editorial-prose > blockquote {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wide-reading-container .editorial-prose > .formula-card,
+.wide-reading-container .editorial-prose > .math-display-card {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.wide-reading-container .editorial-prose > .insight-callout {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.wide-reading-container .editorial-prose > .article-author,
+.wide-reading-container .editorial-prose > .series-pager {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wide-reading-container .interactive-artifact {
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.75rem;
+  margin-bottom: 3.25rem;
+}
+
+/* --- Comparison Grid (Simulation 01 Dual View) --- */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-canvas-outer);
+}
+
+@media (max-width: 880px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+}
+
+.canvas-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.canvas-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 0.2rem 0.5rem;
+}
+
+.canvas-col-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.canvas-col canvas {
+  width: 100%;
+  height: 380px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .canvas-col canvas {
+    height: 250px;
+  }
+  .wide-reading-container {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+}
+
+/* --- Split-Screen Desktop Layout (Simulations 02 & 03) --- */
+.artifact-split {
+  display: grid;
+  grid-template-columns: 1.32fr 1fr;
+  background: var(--bg-canvas-outer);
+}
+
+@media (max-width: 900px) {
+  .artifact-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.split-canvas-col {
+  position: relative;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-canvas);
+  min-width: 0;
+}
+
+.split-canvas-col canvas {
+  width: 100%;
+  height: 420px;
+  border-radius: 0.625rem;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-canvas);
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .split-canvas-col canvas {
+    height: 340px;
+  }
+}
+
+@media (max-width: 640px) {
+  .split-canvas-col canvas {
+    height: 260px;
+  }
+  .split-canvas-col {
+    padding: 0.625rem;
+  }
+}
+
+.split-controls-col {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.125rem;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .split-controls-col {
+    border-left: none;
+    border-top: 1px solid var(--border-subtle);
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* Telemetry display rows */
+.telemetry-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-card-subtle);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.telemetry-item {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.telemetry-item .label {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.telemetry-item .value {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+
+
+</style>
+  <meta name="description" content="A visual, curiosity-driven exploration bridging the speed-tradeoff into coordinate spacetime. Why 90° in velocity space becomes 45° in the light cone, and how cosmic events live inside or outside our human lifespan.">
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('universe_theme'); } catch (e) {}
+      var theme = saved ? saved : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <div class="reading-progress-bar" id="reading-progress"></div>
+
+  <!-- Top Navigation -->
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="../index.html" class="brand-link">
+        <div class="brand-badge">c</div>
+        <div>
+          <span class="brand-title">HOW DOES THE UNIVERSE WORK?</span>
+          <span class="brand-tag">SERIES</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">← All Essays</a>
+        <a href="01-why-motion-through-space-affects-time-standalone.html" class="nav-link-secondary">Part 1</a>
+        <a href="#interactive-bridge" class="active nav-link-secondary">Part 2: The Light Cone</a>
+        <a href="03-the-spacetime-loaf-and-length-contraction-standalone.html" class="nav-link-secondary">Part 3</a>
+        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener" class="nav-link-secondary">GitHub</a>
+        <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="12" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Article Body with Wide Container for Side-by-Side Visuals -->
+  <main class="wide-reading-container">
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="category-tag">Part 02 · Special Relativity</div>
+      <h1 class="article-title">The Cosmic Light Cone: Mapping Space & Time</h1>
+      <p class="article-subtitle">
+        Bridging the speed-tradeoff into coordinate spacetime. Why 90° in velocity space becomes 45° in the light cone, and how cosmic events live inside or outside our human lifespan.
+      </p>
+      <div class="article-meta">
+        <span>By Aayush Agarwal</span>
+        <span>•</span>
+        <span>Interactive Explorable</span>
+        <span>•</span>
+        <span>10 min read</span>
+      </div>
+    </header>
+
+    <!-- Editorial Prose -->
+    <article class="editorial-prose">
+      <p>
+        In <a href="01-why-motion-through-space-affects-time-standalone.html" style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 1</a>, we discovered an extraordinary geometric principle: <strong>everyone and everything is moving through the combined fabric of spacetime at a single invariant speed: the speed of light, <em>c</em>.</strong>
+      </p>
+      <p>
+        When you sit motionless in your chair, 100% of your speed is devoted to moving forward through time. The moment you step into a car or rocket and begin moving through space, part of that total speed is diverted sideways. Because your total speed is fixed, your motion through time inevitably decreases—and your personal clock ticks more slowly.
+      </p>
+      <p>
+        To visualize this tradeoff, we plotted an intuitive coordinate system called <strong>Velocity Space</strong>:
+      </p>
+      <ul>
+        <li>The vertical axis represented <em>speed through time</em> (<span class="math-badge">v_time</span>).</li>
+        <li>The horizontal axis represented <em>speed through space</em> (<span class="math-badge">v_space</span>).</li>
+        <li>Your total speed vector was a needle of constant length <span class="math-badge">c</span>, tracing a quarter circle from straight up (<span class="math-badge">θ = 0°</span>, sitting at rest) to purely horizontal (<span class="math-badge">θ = 90°</span>, pure light).</li>
+      </ul>
+      <p>
+        That picture — the speed tradeoff, the quarter-circle, the time dilation — gives us a powerful grasp of <em>how fast</em> things are moving through time versus space. But it is a graph of speeds. It tells us how someone's velocity is partitioned, not where they actually are or where they are going.
+      </p>
+      <p>
+        The natural next question is: can we draw an actual <strong>map</strong> of the universe in space and time? Not a graph of speeds, but a coordinate record — a picture that shows, for every moment, where each traveller <em>is</em>. The path a traveller traces through such a map is called their <strong>worldline</strong>: a continuous thread through space and time recording every position at every moment of their journey.
+      </p>
+
+      <!-- SECTION 1 -->
+      <h2 id="interactive-bridge">1. Drawing the Map: Coordinate Spacetime</h2>
+      <p>
+        The map we will draw has position <span class="math-badge">x</span> on the horizontal axis and time on the vertical axis — measured in units of <span class="math-badge">ct</span>, the distance light travels in a given time, so that both axes share the same physical dimension. Let us now build it step by step using three travellers as our guides.
+      </p>
+      <p>
+        <strong>Alice</strong> stays perfectly at rest at position <span class="math-badge">x = 0</span>. She never moves through space — all of her total cosmic velocity is directed purely forward through time. In the spacetime map, her worldline is a straight <strong>vertical line</strong>: she climbs steadily upward through time while her position in space never budges.
+      </p>
+      <p>
+        <strong>Bob</strong> is free to pick up speed. The moment he starts moving through space, his total cosmic velocity — fixed at <span class="math-badge">c</span> — must split: some flows into space, the rest into time. His worldline tilts away from the vertical. The faster he moves through space, the more it leans sideways.
+      </p>
+      <p>
+        And then there is the <strong>photon</strong>: the most extreme traveller conceivable. At speed angle <span class="math-badge">θ = 90°</span>, every last unit of its cosmic velocity has been assigned to space — nothing whatsoever is left for time. In the velocity-space diagram on the left, the photon's vector lies flat and horizontal. But in the coordinate spacetime map on the right, what angle does a photon's worldline actually make?
+      </p>
+      <p>
+        The answer turns on a deliberate choice we have made about units. We label the vertical axis not in plain seconds but in <span class="math-badge">ct</span> — time multiplied by the speed of light, measured in light-seconds or light-years. This puts space and time on exactly equal footing: one unit upward equals one unit rightward, both in the same physical dimension. Use the slider below to steer Bob's speed angle <span class="math-badge">θ</span> from 0° to 90°, and let the answer emerge for itself.
+      </p>
+
+      <!-- WIDGET 1: SIDE-BY-SIDE BRIDGE -->
+      <div id="widget-dual-bridge" class="interactive-artifact artifact-wide">
+        <div class="artifact-header">
+          <div>
+            <div class="artifact-badge">SIMULATION 01 · DUAL-VIEW BRIDGE</div>
+            <div class="artifact-title">Connecting Speed Space to Coordinate Spacetime</div>
+            <div class="artifact-desc">
+              Steer Bob's speed angle θ from 0° to 90°. Watch Alice, Bob, and ultimately a photon each trace their worldline through coordinate spacetime — and discover what angle the photon's worldline actually makes.
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Left Column: Part 1 Speed Circle -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>VELOCITY SPACE (PART 1)</span>
+              <span class="canvas-col-tag">v_space vs v_time</span>
+            </div>
+            <canvas class="canvas-speed"></canvas>
+          </div>
+
+          <!-- Right Column: Part 2 Spacetime Diagram -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>COORDINATE SPACETIME (PART 2)</span>
+              <span class="canvas-col-tag">Position x vs Time ct</span>
+            </div>
+            <canvas class="canvas-spacetime"></canvas>
+          </div>
+        </div>
+
+        <!-- Shared Telemetry Row -->
+        <div class="telemetry-row">
+          <div class="telemetry-item">
+            <div class="label">SPEED ANGLE θ</div>
+            <div class="value val-theta" style="color: var(--color-photon);">0.0°</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">SPACE SPEED v/c</div>
+            <div class="value val-vx" style="color: var(--color-space);">0.000 c</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">TIME SPEED vt/c</div>
+            <div class="value val-vt" style="color: var(--color-time);">1.000 c</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">SPACETIME ANGLE φ</div>
+            <div class="value val-phi" style="color: var(--color-space);">0.0°</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">LORENTZ FACTOR γ</div>
+            <div class="value val-gamma" style="color: var(--color-invariant);">1.00</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">CLOCK AGING RATE</div>
+            <div class="value val-proper-rate" style="color: var(--color-time);">100.0%</div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Speed Angle θ (0° Rest → 90° Pure Light)</span>
+            </div>
+            <input type="range" class="range-slider slider-theta" min="0" max="90" step="0.5" value="0">
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.75rem;">
+            <div class="preset-chips">
+              <button class="chip-btn preset-btn" data-theta="0">0° (At Rest)</button>
+              <button class="chip-btn preset-btn" data-theta="30">30° (v = 0.50c)</button>
+              <button class="chip-btn preset-btn" data-theta="60">60° (v = 0.866c)</button>
+              <button class="chip-btn preset-btn" data-theta="90">90° (Pure Light c)</button>
+            </div>
+            <div class="toolbar-bottom" style="padding-top:0;">
+              <button class="btn-primary btn-play">
+                <span>▶</span><span>Auto Sweep</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY PRESET OBSERVATIONS -->
+      <h3>Building Up the Picture</h3>
+      <p>
+        Click through the presets one by one and watch the spacetime map build up from stillness to the speed of light:
+      </p>
+      <ul>
+        <li>
+          <strong>At Rest (<span class="math-badge">θ = 0°</span>)</strong>: Bob's vector points straight up — identical to Alice's. Neither is moving through space, so on the right both worldlines are vertical straight lines climbing in perfect lockstep. Bob stays at <span class="math-badge">x = 0</span> and ages at Alice's full rate. This is our baseline: a vertical worldline means purely aging through time.
+        </li>
+        <li>
+          <strong>Sub-light Cruising (<span class="math-badge">θ = 30°</span>)</strong>: Bob steers sideways. Some of his cosmic velocity now flows into space, so his worldline tilts: <span class="math-badge">v = 0.50c</span>, angle <span class="math-badge">φ ≈ 26.6°</span>. Notice the tick marks on his worldline have spread apart — he is aging at 86.6% of Alice's rate, so more coordinate time must elapse for each second of his personal time.
+        </li>
+        <li>
+          <strong>Ultra-Relativistic (<span class="math-badge">θ = 60°</span>)</strong>: Bob moves at <span class="math-badge">v = 0.866c</span>. His worldline tilts further to <span class="math-badge">φ ≈ 40.9°</span>, approaching but not yet reaching 45°. His clock now runs at exactly half speed (<span class="math-badge">γ = 2.00</span>). The worldline is getting close to the diagonal — but not there yet.
+        </li>
+        <li>
+          <strong>The Photon (<span class="math-badge">θ = 90°</span>)</strong>: Now push to the limit. Every unit of the photon's cosmic velocity is in space — none in time. On the left, the vector lies flat and horizontal. On the right… the worldline lands at <strong>exactly 45°</strong>. Not horizontal. Not beyond 45°. Exactly 45°. Here is why: we chose the vertical axis to be <span class="math-badge">ct</span>, so one unit upward (one light-second of time) is equal to one unit rightward (one light-second of space). In that one light-second of time, the photon covers precisely one light-second of space — a 1:1 ratio, which is exactly 45°. The unit choice makes it so.
+        </li>
+      </ul>
+      <p>
+        And what about the photon's clock? The tick marks on its worldline are infinitely far apart — it has no proper time whatsoever. The velocity-space angle <span class="math-badge">θ = 90°</span> does not show up as a 90° worldline; it shows up as <strong>zero elapsed time</strong> along that 45° ray. For a photon, time stands completely still.
+      </p>
+
+      <!-- INSIGHT CALLOUT -->
+      <div class="insight-callout">
+        <h4>Why 45° Is the Cosmic Speed Limit in the Map</h4>
+        <p>
+          The 45° slope of the photon's worldline is a direct consequence of our unit choice: by measuring the time axis in units of <span class="math-badge">ct</span> (light-seconds, light-years), we guarantee that light always traces a 1:1 path — one unit of space for every unit of <span class="math-badge">ct</span> — which is exactly 45°.
+        </p>
+        <p>
+          This makes 45° the hard boundary of the map. Any worldline tilted <em>beyond</em> 45° from the vertical would represent an object covering <em>more</em> than one light-second of space in one light-second of time — moving faster than <span class="math-badge">c</span>. Part 1 showed us that no object with mass can ever reach <span class="math-badge">c</span>, let alone exceed it: the speed-circle forbids it. So in the coordinate spacetime map, the 45° photon worldline is the outermost boundary that any massive worldline can approach but never cross. It is the cosmic speed limit drawn directly into the geometry.
+        </p>
+        <p>
+          Every worldline for matter — Alice's vertical line, Bob's tilted line at any speed — must stay between the vertical and that 45° diagonal. The region beyond 45° is not just empty; it is physically unreachable.
+        </p>
+      </div>
+
+      <!-- SECTION 2 -->
+      <h2>2. The Expanding Ripple: Building the 3D Light Cone</h2>
+      <p>
+        What happens if you turn on a light bulb for a fraction of a second at a single point in space?
+      </p>
+      <p>
+        In three-dimensional space, the flash emits a spherical shell of photons spreading outward in all directions at speed <span class="math-badge">c</span>:
+      </p>
+      <div class="math-display-card">
+        <div>x² + y² + z² = (c · t)²</div>
+        <div class="formula-note">The spherical light shell spreading outward into space with velocity c.</div>
+      </div>
+      <p>
+        To visualize this in spacetime, let us suppress one spatial dimension (<span class="math-badge">z</span>) so that we have two spatial dimensions (<span class="math-badge">x, y</span>) on the horizontal ground, and time (<span class="math-badge">ct</span>) rising vertically.
+      </p>
+      <p>
+        At time <span class="math-badge">t = 0</span>, the flash is just a single point at the origin: your "Here and Now". As time moves forward (<span class="math-badge">t > 0</span>), the flash spreads outward as an expanding circle: <span class="math-badge">r(t) = ct</span>. As you stack these expanding circular ripples one on top of another across time, they trace out the surface of a cone: the <strong>Future Light Cone</strong>.
+      </p>
+      <p>
+        Conversely, running time backwards reveals all light rays from the past that are converging toward you right now. This forms the <strong>Past Light Cone</strong>.
+      </p>
+
+      <!-- WIDGET 2: 3D LIGHT CONE EXPLORER -->
+      <div id="widget-3d-light-cone" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <div class="artifact-badge">SIMULATION 02 · 3D VOLUME</div>
+            <div class="artifact-title">The Spacetime Light Cone Explorer</div>
+            <div class="artifact-desc">
+              Click and drag to rotate the 3D volume. Scrub through time to observe the expanding ripple of light <span class="math-badge">r = c·t</span> slicing reality into three cosmic regions.
+            </div>
+          </div>
+        </div>
+
+        <div class="artifact-split">
+          <!-- Left Column: Canvas Viewport -->
+          <div class="split-canvas-col">
+            <canvas></canvas>
+          </div>
+
+          <!-- Right Column: Control Deck & Telemetry -->
+          <div class="split-controls-col">
+            <div>
+              <div style="margin-bottom: 0.85rem;">
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">CURRENT REGION</div>
+                <div class="badge-region" style="font-family: var(--font-mono); font-weight: 750; font-size: 0.88rem; color: var(--color-time); margin-top: 0.15rem;">CAUSAL FUTURE</div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 0.65rem 0.85rem; border-radius: 0.5rem; background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); margin-bottom: 1rem;">
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">TIME SLICE ct</div>
+                  <div class="val-slice-time" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">+0.40 c·t</div>
+                </div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">WAVE RADIUS</div>
+                  <div class="val-wave-radius" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--color-photon);">0.40</div>
+                </div>
+              </div>
+
+              <div class="control-item" style="margin-bottom: 1rem;">
+                <div class="control-header">
+                  <span>Time Slice ct (-1.0 Past → +1.0 Future)</span>
+                </div>
+                <input type="range" class="range-slider slider-time" min="-1" max="1" step="0.02" value="0.4">
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.5rem;">
+                <div class="control-item">
+                  <div class="control-header"><span>Azimuth (Orbit)</span></div>
+                  <input type="range" class="range-slider slider-azimuth" min="-3.14" max="3.14" step="0.05" value="0.65">
+                </div>
+                <div class="control-item">
+                  <div class="control-header"><span>Elevation (Tilt)</span></div>
+                  <input type="range" class="range-slider slider-elevation" min="-0.6" max="1.2" step="0.05" value="0.38">
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Drag canvas to rotate 3D</span>
+              <button class="btn-secondary btn-reset-view">Reset View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE THREE COSMIC REGIONS -->
+      <h3>The Three Realms of Reality</h3>
+      <p>
+        The 45° boundary of the Light Cone divides all of existence into three mutually exclusive geometric realms:
+      </p>
+      <ol>
+        <li>
+          <strong>The Causal Future (Timelike Future)</strong>: The region inside the upper cone (<span class="math-badge">c²t² > x² + y²</span> with <span class="math-badge">t > 0</span>). Any particle of matter moving at less than light speed (<span class="math-badge">v < c</span>) will always travel inside this cone. This is the only part of the future you can ever visit, influence, or communicate with.
+        </li>
+        <li>
+          <strong>The Causal Past (Timelike Past)</strong>: The region inside the lower cone (<span class="math-badge">t < 0</span>). This contains every event in cosmic history that could have sent a signal (light, gravity, or sound) to reach you right now. Your memories, your DNA, and the light entering your eyes all originate strictly from inside your past light cone.
+        </li>
+        <li>
+          <strong>The "Elsewhere" (Spacelike Region)</strong>: The vast territory outside the cone (<span class="math-badge">c²t² < x² + y²</span>). Because no signal, influence, or matter can travel faster than light, <strong>nothing that happens in your Elsewhere can affect you right now, and nothing you do right now can affect it</strong>. It is completely causally severed from your present instant.
+        </li>
+      </ol>
+
+      <!-- SECTION 3 -->
+      <h2>3. What This Means Intuitively: The Horizon of Human Experience</h2>
+      <p>
+        To truly appreciate the light cone, we must leave abstract coordinates behind and consider what it means for living beings standing under the stars.
+      </p>
+
+      <h3>The 8-Minute Sun</h3>
+      <p>
+        The Sun is 150 million kilometers away. Light, traveling at 300,000 km/s, takes approximately <strong>8 minutes and 20 seconds</strong> to cross that gulf.
+      </p>
+      <p>
+        Suppose that right now, at this exact second, an evil alien vaporizes the Sun. What happens on Earth?
+      </p>
+      <p>
+        Nothing.
+      </p>
+      <p>
+        The birds keep singing, solar panels keep generating electricity, and the Earth continues orbiting peacefully through empty space. Why? Because the vaporization event is currently <strong>in Earth's Elsewhere</strong>.
+      </p>
+      <p>
+        Not only can light not reach us faster than 8 minutes, but gravity itself travels at the exact same speed: <span class="math-badge">c</span>. For 500 seconds, the Sun's disappearance is physically nonexistent to our world. Only when the edge of the light cone sweeping outward from the Sun at 45° finally collides with Earth's timeline does our planet suddenly plunge into darkness and drift into interstellar space.
+      </p>
+
+      <h3>A Supernova vs An 80-Year Human Lifespan</h3>
+      <p>
+        Now consider the stars scattered across the Milky Way.
+      </p>
+      <p>
+        Imagine a child is born on Earth today (<span class="math-badge">t = 0</span>). Over their typical 80-year human lifespan, their worldline travels straight up through time from <span class="math-badge">t = 0</span> to <span class="math-badge">t = 80 years</span> at Earth's position (<span class="math-badge">d = 0</span>).
+      </p>
+      <p>
+        Because light travels at exactly 1 light-year per year, the 45° boundary of their experience means that <strong>in 80 years, the furthest light ray that can ever reach their eyes from an event happening today is 80 light-years away.</strong>
+      </p>
+      <p>
+        Suppose several celestial events occur on the day this child is born:
+      </p>
+      <ul>
+        <li>
+          <strong>Proxima Centauri (4.2 light-years away)</strong> releases a stellar flare. The light crosses space and enters the child's past light cone when they are <strong>4.2 years old</strong>. They can look through a backyard telescope and see it.
+        </li>
+        <li>
+          <strong>Vega (25 light-years away)</strong> erupts. The light races toward Earth, arriving when the person celebrates their <strong>25th birthday</strong>. It is well inside their lifetime light cone.
+        </li>
+        <li>
+          <strong>Betelgeuse (640 light-years away)</strong> collapses into a catastrophic supernova today. Its light will travel across space for 640 years. When the person is 20, 50, or 80 years old, the supernova's light is still hundreds of light-years away! Across that human's entire life from birth to death, that supernova remains <strong>permanently trapped in their Elsewhere</strong>. No person alive on Earth today will ever witness it, read a news headline about it, or be affected by it.
+        </li>
+      </ul>
+
+      <!-- WIDGET 3: COSMIC HORIZON SIMULATOR -->
+      <div id="widget-cosmic-horizon" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <div class="artifact-badge">SIMULATION 03 · CELESTIAL HORIZON</div>
+            <div class="artifact-title">The Cosmic Horizon & Human Lifespan Simulator</div>
+            <div class="artifact-desc">
+              Choose a celestial event happening today. Adjust your age and see whether the event's light enters your lifetime light cone or remains forever in your personal Elsewhere.
+            </div>
+          </div>
+        </div>
+
+        <div class="artifact-split">
+          <!-- Left Column: Canvas Viewport -->
+          <div class="split-canvas-col">
+            <canvas></canvas>
+          </div>
+
+          <!-- Right Column: Control Deck & Telemetry -->
+          <div class="split-controls-col">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; padding: 0.35rem 0.65rem; border-radius: 0.375rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);">
+                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">SELECTED EVENT:</span>
+                <span class="val-event-name" style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--text-primary);">Vega Flare (25 ly)</span>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 0.65rem 0.85rem; border-radius: 0.5rem; background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); margin-bottom: 0.85rem;">
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">DISTANCE</div>
+                  <div class="val-event-dist" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--color-space);">25.0 ly</div>
+                </div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">LIGHT ARRIVAL</div>
+                  <div class="val-light-arrival" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--color-time);">25.0 years</div>
+                </div>
+              </div>
+
+              <!-- Dynamic Status Banner -->
+              <div class="banner-status" style="margin: 0 0 1rem 0; padding: 0.75rem 0.85rem; border-radius: 0.5rem; border: 1px solid var(--border-subtle); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.45;">
+                <strong>★ IN YOUR PAST LIGHT CONE:</strong> Arrived when you were <strong>age 25.0</strong>. You can see and experience it right now.
+              </div>
+
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Your Current Age (0 to 80 Years)</span>
+                </div>
+                <input type="range" class="range-slider slider-age" min="0" max="80" step="1" value="30">
+              </div>
+
+              <div class="control-item" style="margin-bottom: 1rem;">
+                <div class="control-header">
+                  <span>Event Distance (0 to 100 Light-Years)</span>
+                </div>
+                <input type="range" class="range-slider slider-distance" min="0" max="100" step="1" value="25">
+              </div>
+            </div>
+
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); margin-bottom: 0.35rem; text-transform: uppercase;">CELESTIAL PRESETS:</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+                <button class="chip-btn preset-celestial" data-dist="0.000016" data-name="The Sun (8.3 light-minutes)">The Sun (8.3m)</button>
+                <button class="chip-btn preset-celestial" data-dist="4.2" data-name="Proxima Centauri (4.2 ly)">Proxima (4.2 ly)</button>
+                <button class="chip-btn preset-celestial" data-dist="8.6" data-name="Sirius (8.6 ly)">Sirius (8.6 ly)</button>
+                <button class="chip-btn preset-celestial" data-dist="25" data-name="Vega (25 ly)">Vega (25 ly)</button>
+                <button class="chip-btn preset-celestial" data-dist="640" data-name="Betelgeuse Supernova (640 ly)">Betelgeuse (640 ly)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4 -->
+      <h2>4. The Mathematical Synthesis</h2>
+      <p>
+        We can now state the mathematical relationship between Part 1 and Part 2 with complete precision.
+      </p>
+      <p>
+        In Part 1's Velocity Space, an observer's 4-velocity vector has components:
+      </p>
+      <div class="math-display-card">
+        <div>v_space = c · sin θ, &nbsp; v_time = c · cos θ</div>
+        <div class="formula-note">Spatial speed and speed through time partition the total cosmic speed c trigonometrically.</div>
+      </div>
+      <p>
+        In Part 2's Coordinate Spacetime, an observer's position changes over coordinate time according to:
+      </p>
+      <div class="math-display-card">
+        <div>dx / dt = v_space = c · sin θ &nbsp;⟹&nbsp; dx / d(ct) = sin θ</div>
+        <div class="formula-note">The coordinate slope in spacetime simplifies cleanly when scaled by c.</div>
+      </div>
+      <p>
+        The tilt angle <span class="math-badge">φ</span> of the worldline relative to the vertical time axis is:
+      </p>
+      <div class="math-display-card">
+        <div>tan φ = dx / d(ct) = sin θ &nbsp;⟹&nbsp; φ = arctan(sin θ)</div>
+        <div class="formula-note">The spacetime tilt angle φ is directly governed by the velocity-space angle θ.</div>
+      </div>
+      <p>
+        This elegant formula explains the entire correspondence:
+      </p>
+      <ul>
+        <li>For an observer at rest: <span class="math-badge">θ = 0° ⟹ φ = arctan(0) = 0°</span> (vertical line).</li>
+        <li>For a photon at light speed: <span class="math-badge">θ = 90° ⟹ φ = arctan(1) = 45°</span> (light cone surface).</li>
+        <li>An angle of <span class="math-badge">φ = 90°</span> would require <span class="math-badge">tan 90° = ∞</span>, which corresponds to infinite speed—a physically forbidden trajectory lying in the Elsewhere.</li>
+      </ul>
+      <p>
+        And what of the time dilation from Part 1? It is preserved perfectly in the metric interval along the worldline:
+      </p>
+      <div class="math-display-card">
+        <div>dτ = √( dt² − dx²/c² ) = dt · √( 1 − sin²θ ) = dt · cos θ</div>
+        <div class="formula-note">Proper time elapsed along the worldline scales directly with the time-velocity component.</div>
+      </div>
+      <p>
+        When <span class="math-badge">θ = 90°</span>, <span class="math-badge">cos 90° = 0</span>, meaning proper time along the 45° light cone is exactly zero.
+      </p>
+
+      <!-- SECTION 5 -->
+      <h2>5. Looking Ahead: Slicing the Loaf in Part 3</h2>
+      <p>
+        Now that we have built the coordinate map of spacetime and understood the 45° geometry of the Light Cone, we are ready to tackle relativity's most mind-bending puzzle:
+      </p>
+      <p>
+        <em>If Bob is moving relative to Alice, his worldline is tilted at angle <span class="math-badge">φ</span>. What does Bob consider to be happening "right now"?</em>
+      </p>
+      <p>
+        For Alice, "Now" is a flat horizontal slice across the spacetime map. But because the speed of light must be identical in both directions for Bob, <strong>Bob's slice of simultaneous space cannot be horizontal. It must tilt upward!</strong>
+      </p>
+      <p>
+        In <a href="03-the-spacetime-loaf-and-length-contraction-standalone.html" style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 3: The Spacetime Loaf & Length Contraction</a>, we explore:
+      </p>
+      <ul>
+        <li>How motion tilts your slice through the 4D block universe like cutting an oblique slice of bread.</li>
+        <li>Why moving rulers naturally shorten along their direction of motion.</li>
+        <li>The Twin Paradox resolution: how turning around sweeps Bob's "Now" slice across decades of Alice's life.</li>
+      </ul>
+
+      <!-- SERIES PAGER -->
+      <div class="series-pager">
+        <a href="01-why-motion-through-space-affects-time-standalone.html" class="btn-secondary">
+          ← Part 1: Motion Through Space & Time
+        </a>
+        <a href="03-the-spacetime-loaf-and-length-contraction-standalone.html" class="btn-primary">
+          Explore Part 3: The Spacetime Loaf →
+        </a>
+      </div>
+
+      <!-- AUTHOR BIO -->
+      <div class="article-author">
+        <div class="brand-badge">c</div>
+        <div>
+          <h4>Aayush Agarwal</h4>
+          <p>
+            Exploring fundamental physics through intuitive geometric visual models and explorable interactive simulations.
+          </p>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="wide-container">
+      <p>How Does the Universe Work? · An Explorable Physics Series by Aayush Agarwal</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="../index.html">Series Home</a> · <a href="01-why-motion-through-space-affects-time-standalone.html">Part 1: Motion & Time</a> · <a href="03-the-spacetime-loaf-and-length-contraction-standalone.html">Part 3: The Loaf & Length</a> · <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Universal Client-Side Script (100% Static & file:// compatible) -->
+  <script>
 /**
  * site.js - Universal Client-Side Physics Simulation Suite
  * 100% Static, Serverless, Zero-Dependency. Works over file:// and any static host.
@@ -4305,3 +6722,15 @@
 
 })(window);
 
+
+</script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.UniverseSimulations && window.UniverseSimulations.initAllPost02) {
+        window.UniverseSimulations.initAllPost02();
+      }
+    });
+  </script>
+
+</body>
+</html>

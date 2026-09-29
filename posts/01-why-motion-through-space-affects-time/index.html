@@ -31,11 +31,13 @@
       <div class="nav-links">
         <a href="../../index.html">← All Essays</a>
         <a href="#interactive-clocks" class="active nav-link-secondary">Part 1: Motion & Time</a>
+        <a href="../02-the-cosmic-light-cone/index.html" class="nav-link-secondary">Part 2</a>
+        <a href="../03-the-spacetime-loaf-and-length-contraction/index.html" class="nav-link-secondary">Part 3</a>
         <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener" class="nav-link-secondary">GitHub</a>
         <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
           <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="12" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
             <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
@@ -53,7 +55,7 @@
   </nav>
 
   <!-- Main Article Body -->
-  <main class="reading-container">
+  <main class="wide-reading-container">
 
     <!-- Article Header -->
     <header class="article-header">
@@ -89,26 +91,26 @@
       <!-- SECTION 1 -->
       <h2>1. Starting with Simple Geometry: Two Cars on a 2D Plane</h2>
       <p>
-        Imagine a broad, flat open field. We draw a standard coordinate grid on the ground with two perpendicular directions: <strong>East</strong> (which we will call <span class="math-badge" style="display:inline; padding:2px 6px;">x₁</span>) and <strong>North</strong> (which we will call <span class="math-badge" style="display:inline; padding:2px 6px;">x₂</span>).
+        Imagine a broad, flat open field. We draw a standard coordinate grid on the ground with two perpendicular directions: <strong>East</strong> (which we will call <span class="math-badge">x₁</span>) and <strong>North</strong> (which we will call <span class="math-badge">x₂</span>).
       </p>
       <p>
-        At the starting point <span class="math-badge" style="display:inline; padding:2px 6px;">(0,0)</span>, we place two cars: a <strong>Blue Car</strong> and an <strong>Orange Car</strong>.
+        At the starting point <span class="math-badge">(0,0)</span>, we place two cars: a <strong>Blue Car</strong> and an <strong>Orange Car</strong>.
       </p>
       <p>
-        Both drivers turn on cruise control, locking their speed to the exact same value: <strong>60 miles per hour</strong> (<span class="math-badge" style="display:inline; padding:2px 6px;">V = 60 mph</span>). Neither vehicle can speed up, and neither can slow down.
+        Both drivers turn on cruise control, locking their speed to the exact same value: <strong>60 miles per hour</strong> (<span class="math-badge">V = 60 mph</span>). Neither vehicle can speed up, and neither can slow down.
       </p>
       <p>
         Now they begin driving:
       </p>
       <p>
-        1. <strong>The Blue Car</strong> points its wheels due <strong>North</strong> along the <span class="math-badge" style="display:inline; padding:2px 6px;">x₂</span> axis. Because all of its motion is directed North, its Northward speed is <span class="math-badge" style="display:inline; padding:2px 6px;">60 mph</span>, and its Eastward speed is <span class="math-badge" style="display:inline; padding:2px 6px;">0 mph</span>.<br>
-        2. <strong>The Orange Car</strong> chooses a different path. It angles its heading <span class="math-badge" style="display:inline; padding:2px 6px;">60°</span> toward the <strong>East</strong> (away from North) along a diagonal.
+        1. <strong>The Blue Car</strong> points its wheels due <strong>North</strong> along the <span class="math-badge">x₂</span> axis. Because all of its motion is directed North, its Northward speed is <span class="math-badge">60 mph</span>, and its Eastward speed is <span class="math-badge">0 mph</span>.<br>
+        2. <strong>The Orange Car</strong> chooses a different path. It angles its heading <span class="math-badge">60°</span> toward the <strong>East</strong> (away from North) along a diagonal.
       </p>
       <p>
         Consider a simple question: <strong>After driving for an hour, will the Orange Car be at the same Northward position as the Blue Car?</strong>
       </p>
       <p>
-        Intuitively, we know it will not. Because the Orange Car angled toward the East, its fixed <span class="math-badge" style="display:inline; padding:2px 6px;">60 mph</span> speed is now shared between two perpendicular directions. We can see exactly how that speed is split by looking at the right triangle formed by its heading:
+        Intuitively, we know it will not. Because the Orange Car angled toward the East, its fixed <span class="math-badge">60 mph</span> speed is now shared between two perpendicular directions. We can see exactly how that speed is split by looking at the right triangle formed by its heading:
       </p>
       <p>
         • <strong>Speed Eastward (x₁):</strong> Scales with the sine of the angle:<br>
@@ -119,48 +121,52 @@
         <span class="math-badge" style="display:inline-block; margin: 4px 0;">V_North = V × cos(60°) = 60 × 0.5 = 30 mph</span>
       </p>
       <p>
-        Notice where that <span class="math-badge" style="display:inline; padding:2px 6px;">52 mph</span> comes from: because <span class="math-badge" style="display:inline; padding:2px 6px;">sin(60°) ≈ 0.866</span>, the car directs about <span class="math-badge" style="display:inline; padding:2px 6px;">86.6%</span> of its speed toward the East. And because <span class="math-badge" style="display:inline; padding:2px 6px;">cos(60°) = 0.5</span>, its progress Northward is cut exactly in half, down to <span class="math-badge" style="display:inline; padding:2px 6px;">30 mph</span>.
+        Notice where that <span class="math-badge">52 mph</span> comes from: because <span class="math-badge">sin(60°) ≈ 0.866</span>, the car directs about <span class="math-badge">86.6%</span> of its speed toward the East. And because <span class="math-badge">cos(60°) = 0.5</span>, its progress Northward is cut exactly in half, down to <span class="math-badge">30 mph</span>.
       </p>
 
       <!-- INTERACTIVE WIDGET 1: CARS -->
       <div id="widget-cars" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 01</span>
+            <div class="artifact-badge">SIMULATION 01 · 2D VECTOR DECOMPOSITION</div>
             <div class="artifact-title">Two Cars on a 2D Grid: The Spatial Trade-Off</div>
             <div class="artifact-desc">Scrub time or change the heading angle to watch the speed components trade off in real time.</div>
           </div>
         </div>
-        <div class="canvas-viewport">
-          <canvas></canvas>
-        </div>
-        <div class="artifact-controls">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Simulate Elapsed Time (Scrubber)</span>
-              <span class="control-val cyan val-time">0.60 hr</span>
-            </div>
-            <input type="range" class="range-slider slider-time" min="0" max="1000" value="600">
+        <div class="artifact-split">
+          <div class="split-canvas-col">
+            <canvas></canvas>
           </div>
-          <div class="control-item">
-            <div class="control-header">
-              <span>Heading Angle (θ from North)</span>
-              <span class="control-val amber val-angle">60°</span>
+          <div class="split-controls-col">
+            <div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Simulate Elapsed Time</span>
+                  <span class="control-val cyan val-time">0.60 hr</span>
+                </div>
+                <input type="range" class="range-slider slider-time" min="0" max="1000" value="600">
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Heading Angle (θ from North)</span>
+                  <span class="control-val amber val-angle">60°</span>
+                </div>
+                <input type="range" class="range-slider amber slider-angle" min="0" max="90" value="60">
+                <div class="preset-chips" style="margin-top: 0.4rem;">
+                  <button class="chip-btn chip-angle" data-angle="0">0° (North)</button>
+                  <button class="chip-btn chip-angle" data-angle="30">30°</button>
+                  <button class="chip-btn chip-angle active" data-angle="60">60°</button>
+                  <button class="chip-btn chip-angle" data-angle="90">90° (East)</button>
+                </div>
+              </div>
             </div>
-            <input type="range" class="range-slider amber slider-angle" min="0" max="90" value="60">
-            <div class="preset-chips">
-              <button class="chip-btn chip-angle" data-angle="0">θ = 0° (North: 60, East: 0)</button>
-              <button class="chip-btn chip-angle" data-angle="30">θ = 30° (North: 52, East: 30)</button>
-              <button class="chip-btn chip-angle active" data-angle="60">θ = 60° (North: 30, East: 52)</button>
-              <button class="chip-btn chip-angle" data-angle="90">θ = 90° (North: 0, East: 60)</button>
-            </div>
-          </div>
-          <div class="toolbar-bottom">
-            <button class="btn-primary btn-play">
-              <span>▶</span><span>Auto Play</span>
-            </button>
-            <div class="math-badge">
-              East: <strong class="readout-vx">52.0 mph</strong> | North: <strong class="readout-vy">30.0 mph</strong>
+            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+              <button class="btn-primary btn-play">
+                <span>▶</span><span>Auto Play</span>
+              </button>
+              <div class="math-badge">
+                East: <strong class="readout-vx">52.0 mph</strong> | North: <strong class="readout-vy">30.0 mph</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -177,10 +183,10 @@
         Now, let us take this geometric idea and make a simple shift in how we picture the world.
       </p>
       <p>
-        Suppose we draw another 2D grid. We will keep the horizontal axis as <strong>Space</strong> (<span class="math-badge" style="display:inline; padding:2px 6px;">x</span>), representing motion to the left or right. 
+        Suppose we draw another 2D grid. We will keep the horizontal axis as <strong>Space</strong> (<span class="math-badge">x</span>), representing motion to the left or right. 
       </p>
       <p>
-        For the vertical axis, instead of labeling it "North," let’s label it <strong>Time</strong> (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>).
+        For the vertical axis, instead of labeling it "North," let’s label it <strong>Time</strong> (<span class="math-badge">t</span>).
       </p>
       <p>
         What does it mean to move along this vertical axis?
@@ -199,45 +205,47 @@
       <div id="widget-stationary" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 02</span>
+            <div class="artifact-badge">SIMULATION 02 · AT REST IN SPACETIME</div>
             <div class="artifact-title">An Object at Rest: Motion Purely Through Time</div>
-            <div class="artifact-desc">Sitting motionless in space (x = 0) still carries you relentlessly forward into the future.</div>
+            <div class="artifact-desc">Sitting motionless in space (x = 0) still carries you relentlessly forward into the future at speed c.</div>
           </div>
         </div>
-        <div class="canvas-viewport">
-          <canvas></canvas>
-        </div>
-        <div class="twin-clocks-panel" style="grid-template-columns: 1fr;">
-          <div class="clock-card cyan">
-            <div class="clock-meta">
-              <span class="clock-label">Observer Wristwatch (At Rest)</span>
-              <span class="clock-badge">100% Speed Through Time</span>
+        <div class="artifact-split">
+          <div class="split-canvas-col">
+            <canvas></canvas>
+          </div>
+          <div class="split-controls-col">
+            <div>
+              <div class="clock-card cyan" style="margin-bottom: 0.85rem;">
+                <div class="clock-meta">
+                  <span class="clock-label">Observer Wristwatch (At Rest)</span>
+                  <span class="clock-badge">100% Rate</span>
+                </div>
+                <div class="clock-time clock-val">0.00 <span>s</span></div>
+                <p class="clock-subtext">Every second on the watch is forward progress along the Time axis.</p>
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Scrub Coordinate Time Elapsed (ct)</span>
+                  <span class="control-val cyan">0 to 6.00 s</span>
+                </div>
+                <input type="range" class="range-slider slider-time" min="0" max="1000" value="580">
+              </div>
             </div>
-            <div class="clock-time clock-val">0.00 <span>s</span></div>
-            <p class="clock-subtext">Every second on the watch is forward progress along the Time axis.</p>
-          </div>
-        </div>
-        <div class="artifact-controls">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Scrub Time Forward / Backward</span>
-              <span class="control-val cyan">0 to 6.00 s</span>
-            </div>
-            <input type="range" class="range-slider slider-time" min="0" max="1000" value="580">
-          </div>
-          <div class="toolbar-bottom">
-            <button class="btn-primary btn-play">
-              <span>▶</span><span>Auto Play</span>
-            </button>
-            <div class="math-badge">
-              Spatial speed: <strong>v_space = 0</strong> | Time speed: <strong>v_time = V (100%)</strong>
+            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+              <button class="btn-primary btn-play">
+                <span>▶</span><span>Auto Play</span>
+              </button>
+              <div class="math-badge">
+                v_space = <strong>0</strong> | v_time = <strong>1.000 c</strong>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <p>
-        This simple diagram reveals an important baseline: to exist is to move through time. An object sitting completely still at <span class="math-badge" style="display:inline; padding:2px 6px;">x = 0</span> is not static; it is traveling forward along the vertical Time axis.
+        This simple diagram reveals an important baseline: to exist is to move through time. An object sitting completely still at <span class="math-badge">x = 0</span> is not static; it is traveling forward along the vertical Time axis.
       </p>
 
       <!-- SECTION 3 -->
@@ -252,45 +260,49 @@
         Let’s trace what such a rule would require:
       </p>
       <p>
-        • <strong>An Observer at Rest:</strong> If an observer sits completely still in space, their spatial velocity is zero (<span class="math-badge" style="display:inline; padding:2px 6px;">v_space = 0</span>). Since their total speed vector has a constant length <span class="math-badge" style="display:inline; padding:2px 6px;">V</span>, the entire vector must point straight up along the Time axis: <span class="math-badge" style="display:inline; padding:2px 6px;">v_time = V</span>. All of their motion is directed through time, and their clock ticks forward at its full, normal rate.
+        • <strong>An Observer at Rest:</strong> If an observer sits completely still in space, their spatial velocity is zero (<span class="math-badge">v_space = 0</span>). Since their total speed vector has a constant length <span class="math-badge">V</span>, the entire vector must point straight up along the Time axis: <span class="math-badge">v_time = V</span>. All of their motion is directed through time, and their clock ticks forward at its full, normal rate.
       </p>
       <p>
-        • <strong>An Observer Moving Through Space:</strong> Now, suppose this person begins moving across space at a speed <span class="math-badge" style="display:inline; padding:2px 6px;">v_space</span>. Look at what happens as that vector tilts into the space dimension:
+        • <strong>An Observer Moving Through Space:</strong> Now, suppose this person begins moving across space at a speed <span class="math-badge">v_space</span>. Look at what happens as that vector tilts into the space dimension:
       </p>
 
       <!-- INTERACTIVE WIDGET 3: TRADEOFF -->
       <div id="widget-tradeoff" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 03</span>
+            <div class="artifact-badge">SIMULATION 03 · THE FUNDAMENTAL TRADEOFF</div>
             <div class="artifact-title">The Thought Experiment: Trading Space for Time</div>
             <div class="artifact-desc">Slide the spatial velocity to watch how moving through space directly reduces speed through time.</div>
           </div>
         </div>
-        <div class="canvas-viewport">
-          <canvas></canvas>
-        </div>
-        <div class="artifact-controls">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Velocity Across Space (v_space)</span>
-              <span class="control-val amber readout-vx">86.6% of V</span>
-            </div>
-            <input type="range" class="range-slider amber slider-speed" min="0" max="1000" value="866">
+        <div class="artifact-split">
+          <div class="split-canvas-col">
+            <canvas></canvas>
           </div>
-          <div class="control-item">
-            <div class="control-header">
-              <span>Simulate Elapsed Time</span>
-              <span class="control-val cyan val-time">70%</span>
+          <div class="split-controls-col">
+            <div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Velocity Across Space (v_space)</span>
+                  <span class="control-val amber readout-vx">86.6% of V</span>
+                </div>
+                <input type="range" class="range-slider amber slider-speed" min="0" max="1000" value="866">
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Simulate Elapsed Time</span>
+                  <span class="control-val cyan val-time">70%</span>
+                </div>
+                <input type="range" class="range-slider slider-time" min="0" max="1000" value="700">
+              </div>
             </div>
-            <input type="range" class="range-slider slider-time" min="0" max="1000" value="700">
-          </div>
-          <div class="toolbar-bottom">
-            <button class="btn-primary btn-play">
-              <span>▶</span><span>Auto Play</span>
-            </button>
-            <div class="math-badge">
-              Remaining Speed Through Time: <strong class="readout-vt">50.0% of V</strong>
+            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+              <button class="btn-primary btn-play">
+                <span>▶</span><span>Auto Play</span>
+              </button>
+              <div class="math-badge">
+                v_time = <strong class="readout-vt">50.0% of V</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -316,17 +328,17 @@
         When Albert Einstein formulated Special Relativity in 1905, and Hermann Minkowski subsequently revealed its geometric structure, they showed that space and time are fundamentally woven into a single four-dimensional continuum: <strong>spacetime</strong>.
       </p>
       <p>
-        And what is that constant speed <span class="math-badge" style="display:inline; padding:2px 6px;">V</span> that governs motion through spacetime?
+        And what is that constant speed <span class="math-badge">V</span> that governs motion through spacetime?
       </p>
       <p>
-        It is the constant denoted by <strong>c</strong>—commonly known as the speed of light (approximately <span class="math-badge" style="display:inline; padding:2px 6px;">299,792 km/s</span>, or <span class="math-badge" style="display:inline; padding:2px 6px;">671 million miles per hour</span>).
+        It is the constant denoted by <strong>c</strong>—commonly known as the speed of light (approximately <span class="math-badge">299,792 km/s</span>, or <span class="math-badge">671 million miles per hour</span>).
       </p>
       <p>
         In this geometric view:
       </p>
       <p>
-        • When you are sitting at rest in your chair, your motion is directed almost entirely through time at speed <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>. Your watch ticks at its standard rate.<br>
-        • If a traveler boards a spacecraft and travels through space at a significant fraction of light speed—say, <span class="math-badge" style="display:inline; padding:2px 6px;">86.6% of c</span> (<span class="math-badge" style="display:inline; padding:2px 6px;">v_space = 0.866c</span>, directly mirroring the <span class="math-badge" style="display:inline; padding:2px 6px;">sin(60°)</span> angle from our car example)—they are directing a substantial portion of their spacetime velocity into space.
+        • When you are sitting at rest in your chair, your motion is directed almost entirely through time at speed <span class="math-badge">c</span>. Your watch ticks at its standard rate.<br>
+        • If a traveler boards a spacecraft and travels through space at a significant fraction of light speed—say, <span class="math-badge">86.6% of c</span> (<span class="math-badge">v_space = 0.866c</span>, directly mirroring the <span class="math-badge">sin(60°)</span> angle from our car example)—they are directing a substantial portion of their spacetime velocity into space.
       </p>
       <p>
         How much of their motion remains along the time dimension?
@@ -342,59 +354,63 @@
       <div id="widget-time-dilation" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 04</span>
+            <div class="artifact-badge">SIMULATION 04 · TWIN CLOCKS & TIME DILATION</div>
             <div class="artifact-title">Live Twin Clocks & Relativistic Time Dilation</div>
             <div class="artifact-desc">Adjust the speed of the spacecraft and watch the two synchronized clocks run live.</div>
           </div>
         </div>
-        <div class="canvas-viewport">
-          <canvas></canvas>
-        </div>
-        <div class="twin-clocks-panel">
-          <div class="clock-card cyan">
-            <div class="clock-meta">
-              <span class="clock-label">Earth Observer (v = 0)</span>
-              <span class="clock-badge">Standard 1.00x Rate</span>
-            </div>
-            <div class="clock-time clock-earth">0.00 <span>s</span></div>
-            <p class="clock-subtext">100% of motion directed into time.</p>
+        <div class="artifact-split">
+          <div class="split-canvas-col">
+            <canvas></canvas>
           </div>
-          <div class="clock-card amber">
-            <div class="clock-meta">
-              <span class="clock-label">Rocket Clock (Moving)</span>
-              <span class="clock-badge">Dilated Rate</span>
+          <div class="split-controls-col">
+            <div>
+              <div class="twin-clocks-panel" style="margin-bottom: 0.85rem;">
+                <div class="clock-card cyan">
+                  <div class="clock-meta">
+                    <span class="clock-label">Earth (v = 0)</span>
+                    <span class="clock-badge">1.00x Rate</span>
+                  </div>
+                  <div class="clock-time clock-earth">0.00 <span>s</span></div>
+                  <p class="clock-subtext">100% motion in time.</p>
+                </div>
+                <div class="clock-card amber">
+                  <div class="clock-meta">
+                    <span class="clock-label">Rocket (Moving)</span>
+                    <span class="clock-badge">Dilated</span>
+                  </div>
+                  <div class="clock-time clock-rocket" style="color:var(--color-space);">0.00 <span>s</span></div>
+                  <p class="clock-subtext">Slowed by space motion.</p>
+                </div>
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Passage of Time (Scrubber)</span>
+                  <span class="control-val cyan">Simulate Time</span>
+                </div>
+                <input type="range" class="range-slider slider-time" min="0" max="1000" value="0">
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Spacecraft Velocity (v)</span>
+                  <span class="control-val amber readout-speed">v = 0.866 c</span>
+                </div>
+                <input type="range" class="range-slider amber slider-speed" min="0" max="999" value="866">
+                <div class="preset-chips" style="margin-top: 0.4rem;">
+                  <button class="chip-btn chip-preset" data-val="0">At Rest</button>
+                  <button class="chip-btn chip-preset" data-val="0.500">0.500 c</button>
+                  <button class="chip-btn chip-preset active" data-val="0.866">0.866 c (½ Time)</button>
+                  <button class="chip-btn chip-preset" data-val="0.995">0.995 c (Muon)</button>
+                </div>
+              </div>
             </div>
-            <div class="clock-time clock-rocket" style="color:var(--color-space);">0.00 <span>s</span></div>
-            <p class="clock-subtext">Time progress is slowed by spatial motion.</p>
-          </div>
-        </div>
-        <div class="artifact-controls">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Passage of Time (Scrubber)</span>
-              <span class="control-val cyan">Simulate Time</span>
-            </div>
-            <input type="range" class="range-slider slider-time" min="0" max="1000" value="0">
-          </div>
-          <div class="control-item">
-            <div class="control-header">
-              <span>Spacecraft Velocity (v)</span>
-              <span class="control-val amber readout-speed">v = 0.866 c</span>
-            </div>
-            <input type="range" class="range-slider amber slider-speed" min="0" max="999" value="866">
-            <div class="preset-chips">
-              <button class="chip-btn chip-preset" data-val="0">At Rest (v = 0)</button>
-              <button class="chip-btn chip-preset" data-val="0.500">v = 0.500 c</button>
-              <button class="chip-btn chip-preset active" data-val="0.866">v = 0.866 c (Half Time)</button>
-              <button class="chip-btn chip-preset" data-val="0.995">v = 0.995 c (Muons)</button>
-            </div>
-          </div>
-          <div class="toolbar-bottom">
-            <button class="btn-primary btn-play">
-              <span>▶</span><span>Auto Play</span>
-            </button>
-            <div class="math-badge">
-              v_time = <strong class="readout-math">0.500 c</strong> | γ = <strong class="readout-gamma">2.00</strong>
+            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+              <button class="btn-primary btn-play">
+                <span>▶</span><span>Auto Play</span>
+              </button>
+              <div class="math-badge">
+                v_time = <strong class="readout-math">0.500 c</strong> | γ = <strong class="readout-gamma">2.00</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -425,47 +441,54 @@
       <div id="widget-speed-limit" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 05</span>
+            <div class="artifact-badge">SIMULATION 05 · COSMIC SPEED LIMIT</div>
             <div class="artifact-title">The Cosmic Boundary: The Timeless Photon</div>
             <div class="artifact-desc">Switch between particles to see why the speed of light freezes time completely.</div>
           </div>
         </div>
-        <div class="canvas-viewport">
-          <canvas></canvas>
-        </div>
-        <div class="twin-clocks-panel" style="grid-template-columns: 1fr;">
-          <div class="clock-card" style="border-color: rgba(250, 204, 21, 0.4);">
-            <div class="clock-meta">
-              <span class="clock-label" style="color:var(--color-photon);">Particle Onboard Clock</span>
-              <span class="clock-badge">Status</span>
-            </div>
-            <div class="clock-time clock-photon" style="color:var(--color-photon);">0.000 <span>s</span></div>
-            <p class="clock-subtext status-note">Time is completely frozen. 100% of motion is across space.</p>
+        <div class="artifact-split">
+          <div class="split-canvas-col">
+            <canvas></canvas>
           </div>
-        </div>
-        <div class="artifact-controls">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Select Particle / Observer</span>
+          <div class="split-controls-col">
+            <div>
+              <div class="clock-card" style="border-left: 3px solid #facc15; margin-bottom: 0.85rem;">
+                <div class="clock-meta">
+                  <span class="clock-label" style="color:var(--color-photon);">Particle Onboard Clock</span>
+                  <span class="clock-badge">Status</span>
+                </div>
+                <div class="clock-time clock-photon" style="color:var(--color-photon);">0.000 <span>s</span></div>
+                <p class="clock-subtext status-note">Time is completely frozen. 100% of motion is across space.</p>
+              </div>
+              <div class="control-item">
+                <div class="control-header">
+                  <span>Select Particle / Observer</span>
+                </div>
+                <div class="preset-chips" style="margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                  <button class="chip-btn mode-btn" data-mode="rest">1. Observer at Rest (v = 0)</button>
+                  <button class="chip-btn mode-btn" data-mode="rocket">2. Fast Rocket (v = 0.866c)</button>
+                  <button class="chip-btn mode-btn active" data-mode="photon">3. Photon / Light (v = c)</button>
+                </div>
+              </div>
             </div>
-            <div class="preset-chips">
-              <button class="chip-btn mode-btn" data-mode="rest">1. Observer at Rest (v = 0)</button>
-              <button class="chip-btn mode-btn" data-mode="rocket">2. Fast Rocket (v = 0.866c)</button>
-              <button class="chip-btn mode-btn active" data-mode="photon">3. Photon / Light (v = c)</button>
+            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+              <div class="math-badge" style="width: 100%; text-align: center;">
+                v_space = <strong>c</strong> ⟹ v_time = <strong>0</strong>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <p>
-        If an object travels through space at <span class="math-badge" style="display:inline; padding:2px 6px;">v_space = c</span>, how much speed remains for time?
+        If an object travels through space at <span class="math-badge">v_space = c</span>, how much speed remains for time?
       </p>
       <div class="formula-card">
         <div>v_time = √( c² - c² ) = 0</div>
         <div class="formula-note">Its motion through time drops to zero. A photon experiences zero elapsed time across the entire cosmos.</div>
       </div>
       <p>
-        Just as a car on a 2D plane cannot travel "more than 100% East," an object cannot divert more than all of its speed into space. To exceed <span class="math-badge" style="display:inline; padding:2px 6px;">c</span> would require having more total motion than nature provides. The speed of light is not an arbitrary barrier; it is simply the full magnitude of motion available in spacetime.
+        Just as a car on a 2D plane cannot travel "more than 100% East," an object cannot divert more than all of its speed into space. To exceed <span class="math-badge">c</span> would require having more total motion than nature provides. The speed of light is not an arbitrary barrier; it is simply the full magnitude of motion available in spacetime.
       </p>
 
       <h3>Why Don’t We Notice This in Daily Life?</h3>
@@ -473,10 +496,10 @@
         If moving through space reduces our progress through time, why doesn't our watch fall behind when we take a long drive or an airplane flight?
       </p>
       <p>
-        The reason comes down to the immense magnitude of <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>. Light travels at roughly <span class="math-badge" style="display:inline; padding:2px 6px;">1,080,000,000 km/h</span>. When you sit in a commercial airplane cruising at <span class="math-badge" style="display:inline; padding:2px 6px;">900 km/h</span>, your speed through space as a fraction of light speed is approximately <span class="math-badge" style="display:inline; padding:2px 6px;">0.00000083</span>.
+        The reason comes down to the immense magnitude of <span class="math-badge">c</span>. Light travels at roughly <span class="math-badge">1,080,000,000 km/h</span>. When you sit in a commercial airplane cruising at <span class="math-badge">900 km/h</span>, your speed through space as a fraction of light speed is approximately <span class="math-badge">0.00000083</span>.
       </p>
       <p>
-        The reduction in your motion through time is less than a few nanoseconds over an entire flight. Human life takes place in an extreme low-speed environment compared to the speed of light. Because all of us are moving through space at nearly zero compared to <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, we all share almost exactly the same rate of passage through time.
+        The reduction in your motion through time is less than a few nanoseconds over an entire flight. Human life takes place in an extreme low-speed environment compared to the speed of light. Because all of us are moving through space at nearly zero compared to <span class="math-badge">c</span>, we all share almost exactly the same rate of passage through time.
       </p>
 
       <!-- SECTION 6 -->
@@ -490,10 +513,10 @@
         If motion through space trades off against motion through time, can you use this to your advantage?
       </p>
       <p>
-        • <strong>How to slow down your own time (and leap into the future):</strong> If you want to travel into Earth's distant future, the recipe is straightforward in theory: build a spacecraft capable of traveling at <span class="math-badge" style="display:inline; padding:2px 6px;">99.99% of c</span>. Because nearly all of your spacetime velocity is dedicated to moving through space, your progress through time slows to a crawl relative to people on Earth. For every day that passes for you aboard the ship, roughly 70 days elapse on Earth. Spend a year cruising the cosmos at this speed, and when you return, you will have aged just one year while Earth has advanced by 70 years. You cannot travel backward into the past, but one-way travel into the future is a built-in feature of our universe.
+        • <strong>How to slow down your own time (and leap into the future):</strong> If you want to travel into Earth's distant future, the recipe is straightforward in theory: build a spacecraft capable of traveling at <span class="math-badge">99.99% of c</span>. Because nearly all of your spacetime velocity is dedicated to moving through space, your progress through time slows to a crawl relative to people on Earth. For every day that passes for you aboard the ship, roughly 70 days elapse on Earth. Spend a year cruising the cosmos at this speed, and when you return, you will have aged just one year while Earth has advanced by 70 years. You cannot travel backward into the past, but one-way travel into the future is a built-in feature of our universe.
       </p>
       <p>
-        • <strong>Can you speed up your time?</strong> Looking back at our diagram, an interesting limitation reveals itself: you can never travel through time <em>faster</em> than <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>. When sitting completely at rest in space, you are already pointing 100% of your vector into time (<span class="math-badge" style="display:inline; padding:2px 6px;">v_time = c</span>). Moving in any direction in space can only <em>reduce</em> your speed through time, never increase it. In flat spacetime, you are already experiencing time at the maximum speed nature permits.
+        • <strong>Can you speed up your time?</strong> Looking back at our diagram, an interesting limitation reveals itself: you can never travel through time <em>faster</em> than <span class="math-badge">c</span>. When sitting completely at rest in space, you are already pointing 100% of your vector into time (<span class="math-badge">v_time = c</span>). Moving in any direction in space can only <em>reduce</em> your speed through time, never increase it. In flat spacetime, you are already experiencing time at the maximum speed nature permits.
       </p>
 
       <h3>Nature's Built-in Proof: Atmospheric Muons</h3>
@@ -518,41 +541,58 @@
       <div id="widget-muon" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 06</span>
+            <div class="artifact-badge">SIMULATION 06 · REAL-WORLD PROOF</div>
             <div class="artifact-title">Atmospheric Muon Survival Simulator</div>
             <div class="artifact-desc">Slide altitude to watch muons descend from 10 km, and toggle between Newtonian and Relativistic views.</div>
           </div>
         </div>
-        <div class="canvas-viewport">
-          <canvas></canvas>
-        </div>
-        <div class="artifact-controls">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Muon Descent Altitude</span>
-              <span class="control-val cyan readout-muon-clock">0.00 µs (Internal Clock)</span>
-            </div>
-            <input type="range" class="range-slider slider-altitude" min="0" max="10" step="0.1" value="10">
+        <div class="artifact-split">
+          <div class="split-canvas-col">
+            <canvas></canvas>
           </div>
-          <div class="toolbar-bottom">
-            <button class="btn-secondary btn-view-toggle">
-              <span>Mode: </span><strong class="text-sky-400">Einsteinian (Time Dilation ON)</strong>
-            </button>
-            <div class="math-badge readout-muon-status">
-              Descending safely through atmosphere...
+          <div class="split-controls-col">
+            <div>
+              <div class="clock-card cyan" style="margin-bottom: 0.85rem;">
+                <div class="clock-meta">
+                  <span class="clock-label">Muon Internal Clock</span>
+                  <span class="clock-badge">τ₀ = 2.2 µs</span>
+                </div>
+                <div class="clock-time readout-muon-clock" style="font-size: 1.5rem;">0.00 µs</div>
+                <p class="clock-subtext">Proper time elapsed since creation 10 km up.</p>
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Muon Descent Altitude</span>
+                  <span class="control-val amber">10 km → 0 km</span>
+                </div>
+                <input type="range" class="range-slider slider-altitude" min="0" max="10" step="0.1" value="10">
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Physics Framework</span>
+                </div>
+                <button class="btn-secondary btn-view-toggle" style="width: 100%; justify-content: center; padding: 0.65rem 0.8rem; margin-top: 0.25rem;">
+                  <span>Mode: </span><strong class="text-sky-400">Einsteinian (Time Dilation ON)</strong>
+                </button>
+              </div>
+            </div>
+            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+              <div class="math-badge readout-muon-status" style="width: 100%; text-align: center;">
+                Descending safely through atmosphere...
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <p>
-        Because these muons travel downward at about <span class="math-badge" style="display:inline; padding:2px 6px;">99.9% of the speed of light</span> (<span class="math-badge" style="display:inline; padding:2px 6px;">0.999c</span>), they divert almost all of their spacetime motion into space. From our vantage point on Earth, their internal clocks tick about 22 times slower than normal. That fleeting 2.2 microseconds stretches out into nearly 50 microseconds—giving them plenty of time to complete their journey to the ground.
+        Because these muons travel downward at about <span class="math-badge">99.9% of the speed of light</span> (<span class="math-badge">0.999c</span>), they divert almost all of their spacetime motion into space. From our vantage point on Earth, their internal clocks tick about 22 times slower than normal. That fleeting 2.2 microseconds stretches out into nearly 50 microseconds—giving them plenty of time to complete their journey to the ground.
       </p>
 
       <!-- SECTION 7: GENERALIZING TO 3D SPACETIME -->
       <h2>7. Expanding Our View: Spacetime with Two Dimensions of Space (x₁, x₂) and Time (t)</h2>
       <p>
-        Up to this point, our spacetime diagrams simplified space down to a single horizontal line (<span class="math-badge" style="display:inline; padding:2px 6px;">x</span>). This was deliberate: it allowed us to clearly see the fundamental trade-off between moving through space and moving through time on a flat page.
+        Up to this point, our spacetime diagrams simplified space down to a single horizontal line (<span class="math-badge">x</span>). This was deliberate: it allowed us to clearly see the fundamental trade-off between moving through space and moving through time on a flat page.
       </p>
       <p>
         In reality, of course, space is not a 1D track. We can walk East, run North, or travel diagonally in any direction we please. How does nature calculate time dilation when you move simultaneously in multiple spatial directions?
@@ -560,7 +600,7 @@
 
       <h3>Steering in Multiple Directions: The Pythagorean Extension</h3>
       <p>
-        Notice how naturally this connects back to our very first thought experiment in Section 1. There, we had two cars traveling on a two-dimensional spatial field: <span class="math-badge" style="display:inline; padding:2px 6px;">x₁ (East)</span> and <span class="math-badge" style="display:inline; padding:2px 6px;">x₂ (North)</span>.
+        Notice how naturally this connects back to our very first thought experiment in Section 1. There, we had two cars traveling on a two-dimensional spatial field: <span class="math-badge">x₁ (East)</span> and <span class="math-badge">x₂ (North)</span>.
       </p>
       <p>
         Whenever you travel diagonally on this ground plane, the Pythagorean theorem tells us your total speed across space is simply:
@@ -582,81 +622,84 @@
         In our earlier 2D diagrams, the cosmic speed limit formed a circular arc. When we add a second spatial dimension, that circular arc sweeps out a full 360 degrees around the vertical Time axis. 
       </p>
       <p>
-        The result is a magnificent <strong>3D spherical dome (hemisphere)</strong> of radius <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, sitting right on top of the <span class="math-badge" style="display:inline; padding:2px 6px;">(x₁, x₂)</span> ground plane:
+        The result is a magnificent <strong>3D spherical dome (hemisphere)</strong> of radius <span class="math-badge">c</span>, sitting right on top of the <span class="math-badge">(x₁, x₂)</span> ground plane:
       </p>
 
       <!-- INTERACTIVE WIDGET 7: 3D SPACETIME & LOAF PREVIEW -->
       <div id="widget-3d-spacetime" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 07</span>
+            <div class="artifact-badge">SIMULATION 07 · 3D SPACETIME & LOAF PREVIEW</div>
             <div class="artifact-title">3D Spacetime: Two Dimensions of Space (x₁, x₂) and Time (t)</div>
             <div class="artifact-desc">Drag the canvas to orbit the 3D perspective, adjust spatial speed & heading, and toggle the Spacetime Loaf slice.</div>
           </div>
         </div>
-        <div class="canvas-viewport">
-          <canvas></canvas>
-        </div>
-        <div class="twin-clocks-panel">
-          <div class="clock-card amber">
-            <div class="clock-meta">
-              <span class="clock-label">Speed Across Space Floor (v_space)</span>
-              <span class="clock-badge">√(x₁² + x₂²)</span>
-            </div>
-            <div class="clock-time readout-vspace" style="color:var(--color-space);">0.800 <span>c</span></div>
-            <p class="clock-subtext">East: <span class="readout-vx1" style="color:var(--text-primary); font-family:var(--font-mono);">0.655 c</span> | North: <span class="readout-vx2" style="color:var(--text-primary); font-family:var(--font-mono);">0.459 c</span></p>
+        <div class="artifact-split">
+          <div class="split-canvas-col">
+            <canvas></canvas>
           </div>
-          <div class="clock-card cyan">
-            <div class="clock-meta">
-              <span class="clock-label">Speed Through Time (v_time)</span>
-              <span class="clock-badge">√(c² - v_space²)</span>
+          <div class="split-controls-col">
+            <div>
+              <div class="twin-clocks-panel" style="margin-bottom: 0.85rem;">
+                <div class="clock-card amber">
+                  <div class="clock-meta">
+                    <span class="clock-label">Space Speed (v_space)</span>
+                    <span class="clock-badge">√(x₁² + x₂²)</span>
+                  </div>
+                  <div class="clock-time readout-vspace" style="color:var(--color-space);">0.800 <span>c</span></div>
+                  <p class="clock-subtext">East: <span class="readout-vx1" style="color:var(--text-primary); font-family:var(--font-mono);">0.655 c</span> | North: <span class="readout-vx2" style="color:var(--text-primary); font-family:var(--font-mono);">0.459 c</span></p>
+                </div>
+                <div class="clock-card cyan">
+                  <div class="clock-meta">
+                    <span class="clock-label">Time Speed (v_time)</span>
+                    <span class="clock-badge">√(c² - v_space²)</span>
+                  </div>
+                  <div class="clock-time readout-vtime" style="color:var(--color-time);">0.600 <span>c</span></div>
+                  <p class="clock-subtext">Lorentz Factor: γ = <span class="readout-gamma" style="color:var(--text-primary); font-family:var(--font-mono);">1.67</span></p>
+                </div>
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Total Speed Across Space (v_space)</span>
+                  <span class="control-val amber">Magnitude</span>
+                </div>
+                <input type="range" class="range-slider amber slider-speed" min="0" max="990" value="800">
+                <div class="preset-chips" style="margin-top: 0.4rem;">
+                  <button class="chip-btn chip-speed" data-speed="0">At Rest</button>
+                  <button class="chip-btn chip-speed" data-speed="0.500">0.50c</button>
+                  <button class="chip-btn chip-speed active" data-speed="0.800">0.80c</button>
+                  <button class="chip-btn chip-speed" data-speed="0.866">0.866c (½ Time)</button>
+                  <button class="chip-btn chip-speed" data-speed="0.990">0.99c</button>
+                </div>
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Spatial Heading on Floor (Direction in x₁-x₂ Plane)</span>
+                  <span class="control-val cyan">Angle Across Space</span>
+                </div>
+                <input type="range" class="range-slider slider-heading" min="0" max="360" value="35">
+                <div class="preset-chips" style="margin-top: 0.4rem;">
+                  <button class="chip-btn chip-heading" data-heading="0">East (0°)</button>
+                  <button class="chip-btn chip-heading active" data-heading="35">NE (35°)</button>
+                  <button class="chip-btn chip-heading" data-heading="90">North (90°)</button>
+                  <button class="chip-btn chip-heading" data-heading="180">West (180°)</button>
+                </div>
+              </div>
+              <div class="control-item" style="margin-bottom: 0.85rem;">
+                <div class="control-header">
+                  <span>Camera Orbit (or Drag Directly on Canvas)</span>
+                  <span class="control-val" style="color:var(--text-muted);">3D View</span>
+                </div>
+                <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-37">
+              </div>
             </div>
-            <div class="clock-time readout-vtime" style="color:var(--color-time);">0.600 <span>c</span></div>
-            <p class="clock-subtext">Lorentz Factor: γ = <span class="readout-gamma" style="color:var(--text-primary); font-family:var(--font-mono);">1.67</span> (Time ticks at 60%)</p>
-          </div>
-        </div>
-        <div class="artifact-controls">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Total Speed Across Space (v_space)</span>
-              <span class="control-val amber">Magnitude</span>
-            </div>
-            <input type="range" class="range-slider amber slider-speed" min="0" max="990" value="800">
-            <div class="preset-chips">
-              <button class="chip-btn chip-speed" data-speed="0">At Rest (v = 0)</button>
-              <button class="chip-btn chip-speed" data-speed="0.500">v = 0.500 c</button>
-              <button class="chip-btn chip-speed active" data-speed="0.800">v = 0.800 c</button>
-              <button class="chip-btn chip-speed" data-speed="0.866">v = 0.866 c (Half Time)</button>
-              <button class="chip-btn chip-speed" data-speed="0.990">v = 0.990 c</button>
-            </div>
-          </div>
-          <div class="control-item">
-            <div class="control-header">
-              <span>Spatial Heading on Floor (Direction in x₁-x₂ Plane)</span>
-              <span class="control-val cyan">Angle Across Space</span>
-            </div>
-            <input type="range" class="range-slider slider-heading" min="0" max="360" value="35">
-            <div class="preset-chips">
-              <button class="chip-btn chip-heading" data-heading="0">Purely East (0°)</button>
-              <button class="chip-btn chip-heading active" data-heading="35">Northeast (35°)</button>
-              <button class="chip-btn chip-heading" data-heading="90">Purely North (90°)</button>
-              <button class="chip-btn chip-heading" data-heading="180">Purely West (180°)</button>
-              <button class="chip-btn chip-heading" data-heading="270">Purely South (270°)</button>
-            </div>
-          </div>
-          <div class="control-item">
-            <div class="control-header">
-              <span>Camera Orbit Rotation (or Click & Drag Directly on Canvas)</span>
-              <span class="control-val" style="color:var(--text-muted);">3D Perspective</span>
-            </div>
-            <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-37">
-          </div>
-          <div class="toolbar-bottom">
-            <button class="btn-secondary btn-loaf-slice">
-              <span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>
-            </button>
-            <div class="math-badge">
-              Interactive 3D Axonometric Projection · Drag to Orbit
+            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+              <button class="btn-secondary btn-loaf-slice">
+                <span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>
+              </button>
+              <div class="math-badge">
+                Drag canvas to orbit
+              </div>
             </div>
           </div>
         </div>
@@ -666,8 +709,8 @@
         Notice what happens as you play with the simulation above:
       </p>
       <p>
-        • When an object is at rest (<span class="math-badge" style="display:inline; padding:2px 6px;">v_space = 0</span>), its vector points straight up at the pole of the dome with vertical length <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>.<br>
-        • When it accelerates across space, its ground shadow extends outwards. Because the vector is anchored to the surface of the sphere of radius <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, tilting toward <em>any</em> point on the ground inevitably lowers its vertical height.<br>
+        • When an object is at rest (<span class="math-badge">v_space = 0</span>), its vector points straight up at the pole of the dome with vertical length <span class="math-badge">c</span>.<br>
+        • When it accelerates across space, its ground shadow extends outwards. Because the vector is anchored to the surface of the sphere of radius <span class="math-badge">c</span>, tilting toward <em>any</em> point on the ground inevitably lowers its vertical height.<br>
         • Whether you head East, North, or any combination, all directions in space trade off against time equally.
       </p>
 
@@ -676,10 +719,10 @@
         Why take this step into three dimensions?
       </p>
       <p>
-        Our real universe has three dimensions of space (<span class="math-badge" style="display:inline; padding:2px 6px;">x, y, z</span>) plus one dimension of time (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>), making spacetime four-dimensional. But human perception is inherently three-dimensional—we cannot visualize four mutually perpendicular axes simultaneously.
+        Our real universe has three dimensions of space (<span class="math-badge">x, y, z</span>) plus one dimension of time (<span class="math-badge">t</span>), making spacetime four-dimensional. But human perception is inherently three-dimensional—we cannot visualize four mutually perpendicular axes simultaneously.
       </p>
       <p>
-        By retaining two spatial dimensions (<span class="math-badge" style="display:inline; padding:2px 6px;">x₁, x₂</span>) and one time dimension (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>), we preserve the complete geometric behavior of relativity in a form that our eyes can directly explore.
+        By retaining two spatial dimensions (<span class="math-badge">x₁, x₂</span>) and one time dimension (<span class="math-badge">t</span>), we preserve the complete geometric behavior of relativity in a form that our eyes can directly explore.
       </p>
       <p>
         Imagine stacking every instant of time—past, present, and future—vertically along the time axis. Spacetime forms an extended three-dimensional block: what physicist Brian Greene famously described as the <strong>Spacetime Loaf</strong>.
@@ -702,8 +745,8 @@
       <p>
         1. Objects have a fixed total capacity for motion through spacetime, bounded by <em>c</em>.<br>
         2. Sitting at rest in space directs 100% of this motion along the vertical time axis.<br>
-        3. Diverting motion into any spatial direction (<span class="math-badge" style="display:inline; padding:2px 6px;">x₁, x₂</span>) naturally shrinks the time component, causing clocks to tick slower (time dilation).<br>
-        4. When an object directs 100% of its motion into space (<span class="math-badge" style="display:inline; padding:2px 6px;">v = c</span>), its vertical progress through time reaches zero—which is why photons experience no elapsed time.<br>
+        3. Diverting motion into any spatial direction (<span class="math-badge">x₁, x₂</span>) naturally shrinks the time component, causing clocks to tick slower (time dilation).<br>
+        4. When an object directs 100% of its motion into space (<span class="math-badge">v = c</span>), its vertical progress through time reaches zero—which is why photons experience no elapsed time.<br>
         5. Spacetime can be visualized as an extended block (a "loaf"), where a moment of time is a slice through that volume.
       </p>
       <p>
@@ -719,8 +762,30 @@
         Can both observers be correct? If they turn around and meet again, who is actually younger?
       </p>
       <p>
-        In <strong>Part 2</strong>, we will slice open the <strong>Spacetime Loaf</strong> to resolve the <strong>Twin Paradox</strong>, discover the <strong>Relativity of Simultaneity</strong>, and see why moving rulers must physically contract along their direction of motion.
+        In <strong>Part 2: The Cosmic Light Cone</strong>, we will bridge our velocity circle into coordinate spacetime, discover why 90° in velocity space unfolds into 45° in coordinate spacetime, and map out the reachable future vs. the unreachable Elsewhere across human lifespans.
       </p>
+
+      <!-- SERIES PAGER -->
+      <div class="series-pager">
+        <a href="../../index.html" class="btn-secondary">
+          ← Series Overview
+        </a>
+        <a href="../02-the-cosmic-light-cone/index.html" class="btn-primary">
+          Explore Part 2: The Cosmic Light Cone →
+        </a>
+      </div>
+
+      <!-- AUTHOR BIO -->
+      <div class="article-author">
+        <div class="brand-badge">c</div>
+        <div>
+          <h4>Aayush Agarwal</h4>
+          <p>
+            Exploring fundamental physics through intuitive geometric visual models and explorable interactive simulations.
+          </p>
+        </div>
+      </div>
+
     </article>
 
   </main>
@@ -730,7 +795,7 @@
     <div class="wide-container">
       <p>How Does the Universe Work? · An Explorable Physics Series by Aayush Agarwal</p>
       <p style="margin-top: 0.5rem;">
-        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">View on GitHub</a> · Built with pure HTML, CSS, and Vanilla JavaScript
+        <a href="../../index.html">Series Home</a> · <a href="../02-the-cosmic-light-cone/index.html">Part 2: The Cosmic Light Cone</a> · <a href="../03-the-spacetime-loaf-and-length-contraction/index.html">Part 3: The Loaf & Length</a> · <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
       </p>
     </div>
   </footer>
