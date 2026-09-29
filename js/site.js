@@ -423,7 +423,7 @@
 
         // Vertical Northward Component Value Label (v_North = 30.0 mph)
         if (oy - c2_y > 25) {
-          drawLabelPill(ctx, 'V_North = ' + vNorth + ' mph', c2_x + 55, (oy + c2_y) / 2, {
+          drawLabelPill(ctx, 'V_North = ' + vNorth + ' mph', Math.min(width - 55, c2_x + 55), (oy + c2_y) / 2, {
             textColor: c.spaceColor,
             font: 'bold 10px "JetBrains Mono", monospace'
           });
@@ -1065,17 +1065,20 @@
       drawGlowingDot(ctx, tipX, tipY, color, 7);
 
       if (mode === 'photon') {
-        drawLabelPill(ctx, 'Photon (Speed of Light, v = c)', tipX - 105, oy - 14, {
+        var photonLabelX = width < 450 ? Math.min(width - 85, Math.max(ox + 65, tipX - 70)) : tipX - 105;
+        drawLabelPill(ctx, width < 380 ? 'Photon (v = c)' : 'Photon (Speed of Light, v = c)', photonLabelX, oy - 14, {
           textColor: c.photonColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
       } else if (mode === 'rocket') {
-        drawLabelPill(ctx, 'Fast Rocket (v = 0.866c)', tipX + 90, tipY - 8, {
+        var rocketLabelX = width < 450 ? Math.min(width - 65, tipX + 55) : tipX + 90;
+        drawLabelPill(ctx, 'Fast Rocket (v = 0.866c)', rocketLabelX, tipY - 8, {
           textColor: c.spaceColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
       } else {
-        drawLabelPill(ctx, 'Observer at Rest (v = 0)', tipX + 90, tipY, {
+        var restLabelX = width < 450 ? Math.min(width - 65, tipX + 65) : tipX + 90;
+        drawLabelPill(ctx, 'Observer at Rest (v = 0)', restLabelX, tipY, {
           textColor: c.timeColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
@@ -1149,10 +1152,11 @@
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var padLeft = 90;
-      var padRight = 30;
-      var topY = 40;
-      var bottomY = height - 50;
+      var isNarrow = width < 420;
+      var padLeft = isNarrow ? 56 : 90;
+      var padRight = isNarrow ? 18 : 30;
+      var topY = 35;
+      var bottomY = height - 42;
       var trackH = bottomY - topY;
 
       var grad = ctx.createLinearGradient(0, topY, 0, bottomY);
@@ -1161,13 +1165,13 @@
       ctx.fillStyle = grad;
       ctx.fillRect(padLeft, topY, width - padLeft - padRight, trackH);
 
-      drawLabelPill(ctx, '10 km (Creation)', 52, topY, {
+      drawLabelPill(ctx, isNarrow ? '10 km' : '10 km (Creation)', isNarrow ? 28 : 52, topY, {
         textColor: c.axisLabel,
-        font: 'bold 10px "JetBrains Mono", monospace'
+        font: 'bold 9px "JetBrains Mono", monospace'
       });
-      drawLabelPill(ctx, '0 km (Sea Level)', 52, bottomY, {
+      drawLabelPill(ctx, isNarrow ? '0 km' : '0 km (Sea Level)', isNarrow ? 28 : 52, bottomY, {
         textColor: c.axisLabel,
-        font: 'bold 10px "JetBrains Mono", monospace'
+        font: 'bold 9px "JetBrains Mono", monospace'
       });
 
       var decayY = topY + (0.66 / 10.0) * trackH;
@@ -1180,10 +1184,10 @@
       ctx.stroke();
       ctx.setLineDash([]);
 
-      drawLabelPill(ctx, 'Classical Limit (660m)', width - 90, decayY, {
+      drawLabelPill(ctx, isNarrow ? 'Limit (660m)' : 'Classical Limit (660m)', width - (isNarrow ? 55 : 90), decayY, {
         textColor: c.dangerColor,
         borderColor: c.dangerColor,
-        font: 'bold 10px "JetBrains Mono", monospace'
+        font: isNarrow ? 'bold 9px "JetBrains Mono", monospace' : 'bold 10px "JetBrains Mono", monospace'
       });
 
       var dist = 10.0 - altitudeKm;
@@ -1203,16 +1207,20 @@
         ctx.fillStyle = c.dangerColor;
         ctx.font = 'bold 16px sans-serif';
         ctx.fillText('💥', muonX - 8, muonY + 6);
-        drawLabelPill(ctx, 'Decayed into electron + neutrinos', muonX + 115, muonY, {
+        var deadLabelX = isNarrow ? muonX : muonX + 115;
+        var deadLabelY = isNarrow ? muonY - 18 : muonY;
+        drawLabelPill(ctx, isNarrow ? 'Decayed (e⁻ + ν)' : 'Decayed into electron + neutrinos', deadLabelX, deadLabelY, {
           textColor: c.dangerColor,
           borderColor: c.dangerColor,
-          font: 'bold 11px sans-serif'
+          font: isNarrow ? 'bold 9px sans-serif' : 'bold 11px sans-serif'
         });
       } else {
         drawGlowingDot(ctx, muonX, muonY, c.timeColor, 6);
-        drawLabelPill(ctx, 'Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonX + 80, muonY, {
+        var muonLabelX = isNarrow ? muonX : muonX + 80;
+        var muonLabelY = isNarrow ? muonY - 16 : muonY;
+        drawLabelPill(ctx, 'Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonLabelX, muonLabelY, {
           textColor: c.timeColor,
-          font: 'bold 11px "JetBrains Mono", monospace'
+          font: isNarrow ? 'bold 9px "JetBrains Mono", monospace' : 'bold 11px "JetBrains Mono", monospace'
         });
       }
     }

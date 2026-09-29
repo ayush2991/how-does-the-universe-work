@@ -478,12 +478,6 @@ body {
   gap: 1rem;
 }
 
-@media (max-width: 600px) {
-  .twin-clocks-panel {
-    grid-template-columns: 1fr;
-  }
-}
-
 .clock-card {
   padding: 1rem;
   border-radius: 0.75rem;
@@ -730,6 +724,9 @@ body {
   background: var(--math-badge-bg);
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .math-badge strong {
@@ -828,6 +825,376 @@ body {
   color: var(--color-time);
 }
 
+/* ==========================================================================
+   Hero & Hub Layout Classes
+   ========================================================================== */
+.hero-header {
+  padding: 4.5rem 1.5rem 2.5rem;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-widget-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.series-section-divider {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 3rem;
+}
+
+.series-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.series-section-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.series-section-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.philosophy-section {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.philosophy-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints & Mobile Optimization
+   ========================================================================== */
+
+/* Tablets and below (<= 768px) */
+@media (max-width: 768px) {
+  .canvas-viewport canvas {
+    height: 300px;
+  }
+  .article-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* Mobile Devices (<= 640px) */
+@media (max-width: 640px) {
+  /* Navigation Bar */
+  .site-nav-inner {
+    height: 3.25rem;
+    padding: 0 1rem;
+  }
+  .brand-badge {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.85rem;
+    border-radius: 0.375rem;
+  }
+  .brand-link {
+    gap: 0.5rem;
+  }
+  .brand-title {
+    font-size: 0.82rem;
+    max-width: 155px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-tag {
+    display: none;
+  }
+  .nav-links {
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+  .nav-link-secondary {
+    display: none;
+  }
+  .theme-toggle-btn {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Page Layout Containers */
+  .reading-container {
+    padding: 1.25rem 1rem 3.5rem;
+  }
+  .wide-container {
+    padding: 1.25rem 1rem;
+  }
+
+  /* Hero & Hub Typography */
+  .hero-header {
+    padding: 2.25rem 1rem 1.5rem;
+  }
+  .hero-title {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  .series-section-divider {
+    padding-top: 1.75rem;
+  }
+  .series-section-title {
+    font-size: 1.35rem;
+  }
+  .series-section-desc {
+    font-size: 0.82rem;
+  }
+  .series-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .series-card {
+    padding: 1.25rem;
+  }
+  .philosophy-section {
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .philosophy-card {
+    padding: 1.25rem;
+    border-radius: 0.875rem;
+  }
+
+  /* Editorial Content & Headings */
+  .article-header {
+    margin-bottom: 1.5rem;
+  }
+  .category-tag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+  .article-title {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .article-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .article-meta {
+    padding-top: 0.875rem;
+    font-size: 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .editorial-prose p {
+    font-size: 1.05rem;
+    line-height: 1.62;
+    margin-bottom: 1rem;
+  }
+  .editorial-prose h2 {
+    font-size: 1.35rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    padding-top: 0;
+  }
+  .editorial-prose h3 {
+    font-size: 1.15rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .formula-card {
+    padding: 0.75rem 1rem;
+    margin: 1.125rem 0;
+    font-size: 0.85rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+  .formula-card .formula-note {
+    font-size: 0.78rem;
+    margin-top: 0.3rem;
+  }
+
+  /* Interactive Artifact Card */
+  .interactive-artifact {
+    margin: 1.25rem 0;
+    border-radius: 0.875rem;
+  }
+  .artifact-header {
+    padding: 0.625rem 0.875rem;
+    gap: 0.4rem;
+  }
+  .artifact-badge {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+  }
+  .artifact-title {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  .artifact-desc {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-top: 0.1rem;
+  }
+
+  /* Canvas Viewport */
+  .canvas-viewport {
+    padding: 0.5rem;
+  }
+  .canvas-viewport canvas {
+    height: 240px;
+    border-radius: 0.5rem;
+  }
+
+  /* Twin Clocks: Side-by-side comparison on mobile */
+  .twin-clocks-panel {
+    padding: 0.625rem 0.75rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .clock-card {
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.5rem;
+  }
+  .clock-meta {
+    margin-bottom: 0.2rem;
+    gap: 0.25rem;
+  }
+  .clock-label {
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+  .clock-badge {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+  }
+  .clock-time {
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+  }
+  .clock-time span {
+    font-size: 0.65rem;
+  }
+  .clock-subtext {
+    font-size: 0.65rem;
+    margin-top: 0.15rem;
+    line-height: 1.25;
+  }
+
+  /* Controls Panel */
+  .artifact-controls {
+    padding: 0.75rem 0.875rem;
+    gap: 0.625rem;
+  }
+  .control-item {
+    gap: 0.35rem;
+  }
+  .control-header {
+    font-size: 0.75rem;
+  }
+  .control-val {
+    font-size: 0.75rem;
+  }
+  .range-slider {
+    height: 5px;
+  }
+  .range-slider::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+  }
+  .preset-chips {
+    gap: 0.35rem;
+  }
+  .chip-btn {
+    font-size: 0.66rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.3rem;
+  }
+  .toolbar-bottom {
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .btn-primary, .btn-secondary, .btn-hero-read {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 0.375rem;
+  }
+  .math-badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.55rem;
+    width: 100%;
+    text-align: center;
+    border-radius: 0.375rem;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 2rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra-small screens (<= 380px) */
+@media (max-width: 380px) {
+  .brand-title {
+    max-width: 125px;
+    font-size: 0.78rem;
+  }
+  .nav-links {
+    gap: 0.5rem;
+  }
+  .canvas-viewport canvas {
+    height: 220px;
+  }
+  .clock-time {
+    font-size: 1.15rem;
+  }
+  .clock-label {
+    font-size: 0.58rem;
+  }
+  .reading-container, .wide-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
   </style>
   <meta name="description" content="A curiosity-driven, visual exploration of why moving through space naturally alters our experience of time in Special Relativity.">
   <script>
@@ -853,8 +1220,8 @@ body {
       </a>
       <div class="nav-links">
         <a href="#">← All Essays</a>
-        <a href="#interactive-clocks" class="active">Part 1: Motion & Time</a>
-        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
+        <a href="#interactive-clocks" class="active nav-link-secondary">Part 1: Motion & Time</a>
+        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener" class="nav-link-secondary">GitHub</a>
         <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
           <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
@@ -1985,7 +2352,7 @@ body {
 
         // Vertical Northward Component Value Label (v_North = 30.0 mph)
         if (oy - c2_y > 25) {
-          drawLabelPill(ctx, 'V_North = ' + vNorth + ' mph', c2_x + 55, (oy + c2_y) / 2, {
+          drawLabelPill(ctx, 'V_North = ' + vNorth + ' mph', Math.min(width - 55, c2_x + 55), (oy + c2_y) / 2, {
             textColor: c.spaceColor,
             font: 'bold 10px "JetBrains Mono", monospace'
           });
@@ -2627,17 +2994,20 @@ body {
       drawGlowingDot(ctx, tipX, tipY, color, 7);
 
       if (mode === 'photon') {
-        drawLabelPill(ctx, 'Photon (Speed of Light, v = c)', tipX - 105, oy - 14, {
+        var photonLabelX = width < 450 ? Math.min(width - 85, Math.max(ox + 65, tipX - 70)) : tipX - 105;
+        drawLabelPill(ctx, width < 380 ? 'Photon (v = c)' : 'Photon (Speed of Light, v = c)', photonLabelX, oy - 14, {
           textColor: c.photonColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
       } else if (mode === 'rocket') {
-        drawLabelPill(ctx, 'Fast Rocket (v = 0.866c)', tipX + 90, tipY - 8, {
+        var rocketLabelX = width < 450 ? Math.min(width - 65, tipX + 55) : tipX + 90;
+        drawLabelPill(ctx, 'Fast Rocket (v = 0.866c)', rocketLabelX, tipY - 8, {
           textColor: c.spaceColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
       } else {
-        drawLabelPill(ctx, 'Observer at Rest (v = 0)', tipX + 90, tipY, {
+        var restLabelX = width < 450 ? Math.min(width - 65, tipX + 65) : tipX + 90;
+        drawLabelPill(ctx, 'Observer at Rest (v = 0)', restLabelX, tipY, {
           textColor: c.timeColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
@@ -2711,10 +3081,11 @@ body {
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var padLeft = 90;
-      var padRight = 30;
-      var topY = 40;
-      var bottomY = height - 50;
+      var isNarrow = width < 420;
+      var padLeft = isNarrow ? 56 : 90;
+      var padRight = isNarrow ? 18 : 30;
+      var topY = 35;
+      var bottomY = height - 42;
       var trackH = bottomY - topY;
 
       var grad = ctx.createLinearGradient(0, topY, 0, bottomY);
@@ -2723,13 +3094,13 @@ body {
       ctx.fillStyle = grad;
       ctx.fillRect(padLeft, topY, width - padLeft - padRight, trackH);
 
-      drawLabelPill(ctx, '10 km (Creation)', 52, topY, {
+      drawLabelPill(ctx, isNarrow ? '10 km' : '10 km (Creation)', isNarrow ? 28 : 52, topY, {
         textColor: c.axisLabel,
-        font: 'bold 10px "JetBrains Mono", monospace'
+        font: 'bold 9px "JetBrains Mono", monospace'
       });
-      drawLabelPill(ctx, '0 km (Sea Level)', 52, bottomY, {
+      drawLabelPill(ctx, isNarrow ? '0 km' : '0 km (Sea Level)', isNarrow ? 28 : 52, bottomY, {
         textColor: c.axisLabel,
-        font: 'bold 10px "JetBrains Mono", monospace'
+        font: 'bold 9px "JetBrains Mono", monospace'
       });
 
       var decayY = topY + (0.66 / 10.0) * trackH;
@@ -2742,10 +3113,10 @@ body {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      drawLabelPill(ctx, 'Classical Limit (660m)', width - 90, decayY, {
+      drawLabelPill(ctx, isNarrow ? 'Limit (660m)' : 'Classical Limit (660m)', width - (isNarrow ? 55 : 90), decayY, {
         textColor: c.dangerColor,
         borderColor: c.dangerColor,
-        font: 'bold 10px "JetBrains Mono", monospace'
+        font: isNarrow ? 'bold 9px "JetBrains Mono", monospace' : 'bold 10px "JetBrains Mono", monospace'
       });
 
       var dist = 10.0 - altitudeKm;
@@ -2765,16 +3136,20 @@ body {
         ctx.fillStyle = c.dangerColor;
         ctx.font = 'bold 16px sans-serif';
         ctx.fillText('💥', muonX - 8, muonY + 6);
-        drawLabelPill(ctx, 'Decayed into electron + neutrinos', muonX + 115, muonY, {
+        var deadLabelX = isNarrow ? muonX : muonX + 115;
+        var deadLabelY = isNarrow ? muonY - 18 : muonY;
+        drawLabelPill(ctx, isNarrow ? 'Decayed (e⁻ + ν)' : 'Decayed into electron + neutrinos', deadLabelX, deadLabelY, {
           textColor: c.dangerColor,
           borderColor: c.dangerColor,
-          font: 'bold 11px sans-serif'
+          font: isNarrow ? 'bold 9px sans-serif' : 'bold 11px sans-serif'
         });
       } else {
         drawGlowingDot(ctx, muonX, muonY, c.timeColor, 6);
-        drawLabelPill(ctx, 'Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonX + 80, muonY, {
+        var muonLabelX = isNarrow ? muonX : muonX + 80;
+        var muonLabelY = isNarrow ? muonY - 16 : muonY;
+        drawLabelPill(ctx, 'Muon (Alt: ' + altitudeKm.toFixed(1) + ' km)', muonLabelX, muonLabelY, {
           textColor: c.timeColor,
-          font: 'bold 11px "JetBrains Mono", monospace'
+          font: isNarrow ? 'bold 9px "JetBrains Mono", monospace' : 'bold 11px "JetBrains Mono", monospace'
         });
       }
     }
