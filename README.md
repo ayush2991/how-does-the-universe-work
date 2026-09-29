@@ -12,7 +12,7 @@ Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought 
 - **Intuitive Geometric Mental Models**: Starting with familiar two-dimensional flat fields.
 - **Active Controls & Scrubber Sliders**: Readers can drag time forward and backward, adjust velocities, and rotate reference frames.
 - **Live Synchronized Clocks**: Watch time dilation unfold live on digital wristwatches rather than imagining abstract equations.
-- **Modern Scientific Aesthetics**: Deep obsidian dark palette (`#070a12`), electric cyan (`#38bdf8`) for Time/Earth, radiant amber (`#fb923c`) for Space/Motion, and photon gold (`#facc15`).
+- **Modern Scientific Aesthetics & Dual Themes**: Clean, high-contrast **Light Mode by default** with crisp editorial typography, plus a one-click **Dark Obsidian Mode** toggle in the top navigation with dynamic Canvas re-rendering.
 
 ---
 
