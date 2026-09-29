@@ -107,7 +107,7 @@ The repository uses a strict **Single Source of Truth** architecture with **zero
 | **04** | `widget-beacons-alice`      | `initWidgetBeaconsAlice`      | Alice's platform frame: moving coach causes desynchronized beacon hits ($\Delta t > 0$) |
 | **05** | `widget-simultaneity-slice` | `initWidgetSimultaneitySlice` | The angle of "Now": tilting the simultaneity hyperplane obliquely ($\tan\phi = v/c$) |
 | **06** | `widget-length-contraction` | `initWidgetLengthContraction` | Geometric projection: Bob's tilted 10m coach projecting onto Alice's horizontal present via cos(θ) & real-world tracks |
-| **07** | `widget-dual-frame`         | `initWidgetDualFrame`         | Mutual relativity: switching between Alice's frame and Bob's frame                   |
+| **07** | `widget-dual-frame`         | `initWidgetDualFrame`         | Mutual relativity: invariant 10m coaches and cos(θ) projections from both Alice's and Bob's frames   |
 | **08** | `widget-muon-contraction`   | `initWidgetMuonContraction`   | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction)       |
 
 ---

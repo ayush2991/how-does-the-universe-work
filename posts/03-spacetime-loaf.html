@@ -757,7 +757,7 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 07</span>
             <div class="artifact-title">Mutual Relativity: Slicing From Both Perspectives</div>
-            <div class="artifact-desc">Switch between Alice's reference frame and Bob's reference frame. Observe how each observer symmetrically measures the other as contracted.</div>
+            <div class="artifact-desc">Switch between Alice's and Bob's frames of reference. Notice that both coaches are invariant 10m realities in their own rest frames, each projecting onto the other's horizontal present via cos(θ).</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -767,18 +767,18 @@
           <div class="clock-card cyan">
             <div class="clock-meta">
               <span class="clock-label">Active Rest Frame</span>
-              <span class="clock-badge readout-frame-badge">Alice's Frame</span>
+              <span class="clock-badge readout-frame-badge">Alice at Rest</span>
             </div>
-            <div class="clock-time readout-frame-title">Alice at Rest</div>
-            <p class="clock-subtext readout-frame-sub">Alice's worldtube is vertical; her slice of Now is horizontal.</p>
+            <div class="clock-time readout-frame-title">10.0 <span>m</span></div>
+            <p class="clock-subtext readout-frame-sub">Alice considers herself at rest: her coach spans an invariant 10.0 m along her horizontal Now.</p>
           </div>
           <div class="clock-card amber">
             <div class="clock-meta">
-              <span class="clock-label">Measured Coach of Other Observer</span>
-              <span class="clock-badge">Contracted</span>
+              <span class="clock-label">Passing Coach (As Measured)</span>
+              <span class="clock-badge readout-dual-gamma">γ = 2.00 (θ = 60°)</span>
             </div>
             <div class="clock-time readout-dual-measured" style="color:var(--color-space);">5.0 <span>m</span></div>
-            <p class="clock-subtext readout-dual-note">Bob's 10.0 m coach appears shortened to 5.0 m.</p>
+            <p class="clock-subtext readout-dual-note">Bob's invariant 10.0 m coach projects onto Alice's Now as 10.0 m × cos(60°) = 5.0 m.</p>
           </div>
         </div>
         <div class="artifact-controls">
@@ -793,14 +793,23 @@
           </div>
           <div class="control-item">
             <div class="control-header">
-              <span>Relative Velocity (v)</span>
-              <span class="control-val amber readout-dual-speed">v = 0.866 c (γ = 2.00)</span>
+              <span>Relative Speed &amp; Angle (v = c · sin θ)</span>
+              <span class="control-val amber readout-dual-speed">θ = 60° (v = 0.866 c, γ = 2.00)</span>
             </div>
-            <input type="range" class="range-slider amber slider-speed" min="0" max="950" value="866">
+            <input type="range" class="range-slider amber slider-speed" min="0" max="80" value="60">
+            <div class="preset-chips">
+              <button class="chip-btn chip-preset-dual" data-deg="0">θ = 0° (At Rest: 10.0m)</button>
+              <button class="chip-btn chip-preset-dual" data-deg="30">θ = 30° (v = 0.500c: 8.7m)</button>
+              <button class="chip-btn chip-preset-dual active" data-deg="60">θ = 60° (v = 0.866c: 5.0m)</button>
+              <button class="chip-btn chip-preset-dual" data-deg="80">θ = 80° (v = 0.985c: 1.7m)</button>
+            </div>
           </div>
           <div class="toolbar-bottom">
-            <div class="math-badge">
-              The laws of physics are identical in all inertial frames: each observer measures the moving coach contracted by exactly 1/γ.
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge readout-dual-formula">
+              Mutual Symmetry: <strong>L = L₀ · cos θ = 10.0 m × cos(60°) = 5.0 m (L₀ / γ)</strong>
             </div>
           </div>
         </div>

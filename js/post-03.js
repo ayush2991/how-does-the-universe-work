@@ -1848,34 +1848,54 @@
 
     var canvas = container.querySelector('canvas');
     var sliderSpeed = container.querySelector('.slider-speed');
+    var btnPlay = container.querySelector('.btn-play');
     var chipFrames = container.querySelectorAll('.chip-frame-btn');
+    var chipPresets = container.querySelectorAll('.chip-preset-dual');
     var readoutFrameBadge = container.querySelector('.readout-frame-badge');
     var readoutFrameTitle = container.querySelector('.readout-frame-title');
     var readoutFrameSub = container.querySelector('.readout-frame-sub');
+    var readoutDualGamma = container.querySelector('.readout-dual-gamma');
     var readoutMeasured = container.querySelector('.readout-dual-measured');
     var readoutDualNote = container.querySelector('.readout-dual-note');
     var readoutDualSpeed = container.querySelector('.readout-dual-speed');
+    var readoutDualFormula = container.querySelector('.readout-dual-formula');
 
     var activeFrame = 'alice';
-    var vFraction = 0.866;
+    var angleDeg = 60;
+    var isPlaying = false;
 
     function update() {
-      var gamma = vFraction >= 0.999 ? 22.36 : 1 / Math.sqrt(Math.max(0.001, 1 - vFraction * vFraction));
-      var contracted = (10.0 / gamma).toFixed(1);
+      var rad = angleDeg * Math.PI / 180;
+      var v = Math.sin(rad);
+      var cosVal = Math.cos(rad);
+      var gamma = cosVal <= 0.001 ? 22.36 : 1 / cosVal;
+      var contracted = (10.0 * cosVal).toFixed(1);
+      var pct = (cosVal * 100).toFixed(0);
 
-      if (readoutDualSpeed) readoutDualSpeed.innerText = 'v = ' + vFraction.toFixed(3) + ' c (γ = ' + gamma.toFixed(2) + ')';
-      if (readoutMeasured) readoutMeasured.innerHTML = contracted + ' <span>m</span>';
+      if (readoutDualSpeed) {
+        readoutDualSpeed.innerText = 'θ = ' + angleDeg.toFixed(0) + '° (v = ' + v.toFixed(3) + ' c, γ = ' + gamma.toFixed(2) + ')';
+      }
+      if (readoutDualGamma) {
+        readoutDualGamma.innerText = 'γ = ' + gamma.toFixed(2) + ' (θ = ' + angleDeg.toFixed(0) + '°)';
+      }
+      if (readoutMeasured) {
+        readoutMeasured.innerHTML = contracted + ' <span>m</span>';
+      }
 
       if (activeFrame === 'alice') {
-        if (readoutFrameBadge) readoutFrameBadge.innerText = 'Alice\'s Frame';
-        if (readoutFrameTitle) readoutFrameTitle.innerText = 'Alice at Rest';
-        if (readoutFrameSub) readoutFrameSub.innerText = 'Alice\'s worldtube is vertical; her slice of Now is horizontal.';
-        if (readoutDualNote) readoutDualNote.innerText = 'Bob\'s 10.0 m coach appears shortened to ' + contracted + ' m.';
+        if (readoutFrameBadge) readoutFrameBadge.innerText = 'Alice at Rest';
+        if (readoutFrameTitle) readoutFrameTitle.innerHTML = '10.0 <span>m</span>';
+        if (readoutFrameSub) readoutFrameSub.innerText = 'Alice considers herself at rest: her coach spans an invariant 10.0 m along her horizontal Now.';
+        if (readoutDualNote) readoutDualNote.innerText = 'Bob\'s invariant 10.0 m coach projects onto Alice\'s Now as 10.0 m × cos(' + angleDeg.toFixed(0) + '°) = ' + contracted + ' m (' + pct + '%).';
       } else {
-        if (readoutFrameBadge) readoutFrameBadge.innerText = 'Bob\'s Frame';
-        if (readoutFrameTitle) readoutFrameTitle.innerText = 'Bob at Rest';
-        if (readoutFrameSub) readoutFrameSub.innerText = 'Bob\'s worldtube is vertical; his slice of Now is horizontal.';
-        if (readoutDualNote) readoutDualNote.innerText = 'Alice\'s 10.0 m coach appears shortened to ' + contracted + ' m.';
+        if (readoutFrameBadge) readoutFrameBadge.innerText = 'Bob at Rest';
+        if (readoutFrameTitle) readoutFrameTitle.innerHTML = '10.0 <span>m</span>';
+        if (readoutFrameSub) readoutFrameSub.innerText = 'Bob considers himself at rest: his coach spans an invariant 10.0 m along his horizontal Now.';
+        if (readoutDualNote) readoutDualNote.innerText = 'Alice\'s invariant 10.0 m coach projects onto Bob\'s Now as 10.0 m × cos(' + angleDeg.toFixed(0) + '°) = ' + contracted + ' m (' + pct + '%).';
+      }
+
+      if (readoutDualFormula) {
+        readoutDualFormula.innerHTML = 'Mutual Symmetry: <strong>L = L₀ · cos θ = 10.0 m × cos(' + angleDeg.toFixed(0) + '°) = ' + contracted + ' m (L₀ / γ)</strong>';
       }
 
       draw();
@@ -1887,81 +1907,365 @@
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var gamma = vFraction >= 0.999 ? 22.36 : 1 / Math.sqrt(Math.max(0.001, 1 - vFraction * vFraction));
-      var widthFactor = 1 / gamma;
-
-      var ox = width * 0.50;
-      var oy = height * 0.80;
-      var scale = Math.min(width * 0.38, height * 0.65);
-
-      ctx.strokeStyle = c.gridLine; ctx.lineWidth = 1;
-      for (var x = -scale; x <= scale; x += scale * 0.25) {
-        ctx.beginPath(); ctx.moveTo(ox + x, 25); ctx.lineTo(ox + x, oy); ctx.stroke();
-      }
-      for (var y = 0; y <= scale; y += scale * 0.25) {
-        ctx.beginPath(); ctx.moveTo(ox - scale, oy - y); ctx.lineTo(ox + scale, oy - y); ctx.stroke();
-      }
-
-      ctx.strokeStyle = c.axisLine; ctx.lineWidth = 2.0;
-      ctx.beginPath(); ctx.moveTo(ox - scale - 15, oy); ctx.lineTo(ox + scale + 15, oy); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(ox, oy + 10); ctx.lineTo(ox, 25); ctx.stroke();
-
-      drawLabelPill(ctx, 'Space (x)', ox + scale + 2, oy + 18, { textColor: c.axisLabel });
-      drawLabelPill(ctx, 'Time (ct)', ox - 35, 20, { textColor: c.timeColor });
+      var rad = angleDeg * Math.PI / 180;
+      var cosVal = Math.cos(rad);
+      var sinVal = Math.sin(rad);
+      var v = sinVal;
+      var isNarrow = width < 620;
 
       var primaryColor = activeFrame === 'alice' ? c.timeColor : c.spaceColor;
       var primaryName = activeFrame === 'alice' ? 'Alice' : 'Bob';
-
-      var rW = 28;
-      ctx.fillStyle = activeFrame === 'alice' ? 'rgba(2, 132, 199, 0.12)' : 'rgba(234, 88, 12, 0.14)';
-      ctx.strokeStyle = primaryColor; ctx.lineWidth = 1.8;
-      ctx.fillRect(ox - rW / 2, oy - scale * 0.9, rW, scale * 0.9);
-      ctx.strokeRect(ox - rW / 2, oy - scale * 0.9, rW, scale * 0.9);
-
-      drawLabelPill(ctx, primaryName + ' at Rest (L₀ = 10m)', ox, oy - scale * 0.95, { textColor: primaryColor });
-
       var secondaryColor = activeFrame === 'alice' ? c.spaceColor : c.timeColor;
       var secondaryName = activeFrame === 'alice' ? 'Bob' : 'Alice';
       var dirSign = activeFrame === 'alice' ? 1 : -1;
 
-      var dxTop = dirSign * vFraction * (scale * 0.85);
-      ctx.fillStyle = activeFrame === 'alice' ? 'rgba(234, 88, 12, 0.14)' : 'rgba(2, 132, 199, 0.12)';
-      ctx.strokeStyle = secondaryColor; ctx.lineWidth = 2.0;
+      if (!isNarrow) {
+        // Desktop / Tablet Landscape Layout: Side-by-Side Coordinated Views
+        var splitX = width * 0.52;
 
-      ctx.beginPath();
-      ctx.moveTo(ox - rW / 2, oy);
-      ctx.lineTo(ox + rW / 2, oy);
-      ctx.lineTo(ox + dxTop + rW / 2, oy - scale * 0.85);
-      ctx.lineTo(ox + dxTop - rW / 2, oy - scale * 0.85);
-      ctx.closePath();
-      ctx.fill(); ctx.stroke();
+        // Divider
+        ctx.strokeStyle = c.borderSubtle;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(splitX, 15);
+        ctx.lineTo(splitX, height - 15);
+        ctx.stroke();
 
-      var measY = oy - scale * 0.45;
-      ctx.strokeStyle = c.invariantColor; ctx.lineWidth = 1.8; ctx.setLineDash([3, 3]);
-      ctx.beginPath(); ctx.moveTo(ox - scale * 0.8, measY); ctx.lineTo(ox + scale * 0.8, measY); ctx.stroke();
-      ctx.setLineDash([]);
+        // ==========================================
+        // PANE 1 (LEFT): Spacetime Projection Geometry
+        // ==========================================
+        drawLabelPill(ctx, 'Spacetime View: ' + primaryName + '\'s Rest Frame', splitX * 0.50, 22, {
+          textColor: primaryColor,
+          font: 'bold 11px system-ui'
+        });
 
-      drawLabelPill(ctx, 'Observer\'s Slice of "Now"', ox + scale * 0.6, measY - 12, { textColor: primaryColor, font: '10px "JetBrains Mono"' });
+        var ox = splitX * 0.15;
+        var oy = height * 0.72;
+        var axisXLen = splitX * 0.78;
+        var axisYLen = height * 0.56;
 
-      var measCenter = ox + dirSign * vFraction * (scale * 0.45);
-      var contractedW = rW * widthFactor;
-      ctx.strokeStyle = secondaryColor; ctx.lineWidth = 3.5;
-      ctx.beginPath();
-      ctx.moveTo(measCenter - contractedW / 2, measY);
-      ctx.lineTo(measCenter + contractedW / 2, measY);
-      ctx.stroke();
+        // Axes
+        ctx.strokeStyle = c.axisLine;
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(ox - 10, oy);
+        ctx.lineTo(ox + axisXLen, oy);
+        ctx.stroke();
 
-      drawGlowingDot(ctx, measCenter - contractedW / 2, measY, secondaryColor, 4.5);
-      drawGlowingDot(ctx, measCenter + contractedW / 2, measY, secondaryColor, 4.5);
+        ctx.strokeStyle = primaryColor;
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(ox, oy + 10);
+        ctx.lineTo(ox, oy - axisYLen);
+        ctx.stroke();
 
-      drawLabelPill(ctx, secondaryName + ' Measured = ' + (10 / gamma).toFixed(1) + 'm', measCenter, measY + 18, { textColor: secondaryColor });
+        drawLabelPill(ctx, primaryName + ' Space (x)', ox + axisXLen - 20, oy + 18, {
+          textColor: c.axisLabel,
+          font: '10px "JetBrains Mono"'
+        });
+        drawLabelPill(ctx, primaryName + ' Time (ct)', ox + 35, oy - axisYLen + 10, {
+          textColor: primaryColor,
+          font: '10px "JetBrains Mono"'
+        });
+
+        // Moving observer's invariant 10m coach tilted in spacetime
+        var L0_px = Math.min(axisXLen * 0.68, axisYLen * 0.90);
+        var xRear = ox + 30;
+        var yRear = oy - 42;
+        var xFront = xRear + L0_px * cosVal;
+        var yFront = yRear - L0_px * sinVal;
+
+        // Moving observer's line of simultaneity
+        ctx.strokeStyle = activeFrame === 'alice'
+          ? (c.isLight ? 'rgba(234, 88, 12, 0.28)' : 'rgba(251, 146, 60, 0.30)')
+          : (c.isLight ? 'rgba(2, 132, 199, 0.28)' : 'rgba(56, 189, 248, 0.30)');
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(xRear - 25 * cosVal, yRear + 25 * sinVal);
+        ctx.lineTo(xFront + 35 * cosVal, yFront - 35 * sinVal);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Moving observer's tilted 10m coach
+        ctx.save();
+        ctx.translate(xRear, yRear);
+        ctx.rotate(-rad);
+        drawCoach2D(ctx, L0_px / 2, -11, L0_px, 18, secondaryColor, c.isLight);
+        drawLabelPill(ctx, secondaryName + '\'s Coach: L₀ = 10.0 m (Invariant)', L0_px / 2, -26, {
+          textColor: secondaryColor,
+          font: 'bold 9.5px "JetBrains Mono"'
+        });
+        ctx.restore();
+
+        // Glowing dots at ends of moving coach
+        drawGlowingDot(ctx, xRear, yRear, secondaryColor, 4.5);
+        drawGlowingDot(ctx, xFront, yFront, secondaryColor, 4.5);
+
+        // Dashed Projection Rays dropping down to primary horizontal axis
+        ctx.strokeStyle = c.invariantColor;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(xRear, yRear);
+        ctx.lineTo(xRear, oy);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(xFront, yFront);
+        ctx.lineTo(xFront, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Angle Arc θ at xRear, yRear
+        if (angleDeg > 4) {
+          var arcR = Math.min(32, L0_px * 0.25);
+          ctx.strokeStyle = secondaryColor;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(xRear, yRear, arcR, 0, -rad, true);
+          ctx.stroke();
+
+          var midA = -rad / 2;
+          ctx.fillStyle = secondaryColor;
+          ctx.font = 'bold 9.5px "JetBrains Mono"';
+          ctx.fillText('θ=' + angleDeg.toFixed(0) + '°', xRear + (arcR + 12) * Math.cos(midA), yRear + (arcR + 12) * Math.sin(midA) + 3);
+
+          // Horizontal reference ray for angle
+          ctx.strokeStyle = c.isLight ? 'rgba(100, 116, 139, 0.35)' : 'rgba(148, 163, 184, 0.35)';
+          ctx.setLineDash([2, 2]);
+          ctx.beginPath();
+          ctx.moveTo(xRear, yRear);
+          ctx.lineTo(xRear + arcR + 25, yRear);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        // Active observer's measured segment on horizontal axis (The Projection)
+        var projW = xFront - xRear;
+        drawCoach2D(ctx, (xRear + xFront) / 2, oy - 1, projW, 16, secondaryColor, c.isLight);
+        drawGlowingDot(ctx, xRear, oy, primaryColor, 4.5);
+        drawGlowingDot(ctx, xFront, oy, primaryColor, 4.5);
+
+        // Dimension badge for measurement
+        var measLabel = primaryName + ' Measures ' + secondaryName + ' = ' + (10.0 * cosVal).toFixed(1) + ' m';
+        drawLabelPill(ctx, measLabel, (xRear + xFront) / 2, oy + 26, {
+          textColor: primaryColor,
+          font: 'bold 10px "JetBrains Mono"'
+        });
+
+        // ==========================================
+        // PANE 2 (RIGHT): Physical Train Track View
+        // ==========================================
+        var rightW = width - splitX;
+        var cxRight = splitX + rightW * 0.50;
+
+        drawLabelPill(ctx, 'Physical Train Track Measurement', cxRight, 22, {
+          textColor: c.axisLabel,
+          font: 'bold 11px system-ui'
+        });
+
+        var trackL0_px = Math.min(rightW * 0.65, 175);
+        var track1Y = height * 0.38;
+        var track2Y = height * 0.74;
+
+        // 1. Primary Observer's Track (Top - Stationary)
+        drawLabelPill(ctx, '1. ' + primaryName + ' at Rest: L₀ = 10.0 m (Invariant)', cxRight, track1Y - 30, {
+          textColor: primaryColor,
+          font: 'bold 10px system-ui'
+        });
+
+        // Rails
+        ctx.strokeStyle = c.borderMedium;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(cxRight - trackL0_px * 0.65, track1Y + 13);
+        ctx.lineTo(cxRight + trackL0_px * 0.65, track1Y + 13);
+        ctx.stroke();
+
+        // Primary Coach (Full Length)
+        drawCoach2D(ctx, cxRight, track1Y, trackL0_px, 22, primaryColor, c.isLight);
+
+        // Stationary ruler
+        ctx.strokeStyle = primaryColor;
+        ctx.lineWidth = 1.5;
+        var rY1 = track1Y + 22;
+        ctx.beginPath();
+        ctx.moveTo(cxRight - trackL0_px / 2, rY1);
+        ctx.lineTo(cxRight + trackL0_px / 2, rY1);
+        ctx.stroke();
+        for (var t = 0; t <= 5; t++) {
+          var tx1 = cxRight - trackL0_px / 2 + (t / 5) * trackL0_px;
+          var th1 = t === 0 || t === 5 ? 6 : 3;
+          ctx.beginPath();
+          ctx.moveTo(tx1, rY1);
+          ctx.lineTo(tx1, rY1 + th1);
+          ctx.stroke();
+        }
+        ctx.fillStyle = primaryColor;
+        ctx.font = '9px "JetBrains Mono"';
+        ctx.textAlign = 'center';
+        ctx.fillText('10.0 m (100%)', cxRight, rY1 + 14);
+
+        // 2. Secondary Observer's Passing Track (Bottom - Moving)
+        var dirArrow = dirSign > 0 ? '→' : '←';
+        drawLabelPill(ctx, '2. ' + secondaryName + ' Passing (' + dirArrow + ' ' + (v * (dirSign > 0 ? 1 : -1)).toFixed(3) + 'c): L = ' + (10.0 * cosVal).toFixed(1) + ' m', cxRight, track2Y - 30, {
+          textColor: secondaryColor,
+          font: 'bold 10px system-ui'
+        });
+
+        // Rails
+        ctx.strokeStyle = c.borderMedium;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(cxRight - trackL0_px * 0.65, track2Y + 13);
+        ctx.lineTo(cxRight + trackL0_px * 0.65, track2Y + 13);
+        ctx.stroke();
+
+        // Contracted Coach
+        var contractedW = trackL0_px * cosVal;
+        drawCoach2D(ctx, cxRight, track2Y, contractedW, 22, secondaryColor, c.isLight);
+
+        // Motion Arrow
+        if (angleDeg > 2) {
+          ctx.strokeStyle = secondaryColor;
+          ctx.fillStyle = secondaryColor;
+          ctx.lineWidth = 1.5;
+          if (dirSign > 0) {
+            var arrowX = cxRight + contractedW / 2 + 10;
+            ctx.beginPath();
+            ctx.moveTo(arrowX, track2Y);
+            ctx.lineTo(arrowX + 22, track2Y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(arrowX + 22, track2Y);
+            ctx.lineTo(arrowX + 17, track2Y - 3.5);
+            ctx.lineTo(arrowX + 17, track2Y + 3.5);
+            ctx.closePath();
+            ctx.fill();
+          } else {
+            var arrowX2 = cxRight - contractedW / 2 - 10;
+            ctx.beginPath();
+            ctx.moveTo(arrowX2, track2Y);
+            ctx.lineTo(arrowX2 - 22, track2Y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(arrowX2 - 22, track2Y);
+            ctx.lineTo(arrowX2 - 17, track2Y - 3.5);
+            ctx.lineTo(arrowX2 - 17, track2Y + 3.5);
+            ctx.closePath();
+            ctx.fill();
+          }
+        }
+
+        // Platform ruler
+        ctx.strokeStyle = primaryColor;
+        ctx.lineWidth = 1.5;
+        var rY2 = track2Y + 22;
+        ctx.beginPath();
+        ctx.moveTo(cxRight - trackL0_px / 2, rY2);
+        ctx.lineTo(cxRight + trackL0_px / 2, rY2);
+        ctx.stroke();
+        for (var t2 = 0; t2 <= 5; t2++) {
+          var tx2 = cxRight - trackL0_px / 2 + (t2 / 5) * trackL0_px;
+          var th2 = t2 === 0 || t2 === 5 ? 6 : 3;
+          ctx.beginPath();
+          ctx.moveTo(tx2, rY2);
+          ctx.lineTo(tx2, rY2 + th2);
+          ctx.stroke();
+        }
+        // Active simultaneous bracket
+        ctx.strokeStyle = secondaryColor;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(cxRight - contractedW / 2, rY2 - 2);
+        ctx.lineTo(cxRight + contractedW / 2, rY2 - 2);
+        ctx.stroke();
+        ctx.fillStyle = secondaryColor;
+        ctx.font = 'bold 9px "JetBrains Mono"';
+        ctx.textAlign = 'center';
+        ctx.fillText((10.0 * cosVal).toFixed(1) + ' m (' + (cosVal * 100).toFixed(0) + '%)', cxRight, rY2 + 14);
+
+      } else {
+        // Mobile Layout: Stacked Views
+        drawLabelPill(ctx, primaryName + '\'s View: ' + secondaryName + ' contracted to ' + (10.0 * cosVal).toFixed(1) + 'm', width * 0.50, 18, {
+          textColor: primaryColor,
+          font: 'bold 10px system-ui'
+        });
+
+        var oxM = 35;
+        var oyM = height * 0.52;
+        var L0_M = Math.min(width * 0.58, 150);
+
+        // Ground axis
+        ctx.strokeStyle = c.axisLine;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(oxM - 10, oyM);
+        ctx.lineTo(width - 20, oyM);
+        ctx.stroke();
+
+        var xR_M = oxM + 15;
+        var yR_M = oyM - 35;
+        var xF_M = xR_M + L0_M * cosVal;
+        var yF_M = yR_M - L0_M * sinVal;
+
+        // Moving coach in spacetime (Invariant 10m)
+        ctx.save();
+        ctx.translate(xR_M, yR_M);
+        ctx.rotate(-rad);
+        drawCoach2D(ctx, L0_M / 2, -9, L0_M, 16, secondaryColor, c.isLight);
+        ctx.restore();
+
+        // Dropped projection rays
+        ctx.strokeStyle = c.invariantColor;
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([2, 2]);
+        ctx.beginPath();
+        ctx.moveTo(xR_M, yR_M);
+        ctx.lineTo(xR_M, oyM);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(xF_M, yF_M);
+        ctx.lineTo(xF_M, oyM);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Measured Coach on axis
+        var projWM = xF_M - xR_M;
+        drawCoach2D(ctx, (xR_M + xF_M) / 2, oyM - 1, projWM, 14, secondaryColor, c.isLight);
+
+        // Lower Track: Comparison
+        var trackYM = height * 0.82;
+        drawLabelPill(ctx, primaryName + ': 10.0m (At Rest) vs ' + secondaryName + ': ' + (10.0 * cosVal).toFixed(1) + 'm', width * 0.50, trackYM - 24, {
+          textColor: c.axisLabel,
+          font: '9.5px "JetBrains Mono"'
+        });
+
+        drawCoach2D(ctx, width * 0.30, trackYM, Math.min(width * 0.36, 110), 16, primaryColor, c.isLight);
+        drawCoach2D(ctx, width * 0.72, trackYM, Math.min(width * 0.36, 110) * cosVal, 16, secondaryColor, c.isLight);
+      }
     }
 
     if (sliderSpeed) {
       sliderSpeed.addEventListener('input', function (e) {
-        vFraction = parseFloat(e.target.value) / 1000;
+        angleDeg = parseFloat(e.target.value);
+        for (var i = 0; i < chipPresets.length; i++) chipPresets[i].classList.remove('active');
         update();
       });
+    }
+
+    for (var i = 0; i < chipPresets.length; i++) {
+      (function (btn) {
+        btn.addEventListener('click', function () {
+          for (var j = 0; j < chipPresets.length; j++) chipPresets[j].classList.remove('active');
+          btn.classList.add('active');
+          angleDeg = parseFloat(btn.getAttribute('data-deg'));
+          if (sliderSpeed) sliderSpeed.value = angleDeg;
+          update();
+        });
+      })(chipPresets[i]);
     }
 
     for (var f = 0; f < chipFrames.length; f++) {
@@ -1973,6 +2277,33 @@
           update();
         });
       })(chipFrames[f]);
+    }
+
+    if (btnPlay) {
+      btnPlay.addEventListener('click', function () {
+        isPlaying = !isPlaying;
+        btnPlay.innerHTML = isPlaying ? '<span>⏸</span><span>Pause</span>' : '<span>▶</span><span>Auto Play</span>';
+        if (isPlaying) {
+          var last = performance.now();
+          var goingUp = true;
+          function loop(now) {
+            if (!isPlaying) return;
+            var dt = (now - last) / 1000;
+            last = now;
+            if (goingUp) {
+              angleDeg += dt * 25;
+              if (angleDeg >= 80) goingUp = false;
+            } else {
+              angleDeg -= dt * 25;
+              if (angleDeg <= 0) goingUp = true;
+            }
+            if (sliderSpeed) sliderSpeed.value = Math.round(angleDeg);
+            update();
+            requestAnimationFrame(loop);
+          }
+          requestAnimationFrame(loop);
+        }
+      });
     }
 
     registerDraw(draw);
