@@ -871,19 +871,50 @@
       drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
       drawAxes(ctx, ox, oy, width, height, 'Space (x)', 'Time (t)');
 
+      // 1. Forbidden Zone (v > c)
+      var forbidStartX = ox + scale;
+      var forbidEndX = width - 25;
+      var forbidMidX = (forbidStartX + forbidEndX) / 2;
+
+      // Subtle red forbidden zone shading
+      ctx.fillStyle = c.isLight ? 'rgba(220, 38, 38, 0.05)' : 'rgba(248, 113, 113, 0.08)';
+      ctx.fillRect(forbidStartX, 25, forbidEndX - forbidStartX, oy - 25);
+
       ctx.strokeStyle = c.dangerColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
-      ctx.moveTo(ox + scale, oy);
-      ctx.lineTo(width - 25, oy);
+      ctx.moveTo(forbidStartX, oy);
+      ctx.lineTo(forbidEndX, oy);
       ctx.stroke();
       ctx.setLineDash([]);
 
-      ctx.font = '600 10px monospace';
+      // Forbidden Text clearly centered in the forbidden area
+      ctx.font = 'bold 11px "JetBrains Mono", monospace';
       ctx.fillStyle = c.dangerColor;
-      ctx.fillText('FORBIDDEN (v > c)', ox + scale + 15, oy - 10);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('FORBIDDEN (v > c)', forbidMidX, oy - 10);
 
+      ctx.font = '600 9px sans-serif';
+      ctx.textBaseline = 'top';
+      ctx.fillText('(Exceeds total motion)', forbidMidX, oy + 8);
+
+      // Boundary Tick at v = c
+      ctx.strokeStyle = c.photonColor;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(forbidStartX, oy - 8);
+      ctx.lineTo(forbidStartX, oy + 8);
+      ctx.stroke();
+
+      ctx.font = 'bold 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = c.photonColor;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText('v = c', forbidStartX, oy + 12);
+
+      // 2. Active Mode Vector
       var v_space = 1.0;
       var v_time = 0.0;
       var color = c.photonColor;
@@ -916,8 +947,20 @@
 
       ctx.font = 'bold 12px sans-serif';
       ctx.fillStyle = color;
-      var label = mode === 'photon' ? 'Photon (Light Speed)' : (mode === 'rest' ? 'Observer at Rest' : 'Fast Rocket');
-      ctx.fillText(label, tipX - 20, tipY - 14);
+
+      if (mode === 'photon') {
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('Photon (Speed of Light, v = c)', tipX - 12, oy - 10);
+      } else if (mode === 'rocket') {
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('Fast Rocket (v = 0.866c)', tipX + 12, tipY - 4);
+      } else {
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Observer at Rest (v = 0)', tipX + 14, tipY);
+      }
     }
 
     function update() {
