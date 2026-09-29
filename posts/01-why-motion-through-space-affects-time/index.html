@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Motion Through Space Affects Time · How Does the Universe Work?</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <meta name="description" content="A curiosity-driven, visual exploration of why moving through space naturally alters our experience of time in Special Relativity.">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="../../index.html" class="brand-link">
+        <div class="brand-badge">c</div>
+        <div>
+          <span class="brand-title">HOW DOES THE UNIVERSE WORK?</span>
+          <span class="brand-tag">SERIES</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="../../index.html">← All Posts</a>
+        <a href="#interactive-clocks" class="active">Part 1: Motion & Time</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Article Body -->
+  <main class="reading-container">
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="category-tag">Part 01 · Special Relativity</div>
+      <h1 class="article-title">Why Motion Through Space Affects Time</h1>
+      <p class="article-subtitle">
+        A curiosity-driven exploration of why moving through space naturally alters our experience of time.
+      </p>
+      <div class="article-meta">
+        <span>By Aayush Agarwal</span>
+        <span>•</span>
+        <span>Interactive Explorable</span>
+        <span>•</span>
+        <span>10 min read</span>
+      </div>
+    </header>
+
+    <!-- Editorial Prose -->
+    <article class="editorial-prose">
+      <p>
+        When many of us first encounter Albert Einstein’s Special Theory of Relativity, it often arrives wrapped in abstract thought experiments: high-speed trains flashing light pulses at platforms, mirrors bouncing photons up and down, and algebraic formulas filled with square roots.
+      </p>
+      <p>
+        While these classic explanations are mathematically rigorous, they can sometimes leave a curious reader feeling ungrounded. We might follow the steps on paper, but we are still left wondering: <em>Why should moving through space have anything to do with how fast a clock ticks? What is the underlying physical intuition that connects space and time?</em>
+      </p>
+      <p>
+        Our goal in this series is to set aside the abstract formulas and build an intuitive understanding from the ground up. By starting with a familiar scenario that anyone can visualize on a flat surface, we can follow a natural chain of geometric reasoning that leads directly to the core insights of relativity: why moving clocks run slow, why the speed of light is a natural cosmic limit, and how we all experience spacetime in our daily lives.
+      </p>
+      <p>
+        Let’s begin with a simple observation on a flat plane.
+      </p>
+
+      <!-- SECTION 1 -->
+      <h2>1. Starting with Simple Geometry: Two Cars on a 2D Plane</h2>
+      <p>
+        Imagine a broad, flat open field. We draw a standard coordinate grid on the ground with two perpendicular directions: <strong>East</strong> (which we will call <span class="math-badge" style="display:inline; padding:2px 6px;">x₁</span>) and <strong>North</strong> (which we will call <span class="math-badge" style="display:inline; padding:2px 6px;">x₂</span>).
+      </p>
+      <p>
+        At the starting point <span class="math-badge" style="display:inline; padding:2px 6px;">(0,0)</span>, we place two cars: a <strong>Blue Car</strong> and an <strong>Orange Car</strong>.
+      </p>
+      <p>
+        Both drivers turn on cruise control, locking their speed to the exact same value: <strong>60 miles per hour</strong> (<span class="math-badge" style="display:inline; padding:2px 6px;">V = 60 mph</span>). Neither vehicle can speed up, and neither can slow down.
+      </p>
+      <p>
+        Now they begin driving:
+      </p>
+      <p>
+        1. <strong>The Blue Car</strong> points its wheels due <strong>North</strong> along the <span class="math-badge" style="display:inline; padding:2px 6px;">x₂</span> axis. Because all of its motion is directed North, its Northward speed is <span class="math-badge" style="display:inline; padding:2px 6px;">60 mph</span>, and its Eastward speed is <span class="math-badge" style="display:inline; padding:2px 6px;">0 mph</span>.<br>
+        2. <strong>The Orange Car</strong> chooses a different path. It angles its heading <span class="math-badge" style="display:inline; padding:2px 6px;">60°</span> toward the <strong>East</strong> (away from North) along a diagonal.
+      </p>
+      <p>
+        Consider a simple question: <strong>After driving for an hour, will the Orange Car be at the same Northward position as the Blue Car?</strong>
+      </p>
+      <p>
+        Intuitively, we know it will not. Because the Orange Car angled toward the East, its fixed <span class="math-badge" style="display:inline; padding:2px 6px;">60 mph</span> speed is now shared between two perpendicular directions. We can see exactly how that speed is split by looking at the right triangle formed by its heading:
+      </p>
+      <p>
+        • <strong>Speed Eastward (x₁):</strong> Scales with the sine of the angle:<br>
+        <span class="math-badge" style="display:inline-block; margin: 4px 0;">V_East = V × sin(60°) = 60 × (√3 / 2) ≈ 60 × 0.866 ≈ 52 mph</span>
+      </p>
+      <p>
+        • <strong>Speed Northward (x₂):</strong> Scales with the cosine of the angle:<br>
+        <span class="math-badge" style="display:inline-block; margin: 4px 0;">V_North = V × cos(60°) = 60 × 0.5 = 30 mph</span>
+      </p>
+      <p>
+        Notice where that <span class="math-badge" style="display:inline; padding:2px 6px;">52 mph</span> comes from: because <span class="math-badge" style="display:inline; padding:2px 6px;">sin(60°) ≈ 0.866</span>, the car directs about <span class="math-badge" style="display:inline; padding:2px 6px;">86.6%</span> of its speed toward the East. And because <span class="math-badge" style="display:inline; padding:2px 6px;">cos(60°) = 0.5</span>, its progress Northward is cut exactly in half, down to <span class="math-badge" style="display:inline; padding:2px 6px;">30 mph</span>.
+      </p>
+
+      <!-- INTERACTIVE WIDGET 1: CARS -->
+      <div id="widget-cars" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 01</span>
+            <div class="artifact-title">Two Cars on a 2D Grid: The Spatial Trade-Off</div>
+            <div class="artifact-desc">Scrub time or change the heading angle to watch the speed components trade off in real time.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Simulate Elapsed Time (Scrubber)</span>
+              <span class="control-val cyan val-time">0.60 hr</span>
+            </div>
+            <input type="range" class="range-slider slider-time" min="0" max="1000" value="600">
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Heading Angle (θ from North)</span>
+              <span class="control-val amber val-angle">60°</span>
+            </div>
+            <input type="range" class="range-slider amber slider-angle" min="0" max="90" value="60">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge">
+              East: <strong class="readout-vx">52.0 mph</strong> | North: <strong class="readout-vy">30.0 mph</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <div><strong>The General Pythagorean Rule:</strong> V_North = √( V² - V_East² )</div>
+        <div class="formula-note">When total speed is fixed, motion in one direction naturally trades off against motion in a perpendicular direction.</div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <h2>2. Treating Time as an Axis</h2>
+      <p>
+        Now, let us take this geometric idea and make a simple shift in how we picture the world.
+      </p>
+      <p>
+        Suppose we draw another 2D grid. We will keep the horizontal axis as <strong>Space</strong> (<span class="math-badge" style="display:inline; padding:2px 6px;">x</span>), representing motion to the left or right. 
+      </p>
+      <p>
+        For the vertical axis, instead of labeling it "North," let’s label it <strong>Time</strong> (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>).
+      </p>
+      <p>
+        What does it mean to move along this vertical axis?
+      </p>
+      <p>
+        Consider yourself sitting in a chair right now. You may be completely motionless relative to your room; your speed through space is zero. 
+      </p>
+      <p>
+        Yet, are you standing still in time? 
+      </p>
+      <p>
+        Clearly not. Each second that passes on your watch carries you steadily forward into the future. Even when you are stationary in space, you are constantly progressing along the Time axis.
+      </p>
+
+      <!-- INTERACTIVE WIDGET 2: STATIONARY -->
+      <div id="widget-stationary" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 02</span>
+            <div class="artifact-title">An Object at Rest: Motion Purely Through Time</div>
+            <div class="artifact-desc">Sitting motionless in space (x = 0) still carries you relentlessly forward into the future.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel" style="grid-template-columns: 1fr;">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Observer Wristwatch (At Rest)</span>
+              <span class="clock-badge">100% Speed Through Time</span>
+            </div>
+            <div class="clock-time clock-val">0.00 <span>s</span></div>
+            <p class="clock-subtext">Every second on the watch is forward progress along the Time axis.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Scrub Time Forward / Backward</span>
+              <span class="control-val cyan">0 to 6.00 s</span>
+            </div>
+            <input type="range" class="range-slider slider-time" min="0" max="1000" value="580">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge">
+              Spatial speed: <strong>v_space = 0</strong> | Time speed: <strong>v_time = V (100%)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        This simple diagram reveals an important baseline: to exist is to move through time. An object sitting completely still at <span class="math-badge" style="display:inline; padding:2px 6px;">x = 0</span> is not static; it is traveling forward along the vertical Time axis.
+      </p>
+
+      <!-- SECTION 3 -->
+      <h2>3. The Thought Experiment: A Fixed Speed Through Spacetime</h2>
+      <p>
+        Now that we have a plane with Space on one axis and Time on the other, let us pose a hypothetical question:
+      </p>
+      <p>
+        <strong>What if nature operated under a single, elegant geometric rule—namely, that every object in existence moves through this combined Space-Time plane at a single, constant total speed, V?</strong>
+      </p>
+      <p>
+        Let’s trace what such a rule would require:
+      </p>
+      <p>
+        • <strong>An Observer at Rest:</strong> If an observer sits completely still in space, their spatial velocity is zero (<span class="math-badge" style="display:inline; padding:2px 6px;">v_space = 0</span>). Since their total speed vector has a constant length <span class="math-badge" style="display:inline; padding:2px 6px;">V</span>, the entire vector must point straight up along the Time axis: <span class="math-badge" style="display:inline; padding:2px 6px;">v_time = V</span>. All of their motion is directed through time, and their clock ticks forward at its full, normal rate.
+      </p>
+      <p>
+        • <strong>An Observer Moving Through Space:</strong> Now, suppose this person begins moving across space at a speed <span class="math-badge" style="display:inline; padding:2px 6px;">v_space</span>. Look at what happens as that vector tilts into the space dimension:
+      </p>
+
+      <!-- INTERACTIVE WIDGET 3: TRADEOFF -->
+      <div id="widget-tradeoff" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 03</span>
+            <div class="artifact-title">The Thought Experiment: Trading Space for Time</div>
+            <div class="artifact-desc">Slide the spatial velocity to watch the vector rotate along the fixed constraint arc.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Velocity Across Space (v_space)</span>
+              <span class="control-val amber readout-vx">86.6% of V</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="1000" value="866">
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Simulate Elapsed Time</span>
+              <span class="control-val cyan">Scrub Vector</span>
+            </div>
+            <input type="range" class="range-slider slider-time" min="0" max="1000" value="700">
+          </div>
+          <div class="toolbar-bottom">
+            <div class="math-badge">
+              Remaining Speed Through Time: <strong class="readout-vt">50.0% of V</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        The vertical component along the Time axis <strong>must become shorter</strong>.
+      </p>
+      <p>
+        Just like the car in our first example, the traveler cannot create extra speed. If part of their fixed speed vector is dedicated to moving through Space, that motion must be drawn from their motion through Time:
+      </p>
+      <div class="formula-card">
+        <div><strong>The Spacetime Trade-Off:</strong> v_time = √( V² - v_space² )</div>
+        <div class="formula-note">Under this rule, the moment an object begins moving through space, its rate of progress through time must decrease.</div>
+      </div>
+
+      <!-- SECTION 4 -->
+      <h2 id="interactive-clocks">4. Connecting to the Real World: The Cosmic Constant c</h2>
+      <p>
+        This thought experiment might seem like a neat mathematical curiosity. But what makes it so fascinating is that <strong>this is remarkably close to how our physical universe actually works.</strong>
+      </p>
+      <p>
+        When Albert Einstein formulated Special Relativity in 1905, and Hermann Minkowski subsequently revealed its geometric structure, they showed that space and time are fundamentally woven into a single four-dimensional continuum: <strong>spacetime</strong>.
+      </p>
+      <p>
+        And what is that constant speed <span class="math-badge" style="display:inline; padding:2px 6px;">V</span> that governs motion through spacetime?
+      </p>
+      <p>
+        It is the constant denoted by <strong>c</strong>—commonly known as the speed of light (approximately <span class="math-badge" style="display:inline; padding:2px 6px;">299,792 km/s</span>, or <span class="math-badge" style="display:inline; padding:2px 6px;">671 million miles per hour</span>).
+      </p>
+      <p>
+        In this geometric view:
+      </p>
+      <p>
+        • When you are sitting at rest in your chair, your motion is directed almost entirely through time at speed <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>. Your watch ticks at its standard rate.<br>
+        • If a traveler boards a spacecraft and travels through space at a significant fraction of light speed—say, <span class="math-badge" style="display:inline; padding:2px 6px;">86.6% of c</span> (<span class="math-badge" style="display:inline; padding:2px 6px;">v_space = 0.866c</span>, directly mirroring the <span class="math-badge" style="display:inline; padding:2px 6px;">sin(60°)</span> angle from our car example)—they are directing a substantial portion of their spacetime velocity into space.
+      </p>
+      <p>
+        How much of their motion remains along the time dimension?
+      </p>
+      <p>
+        <span class="math-badge" style="display:inline-block; margin: 4px 0;">v_time = √( c² - v_space² ) = √( c² - (0.866c)² ) = √( 0.25c² ) = 0.50c</span>
+      </p>
+      <p>
+        Their progress through time is cut exactly in half!
+      </p>
+
+      <!-- INTERACTIVE WIDGET 4: TWIN CLOCKS & TIME DILATION -->
+      <div id="widget-time-dilation" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 04</span>
+            <div class="artifact-title">Live Twin Clocks & Relativistic Time Dilation</div>
+            <div class="artifact-desc">Adjust the speed of the spacecraft and watch the two synchronized clocks run live.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Earth Observer (v = 0)</span>
+              <span class="clock-badge">Standard 1.00x Rate</span>
+            </div>
+            <div class="clock-time clock-earth">0.00 <span>s</span></div>
+            <p class="clock-subtext">100% of motion directed into time.</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Rocket Clock (Moving)</span>
+              <span class="clock-badge">Dilated Rate</span>
+            </div>
+            <div class="clock-time clock-rocket" style="color:var(--color-space);">0.00 <span>s</span></div>
+            <p class="clock-subtext">Time progress is slowed by spatial motion.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Passage of Time (Scrubber)</span>
+              <span class="control-val cyan">Simulate Time</span>
+            </div>
+            <input type="range" class="range-slider slider-time" min="0" max="1000" value="0">
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Spacecraft Velocity (v)</span>
+              <span class="control-val amber readout-speed">v = 0.866 c</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="999" value="866">
+            <div class="preset-chips">
+              <button class="chip-btn chip-preset" data-val="0">At Rest (v = 0)</button>
+              <button class="chip-btn chip-preset" data-val="0.500">v = 0.500 c</button>
+              <button class="chip-btn chip-preset active" data-val="0.866">v = 0.866 c (Half Time)</button>
+              <button class="chip-btn chip-preset" data-val="0.995">v = 0.995 c (Muons)</button>
+            </div>
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge">
+              v_time = <strong class="readout-math">0.500 c</strong> | γ = <strong class="readout-gamma">2.00</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        While six seconds elapse for an observer on Earth, only three seconds elapse on the traveler’s watch. To the traveler inside the spacecraft, everything appears completely normal—their heart beats, their thoughts flow, and their clocks tick in perfect rhythm with their body. But when compared to the stationary observer, the traveler has aged more slowly.
+      </p>
+      <p>
+        This effect is known as <strong>Time Dilation</strong>. It is not a mechanical defect in clocks or an optical trick of delayed signals; it is a direct consequence of how motion is distributed between space and time.
+      </p>
+
+      <!-- SECTION 5 -->
+      <h2>5. Natural Consequences: The Speed Limit and Timeless Light</h2>
+      <p>
+        Once we view spacetime through this geometric lens, several famous features of relativity emerge naturally from the geometry.
+      </p>
+
+      <h3>Why is the Speed of Light an Unbreakable Limit?</h3>
+      <p>
+        It is often stated that nothing can exceed the speed of light. People often wonder: <em>Why? Could a sufficiently advanced propulsion system eventually push an object past this barrier?</em>
+      </p>
+      <p>
+        Consider what happens if an object directs 100% of its spacetime speed into space:
+      </p>
+
+      <!-- INTERACTIVE WIDGET 5: SPEED LIMIT -->
+      <div id="widget-speed-limit" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 05</span>
+            <div class="artifact-title">The Cosmic Boundary: The Timeless Photon</div>
+            <div class="artifact-desc">Switch between particles to see why the speed of light freezes time completely.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel" style="grid-template-columns: 1fr;">
+          <div class="clock-card" style="border-color: rgba(250, 204, 21, 0.4);">
+            <div class="clock-meta">
+              <span class="clock-label" style="color:var(--color-photon);">Particle Onboard Clock</span>
+              <span class="clock-badge">Status</span>
+            </div>
+            <div class="clock-time clock-photon" style="color:var(--color-photon);">0.000 <span>s</span></div>
+            <p class="clock-subtext status-note">Time is completely frozen. 100% of motion is across space.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Select Particle / Observer</span>
+            </div>
+            <div class="preset-chips">
+              <button class="chip-btn mode-btn" data-mode="rest">1. Observer at Rest (v = 0)</button>
+              <button class="chip-btn mode-btn" data-mode="rocket">2. Fast Rocket (v = 0.866c)</button>
+              <button class="chip-btn mode-btn active" data-mode="photon">3. Photon / Light (v = c)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        If an object travels through space at <span class="math-badge" style="display:inline; padding:2px 6px;">v_space = c</span>, how much speed remains for time?
+      </p>
+      <div class="formula-card">
+        <div>v_time = √( c² - c² ) = 0</div>
+        <div class="formula-note">Its motion through time drops to zero. A photon experiences zero elapsed time across the entire cosmos.</div>
+      </div>
+      <p>
+        Just as a car on a 2D plane cannot travel "more than 100% East," an object cannot divert more than all of its speed into space. To exceed <span class="math-badge" style="display:inline; padding:2px 6px;">c</span> would require having more total motion than nature provides. The speed of light is not an arbitrary barrier; it is simply the full magnitude of motion available in spacetime.
+      </p>
+
+      <h3>Why Don’t We Notice This in Daily Life?</h3>
+      <p>
+        If moving through space reduces our progress through time, why doesn't our watch fall behind when we take a long drive or an airplane flight?
+      </p>
+      <p>
+        The reason comes down to the immense magnitude of <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>. Light travels at roughly <span class="math-badge" style="display:inline; padding:2px 6px;">1,080,000,000 km/h</span>. When you sit in a commercial airplane cruising at <span class="math-badge" style="display:inline; padding:2px 6px;">900 km/h</span>, your speed through space as a fraction of light speed is approximately <span class="math-badge" style="display:inline; padding:2px 6px;">0.00000083</span>.
+      </p>
+      <p>
+        The reduction in your motion through time is less than a few nanoseconds over an entire flight. Human life takes place in an extreme low-speed environment compared to the speed of light. Because all of us are moving through space at nearly zero compared to <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, we all share almost exactly the same rate of passage through time.
+      </p>
+
+      <!-- SECTION 6 -->
+      <h2>6. Curious Questions: What Can We Actually Do With This?</h2>
+      <p>
+        Once this geometric picture clicks, it naturally stirs up questions about how time behaves in extreme situations. Let’s explore two fascinating scenarios that physics allows us to contemplate:
+      </p>
+
+      <h3>Can You Speed Up or Slow Down Time?</h3>
+      <p>
+        If motion through space trades off against motion through time, can you use this to your advantage?
+      </p>
+      <p>
+        • <strong>How to slow down your own time (and leap into the future):</strong> If you want to travel into Earth's distant future, the recipe is straightforward in theory: build a spacecraft capable of traveling at <span class="math-badge" style="display:inline; padding:2px 6px;">99.99% of c</span>. Because nearly all of your spacetime velocity is dedicated to moving through space, your progress through time slows to a crawl relative to people on Earth. For every day that passes for you aboard the ship, roughly 70 days elapse on Earth. Spend a year cruising the cosmos at this speed, and when you return, you will have aged just one year while Earth has advanced by 70 years. You cannot travel backward into the past, but one-way travel into the future is a built-in feature of our universe.
+      </p>
+      <p>
+        • <strong>Can you speed up your time?</strong> Looking back at our diagram, an interesting limitation reveals itself: you can never travel through time <em>faster</em> than <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>. When sitting completely at rest in space, you are already pointing 100% of your vector into time (<span class="math-badge" style="display:inline; padding:2px 6px;">v_time = c</span>). Moving in any direction in space can only <em>reduce</em> your speed through time, never increase it. In flat spacetime, you are already experiencing time at the maximum speed nature permits.
+      </p>
+
+      <h3>Nature's Built-in Proof: Atmospheric Muons</h3>
+      <p>
+        Nature even provides a direct, observable demonstration of this geometry right above our heads.
+      </p>
+      <p>
+        When high-energy cosmic rays from deep space strike the upper atmosphere—about 10 kilometers above the ground—they create unstable subatomic particles called <strong>muons</strong>. 
+      </p>
+      <p>
+        In laboratory experiments, a muon decays in just 2.2 millionths of a second (2.2 microseconds). Even if a muon traveled at nearly the speed of light, simple arithmetic suggests it could travel at most about 660 meters before vanishing:
+      </p>
+      <div class="formula-card">
+        <div>Distance = Speed × Lifetime ≈ (300,000 km/s) × (0.0000022 s) ≈ 0.66 km (660 meters)</div>
+        <div class="formula-note">Starting 10 km up, virtually zero muons should ever survive to reach the ground.</div>
+      </div>
+      <p>
+        Yet, particle detectors on the Earth's surface detect millions of muons every single day. Why? Test it for yourself below:
+      </p>
+
+      <!-- INTERACTIVE WIDGET 6: MUON DECAY SIMULATOR -->
+      <div id="widget-muon" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 06</span>
+            <div class="artifact-title">Atmospheric Muon Survival Simulator</div>
+            <div class="artifact-desc">Slide altitude to watch muons descend from 10 km, and toggle between Newtonian and Relativistic views.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Muon Descent Altitude</span>
+              <span class="control-val cyan readout-muon-clock">0.00 µs (Internal Clock)</span>
+            </div>
+            <input type="range" class="range-slider slider-altitude" min="0" max="10" step="0.1" value="10">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-secondary btn-view-toggle">
+              <span>Mode: </span><strong class="text-sky-400">Einsteinian (Time Dilation ON)</strong>
+            </button>
+            <div class="math-badge readout-muon-status">
+              Descending safely through atmosphere...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Because these muons travel downward at about <span class="math-badge" style="display:inline; padding:2px 6px;">99.9% of the speed of light</span> (<span class="math-badge" style="display:inline; padding:2px 6px;">0.999c</span>), they divert almost all of their spacetime motion into space. From our vantage point on Earth, their internal clocks tick about 22 times slower than normal. That fleeting 2.2 microseconds stretches out into nearly 50 microseconds—giving them plenty of time to complete their journey to the ground.
+      </p>
+
+      <!-- SECTION 7: LOOKING AHEAD -->
+      <h2>Looking Ahead: Questions for Part 2</h2>
+      <p>
+        By taking a geometric approach, we have established a foundational mental model:
+      </p>
+      <p>
+        1. Objects have a fixed total capacity for motion through spacetime, bounded by <em>c</em>.<br>
+        2. An object at rest moves primarily through time.<br>
+        3. Moving through space diverts motion away from time, causing clocks to slow down (time dilation).<br>
+        4. Directing all motion into space leaves zero motion for time, which is why <em>c</em> is the natural speed limit and why photons experience no elapsed time.
+      </p>
+      <p>
+        This raises a subtle and fascinating question:
+      </p>
+      <p>
+        <strong>If all motion is relative, what happens when two spacecraft drift past each other in deep space?</strong>
+      </p>
+      <p>
+        From astronaut A’s point of view, astronaut B is moving, so B’s clock should be running slow. But from astronaut B’s perspective, A is moving, so A’s clock should be running slow. 
+      </p>
+      <p>
+        Can both observers be correct? If they turn around and meet again, who is actually younger?
+      </p>
+      <p>
+        In <strong>Part 2</strong>, we will explore this puzzle, diving into the famous <strong>Twin Paradox</strong>, the <strong>Relativity of Simultaneity</strong>, and Brian Greene's visual concept of the <strong>Spacetime Loaf</strong>.
+      </p>
+    </article>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="wide-container">
+      <p>How Does the Universe Work? · An Explorable Physics Series by Aayush Agarwal</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">View on GitHub</a> · Built with pure HTML, CSS, and Vanilla JavaScript
+      </p>
+    </div>
+  </footer>
+
+  <!-- Widget Initialization Script -->
+  <script type="module">
+    import { 
+      initWidgetCars, 
+      initWidgetStationary, 
+      initWidgetTradeoff, 
+      initWidgetTimeDilation, 
+      initWidgetSpeedLimit, 
+      initWidgetMuon 
+    } from '../../js/widgets/post-01-widgets.js';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initWidgetCars('widget-cars');
+      initWidgetStationary('widget-stationary');
+      initWidgetTradeoff('widget-tradeoff');
+      initWidgetTimeDilation('widget-time-dilation');
+      initWidgetSpeedLimit('widget-speed-limit');
+      initWidgetMuon('widget-muon');
+    });
+  </script>
+
+</body>
+</html>

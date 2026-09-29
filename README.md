@@ -1,55 +1,64 @@
-# Intuitive Relativity: A Curiosity-Driven Visual Series
+# How Does The Universe Work?
 
-An intuitive, visual blog series created to build an understanding of **Special and General Relativity** from the ground up for lifelong learners, science enthusiasts, and curious minds.
+An interactive, curiosity-driven visual website created to explain **Special and General Relativity** from the ground up for lifelong learners, physics enthusiasts, and students.
 
-Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought experiments about train cars and mirrors, this series uses simple geometric mental models, interactive companion tools, and animations.
-
----
-
-## Series Overview
-
-### Part 1: Why Motion Through Space Affects Time
-- **Folder**: [`post_01_motion_through_time/`](./post_01_motion_through_time/)
-- **Article Draft**: [`post_01_motion_through_time/draft_medium_post.md`](./post_01_motion_through_time/draft_medium_post.md)
-- **Interactive Visualizer**: [`post_01_motion_through_time/preview/interactive_preview.html`](./post_01_motion_through_time/preview/interactive_preview.html)
-- **Core Mental Model**:
-  1. **The 2D Spatial Plane**: Two cars on an $(x_1, x_2)$ grid with locked cruise control at $60\text{ mph}$. When one angles Eastward, its Northward speed drops naturally: $V_{\text{North}} = \sqrt{V^2 - V_{\text{East}}^2}$.
-  2. **Treating Time as an Axis**: Plotting Space ($x$) and Time ($t$). An object at rest in space ($x=0$) steadily moves forward along the Time axis.
-  3. **The Thought Experiment**: If every object moves through spacetime at a single constant speed $V$, motion across space naturally trades off against motion through time: $v_{\text{time}} = \sqrt{V^2 - v_{\text{space}}^2}$.
-  4. **The Physical Reality**: In our universe, that invariant speed is $c$ (the speed of light). Time dilation is an inescapable consequence of this geometry.
-  5. **Natural Deductions & Mind-Bending Questions**: Why $c$ is the unbreakable speed limit, why photons experience zero elapsed time, how traveling near $c$ allows one-way leaps into Earth's future, and real-world proof via atmospheric muons.
-
-#### Visual Assets in Part 1
-- `assets/01_cars_2d_plane.gif`: Animated car speed decomposition on a 2D spatial grid.
-- `assets/02a_stationary_motion_time.gif`: Animation of an observer at rest moving purely through the Time dimension.
-- `assets/02b_spacetime_tradeoff.gif`: Animation showing the speed vector tilting into space and shrinking vertical time progression.
-- `assets/03_spacetime_revealed_c.gif`: The spacetime diagram with $c$ and side-by-side ticking clocks (Earth vs. Rocket at $0.866c$).
-- `assets/04_cosmic_speed_limit.png`: High-resolution diagram showing the photon boundary at $v_{\text{space}} = c$.
+Live Site / GitHub Repository: [https://github.com/ayush2991/how-does-the-universe-work](https://github.com/ayush2991/how-does-the-universe-work)
 
 ---
 
-### Part 2: The Spacetime Loaf & Length Contraction (In Progress)
-- **Folders**: 
-  - [`post_02_spacetime_loaf_and_slices/`](./post_02_spacetime_loaf_and_slices/)
-  - [`post_02_spacetime_loaf_length_contraction/`](./post_02_spacetime_loaf_length_contraction/)
-- Explores Brian Greene's "Spacetime Loaf", the relativity of simultaneity, why different observers slice spacetime at different angles, and how length contraction emerges geometrically.
+## The Philosophy: Explorable Explanations
+
+Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought experiments about train cars and mirrors, this series uses:
+- **Intuitive Geometric Mental Models**: Starting with familiar two-dimensional flat fields.
+- **Active Controls & Scrubber Sliders**: Readers can drag time forward and backward, adjust velocities, and rotate reference frames.
+- **Live Synchronized Clocks**: Watch time dilation unfold live on digital wristwatches rather than imagining abstract equations.
+- **Modern Scientific Aesthetics**: Deep obsidian dark palette (`#070a12`), electric cyan (`#38bdf8`) for Time/Earth, radiant amber (`#fb923c`) for Space/Motion, and photon gold (`#facc15`).
 
 ---
 
-## Generating Visuals
+## Series Directory
 
-The animations and charts are rendered from pure SVG definitions and compiled into lightweight, high-DPI GIFs and PNGs using Python and ImageMagick (`convert`):
+### [Part 1: Why Motion Through Space Affects Time](./posts/01-why-motion-through-space-affects-time/)
+- **Live Explorable**: [`posts/01-why-motion-through-space-affects-time/index.html`](./posts/01-why-motion-through-space-affects-time/index.html)
+- **Interactive Simulations**:
+  1. **Two Cars on a 2D Grid**: Time scrubber and heading angle slider demonstrating $V_{\text{East}} = 60\sin\theta$ and $V_{\text{North}} = 60\cos\theta$.
+  2. **Motion Purely Through Time (At Rest)**: Visualizing that sitting motionless in space ($x=0$) still carries you forward along the Time axis at $100\%$ speed.
+  3. **The Thought Experiment**: Sliding spatial velocity to watch the vector rotate along the circular speed constraint arc $v_{\text{time}} = \sqrt{V^2 - v_{\text{space}}^2}$.
+  4. **Live Twin Clocks & Time Dilation**: Dial rocket speed from $0$ to $0.99c$ to watch the Earth clock and Rocket clock run simultaneously at their exact relativistic ratio.
+  5. **The Cosmic Boundary & Timeless Photon**: Selecting the photon mode snaps the vector 100% into space, completely freezing the photon's clock at $0.000\text{ s}$.
+  6. **Atmospheric Muon Survival Simulator**: Interactive altitude descent comparing Newtonian classical decay at 660m vs. relativistic survival to sea level detectors.
+
+### Part 2: The Spacetime Loaf & Length Contraction *(In Development)*
+- Resolving the Twin Paradox, the relativity of simultaneity, and why moving rulers shorten.
+
+---
+
+## Running Locally
+
+Because the site is built using standard, modern Vanilla HTML5, CSS3, and ES6 Modules, there are **no build steps, no Node.js dependencies, and no npm installs required**.
+
+Simply start any local static server:
 
 ```bash
-python3 post_01_motion_through_time/scripts/generate_visuals.py
+# Using Python 3:
+python3 -m http.server 8080
 ```
 
-## Interactive Previews
+Then visit [http://localhost:8080](http://localhost:8080) in your web browser.
 
-Open `post_01_motion_through_time/preview/interactive_preview.html` in any web browser to interactively scrub speeds ($0$ to $1.0c$) and observe real-time vector rotations and ticking clocks.
+---
 
-## Medium Publishing Workflow
+## Deploying to GitHub Pages
 
-1. Open `post_01_motion_through_time/draft_medium_post.md`.
-2. Copy and paste the Markdown into the Medium story editor.
-3. Drag and drop the corresponding GIF and PNG files from `assets/` into the story.
+To make the site accessible worldwide via your GitHub URL:
+
+1. Open your repository on GitHub: `https://github.com/ayush2991/how-does-the-universe-work`
+2. Go to **Settings** → **Pages** (under "Code and automation").
+3. Under **Build and deployment**:
+   - **Source**: `Deploy from a branch`
+   - **Branch**: `main`
+   - **Folder**: `/ (root)`
+4. Click **Save**.
+
+Within a couple of minutes, your interactive explorable site will be live at:  
+👉 **`https://ayush2991.github.io/how-does-the-universe-work/`**

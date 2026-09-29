@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Does the Universe Work? · An Explorable Physics Series</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="An interactive, curiosity-driven visual series breaking down Special and General Relativity, spacetime geometry, and modern physics from the ground up.">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="index.html" class="brand-link">
+        <div class="brand-badge">c</div>
+        <div>
+          <span class="brand-title">HOW DOES THE UNIVERSE WORK?</span>
+          <span class="brand-tag">SERIES</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#series-index" class="active">Essays</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header style="padding: 4.5rem 1.5rem 2.5rem; text-align: center; max-width: 860px; margin: 0 auto;">
+    <div class="category-tag">A Curiosity-Driven Visual Series</div>
+    <h1 style="font-size: 3.25rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); line-height: 1.15; margin-bottom: 1.25rem;">
+      Intuitive Physics, Explorable from the Ground Up.
+    </h1>
+    <p style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-muted); font-style: italic; line-height: 1.6; max-width: 720px; margin: 0 auto 2.5rem;">
+      Instead of memorizing abstract formulas or confusing thought experiments, we build understanding from simple geometry and interactive simulations you can test yourself.
+    </p>
+
+    <!-- Interactive Hero Preview Widget -->
+    <div id="widget-hero" class="interactive-artifact" style="max-width: 720px; margin: 0 auto; text-align: left;">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-badge">Live Hero Preview</span>
+          <div class="artifact-title">The Fundamental Spacetime Speed Trade-Off</div>
+          <div class="artifact-desc">Every object moves through spacetime with magnitude bounded by c. Adjust speed to see the twin clocks diverge.</div>
+        </div>
+      </div>
+      <div class="canvas-viewport">
+        <canvas></canvas>
+      </div>
+      <div class="twin-clocks-panel">
+        <div class="clock-card cyan">
+          <div class="clock-meta">
+            <span class="clock-label">Earth (At Rest)</span>
+            <span class="clock-badge">1.00x</span>
+          </div>
+          <div class="clock-time clock-earth">0.00 <span>s</span></div>
+        </div>
+        <div class="clock-card amber">
+          <div class="clock-meta">
+            <span class="clock-label">Spacecraft (v = 0.866c)</span>
+            <span class="clock-badge">0.50x Dilated</span>
+          </div>
+          <div class="clock-time clock-rocket" style="color:var(--color-space);">0.00 <span>s</span></div>
+        </div>
+      </div>
+      <div class="artifact-controls">
+        <div class="control-item">
+          <div class="control-header">
+            <span>Passage of Time (Scrub or Auto Play)</span>
+            <span class="control-val cyan">Live Simulation</span>
+          </div>
+          <input type="range" class="range-slider slider-time" min="0" max="1000" value="0">
+        </div>
+        <div class="control-item">
+          <div class="control-header">
+            <span>Speed Across Space (v)</span>
+            <span class="control-val amber readout-speed">v = 0.866 c</span>
+          </div>
+          <input type="range" class="range-slider amber slider-speed" min="0" max="999" value="866">
+          <div class="preset-chips">
+            <button class="chip-btn chip-preset" data-val="0">v = 0 (Rest)</button>
+            <button class="chip-btn chip-preset" data-val="0.500">v = 0.500 c</button>
+            <button class="chip-btn chip-preset active" data-val="0.866">v = 0.866 c (Half Time)</button>
+            <button class="chip-btn chip-preset" data-val="0.995">v = 0.995 c (Muons)</button>
+          </div>
+        </div>
+        <div class="toolbar-bottom">
+          <button class="btn-primary btn-play">
+            <span>▶</span><span>Auto Play</span>
+          </button>
+          <a href="posts/01-why-motion-through-space-affects-time/index.html" class="btn-primary" style="background:#f8fafc; color:#070a12; text-decoration:none;">
+            <span>Read Part 1 →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Series Essays Directory -->
+  <section id="series-index" class="wide-container" style="padding-top: 2rem;">
+    <div style="border-top: 1px solid var(--border-subtle); padding-top: 3rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+        <div>
+          <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em;">
+            Series Essays
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Step-by-step visual explorations of spacetime, relativity, and the cosmos.
+          </p>
+        </div>
+      </div>
+
+      <div class="series-grid">
+        
+        <!-- Post 1 Card -->
+        <a href="posts/01-why-motion-through-space-affects-time/index.html" class="series-card">
+          <div>
+            <div class="card-num">ESSAY 01 · SPECIAL RELATIVITY</div>
+            <h3 class="card-title">Why Motion Through Space Affects Time</h3>
+            <p class="card-desc">
+              Discover how motion in space naturally trades off against motion through time, why the speed of light is a natural geometric ceiling, and why moving clocks run slow.
+            </p>
+          </div>
+          <div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom: 1.25rem;">
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Time Dilation</span>
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Speed of Light</span>
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">6 Interactive Simulations</span>
+            </div>
+            <div class="card-meta">
+              <span style="color: var(--color-time); font-weight: 700;">Explore Essay →</span>
+              <span>10 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post 2 Card (In Development) -->
+        <div class="series-card coming-soon">
+          <div>
+            <div class="card-num" style="color: var(--text-muted);">ESSAY 02 · SPECIAL RELATIVITY</div>
+            <h3 class="card-title">The Spacetime Loaf & Length Contraction</h3>
+            <p class="card-desc">
+              Why there is no universal "Now". How relative motion tilts an observer’s slice through spacetime, resolving the Twin Paradox, and why moving rulers shorten.
+            </p>
+          </div>
+          <div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom: 1.25rem;">
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Spacetime Loaf</span>
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Simultaneity</span>
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Length Contraction</span>
+            </div>
+            <div class="card-meta">
+              <span style="color: var(--text-muted); font-weight: 600;">In Development</span>
+              <span>Part 2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 3 Card (Planned) -->
+        <div class="series-card coming-soon">
+          <div>
+            <div class="card-num" style="color: var(--text-faint);">ESSAY 03 · GENERAL RELATIVITY</div>
+            <h3 class="card-title">Gravity as Geometry: The Curved Fabric</h3>
+            <p class="card-desc">
+              Einstein's "happiest thought": why free fall is truly weightless, how acceleration mimics gravity, and how mass curves the geometry of spacetime.
+            </p>
+          </div>
+          <div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom: 1.25rem;">
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Equivalence Principle</span>
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Curvature</span>
+              <span class="chip-btn" style="cursor:default; font-size: 0.68rem;">Geodesics</span>
+            </div>
+            <div class="card-meta">
+              <span style="color: var(--text-faint); font-weight: 600;">Planned</span>
+              <span>Part 3</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning Philosophy Section -->
+  <section id="philosophy" class="wide-container" style="padding-top: 3rem; padding-bottom: 4rem;">
+    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 1.25rem; padding: 2.5rem; max-width: 780px; margin: 0 auto;">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.75rem;">
+        Why Explorable Explanations?
+      </h3>
+      <p style="font-family: var(--font-serif); font-size: 1.15rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 1rem;">
+        Physics is often taught backwards: first you are given mathematical equations, and only later are you invited to guess what they physically mean. 
+      </p>
+      <p style="font-family: var(--font-serif); font-size: 1.15rem; color: #cbd5e1; line-height: 1.7;">
+        By creating interactive simulations with active controls, sliders, and live clocks, we allow you to play with the underlying parameters of nature directly. When you see how steering a vector sideways reduces its vertical component, time dilation stops being an abstract puzzle—it becomes an intuitive geometric certainty.
+      </p>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="wide-container">
+      <p>How Does the Universe Work? · An Explorable Physics Series by Aayush Agarwal</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub Repository</a> · Open Source · Built with Vanilla HTML, CSS & JavaScript
+      </p>
+    </div>
+  </footer>
+
+  <!-- Widget Script for Hero -->
+  <script type="module">
+    import { initWidgetTimeDilation } from './js/widgets/post-01-widgets.js';
+    window.addEventListener('DOMContentLoaded', () => {
+      initWidgetTimeDilation('widget-hero');
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System & Article Mock - How Does the Universe Work?</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap');
+
+    :root {
+      --bg-space: #070a12;
+      --bg-card: #0d1322;
+      --border-subtle: #1c263c;
+      --border-accent: #2c3b59;
+      --text-main: #f1f5f9;
+      --text-muted: #8899b5;
+      
+      /* Semantic Physics Palette */
+      --color-time: #38bdf8;      /* Electric Cyan: Time / Earth / Rest */
+      --color-space: #fb923c;     /* Radiant Amber: Space / Motion */
+      --color-invariant: #a855f7; /* Luminous Violet: Total Speed Arc (c) */
+      --color-photon: #facc15;    /* Golden Sun: Light / Limit */
+      --color-success: #10b981;   /* Emerald: Verification */
+    }
+
+    body {
+      background-color: var(--bg-space);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-serif-body {
+      font-family: 'Newsreader', Georgia, serif;
+    }
+
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Custom range slider styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #192338;
+      height: 6px;
+      border-radius: 9999px;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 3px solid #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
+    }
+
+    /* Ambient background glows */
+    .glow-cyan {
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
+    }
+    .glow-amber {
+      box-shadow: 0 0 30px rgba(251, 146, 60, 0.15);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- TOP MASTHEAD & BRANDING -->
+  <header class="border-b border-[#1c263c] bg-[#070a12]/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-sky-500/20 text-sm">
+          c
+        </div>
+        <div>
+          <span class="font-extrabold tracking-tight text-white text-base">HOW DOES THE UNIVERSE WORK?</span>
+          <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono">EXPLORABLE SERIES</span>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4 text-xs font-medium text-slate-400">
+        <span class="text-sky-400 font-semibold">Part 1: Motion & Time</span>
+        <span class="text-slate-600">/</span>
+        <span class="hover:text-slate-200 cursor-pointer">Part 2: The Spacetime Loaf</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- DESIGN SYSTEM SPECIFICATION BANNER -->
+  <div class="bg-gradient-to-r from-sky-950/40 via-indigo-950/30 to-purple-950/40 border-b border-[#1c263c] py-4">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300">Design System & Interactive Mock</h3>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Explore the color palette, typography hierarchy, and a live working interactive simulation widget below.</p>
+        </div>
+
+        <!-- Color Palette Swatches -->
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0d1322] border border-[#1c263c] text-[11px] font-mono">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#38bdf8]"></span>
+            <span class="text-sky-400">Time (c)</span>
+          </div>
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0d1322] border border-[#1c263c] text-[11px] font-mono">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#fb923c]"></span>
+            <span class="text-amber-400">Space (v)</span>
+          </div>
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0d1322] border border-[#1c263c] text-[11px] font-mono">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#a855f7]"></span>
+            <span class="text-purple-400">Constraint</span>
+          </div>
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0d1322] border border-[#1c263c] text-[11px] font-mono">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#facc15]"></span>
+            <span class="text-yellow-400">Photon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE CONTAINER -->
+  <main class="max-w-3xl mx-auto px-6 py-12">
+
+    <!-- Article Header -->
+    <div class="mb-10 text-center md:text-left">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-4">
+        <span>Part 01 · Special Relativity</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight mb-4">
+        Why Motion Through Space Affects Time
+      </h1>
+      <p class="text-lg md:text-xl text-slate-400 font-serif-body italic leading-relaxed">
+        A curiosity-driven exploration of why moving through space naturally alters our experience of time.
+      </p>
+      <div class="flex items-center justify-center md:justify-start space-x-4 mt-6 text-xs text-slate-500 font-mono">
+        <span>By Aayush Agarwal</span>
+        <span>•</span>
+        <span>Interactive Explorable</span>
+        <span>•</span>
+        <span>8 min read</span>
+      </div>
+    </div>
+
+    <!-- Editorial Prose Section 1 -->
+    <article class="space-y-6 text-slate-300 font-serif-body text-lg leading-relaxed border-t border-[#1c263c] pt-8">
+      <p>
+        When many of us first encounter Albert Einstein’s Special Theory of Relativity, it often arrives wrapped in abstract thought experiments: high-speed trains flashing light pulses at platforms, mirrors bouncing photons up and down, and algebraic formulas filled with square roots.
+      </p>
+      <p>
+        While these classic explanations are mathematically rigorous, they can leave us wondering: <em class="text-white">Why should moving through space have anything to do with how fast a clock ticks? What is the actual geometric connection between space and time?</em>
+      </p>
+      <p>
+        Our goal is to build that answer from the ground up, starting with something so familiar that anyone can visualize it with their own eyes.
+      </p>
+
+      <h2 class="text-2xl font-bold font-sans text-white pt-6 pb-2 tracking-tight">
+        1. Simple Geometry: Two Cars on a 2D Plane
+      </h2>
+      <p>
+        Imagine a flat, open field. We paint two perpendicular directions on the ground: <strong class="text-amber-400 font-sans font-semibold">East</strong> (<span class="font-mono text-sm">x₁</span>) and <strong class="text-sky-400 font-sans font-semibold">North</strong> (<span class="font-mono text-sm">x₂</span>).
+      </p>
+      <p>
+        Two cars start from the origin with cruise control locked at the exact same setting: <span class="font-mono text-sm text-white bg-slate-800 px-2 py-0.5 rounded">60 mph</span>. The Blue Car heads due North. The Orange Car angles its steering wheel toward the East.
+      </p>
+    </article>
+
+    <!-- LIVE INTERACTIVE WIDGET MOCK -->
+    <section class="my-10">
+      <div class="rounded-2xl bg-[#0d1322] border border-[#1c263c] overflow-hidden shadow-2xl glow-cyan">
+        
+        <!-- Widget Header Toolbar -->
+        <div class="px-6 py-4 bg-[#090e1a] border-b border-[#1c263c] flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-bold font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">INTERACTIVE ARTIFACT</span>
+              <h3 class="text-sm font-bold text-white">The Spacetime Speed Trade-Off & Twin Clocks</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Drag the sliders to simulate the passage of time and observe the relativistic clock slowdown live.</p>
+          </div>
+          
+          <!-- Mode Tabs -->
+          <div class="flex items-center bg-[#131b2e] p-1 rounded-lg border border-[#1c263c] text-xs font-semibold">
+            <button id="btnMode2D" onclick="setMode('cars')" class="px-3 py-1 rounded-md text-slate-400 hover:text-white transition">2D Cars</button>
+            <button id="btnModeRel" onclick="setMode('relativity')" class="px-3 py-1 rounded-md bg-sky-500 text-white shadow-sm transition">Spacetime & Clocks</button>
+          </div>
+        </div>
+
+        <!-- Canvas Visualizer -->
+        <div class="p-6 flex flex-col items-center justify-center bg-[#070b14]">
+          <canvas id="mockCanvas" class="w-full max-w-[620px] h-[340px] rounded-xl border border-[#162035] bg-[#05080f]"></canvas>
+        </div>
+
+        <!-- Synchronized Twin Clocks (Visible in Relativity Mode) -->
+        <div id="clocksContainer" class="px-6 py-4 bg-[#0b101d] border-t border-[#1c263c] grid grid-cols-2 gap-4">
+          <!-- Earth Clock -->
+          <div class="p-4 rounded-xl bg-[#0e1628] border border-sky-500/40 relative overflow-hidden">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400 font-mono">Earth Observer (v = 0)</span>
+              <span class="text-[10px] text-sky-300 font-mono px-1.5 py-0.5 rounded bg-sky-500/10">1.00x Rate</span>
+            </div>
+            <div id="clockEarthVal" class="text-3xl font-mono font-bold text-white tracking-wider">0.00 <span class="text-xs text-slate-400 font-normal">sec</span></div>
+            <p class="text-[11px] text-slate-400 mt-1">100% of motion through time</p>
+          </div>
+
+          <!-- Rocket Clock -->
+          <div class="p-4 rounded-xl bg-[#0e1628] border border-amber-500/40 relative overflow-hidden">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400 font-mono">Rocket Ship (v = 0.866c)</span>
+              <span id="rateRocketBadge" class="text-[10px] text-amber-300 font-mono px-1.5 py-0.5 rounded bg-amber-500/10">0.50x Rate</span>
+            </div>
+            <div id="clockRocketVal" class="text-3xl font-mono font-bold text-amber-300 tracking-wider">0.00 <span class="text-xs text-slate-400 font-normal">sec</span></div>
+            <p id="rocketTimeDesc" class="text-[11px] text-slate-400 mt-1">Clock ticks at half speed!</p>
+          </div>
+        </div>
+
+        <!-- Controls Dashboard -->
+        <div class="p-6 bg-[#090e1a] border-t border-[#1c263c] space-y-5">
+          
+          <!-- Slider 1: Time Scrubber -->
+          <div>
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-semibold text-slate-300 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Simulate Time Passage (Scrubber)
+              </span>
+              <span id="timeDisplay" class="font-mono text-sky-400 font-bold text-sm">t = 0.00 s</span>
+            </div>
+            <input type="range" id="sliderTime" min="0" max="1000" value="0" class="w-full accent-sky-400" oninput="onTimeSlider(this.value)">
+          </div>
+
+          <!-- Slider 2: Speed / Angle Slider -->
+          <div id="speedSliderGroup">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span id="speedSliderLabel" class="font-semibold text-slate-300 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Rocket Speed Across Space (v)
+              </span>
+              <span id="speedValueDisplay" class="font-mono text-amber-400 font-bold text-sm">v = 0.866 c</span>
+            </div>
+            <input type="range" id="sliderSpeed" min="0" max="1000" value="866" class="w-full accent-amber-400" oninput="onSpeedSlider(this.value)">
+            
+            <!-- Quick Preset Chips -->
+            <div class="flex flex-wrap gap-2 mt-2.5">
+              <button onclick="setSpeedPreset(0)" class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#131b2e] hover:bg-[#1a253e] text-slate-300 border border-[#1c263c] transition">v = 0 (At Rest)</button>
+              <button onclick="setSpeedPreset(500)" class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#131b2e] hover:bg-[#1a253e] text-slate-300 border border-[#1c263c] transition">v = 0.500 c</button>
+              <button onclick="setSpeedPreset(866)" class="text-[11px] font-mono px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 transition">v = 0.866 c (Half Time)</button>
+              <button onclick="setSpeedPreset(995)" class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#131b2e] hover:bg-[#1a253e] text-slate-300 border border-[#1c263c] transition">v = 0.995 c (Muon Speed)</button>
+              <button onclick="setSpeedPreset(1000)" class="text-[11px] font-mono px-2.5 py-1 rounded bg-yellow-500/20 text-yellow-300 border border-yellow-500/30 transition">v = 1.000 c (Photon)</button>
+            </div>
+          </div>
+
+          <!-- Bottom Action Controls & Math Readout -->
+          <div class="pt-3 border-t border-[#1c263c] flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center space-x-2">
+              <button id="btnPlayPause" onclick="togglePlay()" class="px-4 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-900 font-bold text-xs flex items-center space-x-1.5 transition">
+                <span id="playIcon">▶</span>
+                <span id="playText">Auto Play</span>
+              </button>
+              <button onclick="resetSimulation()" class="px-3 py-1.5 rounded-lg bg-[#131b2e] hover:bg-[#1c2742] text-slate-300 text-xs border border-[#1c263c] transition">
+                Reset
+              </button>
+            </div>
+
+            <!-- Dynamic Mathematical Deduction Badge -->
+            <div class="font-mono text-xs text-slate-300 bg-[#060911] px-3.5 py-1.5 rounded-lg border border-[#1c263c]">
+              <span class="text-slate-400">v_time = √(c² - v²) = </span>
+              <span id="mathResult" class="text-sky-400 font-bold">0.500 c</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Editorial Prose Section 2 -->
+    <article class="space-y-6 text-slate-300 font-serif-body text-lg leading-relaxed pt-4">
+      <div class="p-6 rounded-2xl bg-[#0d1322] border border-sky-500/30 shadow-lg">
+        <h4 class="text-base font-bold font-sans text-sky-400 uppercase tracking-wider mb-2">The Geometric Punchline</h4>
+        <p class="text-slate-200">
+          Notice what happens when you drag the speed slider to <strong class="text-white font-mono">0.866c</strong>: the speed vector rotates into space, leaving only <strong class="text-sky-300 font-mono">0.50c</strong> pointing up through time. 
+          The rocket clock ticks at exactly half the rate of the Earth clock. 
+          Time dilation is not a mechanical malfunction; it is pure geometry.
+        </p>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- JAVASCRIPT SIMULATION LOGIC -->
+  <script>
+    const canvas = document.getElementById('mockCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let mode = 'relativity'; // 'cars' or 'relativity'
+    let isPlaying = false;
+    let animTime = 0.0; // 0 to 6 seconds
+    let speedFraction = 0.866; // v/c
+    let angleDeg = 60;
+    let lastTimestamp = 0;
+
+    // Retina High-DPI Canvas Setup
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function setMode(newMode) {
+      mode = newMode;
+      const btn2D = document.getElementById('btnMode2D');
+      const btnRel = document.getElementById('btnModeRel');
+      const clocks = document.getElementById('clocksContainer');
+      const speedLabel = document.getElementById('speedSliderLabel');
+
+      if (mode === 'cars') {
+        btn2D.className = "px-3 py-1 rounded-md bg-amber-500 text-white shadow-sm transition";
+        btnRel.className = "px-3 py-1 rounded-md text-slate-400 hover:text-white transition";
+        clocks.style.display = 'none';
+        speedLabel.innerHTML = 'Heading Angle (θ from North)';
+        document.getElementById('sliderSpeed').max = 90;
+        document.getElementById('sliderSpeed').value = angleDeg;
+      } else {
+        btnRel.className = "px-3 py-1 rounded-md bg-sky-500 text-white shadow-sm transition";
+        btn2D.className = "px-3 py-1 rounded-md text-slate-400 hover:text-white transition";
+        clocks.style.display = 'grid';
+        speedLabel.innerHTML = 'Rocket Speed Across Space (v)';
+        document.getElementById('sliderSpeed').max = 1000;
+        document.getElementById('sliderSpeed').value = Math.round(speedFraction * 1000);
+      }
+      updateReadouts();
+    }
+
+    function onTimeSlider(val) {
+      animTime = (val / 1000.0) * 6.0;
+      updateClocks();
+    }
+
+    function onSpeedSlider(val) {
+      if (mode === 'cars') {
+        angleDeg = parseInt(val);
+      } else {
+        speedFraction = val / 1000.0;
+      }
+      updateReadouts();
+    }
+
+    function setSpeedPreset(val) {
+      if (mode !== 'relativity') setMode('relativity');
+      document.getElementById('sliderSpeed').value = val;
+      speedFraction = val / 1000.0;
+      updateReadouts();
+    }
+
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      document.getElementById('playIcon').innerText = isPlaying ? "⏸" : "▶";
+      document.getElementById('playText').innerText = isPlaying ? "Pause" : "Auto Play";
+    }
+
+    function resetSimulation() {
+      animTime = 0.0;
+      document.getElementById('sliderTime').value = 0;
+      updateClocks();
+    }
+
+    function updateReadouts() {
+      if (mode === 'cars') {
+        const rad = angleDeg * Math.PI / 180;
+        const vx = 60 * Math.sin(rad);
+        const vy = 60 * Math.cos(rad);
+        document.getElementById('speedValueDisplay').innerText = `θ = ${angleDeg}° (East: ${vx.toFixed(1)} mph)`;
+        document.getElementById('mathResult').innerText = `${vy.toFixed(1)} mph North`;
+      } else {
+        const vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
+        document.getElementById('speedValueDisplay').innerText = `v = ${speedFraction.toFixed(3)} c`;
+        document.getElementById('mathResult').innerText = `${vt.toFixed(3)} c`;
+        document.getElementById('rateRocketBadge').innerText = `${vt.toFixed(2)}x Rate`;
+        
+        if (speedFraction >= 1.0) {
+          document.getElementById('rocketTimeDesc').innerText = "Time completely frozen! (Photon)";
+        } else if (vt < 0.51 && vt > 0.49) {
+          document.getElementById('rocketTimeDesc').innerText = "Exact 0.50x rate: 1 rocket sec = 2 Earth sec";
+        } else {
+          document.getElementById('rocketTimeDesc').innerText = `Clock running at ${(vt * 100).toFixed(0)}% speed`;
+        }
+      }
+      updateClocks();
+    }
+
+    function updateClocks() {
+      document.getElementById('timeDisplay').innerText = `t = ${animTime.toFixed(2)} s`;
+      const earthSec = animTime;
+      const vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
+      const rocketSec = earthSec * vt;
+      
+      document.getElementById('clockEarthVal').innerHTML = `${earthSec.toFixed(2)} <span class="text-xs text-slate-400 font-normal">sec</span>`;
+      document.getElementById('clockRocketVal').innerHTML = `${rocketSec.toFixed(2)} <span class="text-xs text-slate-400 font-normal">sec</span>`;
+    }
+
+    // Animation Loop
+    function render(now) {
+      if (!lastTimestamp) lastTimestamp = now;
+      const dt = (now - lastTimestamp) / 1000;
+      lastTimestamp = now;
+
+      if (isPlaying) {
+        animTime += dt * 1.5;
+        if (animTime > 6.0) animTime = 0.0;
+        document.getElementById('sliderTime').value = (animTime / 6.0) * 1000;
+        updateClocks();
+      }
+
+      drawCanvas();
+      requestAnimationFrame(render);
+    }
+
+    function drawCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const ox = w * 0.25;
+      const oy = h * 0.82;
+      const scale = Math.min(w * 0.55, h * 0.65);
+      const progress = animTime / 6.0;
+
+      // 1. Grid Lines
+      ctx.strokeStyle = '#121b2d';
+      ctx.lineWidth = 1;
+      for (let x = ox + 35; x < w - 20; x += 35) {
+        ctx.beginPath();
+        ctx.moveTo(x, 20);
+        ctx.lineTo(x, oy);
+        ctx.stroke();
+      }
+      for (let y = oy - 35; y > 20; y -= 35) {
+        ctx.beginPath();
+        ctx.moveTo(ox, y);
+        ctx.lineTo(w - 20, y);
+        ctx.stroke();
+      }
+
+      // 2. Invariant Speed Arc (Radius = scale)
+      ctx.strokeStyle = '#27344d';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.arc(ox, oy, scale, -Math.PI / 2, 0, false);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 3. Axes
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 2;
+      // Horiz Axis
+      ctx.beginPath();
+      ctx.moveTo(ox - 20, oy);
+      ctx.lineTo(w - 25, oy);
+      ctx.stroke();
+      // Vert Axis
+      ctx.beginPath();
+      ctx.moveTo(ox, oy + 20);
+      ctx.lineTo(ox, 25);
+      ctx.stroke();
+
+      // Axis Labels
+      ctx.font = '600 12px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#94a3b8';
+      if (mode === 'cars') {
+        ctx.fillText("East (x₁)", w - 75, oy + 18);
+        ctx.fillText("North (x₂)", ox - 40, 20);
+      } else {
+        ctx.fillText("Space (x)", w - 75, oy + 18);
+        ctx.fillText("Time (ct)", ox - 40, 20);
+      }
+
+      // Trajectories & Positions
+      let obj1_x, obj1_y, obj2_x, obj2_y;
+
+      if (mode === 'cars') {
+        const rad = angleDeg * Math.PI / 180;
+        obj1_x = ox;
+        obj1_y = oy - (progress * scale);
+
+        obj2_x = ox + (progress * scale * Math.sin(rad));
+        obj2_y = oy - (progress * scale * Math.cos(rad));
+      } else {
+        const vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
+        obj1_x = ox;
+        obj1_y = oy - (progress * scale);
+
+        obj2_x = ox + (progress * scale * speedFraction);
+        obj2_y = oy - (progress * scale * vt);
+      }
+
+      // Projections for moving object
+      if (progress > 0.05) {
+        ctx.strokeStyle = '#fb923c';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([3, 3]);
+        // To Time axis
+        ctx.beginPath();
+        ctx.moveTo(obj2_x, obj2_y);
+        ctx.lineTo(ox, obj2_y);
+        ctx.stroke();
+        // To Space axis
+        ctx.beginPath();
+        ctx.moveTo(obj2_x, obj2_y);
+        ctx.lineTo(obj2_x, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Worldline 1 (Observer at rest / North)
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(obj1_x, obj1_y);
+      ctx.stroke();
+
+      // Worldline 2 (Moving object)
+      ctx.strokeStyle = '#fb923c';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(obj2_x, obj2_y);
+      ctx.stroke();
+
+      // Glowing Heads
+      // Head 1
+      ctx.fillStyle = '#38bdf8';
+      ctx.beginPath();
+      ctx.arc(obj1_x, obj1_y, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(obj1_x, obj1_y, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Head 2
+      ctx.fillStyle = '#fb923c';
+      ctx.beginPath();
+      ctx.arc(obj2_x, obj2_y, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(obj2_x, obj2_y, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Moving Head Labels
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillText(mode === 'cars' ? "Car 1 (North)" : "Earth (Rest)", obj1_x - 30, obj1_y - 12);
+      
+      ctx.fillStyle = '#fb923c';
+      ctx.fillText(mode === 'cars' ? "Car 2 (Angled)" : "Rocket", obj2_x + 10, obj2_y + 4);
+    }
+
+    requestAnimationFrame(render);
+    updateReadouts();
+  </script>
+</body>
+</html>
