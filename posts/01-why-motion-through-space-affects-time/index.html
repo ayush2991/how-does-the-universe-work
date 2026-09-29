@@ -554,24 +554,13 @@
     </div>
   </footer>
 
-  <!-- Widget Initialization Script -->
-  <script type="module">
-    import { 
-      initWidgetCars, 
-      initWidgetStationary, 
-      initWidgetTradeoff, 
-      initWidgetTimeDilation, 
-      initWidgetSpeedLimit, 
-      initWidgetMuon 
-    } from '../../js/widgets/post-01-widgets.js';
-
-    window.addEventListener('DOMContentLoaded', () => {
-      initWidgetCars('widget-cars');
-      initWidgetStationary('widget-stationary');
-      initWidgetTradeoff('widget-tradeoff');
-      initWidgetTimeDilation('widget-time-dilation');
-      initWidgetSpeedLimit('widget-speed-limit');
-      initWidgetMuon('widget-muon');
+  <!-- Universal Client-Side Script (100% Static & file:// compatible) -->
+  <script src="../../js/site.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.UniverseSimulations) {
+        window.UniverseSimulations.initAllPost01();
+      }
     });
   </script>
 

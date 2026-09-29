@@ -33,18 +33,26 @@ Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought 
 
 ---
 
-## Running Locally
+## 100% Static & Zero-Backend Architecture
 
-Because the site is built using standard, modern Vanilla HTML5, CSS3, and ES6 Modules, there are **no build steps, no Node.js dependencies, and no npm installs required**.
+This project requires **zero backend server, zero Node.js, zero build steps, and zero database maintenance**:
+- **Pure Client-Side**: Written in clean Vanilla HTML5, CSS3, and JavaScript Canvas simulations.
+- **Double-Click & View (`file://`)**: You can open any HTML file (`index.html`, `posts/.../index.html`, or `standalone/...html`) directly from your file manager by double-clicking it—no local server needed!
+- **Zero Cost & Maintenance**: Can be hosted indefinitely for free on **GitHub Pages**, Cloudflare Pages, Netlify, or any static storage bucket.
 
-Simply start any local static server:
+### Viewing Locally
 
-```bash
-# Using Python 3:
-python3 -m http.server 8080
-```
+You have two easy ways to view the project locally:
 
-Then visit [http://localhost:8080](http://localhost:8080) in your web browser.
+1. **Option A: Direct Double-Click (Zero Setup)**
+   Simply double-click `index.html` or `posts/01-why-motion-through-space-affects-time/index.html` in your file explorer. It will open instantly in Chrome, Firefox, Safari, or Edge.
+
+2. **Option B: Optional Local Server**
+   If you prefer running a local HTTP server:
+   ```bash
+   python3 -m http.server 8080
+   ```
+   Then open `http://localhost:8080`.
 
 ---
 

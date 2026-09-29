@@ -209,11 +209,13 @@
     </div>
   </footer>
 
-  <!-- Widget Script for Hero -->
-  <script type="module">
-    import { initWidgetTimeDilation } from './js/widgets/post-01-widgets.js';
-    window.addEventListener('DOMContentLoaded', () => {
-      initWidgetTimeDilation('widget-hero');
+  <!-- Universal Client-Side Script (100% Static & file:// compatible) -->
+  <script src="js/site.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.UniverseSimulations) {
+        window.UniverseSimulations.initWidgetTimeDilation('widget-hero');
+      }
     });
   </script>
 
