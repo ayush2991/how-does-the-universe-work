@@ -13,8 +13,8 @@ export function setupRetinaCanvas(canvas) {
   return { ctx, width: rect.width, height: rect.height, dpr };
 }
 
-export function drawGrid(ctx, ox, oy, width, height, step = 35) {
-  ctx.strokeStyle = '#121b2d';
+export function drawGrid(ctx, ox, oy, width, height, step = 35, color = 'rgba(128, 128, 128, 0.12)') {
+  ctx.strokeStyle = color;
   ctx.lineWidth = 1;
   ctx.beginPath();
   for (let x = ox + step; x < width - 15; x += step) {

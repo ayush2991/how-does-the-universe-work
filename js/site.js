@@ -15,48 +15,48 @@
     if (isLight) {
       return {
         isLight: true,
-        gridLine: '#e2e8f0',
-        axisLine: '#475569',        // Slate 600: strong visible axes
-        axisArrow: '#334155',       // Slate 700: sharp arrowheads
+        gridLine: 'rgba(15, 23, 42, 0.05)',
+        axisLine: '#334155',        // Slate 700: sharp visible axes
+        axisArrow: '#1e293b',       // Slate 800: sharp arrowheads
         axisLabel: '#0f172a',       // Slate 900: high contrast labels
         constraintArc: '#94a3b8',   // Slate 400: clearly visible speed limit arc
-        timeColor: '#0369a1',       // Sky 700 (5.6:1 contrast)
-        timeColorSubtle: 'rgba(3, 105, 161, 0.15)',
-        spaceColor: '#c2410c',      // Radiant Orange 700 (5.1:1 contrast)
-        spaceColorSubtle: 'rgba(194, 65, 12, 0.15)',
-        invariantColor: '#6d28d9',  // Violet 700 (7.9:1 contrast)
-        photonColor: '#b45309',     // Amber 700 (4.6:1 contrast)
-        dangerColor: '#b91c1c',     // Red 700 (6.8:1 contrast)
-        subtleText: '#475569',
+        timeColor: '#0284c7',       // Sky 600 (calibrated contrast)
+        timeColorSubtle: 'rgba(2, 132, 199, 0.12)',
+        spaceColor: '#ea580c',      // Radiant Orange 600
+        spaceColorSubtle: 'rgba(234, 88, 12, 0.12)',
+        invariantColor: '#7c3aed',  // Violet 600
+        photonColor: '#d97706',     // Amber 600
+        dangerColor: '#dc2626',     // Red 600
+        subtleText: '#64748b',
         dotCenter: '#ffffff',
-        pillBg: 'rgba(255, 255, 255, 0.94)',
-        pillBorder: '#cbd5e1',
+        pillBg: 'rgba(255, 255, 255, 0.95)',
+        pillBorder: 'rgba(15, 23, 42, 0.12)',
         pillText: '#0f172a',
-        muonAtmosphereTop: 'rgba(3, 105, 161, 0.08)',
-        muonAtmosphereBottom: 'rgba(3, 105, 161, 0.22)'
+        muonAtmosphereTop: 'rgba(2, 132, 199, 0.06)',
+        muonAtmosphereBottom: 'rgba(2, 132, 199, 0.18)'
       };
     } else {
       return {
         isLight: false,
-        gridLine: '#172338',
+        gridLine: 'rgba(255, 255, 255, 0.05)',
         axisLine: '#64748b',        // Brightened for clear dark-mode axes
         axisArrow: '#94a3b8',
         axisLabel: '#f8fafc',       // High-contrast white labels
-        constraintArc: '#3b4e70',   // Visible defined speed limit arc
+        constraintArc: '#334155',   // Defined speed limit arc
         timeColor: '#38bdf8',       // Electric Cyan
-        timeColorSubtle: 'rgba(56, 189, 248, 0.25)',
+        timeColorSubtle: 'rgba(56, 189, 248, 0.2)',
         spaceColor: '#fb923c',      // Radiant Coral
-        spaceColorSubtle: 'rgba(251, 146, 60, 0.25)',
+        spaceColorSubtle: 'rgba(251, 146, 60, 0.2)',
         invariantColor: '#a855f7',  // Luminous Violet
         photonColor: '#facc15',     // Golden Sun
         dangerColor: '#f87171',     // Soft Red
         subtleText: '#94a3b8',
         dotCenter: '#ffffff',
-        pillBg: 'rgba(5, 8, 15, 0.92)',
-        pillBorder: '#273652',
+        pillBg: 'rgba(14, 18, 26, 0.95)',
+        pillBorder: 'rgba(255, 255, 255, 0.12)',
         pillText: '#f8fafc',
         muonAtmosphereTop: 'rgba(56, 189, 248, 0.06)',
-        muonAtmosphereBottom: 'rgba(56, 189, 248, 0.25)'
+        muonAtmosphereBottom: 'rgba(56, 189, 248, 0.22)'
       };
     }
   }
@@ -1675,8 +1675,23 @@
     window.addEventListener('resize', draw);
   }
 
+  function initReadingProgress() {
+    var bar = document.getElementById('reading-progress');
+    if (!bar) return;
+    function updateProgress() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max > 0) {
+        var pct = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+        bar.style.width = pct + '%';
+      }
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+
   function initAllPost01() {
     initThemeManager();
+    initReadingProgress();
     initWidgetCars('widget-cars');
     initWidgetStationary('widget-stationary');
     initWidgetTradeoff('widget-tradeoff');
