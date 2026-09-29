@@ -961,6 +961,12 @@ body {
               <span class="control-val amber val-angle">60°</span>
             </div>
             <input type="range" class="range-slider amber slider-angle" min="0" max="90" value="60">
+            <div class="preset-chips">
+              <button class="chip-btn chip-angle" data-angle="0">θ = 0° (North: 60, East: 0)</button>
+              <button class="chip-btn chip-angle" data-angle="30">θ = 30° (North: 52, East: 30)</button>
+              <button class="chip-btn chip-angle active" data-angle="60">θ = 60° (North: 30, East: 52)</button>
+              <button class="chip-btn chip-angle" data-angle="90">θ = 90° (North: 0, East: 60)</button>
+            </div>
           </div>
           <div class="toolbar-bottom">
             <button class="btn-primary btn-play">
@@ -1770,8 +1776,10 @@ body {
     var readoutC1 = container.querySelector('.readout-c1');
     var readoutC2 = container.querySelector('.readout-c2');
     var readoutLag = container.querySelector('.readout-lag');
+    var readoutVx = container.querySelector('.readout-vx');
+    var readoutVy = container.querySelector('.readout-vy');
 
-    var progress = 0;
+    var progress = 0.60;
     var angleDeg = 60;
     var isPlaying = false;
     var lastTimestamp = null;
@@ -1788,6 +1796,8 @@ body {
       if (readoutC1) readoutC1.innerText = '60.0 mph';
       if (readoutC2) readoutC2.innerText = vNorth + ' mph North, ' + vEast + ' mph East';
       if (readoutLag) readoutLag.innerText = lagMiles + ' mi';
+      if (readoutVx) readoutVx.innerText = vEast + ' mph';
+      if (readoutVy) readoutVy.innerText = vNorth + ' mph';
     }
 
     function draw() {
@@ -1809,36 +1819,134 @@ body {
       var c1_y = oy - (progress * scale);
       var c2_x = ox + (progress * scale * Math.sin(rad));
       var c2_y = oy - (progress * scale * Math.cos(rad));
+      var vEast = (60 * Math.sin(rad)).toFixed(1);
+      var vNorth = (60 * Math.cos(rad)).toFixed(1);
+      var lagMiles = ((60 - 60 * Math.cos(rad)) * progress).toFixed(1);
 
-      if (progress > 0.05) {
+      // 1. Angle Theta Arc at Origin (from North axis clockwise to Car 2 vector)
+      if (angleDeg > 2) {
+        var arcR = 48;
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(ox, oy, arcR, -Math.PI / 2, -Math.PI / 2 + rad, false);
+        ctx.stroke();
+
+        // Arrowhead on arc pointing clockwise
+        var endA = -Math.PI / 2 + rad;
+        var arrowX = ox + arcR * Math.cos(endA);
+        var arrowY = oy + arcR * Math.sin(endA);
+        var tangentA = endA + Math.PI / 2;
+        ctx.fillStyle = c.spaceColor;
+        ctx.beginPath();
+        ctx.moveTo(arrowX, arrowY);
+        ctx.lineTo(arrowX - 6 * Math.cos(tangentA - 0.45), arrowY - 6 * Math.sin(tangentA - 0.45));
+        ctx.lineTo(arrowX - 6 * Math.cos(tangentA + 0.45), arrowY - 6 * Math.sin(tangentA + 0.45));
+        ctx.closePath();
+        ctx.fill();
+
+        // Theta label badge
+        var midA = -Math.PI / 2 + rad / 2;
+        var badgeDist = arcR + 18;
+        var badgeX = ox + badgeDist * Math.cos(midA);
+        var badgeY = oy + badgeDist * Math.sin(midA);
+
+        ctx.font = 'bold 12px "JetBrains Mono", monospace';
+        ctx.fillStyle = c.spaceColor;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('θ = ' + Math.round(angleDeg) + '°', badgeX + (rad > 0.8 ? 8 : 0), badgeY);
+      }
+
+      // 2. Dashed Projections (Right Triangle Components for Car 2)
+      if (progress > 0.08) {
         ctx.strokeStyle = c.spaceColor;
         ctx.lineWidth = 1.5;
-        ctx.setLineDash([3, 3]);
+        ctx.setLineDash([4, 4]);
+
+        // Horizontal line from Car 2 to Vertical North Axis
         ctx.beginPath();
         ctx.moveTo(c2_x, c2_y);
         ctx.lineTo(ox, c2_y);
         ctx.stroke();
+
+        // Vertical line from Car 2 down to Ground East Axis
         ctx.beginPath();
         ctx.moveTo(c2_x, c2_y);
         ctx.lineTo(c2_x, oy);
         ctx.stroke();
         ctx.setLineDash([]);
+
+        // Small Right Angle symbol at (ox, c2_y)
+        var sqSize = 8;
+        if (c2_x - ox > sqSize + 4 && oy - c2_y > sqSize + 4) {
+          ctx.strokeStyle = c.axisLine;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(ox, c2_y + sqSize);
+          ctx.lineTo(ox + sqSize, c2_y + sqSize);
+          ctx.lineTo(ox + sqSize, c2_y);
+          ctx.stroke();
+        }
+
+        // Horizontal Eastward Component Value Label (v_East = 52.0 mph)
+        if (c2_x - ox > 35) {
+          ctx.font = 'bold 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = c.spaceColor;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText('V_East = ' + vEast + ' mph', (ox + c2_x) / 2, c2_y - 4);
+        }
+
+        // Vertical Northward Component Value Label (v_North = 30.0 mph)
+        if (oy - c2_y > 25) {
+          ctx.font = 'bold 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = c.spaceColor;
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('V_North = ' + vNorth + ' mph', c2_x + 8, (oy + c2_y) / 2);
+        }
       }
 
+      // 3. Car 1 Vector (Purely North)
       ctx.strokeStyle = c.timeColor;
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 3.5;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
       ctx.lineTo(c1_x, c1_y);
       ctx.stroke();
 
+      // Car 1 Speed Value Label along vertical vector
+      if (oy - c1_y > 35) {
+        ctx.font = 'bold 11px "JetBrains Mono", monospace';
+        ctx.fillStyle = c.timeColor;
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('60 mph', ox - 10, (oy + c1_y) / 2);
+      }
+
+      // 4. Car 2 Vector (Diagonal)
       ctx.strokeStyle = c.spaceColor;
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 3.5;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
       ctx.lineTo(c2_x, c2_y);
       ctx.stroke();
 
+      // Car 2 Total Speed Value Label (along diagonal)
+      if (progress > 0.18) {
+        var diagMidX = (ox + c2_x) / 2;
+        var diagMidY = (oy + c2_y) / 2;
+        var nx = -Math.cos(rad);
+        var ny = -Math.sin(rad);
+        ctx.font = 'bold 11px "JetBrains Mono", monospace';
+        ctx.fillStyle = c.spaceColor;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('60 mph', diagMidX + nx * 14, diagMidY + ny * 14);
+      }
+
+      // 5. Northward Lag Indicator
       if (progress > 0.15 && c2_y > c1_y + 10) {
         var lagX = ox + 45;
         ctx.strokeStyle = c.dangerColor;
@@ -1854,15 +1962,20 @@ body {
         ctx.fill();
 
         ctx.font = '600 10px sans-serif';
-        ctx.fillText('Northward Lag', lagX + 8, (c1_y + c2_y) / 2 + 3);
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Northward Lag (' + lagMiles + ' mi)', lagX + 8, (c1_y + c2_y) / 2);
       }
 
+      // 6. Glowing Dots & Vehicle Names
       drawGlowingDot(ctx, c1_x, c1_y, c.timeColor, 6);
       drawGlowingDot(ctx, c2_x, c2_y, c.spaceColor, 6);
 
       ctx.font = 'bold 11px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
       ctx.fillStyle = c.timeColor;
-      ctx.fillText('Car 1 (North)', c1_x - 35, c1_y - 12);
+      ctx.fillText('Car 1 (60 mph North)', c1_x - 45, c1_y - 12);
       ctx.fillStyle = c.spaceColor;
       ctx.fillText('Car 2 (' + angleDeg + '°)', c2_x + 10, c2_y + 4);
     }
@@ -1884,6 +1997,8 @@ body {
       }
     }
 
+    var anglePresetChips = container.querySelectorAll('.chip-angle');
+
     if (sliderTime) {
       sliderTime.addEventListener('input', function (e) {
         progress = e.target.value / 1000;
@@ -1895,10 +2010,22 @@ body {
     if (sliderAngle) {
       sliderAngle.addEventListener('input', function (e) {
         angleDeg = parseFloat(e.target.value);
+        anglePresetChips.forEach(function (ch) { ch.classList.remove('active'); });
         updateReadouts();
         draw();
       });
     }
+
+    anglePresetChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        anglePresetChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        angleDeg = parseFloat(chip.getAttribute('data-angle'));
+        if (sliderAngle) sliderAngle.value = angleDeg;
+        updateReadouts();
+        draw();
+      });
+    });
 
     if (btnPlay) {
       btnPlay.addEventListener('click', function () {
