@@ -23,7 +23,7 @@ Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought 
 - **Interactive Simulations**:
   1. **Two Cars on a 2D Grid**: Time scrubber and heading angle slider demonstrating $V_{\text{East}} = 60\sin\theta$ and $V_{\text{North}} = 60\cos\theta$.
   2. **Motion Purely Through Time (At Rest)**: Visualizing that sitting motionless in space ($x=0$) still carries you forward along the Time axis at $100\%$ speed.
-  3. **The Thought Experiment**: Sliding spatial velocity to watch the vector rotate along the circular speed constraint arc $v_{\text{time}} = \sqrt{V^2 - v_{\text{space}}^2}$.
+  3. **The Thought Experiment**: Sliding spatial velocity or toggling autoplay to watch how motion across space directly reduces speed through time ($v_{\text{time}} = \sqrt{V^2 - v_{\text{space}}^2}$).
   4. **Live Twin Clocks & Time Dilation**: Dial rocket speed from $0$ to $0.99c$ to watch the Earth clock and Rocket clock run simultaneously at their exact relativistic ratio.
   5. **The Cosmic Boundary & Timeless Photon**: Selecting the photon mode snaps the vector 100% into space, completely freezing the photon's clock at $0.000\text{ s}$.
   6. **Atmospheric Muon Survival Simulator**: Interactive altitude descent comparing Newtonian classical decay at 660m vs. relativistic survival to sea level detectors.

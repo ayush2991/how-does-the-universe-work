@@ -268,16 +268,22 @@ export function initWidgetTradeoff(containerId) {
   const canvas = container.querySelector('canvas');
   const sliderSpeed = container.querySelector('.slider-speed');
   const sliderTime = container.querySelector('.slider-time');
+  const btnPlay = container.querySelector('.btn-play');
+  const timeVal = container.querySelector('.val-time');
   const readoutVx = container.querySelector('.readout-vx');
   const readoutVt = container.querySelector('.readout-vt');
 
-  let progress = 0.7; // 0 to 1
-  let speedFraction = 0.866; // 0 to 1
+  let speedFraction = sliderSpeed ? parseFloat(sliderSpeed.value) / 1000 : 0.866;
+  let progress = sliderTime ? parseFloat(sliderTime.value) / 1000 : 0.70;
+  let isPlaying = false;
+  let lastTimestamp = null;
+  let animFrame = null;
 
   function update() {
     const vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
     if (readoutVx) readoutVx.innerText = `${(speedFraction * 100).toFixed(1)}% of V`;
     if (readoutVt) readoutVt.innerText = `${(vt * 100).toFixed(1)}% of V`;
+    if (timeVal) timeVal.innerText = `${(progress * 100).toFixed(0)}%`;
   }
 
   function draw() {
@@ -289,7 +295,7 @@ export function initWidgetTradeoff(containerId) {
     const scale = Math.min(width * 0.58, height * 0.68);
 
     drawGrid(ctx, ox, oy, width, height, 32);
-    drawConstraintArc(ctx, ox, oy, scale, '#a855f7');
+    // Constraint arc removed for clarity
     drawAxes(ctx, ox, oy, width, height, 'Space (x)', 'Time (t)');
 
     const vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
@@ -328,6 +334,23 @@ export function initWidgetTradeoff(containerId) {
     ctx.fillText(`v_space = ${(speedFraction * 100).toFixed(0)}%`, tipX - 30, oy + 18);
   }
 
+  function loop(now) {
+    if (!lastTimestamp) lastTimestamp = now;
+    const dt = (now - lastTimestamp) / 1000;
+    lastTimestamp = now;
+
+    if (isPlaying) {
+      progress += dt * 0.25;
+      if (progress > 1.0) progress = 0;
+      if (sliderTime) sliderTime.value = progress * 1000;
+      update();
+    }
+    draw();
+    if (isPlaying) {
+      animFrame = requestAnimationFrame(loop);
+    }
+  }
+
   if (sliderSpeed) {
     sliderSpeed.addEventListener('input', (e) => {
       speedFraction = e.target.value / 1000;
@@ -339,7 +362,21 @@ export function initWidgetTradeoff(containerId) {
   if (sliderTime) {
     sliderTime.addEventListener('input', (e) => {
       progress = e.target.value / 1000;
+      update();
       draw();
+    });
+  }
+
+  if (btnPlay) {
+    btnPlay.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      btnPlay.innerHTML = isPlaying ? '<span>⏸</span><span>Pause</span>' : '<span>▶</span><span>Auto Play</span>';
+      if (isPlaying) {
+        lastTimestamp = null;
+        animFrame = requestAnimationFrame(loop);
+      } else if (animFrame) {
+        cancelAnimationFrame(animFrame);
+      }
     });
   }
 
