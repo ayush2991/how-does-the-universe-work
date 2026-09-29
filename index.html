@@ -115,7 +115,7 @@
           <button class="btn-primary btn-play">
             <span>▶</span><span>Auto Play</span>
           </button>
-          <a href="posts/01-why-motion-through-space-affects-time/index.html" class="btn-hero-read">
+          <a href="posts/01-motion-and-time.html" class="btn-hero-read">
             <span>Read Part 1 →</span>
           </a>
         </div>
@@ -140,7 +140,7 @@
       <div class="series-grid">
         
         <!-- Post 1 Card -->
-        <a href="posts/01-why-motion-through-space-affects-time/index.html" class="series-card">
+        <a href="posts/01-motion-and-time.html" class="series-card">
           <div>
             <div class="card-num">ESSAY 01 · SPECIAL RELATIVITY</div>
             <h3 class="card-title">Why Motion Through Space Affects Time</h3>
@@ -162,7 +162,7 @@
         </a>
 
         <!-- Post 2 Card (Live) -->
-        <a href="posts/02-the-cosmic-light-cone/index.html" class="series-card">
+        <a href="posts/02-light-cone.html" class="series-card">
           <div>
             <div class="card-num">ESSAY 02 · SPECIAL RELATIVITY</div>
             <h3 class="card-title">The Cosmic Light Cone: Mapping Space & Time</h3>
@@ -185,7 +185,7 @@
         </a>
 
         <!-- Post 3 Card (Live) -->
-        <a href="posts/03-the-spacetime-loaf-and-length-contraction/index.html" class="series-card">
+        <a href="posts/03-spacetime-loaf.html" class="series-card">
           <div>
             <div class="card-num" style="color: var(--color-invariant);">ESSAY 03 · SPECIAL RELATIVITY</div>
             <h3 class="card-title">The Spacetime Loaf & Length Contraction</h3>
@@ -257,11 +257,11 @@
   </footer>
 
   <!-- Universal Client-Side Script (100% Static & file:// compatible) -->
-  <script src="js/site.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/post-01.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', function () {
-      if (window.UniverseSimulations) {
-        window.UniverseSimulations.initThemeManager();
+      if (window.UniverseSimulations && window.UniverseSimulations.initWidgetTimeDilation) {
         window.UniverseSimulations.initWidgetTimeDilation('widget-hero');
       }
     });

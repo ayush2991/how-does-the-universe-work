@@ -18,8 +18,8 @@ Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought 
 
 ## Series Directory
 
-### [Part 1: Why Motion Through Space Affects Time](./posts/01-why-motion-through-space-affects-time/)
-- **Live Explorable**: [`posts/01-why-motion-through-space-affects-time/index.html`](./posts/01-why-motion-through-space-affects-time/index.html)
+### [Part 1: Why Motion Through Space Affects Time](./posts/01-motion-and-time.html)
+- **Live Explorable**: [`posts/01-motion-and-time.html`](./posts/01-motion-and-time.html)
 - **Interactive Simulations**:
   1. **Two Cars on a 2D Grid**: Time scrubber and heading angle slider demonstrating $V_{\text{East}} = 60\sin\theta$ and $V_{\text{North}} = 60\cos\theta$.
   2. **Motion Purely Through Time (At Rest)**: Visualizing that sitting motionless in space ($x=0$) still carries you forward along the Time axis at $100\%$ speed.
@@ -29,8 +29,13 @@ Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought 
   6. **Atmospheric Muon Survival Simulator**: Interactive altitude descent comparing Newtonian classical decay at 660m vs. relativistic survival to sea level detectors.
   7. **3D Spacetime & Spacetime Loaf Foundation (x₁, x₂, t)**: Rotatable 3D volume with ground floor steering, spherical dome constraint $v_t = \sqrt{c^2 - v_{x_1}^2 - v_{x_2}^2}$, and interactive "Now-Slice" plane.
 
-### Part 2: The Spacetime Loaf & Length Contraction *(In Development)*
-- Resolving the Twin Paradox, the relativity of simultaneity, and why moving rulers shorten.
+### [Part 2: The Cosmic Light Cone: Mapping Space & Time](./posts/02-light-cone.html)
+- **Live Explorable**: [`posts/02-light-cone.html`](./posts/02-light-cone.html)
+- Visualizing why 90° in velocity space becomes 45° in coordinate spacetime, expanding circles of light, the 3D Light Cone, and your 80-year cosmic horizon.
+
+### [Part 3: The Spacetime Loaf & Length Contraction](./posts/03-spacetime-loaf.html)
+- **Live Explorable**: [`posts/03-spacetime-loaf.html`](./posts/03-spacetime-loaf.html)
+- Oblique simultaneity slicing through 4D spacetime, moving rulers shortening, and atmospheric muons from both reference frames.
 
 ---
 
@@ -38,7 +43,7 @@ Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought 
 
 This project requires **zero backend server, zero Node.js, zero build steps, and zero database maintenance**:
 - **Pure Client-Side**: Written in clean Vanilla HTML5, CSS3, and JavaScript Canvas simulations.
-- **Double-Click & View (`file://`)**: You can open any HTML file (`index.html`, `posts/.../index.html`, or `standalone/...html`) directly from your file manager by double-clicking it—no local server needed!
+- **Double-Click & View (`file://`)**: You can open any HTML file (`index.html` or `posts/*.html`) directly from your file manager by double-clicking it—no local server needed!
 - **Zero Cost & Maintenance**: Can be hosted indefinitely for free on **GitHub Pages**, Cloudflare Pages, Netlify, or any static storage bucket.
 
 ### Viewing Locally
@@ -46,7 +51,7 @@ This project requires **zero backend server, zero Node.js, zero build steps, and
 You have two easy ways to view the project locally:
 
 1. **Option A: Direct Double-Click (Zero Setup)**
-   Simply double-click `index.html` or `posts/01-why-motion-through-space-affects-time/index.html` in your file explorer. It will open instantly in Chrome, Firefox, Safari, or Edge.
+   Simply double-click `index.html` or `posts/01-motion-and-time.html` in your file explorer. It will open instantly in Chrome, Firefox, Safari, or Edge.
 
 2. **Option B: Optional Local Server**
    If you prefer running a local HTTP server:

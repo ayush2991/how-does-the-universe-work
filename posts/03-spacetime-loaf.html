@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Spacetime Loaf & Length Contraction · How Does the Universe Work?</title>
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <meta name="description" content="A visual, curiosity-driven exploration of why there is no universal 'Now', how relative motion tilts our slice of spacetime, and why moving rulers naturally shorten.">
   <script>
     (function () {
@@ -21,7 +21,7 @@
   <!-- Top Navigation -->
   <nav class="site-nav">
     <div class="site-nav-inner">
-      <a href="../../index.html" class="brand-link">
+      <a href="../index.html" class="brand-link">
         <div class="brand-badge">c</div>
         <div>
           <span class="brand-title">HOW DOES THE UNIVERSE WORK?</span>
@@ -29,9 +29,9 @@
         </div>
       </a>
       <div class="nav-links">
-        <a href="../../index.html">← All Essays</a>
-        <a href="../01-why-motion-through-space-affects-time/index.html" class="nav-link-secondary">Part 1</a>
-        <a href="../02-the-cosmic-light-cone/index.html" class="nav-link-secondary">Part 2</a>
+        <a href="../index.html">← All Essays</a>
+        <a href="01-motion-and-time.html" class="nav-link-secondary">Part 1</a>
+        <a href="02-light-cone.html" class="nav-link-secondary">Part 2</a>
         <a href="#interactive-loaf" class="active nav-link-secondary">Part 3: The Loaf & Length</a>
         <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener" class="nav-link-secondary">GitHub</a>
         <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
@@ -76,7 +76,7 @@
     <!-- Editorial Prose -->
     <article class="editorial-prose">
       <p>
-        In <a href="../01-why-motion-through-space-affects-time/index.html" style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 1</a>, we uncovered a simple geometric truth: every object in existence is moving through the combined fabric of spacetime at a single constant speed, bounded by <em>c</em>. When you sit completely still in your chair, 100% of that speed carries you forward through time. The moment you begin moving across space, part of that total speed is diverted, and your internal clock inevitably ticks more slowly.
+        In <a href="01-motion-and-time.html" style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 1</a>, we uncovered a simple geometric truth: every object in existence is moving through the combined fabric of spacetime at a single constant speed, bounded by <em>c</em>. When you sit completely still in your chair, 100% of that speed carries you forward through time. The moment you begin moving across space, part of that total speed is diverted, and your internal clock inevitably ticks more slowly.
       </p>
       <p>
         This discovery naturally leaves a profound question hanging in the air:
@@ -716,10 +716,10 @@
 
       <!-- SERIES PAGER -->
       <div class="series-pager">
-        <a href="../02-the-cosmic-light-cone/index.html" class="btn-secondary">
+        <a href="02-light-cone.html" class="btn-secondary">
           ← Part 2: The Cosmic Light Cone
         </a>
-        <a href="../../index.html" class="btn-primary">
+        <a href="../index.html" class="btn-primary">
           Series Overview →
         </a>
       </div>
@@ -744,20 +744,13 @@
     <div class="wide-container">
       <p>How Does the Universe Work? · An Explorable Physics Series by Aayush Agarwal</p>
       <p style="margin-top: 0.5rem;">
-        <a href="../../index.html">Series Home</a> · <a href="../01-why-motion-through-space-affects-time/index.html">Part 1: Motion & Time</a> · <a href="../02-the-cosmic-light-cone/index.html">Part 2: The Cosmic Light Cone</a> · <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
+        <a href="../index.html">Series Home</a> · <a href="01-motion-and-time.html">Part 1: Motion & Time</a> · <a href="02-light-cone.html">Part 2: The Cosmic Light Cone</a> · <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
       </p>
     </div>
   </footer>
 
   <!-- Universal Client-Side Script (100% Static & file:// compatible) -->
-  <script src="../../js/site.js"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
-      if (window.UniverseSimulations && window.UniverseSimulations.initAllPost03) {
-        window.UniverseSimulations.initAllPost03();
-      }
-    });
-  </script>
-
+  <script src="../js/core.js"></script>
+  <script src="../js/post-03.js"></script>
 </body>
 </html>

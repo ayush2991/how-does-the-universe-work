@@ -52,32 +52,26 @@ Section headings should sound like the next step in an unfolding journey, not li
 
 ---
 
-## File Architecture & Sync Requirements
+## File Architecture & Single Source of Truth
 
-When updating blog posts or interactive simulations, **always keep the corresponding files synchronized**:
+The repository uses a strict **Single Source of Truth** architecture with **zero build step, zero npm dependencies, and 100% `file://` compatibility**:
 
 1. **Series Hub / Landing Page**:
    - `index.html`
-   - Loads `js/site.js` and `css/style.css`.
+   - Loads `css/style.css`, `js/core.js`, and `js/post-01.js`.
    - Contains the live interactive hero widget (`#widget-hero` powered by `initWidgetTimeDilation`) and series directory cards.
 2. **Live Essay Articles**:
-   - Part 1: `posts/01-why-motion-through-space-affects-time/index.html`
-   - Part 2: `posts/02-the-cosmic-light-cone/index.html`
-   - Part 3: `posts/03-the-spacetime-loaf-and-length-contraction/index.html`
-   - Loads `js/site.js` and `css/style.css`.
-3. **Universal Script (Primary Widget Engine)**:
-   - `js/site.js`: Contains all active widget logic, theme manager, and reading progress tracking initialized by post-specific init functions (`window.UniverseSimulations.initAllPost01()`, `initAllPost02()`, `initAllPost03()`).
-4. **Modular Widget Modules**:
-   - `js/widgets/post-01-widgets.js`: ES module export versions of Part 1 widgets.
-   - `js/widgets/post-02-widgets.js`: ES module export versions of Part 2 widgets.
-   - `js/widgets/post-03-widgets.js`: ES module export versions of Part 3 widgets.
-5. **All-in-One Standalone Distributions**:
-   - `standalone/01-why-motion-through-space-affects-time-standalone.html`
-   - `standalone/02-the-cosmic-light-cone-standalone.html`
-   - `standalone/03-the-spacetime-loaf-and-length-contraction-standalone.html`
-   - Fully self-contained versions with inlined CSS, HTML, and JS. Any simulation or markup change in an essay must also be reflected in its standalone file.
-6. **Shared Styles**:
+   - Part 1: `posts/01-motion-and-time.html` (loads `../css/style.css`, `../js/core.js`, `../js/post-01.js`)
+   - Part 2: `posts/02-light-cone.html` (loads `../css/style.css`, `../js/core.js`, `../js/post-02.js`)
+   - Part 3: `posts/03-spacetime-loaf.html` (loads `../css/style.css`, `../js/core.js`, `../js/post-03.js`)
+3. **Core Utilities & Design Engine**:
+   - `js/core.js`: Universal shared utilities (Light/Dark Theme Manager, reading progress bar, retina canvas setup, axis, grid, label pills, and constraint primitives). Automatically initializes theme and progress bar on DOMContentLoaded.
    - `css/style.css`: Unified design system supporting Light Mode (default, warm paper minimal), Obsidian Dark Mode (`[data-theme="dark"]`), reading progress bar, math badges, and responsive mobile layouts.
+4. **Modular Essay Simulation Engines**:
+   - `js/post-01.js`: Part 1 simulation widgets (`initAllPost01`).
+   - `js/post-02.js`: Part 2 simulation widgets (`initAllPost02`).
+   - `js/post-03.js`: Part 3 simulation widgets (`initAllPost03`).
+   *(Each script automatically initializes its widgets on DOMContentLoaded without boilerplate).*
 
 ---
 
@@ -135,7 +129,7 @@ When updating blog posts or interactive simulations, **always keep the correspon
     and toggle to `<span>⏸</span><span>Pause</span>` during `requestAnimationFrame` playback.
 - **Reading Progress Bar**:
   - Fixed at the top of the viewport: `<div class="reading-progress-bar" id="reading-progress"></div>`.
-  - Initialized automatically via `initReadingProgress()` in `js/site.js`.
+  - Initialized automatically via `initReadingProgress()` in `js/core.js`.
 
 ---
 
@@ -175,5 +169,4 @@ To ensure compact, space-efficient rendering without awkward layout shifts or ex
 - **Pre-Commit Verification**:
   1. Test both **Light Mode** and **Obsidian Dark Mode**.
   2. Verify responsive simulation behavior down to 360px mobile width.
-  3. Ensure standalone editions (`standalone/*.html`) are updated whenever changes are made to core styles, markup, or simulations.
 - **Publishing**: Commit with clear semantic commit messages and push to `origin/main`.
