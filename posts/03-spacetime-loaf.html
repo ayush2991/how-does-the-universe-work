@@ -69,7 +69,7 @@
         <span>•</span>
         <span>Interactive Explorable</span>
         <span>•</span>
-        <span>12 min read</span>
+        <span>14 min read</span>
       </div>
     </header>
 
@@ -130,7 +130,7 @@
         Let us place our first observer inside this block: <strong>Alice</strong>.
       </p>
       <p>
-        Alice stands on the flat 2D spatial floor. She holds her arms out, spanning a measuring rod of length <span class="math-badge">L₀ = 10 meters</span>. Alice decides to remain stationary at spatial coordinates <span class="math-badge">(x₁ = 0, x₂ = 0)</span>.
+        Alice stands on the station platform next to a passenger coach of length <span class="math-badge">L₀ = 10 meters</span>. Alice decides to remain stationary at spatial coordinates <span class="math-badge">(x₁ = 0, x₂ = 0)</span>.
       </p>
       <p>
         Because Alice never moves across the floor, her spatial coordinates never change. As time flows steadily upward from the past toward the future, each snapshot of Alice sits directly above the previous one. Stacking these identical snapshots creates a straight vertical column stretching straight upward through the loaf: Alice's <strong>worldtube</strong>.
@@ -144,7 +144,7 @@
         <li><strong>Past, Future, and Elsewhere:</strong> Events below her slice inside the cone are her past; events above her slice inside the cone are her reachable future; and everything outside the 45° cone is the causal Elsewhere.</li>
       </ul>
       <p>
-        Explore the 3D volume below. Rotate the perspective to inspect the loaf, scrub time to slide Alice's horizontal slice upward, and observe how her worldtube and the expanding circle of light evolve:
+        Explore the 3D volume below. Rotate the perspective by dragging the canvas or using the orbit/tilt sliders, select viewing presets, and scrub time to watch Alice's slice of Now rise through the loaf:
       </p>
 
       <!-- INTERACTIVE WIDGET 1: ALICE AT REST -->
@@ -185,12 +185,23 @@
             </div>
             <input type="range" class="range-slider slider-time" min="0" max="600" value="300">
           </div>
-          <div class="control-item">
-            <div class="control-header">
-              <span>Camera Orbit Rotation (or Drag Canvas Directly)</span>
-              <span class="control-val" style="color:var(--text-muted);">3D View</span>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <div class="control-item">
+              <div class="control-header"><span>Azimuth (Orbit)</span></div>
+              <input type="range" class="range-slider slider-azimuth" min="-3.14" max="3.14" step="0.05" value="-0.61">
             </div>
-            <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-35">
+            <div class="control-item">
+              <div class="control-header"><span>Elevation (Tilt)</span></div>
+              <input type="range" class="range-slider slider-elevation" min="-0.35" max="1.30" step="0.05" value="0.44">
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
+            <div class="preset-chips">
+              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D View</button>
+              <button class="chip-btn chip-cam-preset" data-az="0" data-el="0">Side (Space–Time)</button>
+              <button class="chip-btn chip-cam-preset" data-az="0" data-el="1.30">Top (Space)</button>
+            </div>
+            <button class="btn-secondary btn-reset-view">Reset View</button>
           </div>
           <div class="toolbar-bottom">
             <button class="btn-primary btn-play">
@@ -218,7 +229,7 @@
         Let us introduce a second traveller: <strong>Bob</strong>.
       </p>
       <p>
-        Bob carries an identical 10-meter measuring rod (<span class="math-badge">L₀ = 10 meters</span>). At time <span class="math-badge">t = 0</span>, Bob glides right past Alice, coasting along the <span class="math-badge">x₁</span> axis with constant speed <span class="math-badge">v</span>.
+        Bob rides inside an identical 10-meter passenger coach (<span class="math-badge">L₀ = 10 meters</span>). At time <span class="math-badge">t = 0</span>, Bob glides right past Alice, coasting along the <span class="math-badge">x₁</span> track with constant speed <span class="math-badge">v</span>.
       </p>
       <p>
         What does Bob’s sequence of snapshots look like when stacked into the loaf?
@@ -292,19 +303,30 @@
             </div>
             <input type="range" class="range-slider slider-time" min="0" max="600" value="350">
           </div>
-          <div class="control-item">
-            <div class="control-header">
-              <span>Camera Orbit Rotation (or Drag Canvas Directly)</span>
-              <span class="control-val" style="color:var(--text-muted);">3D View</span>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <div class="control-item">
+              <div class="control-header"><span>Azimuth (Orbit)</span></div>
+              <input type="range" class="range-slider slider-azimuth" min="-3.14" max="3.14" step="0.05" value="-0.61">
             </div>
-            <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-35">
+            <div class="control-item">
+              <div class="control-header"><span>Elevation (Tilt)</span></div>
+              <input type="range" class="range-slider slider-elevation" min="-0.35" max="1.30" step="0.05" value="0.44">
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
+            <div class="preset-chips">
+              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D View</button>
+              <button class="chip-btn chip-cam-preset" data-az="0" data-el="0">Side (Space–Time)</button>
+              <button class="chip-btn chip-cam-preset" data-az="0" data-el="1.30">Top (Space)</button>
+            </div>
+            <button class="btn-secondary btn-reset-view">Reset View</button>
           </div>
           <div class="toolbar-bottom">
             <button class="btn-primary btn-play">
               <span>▶</span><span>Auto Play</span>
             </button>
-            <div class="math-badge readout-components">
-              East (x₁): <strong>0.00 ls</strong> | North (x₂): <strong>0.00 ls</strong> | Time (ct): <strong>3.50 s</strong>
+            <div class="math-badge">
+              East (x₁): <strong>v · ct</strong> | Time (ct): <strong>ct</strong>
             </div>
           </div>
         </div>
@@ -336,10 +358,126 @@
       <p>
         From the center of his coach, Bob fires a single flash of light outward in both directions simultaneously:
       </p>
-      <ul>
-        <li><strong>Inside Bob's Coach:</strong> Bob considers himself at rest. Light travels at the exact same invariant speed <span class="math-badge">c</span> in both directions. Because the two beacons are at equal distances from the center (<span class="math-badge">d</span>), the two light signals arrive at the Front Beacon and Rear Beacon at the <em>exact same instant</em> on Bob's wristwatch. Bob concludes with complete physical justification: <em>"Both beacons flashed at the same time!"</em></li>
-        <li><strong>From Alice's Platform:</strong> Alice watches Bob's coach zoom past at speed <span class="math-badge">v</span>. To Alice, light also travels at speed <span class="math-badge">c</span> in both directions. But while the light is in transit, the coach is moving! The Rear Beacon is speeding forward to meet the incoming backward light pulse, so the backward beam has a shorter distance to travel. Meanwhile, the Front Beacon is speeding away from the forward light pulse, so the forward beam must chase it down over a longer distance.</li>
-      </ul>
+      <p>
+        <strong>Inside Bob's Coach:</strong> Bob considers himself at rest. Light travels at the exact same invariant speed <span class="math-badge">c</span> in both directions. Because the two beacons are at equal distances from the center (<span class="math-badge">d</span>), the two light signals arrive at the Front Beacon and Rear Beacon at the <em>exact same instant</em> on Bob's wristwatch. Bob concludes with complete physical justification: <em>"Both beacons flashed at the same time!"</em>
+      </p>
+
+      <!-- INTERACTIVE WIDGET 3: BEACONS BOB -->
+      <div id="widget-beacons-bob" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 03</span>
+            <div class="artifact-title">Bob's Rest Frame: Simultaneous Beacons Inside the Coach</div>
+            <div class="artifact-desc">Watch from Bob's rest frame as light travels outward symmetrically at speed c, striking both beacons at the exact same instant.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Rear Beacon Arrival</span>
+              <span class="clock-badge">t_rear</span>
+            </div>
+            <div class="clock-time readout-rear-arrival">1.00 <span>s</span></div>
+            <p class="clock-subtext">Left pulse strikes rear sensor at x = −d.</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Front Beacon Arrival</span>
+              <span class="clock-badge">t_front</span>
+            </div>
+            <div class="clock-time readout-front-arrival">1.00 <span>s</span></div>
+            <p class="clock-subtext">Right pulse strikes front sensor at x = +d.</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Scrub Elapsed Time</span>
+              <span class="control-val amber readout-bob-time">t = 0.00 s</span>
+            </div>
+            <input type="range" class="range-slider amber slider-time" min="0" max="1000" value="0">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge readout-beacon-desync">
+              Arrival Desynchronization: <strong>Δt = 0.00 s (Exact Simultaneity!)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Now look at this identical experiment from the platform outside:
+      </p>
+      <p>
+        <strong>From Alice's Platform:</strong> Alice watches Bob's coach zoom past at speed <span class="math-badge">v</span>. To Alice, light also travels at speed <span class="math-badge">c</span> in both directions. But while the light is in transit, the coach is moving! The Rear Beacon is speeding forward to meet the incoming backward light pulse, so the backward beam has a shorter distance to travel. Meanwhile, the Front Beacon is speeding away from the forward light pulse, so the forward beam must chase it down over a longer distance.
+      </p>
+
+      <!-- INTERACTIVE WIDGET 4: BEACONS ALICE -->
+      <div id="widget-beacons-alice" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 04</span>
+            <div class="artifact-title">Alice's Platform Frame: Desynchronized Beacons on the Move</div>
+            <div class="artifact-desc">Watch Bob's moving coach from the platform track. The rear beacon meets incoming light early, while the front beacon retreats ahead.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Event 1: Rear Beacon Hit</span>
+              <span class="clock-badge">Hits Early</span>
+            </div>
+            <div class="clock-time readout-alice-rear-hit">0.27 <span>s</span></div>
+            <p class="clock-subtext">Rear rushes forward to meet backward pulse: t = d' / (c + v).</p>
+          </div>
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Event 2: Front Beacon Hit</span>
+              <span class="clock-badge">Hits Late</span>
+            </div>
+            <div class="clock-time readout-alice-front-hit" style="color:var(--color-space);">3.73 <span>s</span></div>
+            <p class="clock-subtext">Forward pulse must chase retreating front wall: t = d' / (c − v).</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Coach Speed (v)</span>
+              <span class="control-val amber readout-alice-speed">v = 0.866 c</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="950" value="866">
+            <div class="preset-chips">
+              <button class="chip-btn chip-speed-alice" data-val="0">v = 0 (At Rest: Simultaneous)</button>
+              <button class="chip-btn chip-speed-alice" data-val="500">θ = 30° (v = 0.500 c)</button>
+              <button class="chip-btn chip-speed-alice active" data-val="866">θ = 60° (v = 0.866 c)</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Scrub Elapsed Time</span>
+            </div>
+            <input type="range" class="range-slider slider-time" min="0" max="1000" value="0">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-primary btn-play">
+              <span>▶</span><span>Auto Play</span>
+            </button>
+            <div class="math-badge readout-alice-desync">
+              Desynchronization: Rear hit first; Front hit later!
+            </div>
+          </div>
+        </div>
+      </div>
+
       <p>
         The consequence is unavoidable: in Alice's frame of reference, <strong>the Rear Beacon flashes first, and the Front Beacon flashes later!</strong>
       </p>
@@ -360,14 +498,14 @@
         <div class="formula-note">Events separated by distance Δx along the direction of motion are desynchronized in time by (v / c²) · Δx.</div>
       </div>
       <p>
-        In the simulation below, adjust Bob's velocity <span class="math-badge">v</span>. Watch how Bob's amber plane of "Now" tilts relative to Alice's cyan horizontal plane:
+        In the 3D simulation below, adjust Bob's speed presets (<span class="math-badge">θ = 0°, 30°, 60°</span>) and orbit the volume to see how Bob's amber plane of "Now" tilts relative to Alice's cyan horizontal plane:
       </p>
 
-      <!-- INTERACTIVE WIDGET 3: SIMULTANEITY SLICE -->
+      <!-- INTERACTIVE WIDGET 5: SIMULTANEITY SLICE -->
       <div id="widget-simultaneity-slice" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 03</span>
+            <span class="artifact-badge">Interactive Simulation 05</span>
             <div class="artifact-title">The Angle of "Now": Slicing the Loaf Obliquely</div>
             <div class="artifact-desc">Tilt Bob's slice of simultaneity by adjusting velocity. Notice how Bob's "Now" cuts into Alice's future ahead and past behind.</div>
           </div>
@@ -387,9 +525,9 @@
           <div class="clock-card amber">
             <div class="clock-meta">
               <span class="clock-label">Bob's Slice (Amber)</span>
-              <span class="clock-badge readout-tilt-badge">Tilted by θ = 31°</span>
+              <span class="clock-badge readout-tilt-badge">Tilted by θ = 40.9°</span>
             </div>
-            <div class="clock-time readout-desync-val" style="color:var(--color-space);">Δt = 1.80 <span>s</span></div>
+            <div class="clock-time readout-desync-val" style="color:var(--color-space);">Δt = 1.73 <span>s</span></div>
             <p class="clock-subtext readout-desync-text">Front beacon is in Alice's future; rear beacon is in Alice's past!</p>
           </div>
         </div>
@@ -397,14 +535,14 @@
           <div class="control-item">
             <div class="control-header">
               <span>Bob's Velocity (v)</span>
-              <span class="control-val amber readout-speed-sim">v = 0.600 c</span>
+              <span class="control-val amber readout-speed-sim">v = 0.866 c</span>
             </div>
-            <input type="range" class="range-slider amber slider-speed" min="0" max="866" value="600">
+            <input type="range" class="range-slider amber slider-speed" min="0" max="985" value="866">
             <div class="preset-chips">
-              <button class="chip-btn chip-speed-sim" data-val="0">v = 0 (Horizontal)</button>
-              <button class="chip-btn chip-speed-sim" data-val="300">v = 0.300 c</button>
-              <button class="chip-btn chip-speed-sim active" data-val="600">v = 0.600 c</button>
-              <button class="chip-btn chip-speed-sim" data-val="800">v = 0.800 c</button>
+              <button class="chip-btn chip-speed-sim" data-val="0">θ = 0° (At Rest: v = 0)</button>
+              <button class="chip-btn chip-speed-sim" data-val="500">θ = 30° (v = 0.500 c)</button>
+              <button class="chip-btn chip-speed-sim active" data-val="866">θ = 60° (v = 0.866 c · ½ Time)</button>
+              <button class="chip-btn chip-speed-sim" data-val="985">θ = 80° (v = 0.985 c)</button>
             </div>
           </div>
           <div class="control-item">
@@ -416,6 +554,24 @@
               <button class="chip-btn chip-slice-mode" data-mode="alice">Alice Only (Horizontal)</button>
               <button class="chip-btn chip-slice-mode" data-mode="bob">Bob Only (Tilted)</button>
             </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <div class="control-item">
+              <div class="control-header"><span>Azimuth (Orbit)</span></div>
+              <input type="range" class="range-slider slider-azimuth" min="-3.14" max="3.14" step="0.05" value="-0.61">
+            </div>
+            <div class="control-item">
+              <div class="control-header"><span>Elevation (Tilt)</span></div>
+              <input type="range" class="range-slider slider-elevation" min="-0.35" max="1.30" step="0.05" value="0.44">
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
+            <div class="preset-chips">
+              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D View</button>
+              <button class="chip-btn chip-cam-preset" data-az="0" data-el="0">Side (Space–Time)</button>
+              <button class="chip-btn chip-cam-preset" data-az="0" data-el="1.30">Top (Space)</button>
+            </div>
+            <button class="btn-secondary btn-reset-view">Reset View</button>
           </div>
           <div class="toolbar-bottom">
             <div class="math-badge readout-simultaneity-summary">
@@ -474,60 +630,66 @@
         Let us bring Alice and Bob back to observe how this cross-section works in practice.
       </p>
       <p>
-        In Bob's own hands, his measuring rod spans a rest length of <span class="math-badge">L₀ = 10 meters</span>. As Bob coasts forward through time, this 10-meter span sweeps out a continuous <strong>tilted ribbon (worldsheet)</strong> through the spacetime loaf.
+        Inside Bob's own rest frame, his passenger coach spans a rest length of <span class="math-badge">L₀ = 10 meters</span> from rear wall to front wall. To Bob, this coach is always strictly 10 meters—its physical size never changes in his experience, no matter what speed he travels.
       </p>
       <p>
-        Now Alice stands on the platform and measures the length of Bob's moving rod.
+        As Bob's 10-meter coach glides forward through time, its length sweeps out a continuous <strong>tilted ribbon (worldsheet)</strong> through the spacetime loaf.
       </p>
       <p>
-        To measure its length, Alice must record both ends of Bob's rod at the exact same instant in <em>her</em> time. That means Alice must take a cross-section of Bob's tilted ribbon using <strong>her flat, horizontal slice of Now</strong>.
+        Now Alice stands on the station platform and measures the length of Bob's speeding coach as it zooms past.
       </p>
       <p>
-        Observe what happens in the simulation below. The left side shows the 3D loaf: Alice's horizontal slice (cyan) cuts across Bob's tilted ribbon (amber). The right side shows Alice's live view through her measurement instruments:
+        To measure its length, Alice must record both ends of Bob's coach at the <em>exact same instant</em> in her time. That means Alice must take a cross-section of Bob's tilted ribbon using <strong>her flat, horizontal slice of Now</strong>.
+      </p>
+      <p>
+        Because Bob travels at speed <span class="math-badge">v = 0.866 c</span> (<span class="math-badge">θ = 60°</span>), his slice of Now is tilted in spacetime relative to Alice's. When Alice takes her simultaneous measurement, she is capturing the <strong>geometric projection</strong> of Bob's tilted 10-meter coach onto her horizontal axis of space.
+      </p>
+      <p>
+        Observe what happens in the simulation below. The left side shows the spacetime geometry: Bob's tilted 10-meter coach projects onto Alice's horizontal present via <span class="math-badge">cos(θ)</span>. The right side shows the physical reality: Bob's coach stays at an invariant 10 meters on his onboard ruler, while Alice measures a contracted 5-meter span on her platform ruler:
       </p>
 
-      <!-- INTERACTIVE WIDGET 4: LENGTH CONTRACTION -->
+      <!-- INTERACTIVE WIDGET 6: LENGTH CONTRACTION -->
       <div id="widget-length-contraction" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 04</span>
-            <div class="artifact-title">The Oblique Slice: Why Moving Objects Shorten</div>
-            <div class="artifact-desc">Left: 3D loaf showing Alice's horizontal slice cutting Bob's tilted ribbon. Right: Alice's live retinal view measuring Bob with a ruler.</div>
+            <span class="artifact-badge">Interactive Simulation 06</span>
+            <div class="artifact-title">The Oblique Slice: Geometric Projection of Bob's Coach</div>
+            <div class="artifact-desc">Left: Spacetime geometry showing Bob's tilted 10m coach projecting onto Alice's horizontal present via cos(θ). Right: Bob's invariant 10m coach vs Alice's 5m platform measurement.</div>
           </div>
         </div>
         <div class="canvas-viewport">
           <canvas></canvas>
         </div>
         <div class="twin-clocks-panel">
-          <div class="clock-card cyan">
-            <div class="clock-meta">
-              <span class="clock-label">Rest Length (In Bob's Own Frame)</span>
-              <span class="clock-badge">L₀</span>
-            </div>
-            <div class="clock-time">10.0 <span>m</span></div>
-            <p class="clock-subtext">Measured by Bob along his tilted slice of simultaneity.</p>
-          </div>
           <div class="clock-card amber">
             <div class="clock-meta">
-              <span class="clock-label">Apparent Length (Measured by Alice)</span>
-              <span class="clock-badge readout-gamma-badge">γ = 2.00</span>
+              <span class="clock-label">Bob's Rest Frame (Onboard)</span>
+              <span class="clock-badge">L₀ (Constant)</span>
+            </div>
+            <div class="clock-time">10.0 <span>m</span></div>
+            <p class="clock-subtext">Invariant 10.0 m coach along Bob's tilted present.</p>
+          </div>
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Alice's Measurement (Platform)</span>
+              <span class="clock-badge readout-gamma-badge">γ = 2.00 (θ = 60°)</span>
             </div>
             <div class="clock-time readout-contracted-length" style="color:var(--color-space);">5.0 <span>m</span></div>
-            <p class="clock-subtext readout-contracted-percent">Narrowed to 50.0% along direction of motion.</p>
+            <p class="clock-subtext readout-contracted-percent">Projected length: 10.0 m × cos(60°) = 5.0 m (50.0%).</p>
           </div>
         </div>
         <div class="artifact-controls">
           <div class="control-item">
             <div class="control-header">
-              <span>Bob's Velocity (v)</span>
-              <span class="control-val amber readout-speed-contract">v = 0.866 c</span>
+              <span>Relative Speed &amp; Angle (v = c · sin θ)</span>
+              <span class="control-val amber readout-speed-contract">θ = 60° (v = 0.866 c)</span>
             </div>
-            <input type="range" class="range-slider amber slider-speed" min="0" max="980" value="866">
+            <input type="range" class="range-slider amber slider-speed" min="0" max="80" value="60">
             <div class="preset-chips">
-              <button class="chip-btn chip-preset-contract" data-val="0">v = 0 (100% Length: 10.0m)</button>
-              <button class="chip-btn chip-preset-contract" data-val="500">v = 0.500 c (86.6%: 8.66m)</button>
-              <button class="chip-btn chip-preset-contract active" data-val="866">v = 0.866 c (50%: 5.0m)</button>
-              <button class="chip-btn chip-preset-contract" data-val="980">v = 0.980 c (20%: 2.0m)</button>
+              <button class="chip-btn chip-preset-contract" data-deg="0">θ = 0° (At Rest: 10.0m)</button>
+              <button class="chip-btn chip-preset-contract" data-deg="30">θ = 30° (v = 0.500c: 8.7m)</button>
+              <button class="chip-btn chip-preset-contract active" data-deg="60">θ = 60° (v = 0.866c: 5.0m)</button>
+              <button class="chip-btn chip-preset-contract" data-deg="80">θ = 80° (v = 0.985c: 1.7m)</button>
             </div>
           </div>
           <div class="toolbar-bottom">
@@ -535,7 +697,7 @@
               <span>▶</span><span>Auto Play</span>
             </button>
             <div class="math-badge readout-contraction-formula">
-              Formula: <strong>L = L₀ × √(1 − v² / c²) = L₀ / γ</strong>
+              Geometric Projection: <strong>L = L₀ · cos θ = 10.0 m × cos(60°) = 5.0 m (L₀ / γ)</strong>
             </div>
           </div>
         </div>
@@ -546,26 +708,26 @@
       </p>
       <ul>
         <li>
-          <strong>The Exact Same Geometric Factor:</strong> Notice the numbers on the display. When Bob travels at <span class="math-badge">v = 0.866 c</span>, Alice measures his 10-meter rod as exactly <span class="math-badge">5.0 meters</span>—shortened by half! This is the exact same factor of <span class="math-badge">cos(60°) = 0.50</span> that halved the northward speed of the orange car in Part 1 and that halved the ticking rate of Bob's clock. Time dilation and length contraction are two expressions of the exact same geometric rotation in spacetime:
+          <strong>The Exact Same Geometric Factor:</strong> Notice the numbers on the display. When Bob travels at <span class="math-badge">v = 0.866 c</span> (<span class="math-badge">θ = 60°</span>), Alice measures his 10-meter coach as exactly <span class="math-badge">5.0 meters</span>—shortened by half! This is the exact same projection factor of <span class="math-badge">cos(60°) = 0.50</span> that halved the northward speed of the orange car in Part 1 and that halved the ticking rate of Bob's clock. Time dilation and length contraction are two expressions of the exact same geometric rotation in spacetime:
         </li>
       </ul>
       <div class="formula-card">
-        <div><strong>The Contraction Formula:</strong> L = L₀ · √(1 − v² / c²) = L₀ / γ</div>
-        <div class="formula-note">As relative speed increases, an observer's clock slows down by γ, and its length along the direction of motion contracts by 1/γ.</div>
+        <div><strong>The Contraction Formula:</strong> L = L₀ · cos θ = L₀ · √(1 − v² / c²) = L₀ / γ</div>
+        <div class="formula-note">As relative speed increases, an observer's clock slows down by γ, and its length along the direction of motion projects onto space by cos θ = 1/γ.</div>
       </div>
       <ul>
         <li>
-          <strong>Contraction Happens Only Along the Direction of Motion:</strong> Look at Bob's figure in Alice's live view on the right. While his horizontal width (his arms and measuring rod along <span class="math-badge">x₁</span>) is dramatically narrowed, his vertical height (along <span class="math-badge">x₂</span>) remains completely unchanged. Perpendicular directions do not participate in the trade-off with time, so transverse dimensions never contract.
+          <strong>Contraction Happens Only Along the Direction of Motion:</strong> Look at Bob's coach in Alice's measurement view. While the coach's length along the track (<span class="math-badge">x₁</span>) is contracted to 50%, its vertical height and track gauge (perpendicular to motion) remain completely unchanged. Perpendicular directions do not participate in the trade-off with time, so transverse dimensions never contract.
         </li>
       </ul>
 
       <!-- SECTION 7 -->
       <h2>7. Slicing Both Ways: The Mutual Symmetry of Motion</h2>
       <p>
-        Seeing Alice measure Bob's rod as contracted raises a natural question:
+        Seeing Alice measure Bob's coach as contracted raises a natural question:
       </p>
       <p>
-        <em>If Alice measures Bob's 10-meter rod to be 5 meters, what does Bob measure when he looks at Alice's 10-meter rod? Does Bob see Alice stretched out to 20 meters, or does he also see her contracted?</em>
+        <em>If Alice measures Bob's 10-meter coach to be 5 meters, what does Bob measure when he looks at Alice's 10-meter coach? Does Bob see Alice stretched out to 20 meters, or does he also see her contracted?</em>
       </p>
       <p>
         The answer is found directly in the principle that motion is relative.
@@ -574,13 +736,13 @@
         From Bob’s point of view inside his own frame of reference, <strong>Bob is sitting completely at rest, and Alice is the one gliding backward at speed −v!</strong>
       </p>
       <p>
-        When Bob measures Alice's rod, Bob does not use Alice's horizontal slice. To measure Alice simultaneously, Bob must use his <em>own</em> slice of Now—the amber plane tilted at slope <span class="math-badge">v/c</span>.
+        When Bob measures Alice's coach, Bob does not use Alice's horizontal slice. To measure Alice simultaneously, Bob must use his <em>own</em> slice of Now—the amber plane tilted at slope <span class="math-badge">v/c</span>.
       </p>
       <p>
-        When Bob’s tilted slice intersects Alice’s vertical worldtube, it cuts through her worldtube on the bias. The resulting cross-section measures Alice's rod to be exactly <span class="math-badge">5.0 meters</span>!
+        When Bob’s tilted slice intersects Alice’s vertical worldtube, it cuts through her worldtube on the bias. The resulting cross-section measures Alice's coach to be exactly <span class="math-badge">5.0 meters</span>!
       </p>
       <p>
-        Both observers measure the other's rod to be contracted to 5.0 meters, and <strong>both observers are completely correct in their own frame of reference.</strong>
+        Both observers measure the other's coach to be contracted to 5.0 meters, and <strong>both observers are completely correct in their own frame of reference.</strong>
       </p>
       <p>
         Length contraction is not a physical crushing of atoms by mechanical pressure. It is a geometric consequence of perspective: different observers cut the four-dimensional worldtubes of reality at different angles of simultaneity.
@@ -589,11 +751,11 @@
         Use the interactive simulation below to toggle between Alice’s frame and Bob’s frame, and observe how the symmetry of spacetime holds perfectly from both sides:
       </p>
 
-      <!-- INTERACTIVE WIDGET 5: DUAL FRAME -->
+      <!-- INTERACTIVE WIDGET 7: DUAL FRAME -->
       <div id="widget-dual-frame" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 05</span>
+            <span class="artifact-badge">Interactive Simulation 07</span>
             <div class="artifact-title">Mutual Relativity: Slicing From Both Perspectives</div>
             <div class="artifact-desc">Switch between Alice's reference frame and Bob's reference frame. Observe how each observer symmetrically measures the other as contracted.</div>
           </div>
@@ -612,11 +774,11 @@
           </div>
           <div class="clock-card amber">
             <div class="clock-meta">
-              <span class="clock-label">Measured Rod of Other Observer</span>
+              <span class="clock-label">Measured Coach of Other Observer</span>
               <span class="clock-badge">Contracted</span>
             </div>
             <div class="clock-time readout-dual-measured" style="color:var(--color-space);">5.0 <span>m</span></div>
-            <p class="clock-subtext readout-dual-note">Bob's 10.0 m rod appears shortened to 5.0 m.</p>
+            <p class="clock-subtext readout-dual-note">Bob's 10.0 m coach appears shortened to 5.0 m.</p>
           </div>
         </div>
         <div class="artifact-controls">
@@ -638,7 +800,7 @@
           </div>
           <div class="toolbar-bottom">
             <div class="math-badge">
-              The laws of physics are identical in all inertial frames: each observer measures the moving rod contracted by exactly 1/γ.
+              The laws of physics are identical in all inertial frames: each observer measures the moving coach contracted by exactly 1/γ.
             </div>
           </div>
         </div>
@@ -681,11 +843,11 @@
         Toggle between Earth’s view and the Muon’s cockpit in the simulation below to see how both perspectives describe the exact same physical outcome:
       </p>
 
-      <!-- INTERACTIVE WIDGET 6: MUON CONTRACTION -->
+      <!-- INTERACTIVE WIDGET 8: MUON CONTRACTION -->
       <div id="widget-muon-contraction" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <span class="artifact-badge">Interactive Simulation 06</span>
+            <span class="artifact-badge">Interactive Simulation 08</span>
             <div class="artifact-title">The Muon's Cockpit: Two Sides of the Same Coin</div>
             <div class="artifact-desc">Toggle between Earth's View (Time Dilation) and Muon's View (Length Contraction) to see how physics guarantees the exact same survival outcome.</div>
           </div>

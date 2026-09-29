@@ -103,10 +103,12 @@ The repository uses a strict **Single Source of Truth** architecture with **zero
 | ------ | --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------ |
 | **01** | `widget-loaf-alice`         | `initWidgetLoafAlice`         | 3D spacetime loaf volume with Alice's horizontal slice and expanding light wavefront |
 | **02** | `widget-loaf-bob`           | `initWidgetLoafBob`           | Bob in motion: slanting the worldtube across the spacetime loaf                      |
-| **03** | `widget-simultaneity-slice` | `initWidgetSimultaneitySlice` | The angle of "Now": tilting the simultaneity hyperplane obliquely ($\tan\phi = v/c$) |
-| **04** | `widget-length-contraction` | `initWidgetLengthContraction` | Oblique slicing: 3D loaf cutting Bob's tilted ribbon & 2D retina measurement         |
-| **05** | `widget-dual-frame`         | `initWidgetDualFrame`         | Mutual relativity: switching between Alice's frame and Bob's frame                   |
-| **06** | `widget-muon-contraction`   | `initWidgetMuonContraction`   | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction)       |
+| **03** | `widget-beacons-bob`        | `initWidgetBeaconsBob`        | Bob's rest frame: simultaneous light beacon arrival inside the coach ($\Delta t = 0$) |
+| **04** | `widget-beacons-alice`      | `initWidgetBeaconsAlice`      | Alice's platform frame: moving coach causes desynchronized beacon hits ($\Delta t > 0$) |
+| **05** | `widget-simultaneity-slice` | `initWidgetSimultaneitySlice` | The angle of "Now": tilting the simultaneity hyperplane obliquely ($\tan\phi = v/c$) |
+| **06** | `widget-length-contraction` | `initWidgetLengthContraction` | Geometric projection: Bob's tilted 10m coach projecting onto Alice's horizontal present via cos(θ) & real-world tracks |
+| **07** | `widget-dual-frame`         | `initWidgetDualFrame`         | Mutual relativity: switching between Alice's frame and Bob's frame                   |
+| **08** | `widget-muon-contraction`   | `initWidgetMuonContraction`   | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction)       |
 
 ---
 
