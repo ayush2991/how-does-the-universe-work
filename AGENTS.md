@@ -162,6 +162,10 @@ To ensure compact, space-efficient rendering without awkward layout shifts or ex
 5. **Canvas Label Bounds Checking**:
    - In 2D/3D canvas renderers, clamp label pill horizontal positions (e.g., `Math.min(width - 55, ...)`) to ensure label pills never clip outside canvas borders on narrow screens (`width < 420px`).
    - For vertical tracks (like the atmospheric Muon widget), adapt `padLeft` and `padRight` responsively when `width < 420px`.
+6. **Multi-Panel & 2×2 Comparative Grids**:
+   - **Desktop / Tablet (> 720px)**: Render as a 2×2 matrix (`grid-template-columns: 1fr 1fr; gap: 0.875rem;`). This allows compact spatial scanning without vertical bloat.
+   - **Mobile (<= 720px)**: **Always collapse into a single-column stack** (`grid-template-columns: 1fr;`). Unlike twin numeric clocks (which must stay side-by-side), multi-panel canvas diagrams require adequate horizontal width (~320px–380px) to render axes, tick marks, and projection rays legibly.
+   - Use standardized classes (`.multi-panel-grid`, `.synthesis-grid`, `.expanding-circles-grid`) rather than hardcoded inline styles so responsive stacking is strictly maintained.
 
 ---
 
