@@ -539,19 +539,165 @@
         Because these muons travel downward at about <span class="math-badge" style="display:inline; padding:2px 6px;">99.9% of the speed of light</span> (<span class="math-badge" style="display:inline; padding:2px 6px;">0.999c</span>), they divert almost all of their spacetime motion into space. From our vantage point on Earth, their internal clocks tick about 22 times slower than normal. That fleeting 2.2 microseconds stretches out into nearly 50 microseconds—giving them plenty of time to complete their journey to the ground.
       </p>
 
-      <!-- SECTION 7: LOOKING AHEAD -->
-      <h2>Looking Ahead: Questions for Part 2</h2>
+      <!-- SECTION 7: GENERALIZING TO 3D SPACETIME -->
+      <h2>7. Expanding Our View: Spacetime with Two Dimensions of Space (x₁, x₂) and Time (t)</h2>
       <p>
-        By taking a geometric approach, we have established a foundational mental model:
+        Up to this point, our spacetime diagrams simplified space down to a single horizontal line (<span class="math-badge" style="display:inline; padding:2px 6px;">x</span>). This was deliberate: it allowed us to clearly see the fundamental trade-off between moving through space and moving through time on a flat page.
+      </p>
+      <p>
+        In reality, of course, space is not a 1D track. We can walk East, run North, or travel diagonally in any direction we please. How does nature calculate time dilation when you move simultaneously in multiple spatial directions?
+      </p>
+
+      <h3>Steering in Multiple Directions: The Pythagorean Extension</h3>
+      <p>
+        Notice how naturally this connects back to our very first thought experiment in Section 1. There, we had two cars traveling on a two-dimensional spatial field: <span class="math-badge" style="display:inline; padding:2px 6px;">x₁ (East)</span> and <span class="math-badge" style="display:inline; padding:2px 6px;">x₂ (North)</span>.
+      </p>
+      <p>
+        Whenever you travel diagonally on this ground plane, the Pythagorean theorem tells us your total speed across space is simply:
+      </p>
+      <div class="formula-card">
+        <div>v_space = √( v_x1² + v_x2² )</div>
+        <div class="formula-note">Your total spatial speed is the hypotenuse of your motion East and your motion North.</div>
+      </div>
+      <p>
+        Now, we plug this spatial hypotenuse directly into nature's cosmic speed equation. The total speed constraint through spacetime becomes:
+      </p>
+      <div class="formula-card">
+        <div>( v_x1² + v_x2² ) + v_time² = c²  ⟹  v_time = √( c² - v_x1² - v_x2² )</div>
+        <div class="formula-note">Motion across East (x₁) and North (x₂) both draw from the exact same finite reservoir of speed through time (t).</div>
+      </div>
+
+      <h3>The 3D Geometry: From a Flat Arc to a Spherical Dome</h3>
+      <p>
+        In our earlier 2D diagrams, the cosmic speed limit formed a circular arc. When we add a second spatial dimension, that circular arc sweeps out a full 360 degrees around the vertical Time axis. 
+      </p>
+      <p>
+        The result is a magnificent <strong>3D spherical dome (hemisphere)</strong> of radius <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, sitting right on top of the <span class="math-badge" style="display:inline; padding:2px 6px;">(x₁, x₂)</span> ground plane:
+      </p>
+
+      <!-- INTERACTIVE WIDGET 7: 3D SPACETIME & LOAF PREVIEW -->
+      <div id="widget-3d-spacetime" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 07</span>
+            <div class="artifact-title">3D Spacetime: Two Dimensions of Space (x₁, x₂) and Time (t)</div>
+            <div class="artifact-desc">Drag the canvas to orbit the 3D perspective, adjust spatial speed & heading, and toggle the Spacetime Loaf slice.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Speed Across Space Floor (v_space)</span>
+              <span class="clock-badge">√(x₁² + x₂²)</span>
+            </div>
+            <div class="clock-time readout-vspace" style="color:var(--color-space);">0.800 <span>c</span></div>
+            <p class="clock-subtext">East: <span class="readout-vx1" style="color:var(--text-primary); font-family:var(--font-mono);">0.655 c</span> | North: <span class="readout-vx2" style="color:var(--text-primary); font-family:var(--font-mono);">0.459 c</span></p>
+          </div>
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Speed Through Time (v_time)</span>
+              <span class="clock-badge">√(c² - v_space²)</span>
+            </div>
+            <div class="clock-time readout-vtime" style="color:var(--color-time);">0.600 <span>c</span></div>
+            <p class="clock-subtext">Lorentz Factor: γ = <span class="readout-gamma" style="color:var(--text-primary); font-family:var(--font-mono);">1.67</span> (Time ticks at 60%)</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Total Speed Across Space (v_space)</span>
+              <span class="control-val amber">Magnitude</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="990" value="800">
+            <div class="preset-chips">
+              <button class="chip-btn chip-speed" data-speed="0">At Rest (v = 0)</button>
+              <button class="chip-btn chip-speed" data-speed="0.500">v = 0.500 c</button>
+              <button class="chip-btn chip-speed active" data-speed="0.800">v = 0.800 c</button>
+              <button class="chip-btn chip-speed" data-speed="0.866">v = 0.866 c (Half Time)</button>
+              <button class="chip-btn chip-speed" data-speed="0.990">v = 0.990 c</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Spatial Heading on Floor (Direction in x₁-x₂ Plane)</span>
+              <span class="control-val cyan">Angle Across Space</span>
+            </div>
+            <input type="range" class="range-slider slider-heading" min="0" max="360" value="35">
+            <div class="preset-chips">
+              <button class="chip-btn chip-heading" data-heading="0">Purely East (0°)</button>
+              <button class="chip-btn chip-heading active" data-heading="35">Northeast (35°)</button>
+              <button class="chip-btn chip-heading" data-heading="90">Purely North (90°)</button>
+              <button class="chip-btn chip-heading" data-heading="180">Purely West (180°)</button>
+              <button class="chip-btn chip-heading" data-heading="270">Purely South (270°)</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Camera Orbit Rotation (or Click & Drag Directly on Canvas)</span>
+              <span class="control-val" style="color:var(--text-muted);">3D Perspective</span>
+            </div>
+            <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-37">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-secondary btn-loaf-slice">
+              <span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>
+            </button>
+            <div class="math-badge">
+              Interactive 3D Axonometric Projection · Drag to Orbit
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Notice what happens as you play with the simulation above:
+      </p>
+      <p>
+        • When an object is at rest (<span class="math-badge" style="display:inline; padding:2px 6px;">v_space = 0</span>), its vector points straight up at the pole of the dome with vertical length <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>.<br>
+        • When it accelerates across space, its ground shadow extends outwards. Because the vector is anchored to the surface of the sphere of radius <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, tilting toward <em>any</em> point on the ground inevitably lowers its vertical height.<br>
+        • Whether you head East, North, or any combination, all directions in space trade off against time equally.
+      </p>
+
+      <h3>Planting the Seed for Part 2: The Spacetime Loaf</h3>
+      <p>
+        Why take this step into three dimensions?
+      </p>
+      <p>
+        Our real universe has three dimensions of space (<span class="math-badge" style="display:inline; padding:2px 6px;">x, y, z</span>) plus one dimension of time (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>), making spacetime four-dimensional. But human perception is inherently three-dimensional—we cannot visualize four mutually perpendicular axes simultaneously.
+      </p>
+      <p>
+        By retaining two spatial dimensions (<span class="math-badge" style="display:inline; padding:2px 6px;">x₁, x₂</span>) and one time dimension (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>), we preserve the complete geometric behavior of relativity in a form that our eyes can directly explore.
+      </p>
+      <p>
+        Imagine stacking every instant of time—past, present, and future—vertically along the time axis. Spacetime forms an extended three-dimensional block: what physicist Brian Greene famously described as the <strong>Spacetime Loaf</strong>.
+      </p>
+      <p>
+        For an observer at rest, a single instant in time—the collection of all events that are happening <em>right now</em>—is simply a <strong>horizontal planar slice</strong> through this loaf (shown in cyan in the interactive 3D simulation above).
+      </p>
+      <p>
+        This reveals the captivating question that will guide our next essay:
+      </p>
+      <p>
+        <em>If moving through space tilts your velocity vector through time, what happens to your slice of "Now"? Does a moving observer cut the spacetime loaf at the exact same horizontal angle as someone at rest, or does their slice of the universe tilt?</em>
+      </p>
+
+      <!-- SECTION 8: LOOKING AHEAD -->
+      <h2>8. Looking Ahead: Questions for Part 2</h2>
+      <p>
+        By starting from ground-level geometry, we have built an intuitive, visual understanding:
       </p>
       <p>
         1. Objects have a fixed total capacity for motion through spacetime, bounded by <em>c</em>.<br>
-        2. An object at rest moves primarily through time.<br>
-        3. Moving through space diverts motion away from time, causing clocks to slow down (time dilation).<br>
-        4. Directing all motion into space leaves zero motion for time, which is why <em>c</em> is the natural speed limit and why photons experience no elapsed time.
+        2. Sitting at rest in space directs 100% of this motion along the vertical time axis.<br>
+        3. Diverting motion into any spatial direction (<span class="math-badge" style="display:inline; padding:2px 6px;">x₁, x₂</span>) naturally shrinks the time component, causing clocks to tick slower (time dilation).<br>
+        4. When an object directs 100% of its motion into space (<span class="math-badge" style="display:inline; padding:2px 6px;">v = c</span>), its vertical progress through time reaches zero—which is why photons experience no elapsed time.<br>
+        5. Spacetime can be visualized as an extended block (a "loaf"), where a moment of time is a slice through that volume.
       </p>
       <p>
-        This raises a subtle and fascinating question:
+        This leads directly into the famous paradoxes of Einstein's theory:
       </p>
       <p>
         <strong>If all motion is relative, what happens when two spacecraft drift past each other in deep space?</strong>
@@ -563,7 +709,7 @@
         Can both observers be correct? If they turn around and meet again, who is actually younger?
       </p>
       <p>
-        In <strong>Part 2</strong>, we will explore this puzzle, diving into the famous <strong>Twin Paradox</strong>, the <strong>Relativity of Simultaneity</strong>, and Brian Greene's visual concept of the <strong>Spacetime Loaf</strong>.
+        In <strong>Part 2</strong>, we will slice open the <strong>Spacetime Loaf</strong> to resolve the <strong>Twin Paradox</strong>, discover the <strong>Relativity of Simultaneity</strong>, and see why moving rulers must physically contract along their direction of motion.
       </p>
     </article>
 

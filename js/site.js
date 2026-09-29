@@ -945,6 +945,423 @@
     window.addEventListener('resize', draw);
   }
 
+  // Widget 7: 3D Spacetime Vector & Spacetime Loaf Foundation (x1, x2, t)
+  function initWidget3DSpacetime(containerId) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var canvas = container.querySelector('canvas');
+    var sliderSpeed = container.querySelector('.slider-speed');
+    var sliderHeading = container.querySelector('.slider-heading');
+    var sliderOrbit = container.querySelector('.slider-orbit');
+    var btnLoaf = container.querySelector('.btn-loaf-slice');
+    var readoutVx1 = container.querySelector('.readout-vx1');
+    var readoutVx2 = container.querySelector('.readout-vx2');
+    var readoutVspace = container.querySelector('.readout-vspace');
+    var readoutVtime = container.querySelector('.readout-vtime');
+    var readoutGamma = container.querySelector('.readout-gamma');
+    var speedPresetChips = container.querySelectorAll('.chip-speed');
+    var headingPresetChips = container.querySelectorAll('.chip-heading');
+
+    var vSpaceFraction = 0.80; // 0.80 c
+    var headingDeg = 35;       // 35 degrees East of North
+    var azimuth = -0.65;       // Camera azimuth radians (-37 deg)
+    var elevation = 0.45;      // Camera elevation radians (26 deg)
+    var showLoafSlice = true;  // Loaf slice visible by default
+
+    // Mouse drag orbit controls on canvas
+    var isDragging = false;
+    var lastMouseX = 0;
+    var lastMouseY = 0;
+
+    canvas.style.cursor = 'grab';
+
+    canvas.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      canvas.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      var dx = e.clientX - lastMouseX;
+      var dy = e.clientY - lastMouseY;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+
+      azimuth += dx * 0.01;
+      elevation += dy * 0.01;
+      elevation = Math.max(0.1, Math.min(1.4, elevation));
+
+      if (sliderOrbit) {
+        var deg = Math.round((azimuth * 180 / Math.PI) % 360);
+        if (deg > 180) deg -= 360;
+        if (deg < -180) deg += 360;
+        sliderOrbit.value = deg;
+      }
+      draw();
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (isDragging) {
+        isDragging = false;
+        canvas.style.cursor = 'grab';
+      }
+    });
+
+    canvas.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', function (e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - lastMouseX;
+      var dy = e.touches[0].clientY - lastMouseY;
+      lastMouseX = e.touches[0].clientX;
+      lastMouseY = e.touches[0].clientY;
+
+      azimuth += dx * 0.01;
+      elevation += dy * 0.01;
+      elevation = Math.max(0.1, Math.min(1.4, elevation));
+      draw();
+    }, { passive: true });
+
+    window.addEventListener('touchend', function () {
+      isDragging = false;
+    });
+
+    function update() {
+      var rad = headingDeg * Math.PI / 180;
+      var vx1 = vSpaceFraction * Math.cos(rad);
+      var vx2 = vSpaceFraction * Math.sin(rad);
+      var vt = Math.sqrt(Math.max(0, 1 - vSpaceFraction * vSpaceFraction));
+      var gamma = vSpaceFraction >= 0.999 ? 22.36 : 1 / Math.sqrt(Math.max(0.001, 1 - vSpaceFraction * vSpaceFraction));
+
+      if (readoutVx1) readoutVx1.innerText = vx1.toFixed(3) + ' c';
+      if (readoutVx2) readoutVx2.innerText = vx2.toFixed(3) + ' c';
+      if (readoutVspace) readoutVspace.innerText = vSpaceFraction.toFixed(3) + ' c';
+      if (readoutVtime) readoutVtime.innerText = vt.toFixed(3) + ' c';
+      if (readoutGamma) readoutGamma.innerText = gamma.toFixed(2);
+
+      draw();
+    }
+
+    function project(x, y, z, cx, cy, scale) {
+      var cosAz = Math.cos(azimuth);
+      var sinAz = Math.sin(azimuth);
+      var xRot = x * cosAz - y * sinAz;
+      var yRot = x * sinAz + y * cosAz;
+
+      var cosEl = Math.cos(elevation);
+      var sinEl = Math.sin(elevation);
+      var yFinal = yRot * cosEl - z * sinEl;
+      var zFinal = yRot * sinEl + z * cosEl;
+
+      return {
+        x: cx + xRot * scale,
+        y: cy - zFinal * scale,
+        depth: yFinal
+      };
+    }
+
+    function draw() {
+      var c = getThemeColors();
+      var ret = setupRetinaCanvas(canvas);
+      var ctx = ret.ctx, width = ret.width, height = ret.height;
+      ctx.clearRect(0, 0, width, height);
+
+      var cx = width * 0.50;
+      var cy = height * 0.70;
+      var scale = Math.min(width * 0.28, height * 0.42);
+
+      function p3(x, y, z) {
+        return project(x, y, z, cx, cy, scale);
+      }
+
+      // 1. Ground Plane Grid (x1, x2)
+      ctx.strokeStyle = c.gridLine;
+      ctx.lineWidth = 1;
+      var gMin = -1.2, gMax = 1.2, gStep = 0.4;
+      for (var gx = gMin; gx <= gMax + 0.01; gx += gStep) {
+        var pStart = p3(gx, gMin, 0);
+        var pEnd = p3(gx, gMax, 0);
+        ctx.beginPath();
+        ctx.moveTo(pStart.x, pStart.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+      }
+      for (var gy = gMin; gy <= gMax + 0.01; gy += gStep) {
+        var pS = p3(gMin, gy, 0);
+        var pE = p3(gMax, gy, 0);
+        ctx.beginPath();
+        ctx.moveTo(pS.x, pS.y);
+        ctx.lineTo(pE.x, pE.y);
+        ctx.stroke();
+      }
+
+      // Ground Speed Ceiling Circle (v_space = c)
+      ctx.strokeStyle = c.constraintArc;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      var segs = 48;
+      for (var si = 0; si <= segs; si++) {
+        var a = (si / segs) * Math.PI * 2;
+        var pRing = p3(Math.cos(a), Math.sin(a), 0);
+        if (si === 0) ctx.moveTo(pRing.x, pRing.y);
+        else ctx.lineTo(pRing.x, pRing.y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 2. 3D Spherical Constraint Dome Wireframe (radius c)
+      var latLevels = [0.35, 0.70, 0.92];
+      ctx.strokeStyle = c.isLight ? 'rgba(124, 58, 237, 0.25)' : 'rgba(168, 85, 247, 0.25)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      for (var li = 0; li < latLevels.length; li++) {
+        var zLev = latLevels[li];
+        var rLev = Math.sqrt(Math.max(0, 1 - zLev * zLev));
+        ctx.beginPath();
+        for (var s = 0; s <= 36; s++) {
+          var ang = (s / 36) * Math.PI * 2;
+          var ptLat = p3(rLev * Math.cos(ang), rLev * Math.sin(ang), zLev);
+          if (s === 0) ctx.moveTo(ptLat.x, ptLat.y);
+          else ctx.lineTo(ptLat.x, ptLat.y);
+        }
+        ctx.stroke();
+      }
+
+      var lonAngles = [0, Math.PI / 4, Math.PI / 2, 3 * Math.PI / 4, Math.PI, 5 * Math.PI / 4, 3 * Math.PI / 2, 7 * Math.PI / 4];
+      for (var mi = 0; mi < lonAngles.length; mi++) {
+        var mAng = lonAngles[mi];
+        ctx.beginPath();
+        for (var step = 0; step <= 20; step++) {
+          var phi = (step / 20) * (Math.PI / 2);
+          var mR = Math.cos(phi);
+          var mZ = Math.sin(phi);
+          var ptLon = p3(mR * Math.cos(mAng), mR * Math.sin(mAng), mZ);
+          if (step === 0) ctx.moveTo(ptLon.x, ptLon.y);
+          else ctx.lineTo(ptLon.x, ptLon.y);
+        }
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+
+      // 3. Ground Coordinate Axes
+      var pOrigin = p3(0, 0, 0);
+      var pX1 = p3(1.35, 0, 0);
+      var pX2 = p3(0, 1.35, 0);
+      var pZ = p3(0, 0, 1.40);
+
+      // East Axis
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pX1.x, pX1.y);
+      ctx.stroke();
+
+      // North Axis
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pX2.x, pX2.y);
+      ctx.stroke();
+
+      // Time Axis (Vertical)
+      ctx.strokeStyle = c.timeColor;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pZ.x, pZ.y);
+      ctx.stroke();
+
+      // Axis Labels
+      ctx.font = '600 11px monospace';
+      ctx.fillStyle = c.axisLabel;
+      ctx.fillText('East (x₁)', pX1.x + 8, pX1.y + 4);
+      ctx.fillText('North (x₂)', pX2.x - 12, pX2.y + 16);
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('Time (ct)', pZ.x - 28, pZ.y - 10);
+
+      // Velocity Components
+      var rad = headingDeg * Math.PI / 180;
+      var vx1 = vSpaceFraction * Math.cos(rad);
+      var vx2 = vSpaceFraction * Math.sin(rad);
+      var vt = Math.sqrt(Math.max(0, 1 - vSpaceFraction * vSpaceFraction));
+
+      var pGroundTip = p3(vx1, vx2, 0);
+      var pVectorTip = p3(vx1, vx2, vt);
+      var pTimeAxisPt = p3(0, 0, vt);
+      var pX1Pt = p3(vx1, 0, 0);
+      var pX2Pt = p3(0, vx2, 0);
+
+      // 4. Now-Slice Plane (Spacetime Loaf Slice)
+      if (showLoafSlice && vt > 0.02) {
+        var sliceSize = 1.15;
+        var pCorn1 = p3(-sliceSize, -sliceSize, vt);
+        var pCorn2 = p3(sliceSize, -sliceSize, vt);
+        var pCorn3 = p3(sliceSize, sliceSize, vt);
+        var pCorn4 = p3(-sliceSize, sliceSize, vt);
+
+        ctx.fillStyle = c.isLight ? 'rgba(2, 132, 199, 0.08)' : 'rgba(56, 189, 248, 0.12)';
+        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.4)' : 'rgba(56, 189, 248, 0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+
+        ctx.beginPath();
+        ctx.moveTo(pCorn1.x, pCorn1.y);
+        ctx.lineTo(pCorn2.x, pCorn2.y);
+        ctx.lineTo(pCorn3.x, pCorn3.y);
+        ctx.lineTo(pCorn4.x, pCorn4.y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.font = '600 10px monospace';
+        ctx.fillStyle = c.timeColor;
+        ctx.fillText('Spacetime Loaf Slice ("Now" Plane at t = ' + vt.toFixed(2) + ' c)', pCorn2.x - 30, pCorn2.y - 8);
+      }
+
+      // 5. Ground Velocity Components (Shadow on Space Floor)
+      if (vSpaceFraction > 0.05) {
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(pGroundTip.x, pGroundTip.y);
+        ctx.lineTo(pX1Pt.x, pX1Pt.y);
+        ctx.moveTo(pGroundTip.x, pGroundTip.y);
+        ctx.lineTo(pX2Pt.x, pX2Pt.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(pOrigin.x, pOrigin.y);
+        ctx.lineTo(pGroundTip.x, pGroundTip.y);
+        ctx.stroke();
+
+        drawGlowingDot(ctx, pGroundTip.x, pGroundTip.y, c.spaceColor, 5);
+
+        ctx.font = 'bold 10px monospace';
+        ctx.fillStyle = c.spaceColor;
+        ctx.fillText('v_space = ' + vSpaceFraction.toFixed(2) + 'c', (pOrigin.x + pGroundTip.x) / 2 + 8, (pOrigin.y + pGroundTip.y) / 2 + 12);
+      }
+
+      // Vertical projection from tip down to floor
+      if (vSpaceFraction > 0.05 && vt > 0.05) {
+        ctx.strokeStyle = c.isLight ? 'rgba(234, 88, 12, 0.6)' : 'rgba(251, 146, 60, 0.6)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(pVectorTip.x, pVectorTip.y);
+        ctx.lineTo(pGroundTip.x, pGroundTip.y);
+        ctx.stroke();
+
+        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.6)' : 'rgba(56, 189, 248, 0.6)';
+        ctx.beginPath();
+        ctx.moveTo(pVectorTip.x, pVectorTip.y);
+        ctx.lineTo(pTimeAxisPt.x, pTimeAxisPt.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Vertical time vector on time axis
+      ctx.strokeStyle = c.timeColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pTimeAxisPt.x, pTimeAxisPt.y);
+      ctx.stroke();
+      drawGlowingDot(ctx, pTimeAxisPt.x, pTimeAxisPt.y, c.timeColor, 5);
+
+      // 6. The 3D Spacetime Vector
+      ctx.strokeStyle = c.invariantColor;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pVectorTip.x, pVectorTip.y);
+      ctx.stroke();
+
+      drawGlowingDot(ctx, pVectorTip.x, pVectorTip.y, c.invariantColor, 7);
+
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillStyle = c.invariantColor;
+      ctx.fillText('Spacetime Velocity (|V| = c)', pVectorTip.x + 12, pVectorTip.y - 8);
+
+      ctx.font = '600 10px monospace';
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('v_time = ' + vt.toFixed(3) + 'c', pVectorTip.x + 12, pVectorTip.y + 6);
+    }
+
+    if (sliderSpeed) {
+      sliderSpeed.addEventListener('input', function (e) {
+        vSpaceFraction = e.target.value / 1000;
+        speedPresetChips.forEach(function (ch) { ch.classList.remove('active'); });
+        update();
+      });
+    }
+
+    if (sliderHeading) {
+      sliderHeading.addEventListener('input', function (e) {
+        headingDeg = parseFloat(e.target.value);
+        headingPresetChips.forEach(function (ch) { ch.classList.remove('active'); });
+        update();
+      });
+    }
+
+    if (sliderOrbit) {
+      sliderOrbit.addEventListener('input', function (e) {
+        var deg = parseFloat(e.target.value);
+        azimuth = deg * Math.PI / 180;
+        draw();
+      });
+    }
+
+    if (btnLoaf) {
+      btnLoaf.addEventListener('click', function () {
+        showLoafSlice = !showLoafSlice;
+        btnLoaf.innerHTML = showLoafSlice
+          ? '<span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>'
+          : '<span>Loaf Slice: </span><strong style="color:var(--text-muted)">Hidden (OFF)</strong>';
+        draw();
+      });
+    }
+
+    speedPresetChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        speedPresetChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        vSpaceFraction = parseFloat(chip.getAttribute('data-speed'));
+        if (sliderSpeed) sliderSpeed.value = vSpaceFraction * 1000;
+        update();
+      });
+    });
+
+    headingPresetChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        headingPresetChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        headingDeg = parseFloat(chip.getAttribute('data-heading'));
+        if (sliderHeading) sliderHeading.value = headingDeg;
+        update();
+      });
+    });
+
+    update();
+    registerDraw(draw);
+    draw();
+    window.addEventListener('resize', draw);
+  }
+
   function initAllPost01() {
     initThemeManager();
     initWidgetCars('widget-cars');
@@ -953,6 +1370,7 @@
     initWidgetTimeDilation('widget-time-dilation');
     initWidgetSpeedLimit('widget-speed-limit');
     initWidgetMuon('widget-muon');
+    initWidget3DSpacetime('widget-3d-spacetime');
   }
 
   // Export to global scope
@@ -971,6 +1389,7 @@
     initWidgetTimeDilation: initWidgetTimeDilation,
     initWidgetSpeedLimit: initWidgetSpeedLimit,
     initWidgetMuon: initWidgetMuon,
+    initWidget3DSpacetime: initWidget3DSpacetime,
     initAllPost01: initAllPost01
   };
 

@@ -1353,19 +1353,165 @@ body {
         Because these muons travel downward at about <span class="math-badge" style="display:inline; padding:2px 6px;">99.9% of the speed of light</span> (<span class="math-badge" style="display:inline; padding:2px 6px;">0.999c</span>), they divert almost all of their spacetime motion into space. From our vantage point on Earth, their internal clocks tick about 22 times slower than normal. That fleeting 2.2 microseconds stretches out into nearly 50 microseconds—giving them plenty of time to complete their journey to the ground.
       </p>
 
-      <!-- SECTION 7: LOOKING AHEAD -->
-      <h2>Looking Ahead: Questions for Part 2</h2>
+      <!-- SECTION 7: GENERALIZING TO 3D SPACETIME -->
+      <h2>7. Expanding Our View: Spacetime with Two Dimensions of Space (x₁, x₂) and Time (t)</h2>
       <p>
-        By taking a geometric approach, we have established a foundational mental model:
+        Up to this point, our spacetime diagrams simplified space down to a single horizontal line (<span class="math-badge" style="display:inline; padding:2px 6px;">x</span>). This was deliberate: it allowed us to clearly see the fundamental trade-off between moving through space and moving through time on a flat page.
+      </p>
+      <p>
+        In reality, of course, space is not a 1D track. We can walk East, run North, or travel diagonally in any direction we please. How does nature calculate time dilation when you move simultaneously in multiple spatial directions?
+      </p>
+
+      <h3>Steering in Multiple Directions: The Pythagorean Extension</h3>
+      <p>
+        Notice how naturally this connects back to our very first thought experiment in Section 1. There, we had two cars traveling on a two-dimensional spatial field: <span class="math-badge" style="display:inline; padding:2px 6px;">x₁ (East)</span> and <span class="math-badge" style="display:inline; padding:2px 6px;">x₂ (North)</span>.
+      </p>
+      <p>
+        Whenever you travel diagonally on this ground plane, the Pythagorean theorem tells us your total speed across space is simply:
+      </p>
+      <div class="formula-card">
+        <div>v_space = √( v_x1² + v_x2² )</div>
+        <div class="formula-note">Your total spatial speed is the hypotenuse of your motion East and your motion North.</div>
+      </div>
+      <p>
+        Now, we plug this spatial hypotenuse directly into nature's cosmic speed equation. The total speed constraint through spacetime becomes:
+      </p>
+      <div class="formula-card">
+        <div>( v_x1² + v_x2² ) + v_time² = c²  ⟹  v_time = √( c² - v_x1² - v_x2² )</div>
+        <div class="formula-note">Motion across East (x₁) and North (x₂) both draw from the exact same finite reservoir of speed through time (t).</div>
+      </div>
+
+      <h3>The 3D Geometry: From a Flat Arc to a Spherical Dome</h3>
+      <p>
+        In our earlier 2D diagrams, the cosmic speed limit formed a circular arc. When we add a second spatial dimension, that circular arc sweeps out a full 360 degrees around the vertical Time axis. 
+      </p>
+      <p>
+        The result is a magnificent <strong>3D spherical dome (hemisphere)</strong> of radius <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, sitting right on top of the <span class="math-badge" style="display:inline; padding:2px 6px;">(x₁, x₂)</span> ground plane:
+      </p>
+
+      <!-- INTERACTIVE WIDGET 7: 3D SPACETIME & LOAF PREVIEW -->
+      <div id="widget-3d-spacetime" class="interactive-artifact">
+        <div class="artifact-header">
+          <div>
+            <span class="artifact-badge">Interactive Simulation 07</span>
+            <div class="artifact-title">3D Spacetime: Two Dimensions of Space (x₁, x₂) and Time (t)</div>
+            <div class="artifact-desc">Drag the canvas to orbit the 3D perspective, adjust spatial speed & heading, and toggle the Spacetime Loaf slice.</div>
+          </div>
+        </div>
+        <div class="canvas-viewport">
+          <canvas></canvas>
+        </div>
+        <div class="twin-clocks-panel">
+          <div class="clock-card amber">
+            <div class="clock-meta">
+              <span class="clock-label">Speed Across Space Floor (v_space)</span>
+              <span class="clock-badge">√(x₁² + x₂²)</span>
+            </div>
+            <div class="clock-time readout-vspace" style="color:var(--color-space);">0.800 <span>c</span></div>
+            <p class="clock-subtext">East: <span class="readout-vx1" style="color:var(--text-primary); font-family:var(--font-mono);">0.655 c</span> | North: <span class="readout-vx2" style="color:var(--text-primary); font-family:var(--font-mono);">0.459 c</span></p>
+          </div>
+          <div class="clock-card cyan">
+            <div class="clock-meta">
+              <span class="clock-label">Speed Through Time (v_time)</span>
+              <span class="clock-badge">√(c² - v_space²)</span>
+            </div>
+            <div class="clock-time readout-vtime" style="color:var(--color-time);">0.600 <span>c</span></div>
+            <p class="clock-subtext">Lorentz Factor: γ = <span class="readout-gamma" style="color:var(--text-primary); font-family:var(--font-mono);">1.67</span> (Time ticks at 60%)</p>
+          </div>
+        </div>
+        <div class="artifact-controls">
+          <div class="control-item">
+            <div class="control-header">
+              <span>Total Speed Across Space (v_space)</span>
+              <span class="control-val amber">Magnitude</span>
+            </div>
+            <input type="range" class="range-slider amber slider-speed" min="0" max="990" value="800">
+            <div class="preset-chips">
+              <button class="chip-btn chip-speed" data-speed="0">At Rest (v = 0)</button>
+              <button class="chip-btn chip-speed" data-speed="0.500">v = 0.500 c</button>
+              <button class="chip-btn chip-speed active" data-speed="0.800">v = 0.800 c</button>
+              <button class="chip-btn chip-speed" data-speed="0.866">v = 0.866 c (Half Time)</button>
+              <button class="chip-btn chip-speed" data-speed="0.990">v = 0.990 c</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Spatial Heading on Floor (Direction in x₁-x₂ Plane)</span>
+              <span class="control-val cyan">Angle Across Space</span>
+            </div>
+            <input type="range" class="range-slider slider-heading" min="0" max="360" value="35">
+            <div class="preset-chips">
+              <button class="chip-btn chip-heading" data-heading="0">Purely East (0°)</button>
+              <button class="chip-btn chip-heading active" data-heading="35">Northeast (35°)</button>
+              <button class="chip-btn chip-heading" data-heading="90">Purely North (90°)</button>
+              <button class="chip-btn chip-heading" data-heading="180">Purely West (180°)</button>
+              <button class="chip-btn chip-heading" data-heading="270">Purely South (270°)</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <div class="control-header">
+              <span>Camera Orbit Rotation (or Click & Drag Directly on Canvas)</span>
+              <span class="control-val" style="color:var(--text-muted);">3D Perspective</span>
+            </div>
+            <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-37">
+          </div>
+          <div class="toolbar-bottom">
+            <button class="btn-secondary btn-loaf-slice">
+              <span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>
+            </button>
+            <div class="math-badge">
+              Interactive 3D Axonometric Projection · Drag to Orbit
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Notice what happens as you play with the simulation above:
+      </p>
+      <p>
+        • When an object is at rest (<span class="math-badge" style="display:inline; padding:2px 6px;">v_space = 0</span>), its vector points straight up at the pole of the dome with vertical length <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>.<br>
+        • When it accelerates across space, its ground shadow extends outwards. Because the vector is anchored to the surface of the sphere of radius <span class="math-badge" style="display:inline; padding:2px 6px;">c</span>, tilting toward <em>any</em> point on the ground inevitably lowers its vertical height.<br>
+        • Whether you head East, North, or any combination, all directions in space trade off against time equally.
+      </p>
+
+      <h3>Planting the Seed for Part 2: The Spacetime Loaf</h3>
+      <p>
+        Why take this step into three dimensions?
+      </p>
+      <p>
+        Our real universe has three dimensions of space (<span class="math-badge" style="display:inline; padding:2px 6px;">x, y, z</span>) plus one dimension of time (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>), making spacetime four-dimensional. But human perception is inherently three-dimensional—we cannot visualize four mutually perpendicular axes simultaneously.
+      </p>
+      <p>
+        By retaining two spatial dimensions (<span class="math-badge" style="display:inline; padding:2px 6px;">x₁, x₂</span>) and one time dimension (<span class="math-badge" style="display:inline; padding:2px 6px;">t</span>), we preserve the complete geometric behavior of relativity in a form that our eyes can directly explore.
+      </p>
+      <p>
+        Imagine stacking every instant of time—past, present, and future—vertically along the time axis. Spacetime forms an extended three-dimensional block: what physicist Brian Greene famously described as the <strong>Spacetime Loaf</strong>.
+      </p>
+      <p>
+        For an observer at rest, a single instant in time—the collection of all events that are happening <em>right now</em>—is simply a <strong>horizontal planar slice</strong> through this loaf (shown in cyan in the interactive 3D simulation above).
+      </p>
+      <p>
+        This reveals the captivating question that will guide our next essay:
+      </p>
+      <p>
+        <em>If moving through space tilts your velocity vector through time, what happens to your slice of "Now"? Does a moving observer cut the spacetime loaf at the exact same horizontal angle as someone at rest, or does their slice of the universe tilt?</em>
+      </p>
+
+      <!-- SECTION 8: LOOKING AHEAD -->
+      <h2>8. Looking Ahead: Questions for Part 2</h2>
+      <p>
+        By starting from ground-level geometry, we have built an intuitive, visual understanding:
       </p>
       <p>
         1. Objects have a fixed total capacity for motion through spacetime, bounded by <em>c</em>.<br>
-        2. An object at rest moves primarily through time.<br>
-        3. Moving through space diverts motion away from time, causing clocks to slow down (time dilation).<br>
-        4. Directing all motion into space leaves zero motion for time, which is why <em>c</em> is the natural speed limit and why photons experience no elapsed time.
+        2. Sitting at rest in space directs 100% of this motion along the vertical time axis.<br>
+        3. Diverting motion into any spatial direction (<span class="math-badge" style="display:inline; padding:2px 6px;">x₁, x₂</span>) naturally shrinks the time component, causing clocks to tick slower (time dilation).<br>
+        4. When an object directs 100% of its motion into space (<span class="math-badge" style="display:inline; padding:2px 6px;">v = c</span>), its vertical progress through time reaches zero—which is why photons experience no elapsed time.<br>
+        5. Spacetime can be visualized as an extended block (a "loaf"), where a moment of time is a slice through that volume.
       </p>
       <p>
-        This raises a subtle and fascinating question:
+        This leads directly into the famous paradoxes of Einstein's theory:
       </p>
       <p>
         <strong>If all motion is relative, what happens when two spacecraft drift past each other in deep space?</strong>
@@ -1377,7 +1523,7 @@ body {
         Can both observers be correct? If they turn around and meet again, who is actually younger?
       </p>
       <p>
-        In <strong>Part 2</strong>, we will explore this puzzle, diving into the famous <strong>Twin Paradox</strong>, the <strong>Relativity of Simultaneity</strong>, and Brian Greene's visual concept of the <strong>Spacetime Loaf</strong>.
+        In <strong>Part 2</strong>, we will slice open the <strong>Spacetime Loaf</strong> to resolve the <strong>Twin Paradox</strong>, discover the <strong>Relativity of Simultaneity</strong>, and see why moving rulers must physically contract along their direction of motion.
       </p>
     </article>
 
@@ -2342,6 +2488,423 @@ body {
     window.addEventListener('resize', draw);
   }
 
+  // Widget 7: 3D Spacetime Vector & Spacetime Loaf Foundation (x1, x2, t)
+  function initWidget3DSpacetime(containerId) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var canvas = container.querySelector('canvas');
+    var sliderSpeed = container.querySelector('.slider-speed');
+    var sliderHeading = container.querySelector('.slider-heading');
+    var sliderOrbit = container.querySelector('.slider-orbit');
+    var btnLoaf = container.querySelector('.btn-loaf-slice');
+    var readoutVx1 = container.querySelector('.readout-vx1');
+    var readoutVx2 = container.querySelector('.readout-vx2');
+    var readoutVspace = container.querySelector('.readout-vspace');
+    var readoutVtime = container.querySelector('.readout-vtime');
+    var readoutGamma = container.querySelector('.readout-gamma');
+    var speedPresetChips = container.querySelectorAll('.chip-speed');
+    var headingPresetChips = container.querySelectorAll('.chip-heading');
+
+    var vSpaceFraction = 0.80; // 0.80 c
+    var headingDeg = 35;       // 35 degrees East of North
+    var azimuth = -0.65;       // Camera azimuth radians (-37 deg)
+    var elevation = 0.45;      // Camera elevation radians (26 deg)
+    var showLoafSlice = true;  // Loaf slice visible by default
+
+    // Mouse drag orbit controls on canvas
+    var isDragging = false;
+    var lastMouseX = 0;
+    var lastMouseY = 0;
+
+    canvas.style.cursor = 'grab';
+
+    canvas.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      canvas.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      var dx = e.clientX - lastMouseX;
+      var dy = e.clientY - lastMouseY;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+
+      azimuth += dx * 0.01;
+      elevation += dy * 0.01;
+      elevation = Math.max(0.1, Math.min(1.4, elevation));
+
+      if (sliderOrbit) {
+        var deg = Math.round((azimuth * 180 / Math.PI) % 360);
+        if (deg > 180) deg -= 360;
+        if (deg < -180) deg += 360;
+        sliderOrbit.value = deg;
+      }
+      draw();
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (isDragging) {
+        isDragging = false;
+        canvas.style.cursor = 'grab';
+      }
+    });
+
+    canvas.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', function (e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - lastMouseX;
+      var dy = e.touches[0].clientY - lastMouseY;
+      lastMouseX = e.touches[0].clientX;
+      lastMouseY = e.touches[0].clientY;
+
+      azimuth += dx * 0.01;
+      elevation += dy * 0.01;
+      elevation = Math.max(0.1, Math.min(1.4, elevation));
+      draw();
+    }, { passive: true });
+
+    window.addEventListener('touchend', function () {
+      isDragging = false;
+    });
+
+    function update() {
+      var rad = headingDeg * Math.PI / 180;
+      var vx1 = vSpaceFraction * Math.cos(rad);
+      var vx2 = vSpaceFraction * Math.sin(rad);
+      var vt = Math.sqrt(Math.max(0, 1 - vSpaceFraction * vSpaceFraction));
+      var gamma = vSpaceFraction >= 0.999 ? 22.36 : 1 / Math.sqrt(Math.max(0.001, 1 - vSpaceFraction * vSpaceFraction));
+
+      if (readoutVx1) readoutVx1.innerText = vx1.toFixed(3) + ' c';
+      if (readoutVx2) readoutVx2.innerText = vx2.toFixed(3) + ' c';
+      if (readoutVspace) readoutVspace.innerText = vSpaceFraction.toFixed(3) + ' c';
+      if (readoutVtime) readoutVtime.innerText = vt.toFixed(3) + ' c';
+      if (readoutGamma) readoutGamma.innerText = gamma.toFixed(2);
+
+      draw();
+    }
+
+    function project(x, y, z, cx, cy, scale) {
+      var cosAz = Math.cos(azimuth);
+      var sinAz = Math.sin(azimuth);
+      var xRot = x * cosAz - y * sinAz;
+      var yRot = x * sinAz + y * cosAz;
+
+      var cosEl = Math.cos(elevation);
+      var sinEl = Math.sin(elevation);
+      var yFinal = yRot * cosEl - z * sinEl;
+      var zFinal = yRot * sinEl + z * cosEl;
+
+      return {
+        x: cx + xRot * scale,
+        y: cy - zFinal * scale,
+        depth: yFinal
+      };
+    }
+
+    function draw() {
+      var c = getThemeColors();
+      var ret = setupRetinaCanvas(canvas);
+      var ctx = ret.ctx, width = ret.width, height = ret.height;
+      ctx.clearRect(0, 0, width, height);
+
+      var cx = width * 0.50;
+      var cy = height * 0.70;
+      var scale = Math.min(width * 0.28, height * 0.42);
+
+      function p3(x, y, z) {
+        return project(x, y, z, cx, cy, scale);
+      }
+
+      // 1. Ground Plane Grid (x1, x2)
+      ctx.strokeStyle = c.gridLine;
+      ctx.lineWidth = 1;
+      var gMin = -1.2, gMax = 1.2, gStep = 0.4;
+      for (var gx = gMin; gx <= gMax + 0.01; gx += gStep) {
+        var pStart = p3(gx, gMin, 0);
+        var pEnd = p3(gx, gMax, 0);
+        ctx.beginPath();
+        ctx.moveTo(pStart.x, pStart.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+      }
+      for (var gy = gMin; gy <= gMax + 0.01; gy += gStep) {
+        var pS = p3(gMin, gy, 0);
+        var pE = p3(gMax, gy, 0);
+        ctx.beginPath();
+        ctx.moveTo(pS.x, pS.y);
+        ctx.lineTo(pE.x, pE.y);
+        ctx.stroke();
+      }
+
+      // Ground Speed Ceiling Circle (v_space = c)
+      ctx.strokeStyle = c.constraintArc;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      var segs = 48;
+      for (var si = 0; si <= segs; si++) {
+        var a = (si / segs) * Math.PI * 2;
+        var pRing = p3(Math.cos(a), Math.sin(a), 0);
+        if (si === 0) ctx.moveTo(pRing.x, pRing.y);
+        else ctx.lineTo(pRing.x, pRing.y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 2. 3D Spherical Constraint Dome Wireframe (radius c)
+      var latLevels = [0.35, 0.70, 0.92];
+      ctx.strokeStyle = c.isLight ? 'rgba(124, 58, 237, 0.25)' : 'rgba(168, 85, 247, 0.25)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      for (var li = 0; li < latLevels.length; li++) {
+        var zLev = latLevels[li];
+        var rLev = Math.sqrt(Math.max(0, 1 - zLev * zLev));
+        ctx.beginPath();
+        for (var s = 0; s <= 36; s++) {
+          var ang = (s / 36) * Math.PI * 2;
+          var ptLat = p3(rLev * Math.cos(ang), rLev * Math.sin(ang), zLev);
+          if (s === 0) ctx.moveTo(ptLat.x, ptLat.y);
+          else ctx.lineTo(ptLat.x, ptLat.y);
+        }
+        ctx.stroke();
+      }
+
+      var lonAngles = [0, Math.PI / 4, Math.PI / 2, 3 * Math.PI / 4, Math.PI, 5 * Math.PI / 4, 3 * Math.PI / 2, 7 * Math.PI / 4];
+      for (var mi = 0; mi < lonAngles.length; mi++) {
+        var mAng = lonAngles[mi];
+        ctx.beginPath();
+        for (var step = 0; step <= 20; step++) {
+          var phi = (step / 20) * (Math.PI / 2);
+          var mR = Math.cos(phi);
+          var mZ = Math.sin(phi);
+          var ptLon = p3(mR * Math.cos(mAng), mR * Math.sin(mAng), mZ);
+          if (step === 0) ctx.moveTo(ptLon.x, ptLon.y);
+          else ctx.lineTo(ptLon.x, ptLon.y);
+        }
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+
+      // 3. Ground Coordinate Axes
+      var pOrigin = p3(0, 0, 0);
+      var pX1 = p3(1.35, 0, 0);
+      var pX2 = p3(0, 1.35, 0);
+      var pZ = p3(0, 0, 1.40);
+
+      // East Axis
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pX1.x, pX1.y);
+      ctx.stroke();
+
+      // North Axis
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pX2.x, pX2.y);
+      ctx.stroke();
+
+      // Time Axis (Vertical)
+      ctx.strokeStyle = c.timeColor;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pZ.x, pZ.y);
+      ctx.stroke();
+
+      // Axis Labels
+      ctx.font = '600 11px monospace';
+      ctx.fillStyle = c.axisLabel;
+      ctx.fillText('East (x₁)', pX1.x + 8, pX1.y + 4);
+      ctx.fillText('North (x₂)', pX2.x - 12, pX2.y + 16);
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('Time (ct)', pZ.x - 28, pZ.y - 10);
+
+      // Velocity Components
+      var rad = headingDeg * Math.PI / 180;
+      var vx1 = vSpaceFraction * Math.cos(rad);
+      var vx2 = vSpaceFraction * Math.sin(rad);
+      var vt = Math.sqrt(Math.max(0, 1 - vSpaceFraction * vSpaceFraction));
+
+      var pGroundTip = p3(vx1, vx2, 0);
+      var pVectorTip = p3(vx1, vx2, vt);
+      var pTimeAxisPt = p3(0, 0, vt);
+      var pX1Pt = p3(vx1, 0, 0);
+      var pX2Pt = p3(0, vx2, 0);
+
+      // 4. Now-Slice Plane (Spacetime Loaf Slice)
+      if (showLoafSlice && vt > 0.02) {
+        var sliceSize = 1.15;
+        var pCorn1 = p3(-sliceSize, -sliceSize, vt);
+        var pCorn2 = p3(sliceSize, -sliceSize, vt);
+        var pCorn3 = p3(sliceSize, sliceSize, vt);
+        var pCorn4 = p3(-sliceSize, sliceSize, vt);
+
+        ctx.fillStyle = c.isLight ? 'rgba(2, 132, 199, 0.08)' : 'rgba(56, 189, 248, 0.12)';
+        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.4)' : 'rgba(56, 189, 248, 0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+
+        ctx.beginPath();
+        ctx.moveTo(pCorn1.x, pCorn1.y);
+        ctx.lineTo(pCorn2.x, pCorn2.y);
+        ctx.lineTo(pCorn3.x, pCorn3.y);
+        ctx.lineTo(pCorn4.x, pCorn4.y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.font = '600 10px monospace';
+        ctx.fillStyle = c.timeColor;
+        ctx.fillText('Spacetime Loaf Slice ("Now" Plane at t = ' + vt.toFixed(2) + ' c)', pCorn2.x - 30, pCorn2.y - 8);
+      }
+
+      // 5. Ground Velocity Components (Shadow on Space Floor)
+      if (vSpaceFraction > 0.05) {
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(pGroundTip.x, pGroundTip.y);
+        ctx.lineTo(pX1Pt.x, pX1Pt.y);
+        ctx.moveTo(pGroundTip.x, pGroundTip.y);
+        ctx.lineTo(pX2Pt.x, pX2Pt.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(pOrigin.x, pOrigin.y);
+        ctx.lineTo(pGroundTip.x, pGroundTip.y);
+        ctx.stroke();
+
+        drawGlowingDot(ctx, pGroundTip.x, pGroundTip.y, c.spaceColor, 5);
+
+        ctx.font = 'bold 10px monospace';
+        ctx.fillStyle = c.spaceColor;
+        ctx.fillText('v_space = ' + vSpaceFraction.toFixed(2) + 'c', (pOrigin.x + pGroundTip.x) / 2 + 8, (pOrigin.y + pGroundTip.y) / 2 + 12);
+      }
+
+      // Vertical projection from tip down to floor
+      if (vSpaceFraction > 0.05 && vt > 0.05) {
+        ctx.strokeStyle = c.isLight ? 'rgba(234, 88, 12, 0.6)' : 'rgba(251, 146, 60, 0.6)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(pVectorTip.x, pVectorTip.y);
+        ctx.lineTo(pGroundTip.x, pGroundTip.y);
+        ctx.stroke();
+
+        ctx.strokeStyle = c.isLight ? 'rgba(2, 132, 199, 0.6)' : 'rgba(56, 189, 248, 0.6)';
+        ctx.beginPath();
+        ctx.moveTo(pVectorTip.x, pVectorTip.y);
+        ctx.lineTo(pTimeAxisPt.x, pTimeAxisPt.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Vertical time vector on time axis
+      ctx.strokeStyle = c.timeColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pTimeAxisPt.x, pTimeAxisPt.y);
+      ctx.stroke();
+      drawGlowingDot(ctx, pTimeAxisPt.x, pTimeAxisPt.y, c.timeColor, 5);
+
+      // 6. The 3D Spacetime Vector
+      ctx.strokeStyle = c.invariantColor;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(pOrigin.x, pOrigin.y);
+      ctx.lineTo(pVectorTip.x, pVectorTip.y);
+      ctx.stroke();
+
+      drawGlowingDot(ctx, pVectorTip.x, pVectorTip.y, c.invariantColor, 7);
+
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillStyle = c.invariantColor;
+      ctx.fillText('Spacetime Velocity (|V| = c)', pVectorTip.x + 12, pVectorTip.y - 8);
+
+      ctx.font = '600 10px monospace';
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('v_time = ' + vt.toFixed(3) + 'c', pVectorTip.x + 12, pVectorTip.y + 6);
+    }
+
+    if (sliderSpeed) {
+      sliderSpeed.addEventListener('input', function (e) {
+        vSpaceFraction = e.target.value / 1000;
+        speedPresetChips.forEach(function (ch) { ch.classList.remove('active'); });
+        update();
+      });
+    }
+
+    if (sliderHeading) {
+      sliderHeading.addEventListener('input', function (e) {
+        headingDeg = parseFloat(e.target.value);
+        headingPresetChips.forEach(function (ch) { ch.classList.remove('active'); });
+        update();
+      });
+    }
+
+    if (sliderOrbit) {
+      sliderOrbit.addEventListener('input', function (e) {
+        var deg = parseFloat(e.target.value);
+        azimuth = deg * Math.PI / 180;
+        draw();
+      });
+    }
+
+    if (btnLoaf) {
+      btnLoaf.addEventListener('click', function () {
+        showLoafSlice = !showLoafSlice;
+        btnLoaf.innerHTML = showLoafSlice
+          ? '<span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>'
+          : '<span>Loaf Slice: </span><strong style="color:var(--text-muted)">Hidden (OFF)</strong>';
+        draw();
+      });
+    }
+
+    speedPresetChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        speedPresetChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        vSpaceFraction = parseFloat(chip.getAttribute('data-speed'));
+        if (sliderSpeed) sliderSpeed.value = vSpaceFraction * 1000;
+        update();
+      });
+    });
+
+    headingPresetChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        headingPresetChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        headingDeg = parseFloat(chip.getAttribute('data-heading'));
+        if (sliderHeading) sliderHeading.value = headingDeg;
+        update();
+      });
+    });
+
+    update();
+    registerDraw(draw);
+    draw();
+    window.addEventListener('resize', draw);
+  }
+
   function initAllPost01() {
     initThemeManager();
     initWidgetCars('widget-cars');
@@ -2350,6 +2913,7 @@ body {
     initWidgetTimeDilation('widget-time-dilation');
     initWidgetSpeedLimit('widget-speed-limit');
     initWidgetMuon('widget-muon');
+    initWidget3DSpacetime('widget-3d-spacetime');
   }
 
   // Export to global scope
@@ -2368,6 +2932,7 @@ body {
     initWidgetTimeDilation: initWidgetTimeDilation,
     initWidgetSpeedLimit: initWidgetSpeedLimit,
     initWidgetMuon: initWidgetMuon,
+    initWidget3DSpacetime: initWidget3DSpacetime,
     initAllPost01: initAllPost01
   };
 

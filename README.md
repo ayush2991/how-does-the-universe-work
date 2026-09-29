@@ -27,6 +27,7 @@ Rather than front-loading heavy algebra, Lorentz formulas, or confusing thought 
   4. **Live Twin Clocks & Time Dilation**: Dial rocket speed from $0$ to $0.99c$ to watch the Earth clock and Rocket clock run simultaneously at their exact relativistic ratio.
   5. **The Cosmic Boundary & Timeless Photon**: Selecting the photon mode snaps the vector 100% into space, completely freezing the photon's clock at $0.000\text{ s}$.
   6. **Atmospheric Muon Survival Simulator**: Interactive altitude descent comparing Newtonian classical decay at 660m vs. relativistic survival to sea level detectors.
+  7. **3D Spacetime & Spacetime Loaf Foundation (x₁, x₂, t)**: Rotatable 3D volume with ground floor steering, spherical dome constraint $v_t = \sqrt{c^2 - v_{x_1}^2 - v_{x_2}^2}$, and interactive "Now-Slice" plane.
 
 ### Part 2: The Spacetime Loaf & Length Contraction *(In Development)*
 - Resolving the Twin Paradox, the relativity of simultaneity, and why moving rulers shorten.
