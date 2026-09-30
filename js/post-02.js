@@ -23,13 +23,7 @@
     var canvasSpacetime = container.querySelector('.canvas-spacetime');
     var sliderTheta = container.querySelector('.slider-theta');
     var btnPlay = container.querySelector('.btn-play');
-
-    var elTheta = container.querySelector('.val-theta');
-    var elVx = container.querySelector('.val-vx');
-    var elVt = container.querySelector('.val-vt');
-    var elPhi = container.querySelector('.val-phi');
-    var elGamma = container.querySelector('.val-gamma');
-    var elProperRate = container.querySelector('.val-proper-rate');
+    var valThetaLabel = container.querySelector('.val-theta-label');
 
     var presetBtns = container.querySelectorAll('.preset-btn');
 
@@ -39,21 +33,8 @@
     var playDirection = 1;
 
     function updateReadouts() {
-      var thetaRad = (thetaDeg * Math.PI) / 180;
-      var vx = Math.sin(thetaRad);
-      var vt = Math.cos(thetaRad);
-      var phiRad = Math.atan(vx);
-      var phiDeg = (phiRad * 180) / Math.PI;
-      var gamma = vt > 0.001 ? 1 / vt : 999.9;
-      var properRate = vt;
-
       if (sliderTheta) sliderTheta.value = thetaDeg.toFixed(1);
-      if (elTheta) elTheta.textContent = thetaDeg.toFixed(1) + '°';
-      if (elVx) elVx.textContent = vx.toFixed(3) + ' c';
-      if (elVt) elVt.textContent = vt.toFixed(3) + ' c';
-      if (elPhi) elPhi.textContent = phiDeg.toFixed(1) + '°';
-      if (elGamma) elGamma.textContent = gamma > 100 ? '∞' : gamma.toFixed(2);
-      if (elProperRate) elProperRate.textContent = (properRate * 100).toFixed(1) + '%';
+      if (valThetaLabel) valThetaLabel.textContent = thetaDeg.toFixed(1) + '°';
     }
 
     function drawSpeedSpace() {
@@ -1198,10 +1179,6 @@
     var canvasConeList = [];
     var slidersAge = [];
     var elsAgeNum = [];
-    var elsAgeDisplay = [];
-    var elsHorizonRadius = [];
-    var elsTargetName = [];
-    var elsCausalStatus = [];
     var allPresetBtns = [];
     var btnsAutoAge = [];
 
@@ -1215,14 +1192,6 @@
       if (sa) slidersAge.push(sa);
       var an = c.querySelector('.val-age-num');
       if (an) elsAgeNum.push(an);
-      var ad = c.querySelector('.val-age-display');
-      if (ad) elsAgeDisplay.push(ad);
-      var hr = c.querySelector('.val-horizon-radius');
-      if (hr) elsHorizonRadius.push(hr);
-      var tn = c.querySelector('.val-target-name');
-      if (tn) elsTargetName.push(tn);
-      var cs = c.querySelector('.val-causal-status');
-      if (cs) elsCausalStatus.push(cs);
       var pb = c.querySelectorAll('.preset-star');
       if (pb && pb.length) pb.forEach(function (btn) { allPresetBtns.push(btn); });
       var ba = c.querySelector('.btn-auto-age');
@@ -1257,40 +1226,8 @@
     var maxTimePlot = 115;  // vertical time axis scale in years
 
     function updateTelemetry() {
-      var colors = getThemeColors();
-      var emerald = colors.isLight ? '#059669' : '#10b981';
-      var danger = colors.isLight ? '#dc2626' : '#f87171';
-
       slidersAge.forEach(function (sl) { sl.value = currentAge.toFixed(1); });
       elsAgeNum.forEach(function (el) { el.textContent = currentAge.toFixed(1) + ' yrs'; });
-      elsAgeDisplay.forEach(function (el) { el.textContent = currentAge.toFixed(1) + ' yrs'; });
-      elsHorizonRadius.forEach(function (el) { el.textContent = currentAge.toFixed(1) + ' ly'; });
-
-      var starText = selectedStar.dist < 0.001
-        ? selectedStar.name + ' (8.3m)'
-        : selectedStar.name + ' (' + selectedStar.dist.toFixed(1) + ' ly)';
-      elsTargetName.forEach(function (el) { el.textContent = starText; });
-
-      var statusText = '';
-      var statusColor = colors.timeColor;
-      if (currentAge >= selectedStar.dist) {
-        statusText = selectedStar.dist < 0.001
-          ? 'WITNESSED (Arrived in 8.3 mins)'
-          : 'IN PAST CONE (Arrived at age ' + selectedStar.dist.toFixed(1) + ')';
-        statusColor = emerald;
-      } else if (selectedStar.dist <= maxLifespan) {
-        var waitYrs = (selectedStar.dist - currentAge).toFixed(1);
-        statusText = 'EN ROUTE (Arrives at age ' + selectedStar.dist.toFixed(1) + ' · in ' + waitYrs + 'y)';
-        statusColor = colors.timeColor;
-      } else {
-        statusText = 'PERMANENTLY ELSEWHERE (Takes ' + selectedStar.dist.toFixed(0) + 'y · > 80y Life)';
-        statusColor = danger;
-      }
-
-      elsCausalStatus.forEach(function (el) {
-        el.textContent = statusText;
-        el.style.color = statusColor;
-      });
 
       // Update preset chips active state across all containers
       allPresetBtns.forEach(function (btn) {
