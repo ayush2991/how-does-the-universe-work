@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Spacetime Loaf & Length Contraction · Intuition First</title>
   <link rel="stylesheet" href="../css/style.css">
-  <meta name="description" content="A visual, curiosity-driven exploration of why there is no universal 'Now', how relative motion tilts our slice through spacetime, and why moving rulers naturally shorten.">
+  <meta name="description"
+    content="A visual, curiosity-driven exploration of why there is no universal 'Now', how relative motion tilts our slice through spacetime, and why moving rulers naturally shorten.">
   <script>
     (function () {
       var saved = null;
-      try { saved = localStorage.getItem('universe_theme'); } catch (e) {}
+      try { saved = localStorage.getItem('universe_theme'); } catch (e) { }
       var theme = saved ? saved : 'light';
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
 </head>
+
 <body>
   <div class="reading-progress-bar" id="reading-progress"></div>
 
@@ -34,9 +37,11 @@
           <span>Articles</span>
           <span class="nav-badge-count">3</span>
         </button>
-        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener" class="nav-link-secondary">GitHub</a>
+        <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener"
+          class="nav-link-secondary">GitHub</a>
         <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
-          <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="12" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -47,7 +52,8 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
-          <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </button>
@@ -63,7 +69,8 @@
       <div class="category-tag">Part 03 · Special Relativity</div>
       <h1 class="article-title">The Spacetime Loaf &amp; Length Contraction</h1>
       <p class="article-subtitle">
-        Why there is no universal "Now". How relative motion tilts an observer’s slice through spacetime, and why moving rulers naturally shorten.
+        Why there is no universal "Now". How relative motion tilts an observer’s slice through spacetime, and why moving
+        rulers naturally shorten.
       </p>
       <div class="article-meta">
         <span>By Aayush Agarwal</span>
@@ -77,52 +84,77 @@
     <!-- Editorial Prose -->
     <article class="editorial-prose">
       <p>
-        In <a href="01-motion-and-time.html" style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 1</a>, we discovered an extraordinary geometric principle: <strong>everyone and everything moves through spacetime at a single invariant speed, bounded by <em>c</em>.</strong> When you sit completely still in your chair, 100% of your speed carries you forward through time. The moment you begin moving through space, part of that total speed is diverted sideways, and your personal clock inevitably ticks more slowly.
+        In <a href="01-motion-and-time.html"
+          style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 1</a>, we discovered an
+        extraordinary geometric principle: <strong>everyone and everything moves through spacetime at a single invariant
+          speed, bounded by <em>c</em>.</strong> When you sit completely still in your chair, 100% of your speed carries
+        you forward through time. The moment you begin moving through space, part of that total speed is diverted
+        sideways, and your personal clock inevitably ticks more slowly.
       </p>
       <p>
-        In <a href="02-light-cone.html" style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 2</a>, we turned that insight into an actual map: <strong>coordinate spacetime</strong>. We calibrated time into distance units (<span class="math-badge">ct</span>), mapped trajectories as continuous <strong>worldlines</strong>, and watched outgoing flashes of light trace a majestic 45° boundary: the <strong>Cosmic Light Cone</strong>.
+        In <a href="02-light-cone.html"
+          style="color:var(--color-time); font-weight:600; text-decoration:underline;">Part 2</a>, we turned that
+        insight into an actual map: <strong>coordinate spacetime</strong>. We calibrated time into distance units (<span
+          class="math-badge">ct</span>), mapped trajectories as continuous <strong>worldlines</strong>, and watched
+        outgoing flashes of light trace a majestic 45° boundary: the <strong>Cosmic Light Cone</strong>.
       </p>
       <p>
-        That coordinate map answered where travellers are at any given moment. But it leaves an even deeper question waiting to be asked:
+        That coordinate map answered where travellers are at any given moment. But it leaves an even deeper question
+        waiting to be asked:
       </p>
       <p>
-        <em>If two travellers in relative motion have clocks ticking at different rates, what does it mean to say that two distant events are happening at the "same time"? Whose clock decides what is happening right now across the cosmos?</em>
+        <em>If two travellers in relative motion have clocks ticking at different rates, what does it mean to say that
+          two distant events are happening at the "same time"? Whose clock decides what is happening right now across
+          the cosmos?</em>
       </p>
       <p>
-        In everyday life, we take for granted that the universe shares a single cosmic stage: that this very moment—the present instant—is shared identically everywhere.
+        In everyday life, we take for granted that the universe shares a single cosmic stage: that this very moment—the
+        present instant—is shared identically everywhere.
       </p>
       <p>
-        In this essay, we will discover that this intuitive picture is an illusion. By viewing spacetime as an extended three-dimensional volume—a concept known as the <strong>Spacetime Loaf</strong>—we will see that motion through space does not merely slow down your clock. <strong>It tilts the angle at which you slice reality.</strong>
+        In this essay, we will discover that this intuitive picture is an illusion. By viewing spacetime as an extended
+        three-dimensional volume—a concept known as the <strong>Spacetime Loaf</strong>—we will see that motion through
+        space does not merely slow down your clock. <strong>It tilts the angle at which you slice reality.</strong>
       </p>
       <p>
-        And out of that single geometric tilt, another famous consequence of relativity unfolds naturally: <strong>Length Contraction</strong>.
+        And out of that single geometric tilt, another famous consequence of relativity unfolds naturally:
+        <strong>Length Contraction</strong>.
       </p>
 
       <!-- SECTION 1 -->
       <h2>1. Stacking Moments: The Spacetime Loaf</h2>
       <p>
-        To visualize how space and time fit together as a single whole, think of how a movie is stored on a roll of film.
+        To visualize how space and time fit together as a single whole, think of how a movie is stored on a roll of
+        film.
       </p>
       <p>
-        Each individual film cell is a flat two-dimensional photograph capturing everything in the scene at one single frozen instant. If you examine just one frame, you see where every character is standing right then, but nothing moves.
+        Each individual film cell is a flat two-dimensional photograph capturing everything in the scene at one single
+        frozen instant. If you examine just one frame, you see where every character is standing right then, but nothing
+        moves.
       </p>
       <p>
-        Now imagine taking thousands of these flat photographic frames and stacking them vertically, one directly on top of another, in chronological order.
+        Now imagine taking thousands of these flat photographic frames and stacking them vertically, one directly on top
+        of another, in chronological order.
       </p>
       <p>
-        The stack ceases to be a collection of disconnected pictures. It becomes a continuous, solid three-dimensional block: a <strong>spacetime loaf</strong>.
+        The stack ceases to be a collection of disconnected pictures. It becomes a continuous, solid three-dimensional
+        block: a <strong>spacetime loaf</strong>.
       </p>
       <p>
         In this solid block:
       </p>
       <ul>
-        <li>The horizontal dimensions (<span class="math-badge">x₁</span> and <span class="math-badge">x₂</span>) represent space.</li>
+        <li>The horizontal dimensions (<span class="math-badge">x₁</span> and <span class="math-badge">x₂</span>)
+          represent space.</li>
         <li>The vertical axis (<span class="math-badge">ct</span>) represents the passage of time.</li>
         <li>A single point inside the loaf is an <strong>event</strong>: a specific location at a specific instant.</li>
-        <li>An entity's entire history—its past, present, and future—is an unbroken thread woven continuously upward through the volume: its <strong>worldline</strong>. If the object has physical width, that thread widens into a <strong>worldtube</strong>.</li>
+        <li>An entity's entire history—its past, present, and future—is an unbroken thread woven continuously upward
+          through the volume: its <strong>worldline</strong>. If the object has physical width, that thread widens into
+          a <strong>worldtube</strong>.</li>
       </ul>
       <p>
-        Nothing in this block is appearing or disappearing; the entire history of the universe sits quietly mapped out from bottom to top. But how does an observer inside this block actually experience the world?
+        Nothing in this block is appearing or disappearing; the entire history of the universe sits quietly mapped out
+        from bottom to top. But how does an observer inside this block actually experience the world?
       </p>
 
       <!-- SECTION 2 -->
@@ -131,21 +163,33 @@
         Let us place our first observer inside this block: <strong>Alice</strong>.
       </p>
       <p>
-        Alice stands on the station platform next to a passenger coach of length <span class="math-badge">L₀ = 10 meters</span>. Alice decides to remain stationary at spatial coordinates <span class="math-badge">(x₁ = 0, x₂ = 0)</span>.
+        Alice stands on the station platform next to a passenger coach of length <span class="math-badge">L₀ = 10
+          meters</span>. Alice decides to remain stationary at spatial coordinates <span class="math-badge">(x₁ = 0, x₂
+          = 0)</span>.
       </p>
       <p>
-        Because Alice never moves across the floor, her spatial coordinates never change. As time flows steadily upward from the past toward the future, each snapshot of Alice sits directly above the previous one. Stacking these identical snapshots creates a straight vertical column stretching straight upward through the loaf: Alice's <strong>worldtube</strong>.
+        Because Alice never moves across the floor, her spatial coordinates never change. As time flows steadily upward
+        from the past toward the future, each snapshot of Alice sits directly above the previous one. Stacking these
+        identical snapshots creates a straight vertical column stretching straight upward through the loaf: Alice's
+        <strong>worldtube</strong>.
       </p>
       <p>
         Now consider Alice’s experience of reality at any chosen moment <span class="math-badge">t</span>:
       </p>
       <ul>
-        <li><strong>Her Slice of "Now":</strong> To Alice, the present instant is a flat, horizontal sheet cutting cleanly across the loaf at her current time <span class="math-badge">ct</span>. Every event touching this horizontal plane occurs at the exact same instant according to Alice's clock.</li>
-        <li><strong>Her Expanding Light Wavefront:</strong> If a flash of light was emitted at the center when <span class="math-badge">t = 0</span>, the intersection of Alice's horizontal slice with the 45° Light Cone forms an expanding circle of radius <span class="math-badge">r = ct</span>.</li>
-        <li><strong>Past, Future, and Elsewhere:</strong> Events below her slice inside the cone are her past; events above her slice inside the cone are her reachable future; and everything outside the 45° cone is the causal Elsewhere.</li>
+        <li><strong>Her Slice of "Now":</strong> To Alice, the present instant is a flat, horizontal sheet cutting
+          cleanly across the loaf at her current time <span class="math-badge">ct</span>. Every event touching this
+          horizontal plane occurs at the exact same instant according to Alice's clock.</li>
+        <li><strong>Her Expanding Light Wavefront:</strong> If a flash of light was emitted at the center when <span
+            class="math-badge">t = 0</span>, the intersection of Alice's horizontal slice with the 45° Light Cone forms
+          an expanding circle of radius <span class="math-badge">r = ct</span>.</li>
+        <li><strong>Past, Future, and Elsewhere:</strong> Events below her slice inside the cone are her past; events
+          above her slice inside the cone are her reachable future; and everything outside the 45° cone is the causal
+          Elsewhere.</li>
       </ul>
       <p>
-        Explore the 3D volume below. Rotate the perspective by dragging the canvas or using the orbit/tilt sliders, select viewing presets, and scrub time to watch Alice's slice of Now rise through the loaf:
+        Explore the 3D volume below. Rotate the perspective by dragging the canvas or using the orbit/tilt sliders,
+        select viewing presets, and scrub time to watch Alice's slice of Now rise through the loaf:
       </p>
 
       <!-- INTERACTIVE WIDGET 1: ALICE AT REST -->
@@ -154,7 +198,8 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 01</span>
             <div class="artifact-title">The Spacetime Loaf: Alice at Rest</div>
-            <div class="artifact-desc">Orbit the 3D volume, scrub time, and watch the circular light wavefront expand outward on Alice's horizontal slice of Now.</div>
+            <div class="artifact-desc">Orbit the 3D volume, scrub time, and watch the circular light wavefront expand
+              outward on Alice's horizontal slice of Now.</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -174,7 +219,9 @@
               <span class="clock-label">Cosmic Light Cone</span>
               <span class="clock-badge" style="background:rgba(250,204,21,0.15); color:#d97706;">45° Boundary</span>
             </div>
-            <div class="clock-time" style="color:#d97706;"><span style="font-size:1.4rem;">45.0°</span> <span>cone</span></div>
+            <div class="clock-time" style="color:#d97706;"><span style="font-size:1.4rem;">45.0°</span>
+              <span>cone</span>
+            </div>
             <p class="clock-subtext">The universal speed limit of causality: light travels at x = ct.</p>
           </div>
         </div>
@@ -196,9 +243,11 @@
               <input type="range" class="range-slider slider-elevation" min="-0.35" max="1.30" step="0.05" value="0.44">
             </div>
           </div>
-          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
+          <div
+            style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
             <div class="preset-chips">
-              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D View</button>
+              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D
+                View</button>
               <button class="chip-btn chip-cam-preset" data-az="0" data-el="0">Side (Space–Time)</button>
               <button class="chip-btn chip-cam-preset" data-az="0" data-el="1.30">Top (Space)</button>
             </div>
@@ -209,7 +258,8 @@
               <span>▶</span><span>Auto Play</span>
             </button>
             <div class="math-badge">
-              Inside Cone: <strong>v &lt; c (Causal Future)</strong> | Surface: <strong>v = c (Light)</strong> | Outside: <strong>Elsewhere</strong>
+              Inside Cone: <strong>v &lt; c (Causal Future)</strong> | Surface: <strong>v = c (Light)</strong> |
+              Outside: <strong>Elsewhere</strong>
             </div>
           </div>
         </div>
@@ -217,11 +267,13 @@
 
       <div class="formula-card">
         <div><strong>Alice's Plane of Simultaneity:</strong> ct = constant</div>
-        <div class="formula-note">For an observer standing at rest, all events occurring at the same vertical height share the exact same instant of time.</div>
+        <div class="formula-note">For an observer standing at rest, all events occurring at the same vertical height
+          share the exact same instant of time.</div>
       </div>
 
       <p>
-        For Alice, everything is intuitive: time ticks upward, space stretches flat, and her slice of the present is level. But what happens when another traveller glides past her?
+        For Alice, everything is intuitive: time ticks upward, space stretches flat, and her slice of the present is
+        level. But what happens when another traveller glides past her?
       </p>
 
       <!-- SECTION 3 -->
@@ -230,7 +282,9 @@
         Let us introduce a second traveller: <strong>Bob</strong>.
       </p>
       <p>
-        Bob rides inside an identical 10-meter passenger coach (<span class="math-badge">L₀ = 10 meters</span>). At time <span class="math-badge">t = 0</span>, Bob glides right past Alice, coasting along the <span class="math-badge">x₁</span> track with constant speed <span class="math-badge">v</span>.
+        Bob rides inside an identical 10-meter passenger coach (<span class="math-badge">L₀ = 10 meters</span>). At time
+        <span class="math-badge">t = 0</span>, Bob glides right past Alice, coasting along the <span
+          class="math-badge">x₁</span> track with constant speed <span class="math-badge">v</span>.
       </p>
       <p>
         What does Bob’s sequence of snapshots look like when stacked into the loaf?
@@ -241,16 +295,23 @@
         <li>At <span class="math-badge">t = 2</span>, Bob has reached <span class="math-badge">x₁ = v · 2</span>.</li>
       </ul>
       <p>
-        Because Bob’s position shifts with every passing second, his stacked snapshots do not rise straight up. Instead, they climb upward at an angle, tracing a <strong>tilted worldtube</strong> through the 3D volume.
+        Because Bob’s position shifts with every passing second, his stacked snapshots do not rise straight up. Instead,
+        they climb upward at an angle, tracing a <strong>tilted worldtube</strong> through the 3D volume.
       </p>
       <p>
-        The slope of Bob's worldtube reflects his speed: the faster Bob travels through space, the more his worldtube tilts away from the vertical. As we saw in Part 2, the maximum possible tilt belongs to light, which slants at 45°.
+        The slope of Bob's worldtube reflects his speed: the faster Bob travels through space, the more his worldtube
+        tilts away from the vertical. As we saw in Part 2, the maximum possible tilt belongs to light, which slants at
+        45°.
       </p>
       <p>
-        Furthermore, Bob carries an onboard clock. Because Bob is moving through space, Part 1's speed tradeoff tells us that less of his invariant speed is available for time: his clock ticks slower by the factor <span class="math-badge">cos θ = √(1 − v²/c²) = 1/γ</span>.
+        Furthermore, Bob carries an onboard clock. Because Bob is moving through space, Part 1's speed tradeoff tells us
+        that less of his invariant speed is available for time: his clock ticks slower by the factor <span
+          class="math-badge">cos θ = √(1 − v²/c²) = 1/γ</span>.
       </p>
       <p>
-        In the interactive simulation below, adjust Bob's heading angle <span class="math-badge">θ</span> (or choose a preset speed) and orbit the 3D block to watch Bob's worldtube slant across the loaf alongside Alice's vertical tube:
+        In the interactive simulation below, adjust Bob's heading angle <span class="math-badge">θ</span> (or choose a
+        preset speed) and orbit the 3D block to watch Bob's worldtube slant across the loaf alongside Alice's vertical
+        tube:
       </p>
 
       <!-- INTERACTIVE WIDGET 2: BOB IN MOTION -->
@@ -259,7 +320,8 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 02</span>
             <div class="artifact-title">Two Observers: Alice at Rest vs Bob in Motion</div>
-            <div class="artifact-desc">Orbit the 3D volume, adjust Bob's speed, and watch his sequence of snapshots tilt across the spacetime loaf.</div>
+            <div class="artifact-desc">Orbit the 3D volume, adjust Bob's speed, and watch his sequence of snapshots tilt
+              across the spacetime loaf.</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -314,9 +376,11 @@
               <input type="range" class="range-slider slider-elevation" min="-0.35" max="1.30" step="0.05" value="0.44">
             </div>
           </div>
-          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
+          <div
+            style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
             <div class="preset-chips">
-              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D View</button>
+              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D
+                View</button>
               <button class="chip-btn chip-cam-preset" data-az="0" data-el="0">Side (Space–Time)</button>
               <button class="chip-btn chip-cam-preset" data-az="0" data-el="1.30">Top (Space)</button>
             </div>
@@ -334,12 +398,14 @@
       </div>
 
       <div class="formula-card">
-        <div><strong>Worldtube Tilt:</strong> tan φ = v / c  |  Clock Rate: dτ / dt = cos θ = √(1 − v² / c²)</div>
-        <div class="formula-note">Bob's motion through space slants his worldtube across the loaf while stretching out the ticks of his personal clock.</div>
+        <div><strong>Worldtube Tilt:</strong> tan φ = v / c | Clock Rate: dτ / dt = cos θ = √(1 − v² / c²)</div>
+        <div class="formula-note">Bob's motion through space slants his worldtube across the loaf while stretching out
+          the ticks of his personal clock.</div>
       </div>
 
       <p>
-        Notice what this reveals: Bob's path through the loaf is unmistakably tilted. And this brings us directly to the central puzzle of relativity.
+        Notice what this reveals: Bob's path through the loaf is unmistakably tilted. And this brings us directly to the
+        central puzzle of relativity.
       </p>
 
       <!-- SECTION 4 -->
@@ -351,16 +417,23 @@
         Does Bob share Alice's horizontal slice of "Now"?
       </p>
       <p>
-        To answer this without guessing, let us ask a fundamental question: <strong>how do you physically determine whether two distant events happen at the same time?</strong>
+        To answer this without guessing, let us ask a fundamental question: <strong>how do you physically determine
+          whether two distant events happen at the same time?</strong>
       </p>
       <p>
-        Imagine Bob is riding at the exact center of a long passenger coach of length <span class="math-badge">2d</span>. At each end of the coach sits a signal beacon: a <strong>Front Beacon</strong> and a <strong>Rear Beacon</strong>.
+        Imagine Bob is riding at the exact center of a long passenger coach of length <span
+          class="math-badge">2d</span>. At each end of the coach sits a signal beacon: a <strong>Front Beacon</strong>
+        and a <strong>Rear Beacon</strong>.
       </p>
       <p>
         From the center of his coach, Bob fires a single flash of light outward in both directions simultaneously:
       </p>
       <p>
-        <strong>Inside Bob's Coach:</strong> Bob considers himself at rest. Light travels at the exact same invariant speed <span class="math-badge">c</span> in both directions. Because the two beacons are at equal distances from the center (<span class="math-badge">d</span>), the two light signals arrive at the Front Beacon and Rear Beacon at the <em>exact same instant</em> on Bob's wristwatch. Bob concludes with complete physical justification: <em>"Both beacons flashed at the same time!"</em>
+        <strong>Inside Bob's Coach:</strong> Bob considers himself at rest. Light travels at the exact same invariant
+        speed <span class="math-badge">c</span> in both directions. Because the two beacons are at equal distances from
+        the center (<span class="math-badge">d</span>), the two light signals arrive at the Front Beacon and Rear Beacon
+        at the <em>exact same instant</em> on Bob's wristwatch. Bob concludes with complete physical justification:
+        <em>"Both beacons flashed at the same time!"</em>
       </p>
 
       <!-- INTERACTIVE WIDGET 3: BEACONS BOB -->
@@ -369,7 +442,8 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 03</span>
             <div class="artifact-title">Bob's Rest Frame: Simultaneous Beacons Inside the Coach</div>
-            <div class="artifact-desc">Watch from Bob's rest frame as light travels outward symmetrically at speed c, striking both beacons at the exact same instant.</div>
+            <div class="artifact-desc">Watch from Bob's rest frame as light travels outward symmetrically at speed c,
+              striking both beacons at the exact same instant.</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -416,7 +490,12 @@
         Now look at this identical experiment from the platform outside:
       </p>
       <p>
-        <strong>From Alice's Platform:</strong> Alice watches Bob's coach zoom past at speed <span class="math-badge">v</span>. To Alice, light also travels at speed <span class="math-badge">c</span> in both directions. But while the light is in transit, the coach is moving! The Rear Beacon is speeding forward to meet the incoming backward light pulse, so the backward beam has a shorter distance to travel. Meanwhile, the Front Beacon is speeding away from the forward light pulse, so the forward beam must chase it down over a longer distance.
+        <strong>From Alice's Platform:</strong> Alice watches Bob's coach zoom past at speed <span
+          class="math-badge">v</span>. To Alice, light also travels at speed <span class="math-badge">c</span> in both
+        directions. But while the light is in transit, the coach is moving! The Rear Beacon is speeding forward to meet
+        the incoming backward light pulse, so the backward beam has a shorter distance to travel. Meanwhile, the Front
+        Beacon is speeding away from the forward light pulse, so the forward beam must chase it down over a longer
+        distance.
       </p>
 
       <!-- INTERACTIVE WIDGET 4: BEACONS ALICE -->
@@ -425,7 +504,8 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 04</span>
             <div class="artifact-title">Alice's Platform Frame: Desynchronized Beacons on the Move</div>
-            <div class="artifact-desc">Watch Bob's moving coach from the platform track. The rear beacon meets incoming light early, while the front beacon retreats ahead.</div>
+            <div class="artifact-desc">Watch Bob's moving coach from the platform track. The rear beacon meets incoming
+              light early, while the front beacon retreats ahead.</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -480,26 +560,32 @@
       </div>
 
       <p>
-        The consequence is unavoidable: in Alice's frame of reference, <strong>the Rear Beacon flashes first, and the Front Beacon flashes later!</strong>
+        The consequence is unavoidable: in Alice's frame of reference, <strong>the Rear Beacon flashes first, and the
+          Front Beacon flashes later!</strong>
       </p>
       <p>
-        Two events that Bob certifies as happening at the exact same instant occur at <em>different times</em> for Alice.
+        Two events that Bob certifies as happening at the exact same instant occur at <em>different times</em> for
+        Alice.
       </p>
       <p>
-        On Alice's coordinate map, the event at the front beacon sits higher up on the time axis (in Alice's future), while the event at the rear beacon sits lower down (in Alice's past).
+        On Alice's coordinate map, the event at the front beacon sits higher up on the time axis (in Alice's future),
+        while the event at the rear beacon sits lower down (in Alice's past).
       </p>
       <p>
-        If we connect all the events that Bob considers simultaneous at one moment of his journey, they do not lie on a horizontal plane. <strong>Bob's slice of "Now" tilts upward in the direction of his motion!</strong>
+        If we connect all the events that Bob considers simultaneous at one moment of his journey, they do not lie on a
+        horizontal plane. <strong>Bob's slice of "Now" tilts upward in the direction of his motion!</strong>
       </p>
       <p>
         The mathematical slope of this tilt across space is:
       </p>
       <div class="formula-card">
-        <div><strong>The Tilt of Simultaneity:</strong> Δt = (v / c²) · Δx  (Slope: cΔt / Δx = v / c)</div>
-        <div class="formula-note">Events separated by distance Δx along the direction of motion are desynchronized in time by (v / c²) · Δx.</div>
+        <div><strong>The Tilt of Simultaneity:</strong> Δt = (v / c²) · Δx (Slope: cΔt / Δx = v / c)</div>
+        <div class="formula-note">Events separated by distance Δx along the direction of motion are desynchronized in
+          time by (v / c²) · Δx.</div>
       </div>
       <p>
-        In the 3D simulation below, adjust Bob's speed presets (<span class="math-badge">θ = 0°, 30°, 60°</span>) and orbit the volume to see how Bob's amber plane of "Now" tilts relative to Alice's cyan horizontal plane:
+        In the 3D simulation below, adjust Bob's speed presets (<span class="math-badge">θ = 0°, 30°, 60°</span>) and
+        orbit the volume to see how Bob's amber plane of "Now" tilts relative to Alice's cyan horizontal plane:
       </p>
 
       <!-- INTERACTIVE WIDGET 5: SIMULTANEITY SLICE -->
@@ -508,7 +594,8 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 05</span>
             <div class="artifact-title">The Angle of "Now": Slicing the Loaf Obliquely</div>
-            <div class="artifact-desc">Tilt Bob's slice of simultaneity by adjusting velocity. Notice how Bob's "Now" cuts into Alice's future ahead and past behind.</div>
+            <div class="artifact-desc">Tilt Bob's slice of simultaneity by adjusting velocity. Notice how Bob's "Now"
+              cuts into Alice's future ahead and past behind.</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -529,7 +616,8 @@
               <span class="clock-badge readout-tilt-badge">Tilted by θ = 40.9°</span>
             </div>
             <div class="clock-time readout-desync-val" style="color:var(--color-space);">Δt = 1.73 <span>s</span></div>
-            <p class="clock-subtext readout-desync-text">Front beacon is in Alice's future; rear beacon is in Alice's past!</p>
+            <p class="clock-subtext readout-desync-text">Front beacon is in Alice's future; rear beacon is in Alice's
+              past!</p>
           </div>
         </div>
         <div class="artifact-controls">
@@ -566,9 +654,11 @@
               <input type="range" class="range-slider slider-elevation" min="-0.35" max="1.30" step="0.05" value="0.44">
             </div>
           </div>
-          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
+          <div
+            style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; gap: 0.5rem;">
             <div class="preset-chips">
-              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D View</button>
+              <button class="chip-btn chip-cam-preset active" data-preset="default" data-az="-0.61" data-el="0.44">3D
+                View</button>
               <button class="chip-btn chip-cam-preset" data-az="0" data-el="0">Side (Space–Time)</button>
               <button class="chip-btn chip-cam-preset" data-az="0" data-el="1.30">Top (Space)</button>
             </div>
@@ -586,18 +676,26 @@
         Notice three key details revealed by this simulation:
       </p>
       <ul>
-        <li><strong>At the crossing point:</strong> Where Bob and Alice pass each other at <span class="math-badge">x₁ = 0</span>, their slices intersect. They agree that their encounter is happening right now.</li>
-        <li><strong>Ahead of Bob (<span class="math-badge">+x₁</span>):</strong> Bob's slice cuts upward into what Alice considers her <em>future</em>. An event that Alice considers seconds or years away has already occurred in Bob's present!</li>
-        <li><strong>Behind Bob (<span class="math-badge">−x₁</span>):</strong> Bob's slice dips downward into what Alice considers her <em>past</em>. An event that Alice remembers as already finished is still in the present for Bob.</li>
+        <li><strong>At the crossing point:</strong> Where Bob and Alice pass each other at <span class="math-badge">x₁ =
+            0</span>, their slices intersect. They agree that their encounter is happening right now.</li>
+        <li><strong>Ahead of Bob (<span class="math-badge">+x₁</span>):</strong> Bob's slice cuts upward into what Alice
+          considers her <em>future</em>. An event that Alice considers seconds or years away has already occurred in
+          Bob's present!</li>
+        <li><strong>Behind Bob (<span class="math-badge">−x₁</span>):</strong> Bob's slice dips downward into what Alice
+          considers her <em>past</em>. An event that Alice remembers as already finished is still in the present for
+          Bob.</li>
       </ul>
       <p>
-        This is the <strong>Relativity of Simultaneity</strong>: there is no single, universal "Now" shared across the cosmos. The angle at which you slice reality through the spacetime loaf depends directly on your speed through space.
+        This is the <strong>Relativity of Simultaneity</strong>: there is no single, universal "Now" shared across the
+        cosmos. The angle at which you slice reality through the spacetime loaf depends directly on your speed through
+        space.
       </p>
 
       <!-- SECTION 5 -->
       <h2>5. The True Meaning of Length</h2>
       <p>
-        Now that we understand how motion tilts the slice of simultaneity, we are ready to examine another cornerstone of relativity: <strong>Length Contraction</strong>.
+        Now that we understand how motion tilts the slice of simultaneity, we are ready to examine another cornerstone
+        of relativity: <strong>Length Contraction</strong>.
       </p>
       <p>
         Before we ask why moving objects change length, let us ask a simple physical question:
@@ -606,23 +704,31 @@
         <strong>What does it actually mean to measure the length of an object?</strong>
       </p>
       <p>
-        If a wooden board is resting stationary on the ground, measuring its length is straightforward: you place a ruler next to it, note where the left edge lies, and read where the right edge lies. Because the board isn't going anywhere, you could check the left edge at noon and the right edge five minutes later—the measurement will still be accurate.
+        If a wooden board is resting stationary on the ground, measuring its length is straightforward: you place a
+        ruler next to it, note where the left edge lies, and read where the right edge lies. Because the board isn't
+        going anywhere, you could check the left edge at noon and the right edge five minutes later—the measurement will
+        still be accurate.
       </p>
       <p>
         Now imagine measuring the length of a high-speed express train speeding past a station platform.
       </p>
       <p>
-        Suppose you mark the position of the train's front locomotive at 12:00:00, but you don't mark the rear caboose until 12:00:02. During those two seconds, the train has sped hundreds of meters down the track! The distance between your two marks would be completely meaningless.
+        Suppose you mark the position of the train's front locomotive at 12:00:00, but you don't mark the rear caboose
+        until 12:00:02. During those two seconds, the train has sped hundreds of meters down the track! The distance
+        between your two marks would be completely meaningless.
       </p>
       <p>
-        To measure the true length of any moving body, there is one non-negotiable rule: <strong>you must mark the position of both ends at the exact same instant of time.</strong>
+        To measure the true length of any moving body, there is one non-negotiable rule: <strong>you must mark the
+          position of both ends at the exact same instant of time.</strong>
       </p>
       <div class="formula-card">
         <div><strong>The Definition of Physical Length:</strong></div>
-        <div class="formula-note">Length is the spatial distance between the front and rear boundaries of an object, measured simultaneously along the observer's own slice of "Now".</div>
+        <div class="formula-note">Length is the spatial distance between the front and rear boundaries of an object,
+          measured simultaneously along the observer's own slice of "Now".</div>
       </div>
       <p>
-        In the geometry of the spacetime loaf, this definition has a clear visual meaning: <strong>measuring an object's length means taking a cross-section of its worldtube along your slice of Now.</strong>
+        In the geometry of the spacetime loaf, this definition has a clear visual meaning: <strong>measuring an object's
+          length means taking a cross-section of its worldtube along your slice of Now.</strong>
       </p>
 
       <!-- SECTION 6 -->
@@ -631,22 +737,33 @@
         Let us bring Alice and Bob back to observe how this cross-section works in practice.
       </p>
       <p>
-        Inside Bob's own rest frame, his passenger coach spans a rest length of <span class="math-badge">L₀ = 10 meters</span> from rear wall to front wall. To Bob, this coach is always strictly 10 meters—its physical size never changes in his experience, no matter what speed he travels.
+        Inside Bob's own rest frame, his passenger coach spans a rest length of <span class="math-badge">L₀ = 10
+          meters</span> from rear wall to front wall. To Bob, this coach is always strictly 10 meters—its physical size
+        never changes in his experience, no matter what speed he travels.
       </p>
       <p>
-        As Bob's 10-meter coach glides forward through time, its length sweeps out a continuous <strong>tilted ribbon (worldsheet)</strong> through the spacetime loaf.
+        As Bob's 10-meter coach glides forward through time, its length sweeps out a continuous <strong>tilted ribbon
+          (worldsheet)</strong> through the spacetime loaf.
       </p>
       <p>
         Now Alice stands on the station platform and measures the length of Bob's speeding coach as it zooms past.
       </p>
       <p>
-        To measure its length, Alice must record both ends of Bob's coach at the <em>exact same instant</em> in her time. That means Alice must take a cross-section of Bob's tilted ribbon using <strong>her flat, horizontal slice of Now</strong>.
+        To measure its length, Alice must record both ends of Bob's coach at the <em>exact same instant</em> in her
+        time. That means Alice must take a cross-section of Bob's tilted ribbon using <strong>her flat, horizontal slice
+          of Now</strong>.
       </p>
       <p>
-        Because Bob travels at speed <span class="math-badge">v = 0.866 c</span> (<span class="math-badge">θ = 60°</span>), his slice of Now is tilted in spacetime relative to Alice's. When Alice takes her simultaneous measurement, she is capturing the <strong>geometric projection</strong> of Bob's tilted 10-meter coach onto her horizontal axis of space.
+        Because Bob travels at speed <span class="math-badge">v = 0.866 c</span> (<span class="math-badge">θ =
+          60°</span>), his slice of Now is tilted in spacetime relative to Alice's. When Alice takes her simultaneous
+        measurement, she is capturing the <strong>geometric projection</strong> of Bob's tilted 10-meter coach onto her
+        horizontal axis of space.
       </p>
       <p>
-        Observe what happens in the simulation below. The left side shows the spacetime geometry: Bob's tilted 10-meter coach projects onto Alice's horizontal present via <span class="math-badge">cos(θ)</span>. The right side shows the physical reality: Bob's coach stays at an invariant 10 meters on his onboard ruler, while Alice measures a contracted 5-meter span on her platform ruler:
+        Observe what happens in the simulation below. The left side shows the spacetime geometry: Bob's tilted 10-meter
+        coach projects onto Alice's horizontal present via <span class="math-badge">cos(θ)</span>. The right side shows
+        the physical reality: Bob's coach stays at an invariant 10 meters on his onboard ruler, while Alice measures a
+        contracted 5-meter span on her platform ruler:
       </p>
 
       <!-- INTERACTIVE WIDGET 6: LENGTH CONTRACTION -->
@@ -655,7 +772,8 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 06</span>
             <div class="artifact-title">The Oblique Slice: Geometric Projection of Bob's Coach</div>
-            <div class="artifact-desc">Left: Spacetime geometry showing Bob's tilted 10m coach projecting onto Alice's horizontal present via cos(θ). Right: Bob's invariant 10m coach vs Alice's 5m platform measurement.</div>
+            <div class="artifact-desc">Left: Spacetime geometry showing Bob's tilted 10m coach projecting onto Alice's
+              horizontal present via cos(θ). Right: Bob's invariant 10m coach vs Alice's 5m platform measurement.</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -709,16 +827,26 @@
       </p>
       <ul>
         <li>
-          <strong>The Exact Same Geometric Factor:</strong> Notice the numbers on the display. When Bob travels at <span class="math-badge">v = 0.866 c</span> (<span class="math-badge">θ = 60°</span>), Alice measures his 10-meter coach as exactly <span class="math-badge">5.0 meters</span>—shortened by half! This is the exact same projection factor of <span class="math-badge">cos(60°) = 0.50</span> that halved the northward speed of the orange car in Part 1 and that halved the ticking rate of Bob's clock. Time dilation and length contraction are two expressions of the exact same geometric rotation in spacetime:
+          <strong>The Exact Same Geometric Factor:</strong> Notice the numbers on the display. When Bob travels at <span
+            class="math-badge">v = 0.866 c</span> (<span class="math-badge">θ = 60°</span>), Alice measures his 10-meter
+          coach as exactly <span class="math-badge">5.0 meters</span>—shortened by half! This is the exact same
+          projection factor of <span class="math-badge">cos(60°) = 0.50</span> that halved the northward speed of the
+          orange car in Part 1 and that halved the ticking rate of Bob's clock. Time dilation and length contraction are
+          two expressions of the exact same geometric rotation in spacetime:
         </li>
       </ul>
       <div class="formula-card">
         <div><strong>The Contraction Formula:</strong> L = L₀ · cos θ = L₀ · √(1 − v² / c²) = L₀ / γ</div>
-        <div class="formula-note">As relative speed increases, an observer's clock slows down by γ, and its length along the direction of motion projects onto space by cos θ = 1/γ.</div>
+        <div class="formula-note">As relative speed increases, an observer's clock slows down by γ, and its length along
+          the direction of motion projects onto space by cos θ = 1/γ.</div>
       </div>
       <ul>
         <li>
-          <strong>Contraction Happens Only Along the Direction of Motion:</strong> Look at Bob's coach in Alice's measurement view. While the coach's length along the track (<span class="math-badge">x₁</span>) is contracted to 50%, its vertical height and track gauge (perpendicular to motion) remain completely unchanged. Perpendicular directions do not participate in the trade-off with time, so transverse dimensions never contract.
+          <strong>Contraction Happens Only Along the Direction of Motion:</strong> Look at Bob's coach in Alice's
+          measurement view. While the coach's length along the track (<span class="math-badge">x₁</span>) is contracted
+          to 50%, its vertical height and track gauge (perpendicular to motion) remain completely unchanged.
+          Perpendicular directions do not participate in the trade-off with time, so transverse dimensions never
+          contract.
         </li>
       </ul>
 
@@ -728,28 +856,36 @@
         Seeing Alice measure Bob's coach as contracted raises a natural question:
       </p>
       <p>
-        <em>If Alice measures Bob's 10-meter coach to be 5 meters, what does Bob measure when he looks at Alice's 10-meter coach? Does Bob see Alice stretched out to 20 meters, or does he also see her contracted?</em>
+        <em>If Alice measures Bob's 10-meter coach to be 5 meters, what does Bob measure when he looks at Alice's
+          10-meter coach? Does Bob see Alice stretched out to 20 meters, or does he also see her contracted?</em>
       </p>
       <p>
         The answer is found directly in the principle that motion is relative.
       </p>
       <p>
-        From Bob’s point of view inside his own frame of reference, <strong>Bob is sitting completely at rest, and Alice is the one gliding backward at speed −v!</strong>
+        From Bob’s point of view inside his own frame of reference, <strong>Bob is sitting completely at rest, and Alice
+          is the one gliding backward at speed −v!</strong>
       </p>
       <p>
-        When Bob measures Alice's coach, Bob does not use Alice's horizontal slice. To measure Alice simultaneously, Bob must use his <em>own</em> slice of Now—the amber plane tilted at slope <span class="math-badge">v/c</span>.
+        When Bob measures Alice's coach, Bob does not use Alice's horizontal slice. To measure Alice simultaneously, Bob
+        must use his <em>own</em> slice of Now—the amber plane tilted at slope <span class="math-badge">v/c</span>.
       </p>
       <p>
-        When Bob’s tilted slice intersects Alice’s vertical worldtube, it cuts through her worldtube on the bias. The resulting cross-section measures Alice's coach to be exactly <span class="math-badge">5.0 meters</span>!
+        When Bob’s tilted slice intersects Alice’s vertical worldtube, it cuts through her worldtube on the bias. The
+        resulting cross-section measures Alice's coach to be exactly <span class="math-badge">5.0 meters</span>!
       </p>
       <p>
-        Both observers measure the other's coach to be contracted to 5.0 meters, and <strong>both observers are completely correct in their own frame of reference.</strong>
+        Both observers measure the other's coach to be contracted to 5.0 meters, and <strong>both observers are
+          completely correct in their own frame of reference.</strong>
       </p>
       <p>
-        Length contraction is not a physical crushing of atoms by mechanical pressure. It is a geometric consequence of perspective: different observers cut the four-dimensional worldtubes of reality at different angles of simultaneity.
+        Length contraction is not a physical crushing of atoms by mechanical pressure. It is a geometric consequence of
+        perspective: different observers cut the four-dimensional worldtubes of reality at different angles of
+        simultaneity.
       </p>
       <p>
-        Use the interactive simulation below to toggle between Alice’s frame and Bob’s frame, and observe how the symmetry of spacetime holds perfectly from both sides:
+        Use the interactive simulation below to toggle between Alice’s frame and Bob’s frame, and observe how the
+        symmetry of spacetime holds perfectly from both sides:
       </p>
 
       <!-- INTERACTIVE WIDGET 7: DUAL FRAME -->
@@ -758,7 +894,9 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 07</span>
             <div class="artifact-title">Mutual Relativity: Slicing From Both Perspectives</div>
-            <div class="artifact-desc">Switch between Alice's and Bob's frames of reference. Notice that both coaches are invariant 10m realities in their own rest frames, each projecting onto the other's horizontal present via cos(θ).</div>
+            <div class="artifact-desc">Switch between Alice's and Bob's frames of reference. Notice that both coaches
+              are invariant 10m realities in their own rest frames, each projecting onto the other's horizontal present
+              via cos(θ).</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -771,7 +909,8 @@
               <span class="clock-badge readout-frame-badge">Alice at Rest</span>
             </div>
             <div class="clock-time readout-frame-title">10.0 <span>m</span></div>
-            <p class="clock-subtext readout-frame-sub">Alice considers herself at rest: her coach spans an invariant 10.0 m along her horizontal Now.</p>
+            <p class="clock-subtext readout-frame-sub">Alice considers herself at rest: her coach spans an invariant
+              10.0 m along her horizontal Now.</p>
           </div>
           <div class="clock-card amber">
             <div class="clock-meta">
@@ -779,7 +918,8 @@
               <span class="clock-badge readout-dual-gamma">γ = 2.00 (θ = 60°)</span>
             </div>
             <div class="clock-time readout-dual-measured" style="color:var(--color-space);">5.0 <span>m</span></div>
-            <p class="clock-subtext readout-dual-note">Bob's invariant 10.0 m coach projects onto Alice's Now as 10.0 m × cos(60°) = 5.0 m.</p>
+            <p class="clock-subtext readout-dual-note">Bob's invariant 10.0 m coach projects onto Alice's Now as 10.0 m
+              × cos(60°) = 5.0 m.</p>
           </div>
         </div>
         <div class="artifact-controls">
@@ -788,7 +928,8 @@
               <span>Select Reference Frame (Whose Perspective?)</span>
             </div>
             <div class="preset-chips">
-              <button class="chip-btn chip-frame-btn active" data-frame="alice">1. Alice's Rest Frame (Bob is Moving)</button>
+              <button class="chip-btn chip-frame-btn active" data-frame="alice">1. Alice's Rest Frame (Bob is
+                Moving)</button>
               <button class="chip-btn chip-frame-btn" data-frame="bob">2. Bob's Rest Frame (Alice is Moving)</button>
             </div>
           </div>
@@ -822,35 +963,47 @@
         In Part 1, we encountered nature’s built-in demonstration of relativity: the <strong>atmospheric muon</strong>.
       </p>
       <p>
-        Muons created by cosmic rays 10 kilometers above the Earth have an average laboratory lifespan of only <span class="math-badge">2.2 microseconds</span>. Even travelling at nearly the speed of light, light itself covers only <span class="math-badge">660 meters</span> in 2.2 microseconds—far short of reaching the ground.
+        Muons created by cosmic rays 10 kilometers above the Earth have an average laboratory lifespan of only <span
+          class="math-badge">2.2 microseconds</span>. Even travelling at nearly the speed of light, light itself covers
+        only <span class="math-badge">660 meters</span> in 2.2 microseconds—far short of reaching the ground.
       </p>
       <p>
-        From Earth’s viewpoint, the explanation was <strong>Time Dilation</strong>: because the muon moves at <span class="math-badge">0.999 c</span> (<span class="math-badge">γ ≈ 22.4</span>), its internal clock ticks 22.4 times more slowly, stretching its 2.2-microsecond lifespan into nearly 50 microseconds and easily allowing it to reach mountain and sea-level detectors.
+        From Earth’s viewpoint, the explanation was <strong>Time Dilation</strong>: because the muon moves at <span
+          class="math-badge">0.999 c</span> (<span class="math-badge">γ ≈ 22.4</span>), its internal clock ticks 22.4
+        times more slowly, stretching its 2.2-microsecond lifespan into nearly 50 microseconds and easily allowing it to
+        reach mountain and sea-level detectors.
       </p>
       <p>
         Now, consider the descent from the <strong>muon's own perspective</strong>:
       </p>
       <p>
-        Inside the muon’s rest frame, the muon is at rest. Its internal clock ticks at its normal, standard rate: it decays in exactly 2.2 microseconds. The muon experiences no time dilation whatsoever.
+        Inside the muon’s rest frame, the muon is at rest. Its internal clock ticks at its normal, standard rate: it
+        decays in exactly 2.2 microseconds. The muon experiences no time dilation whatsoever.
       </p>
       <p>
         How does the muon reach the ground before its 2.2 microseconds expire?
       </p>
       <p>
-        To the muon, it is stationary—and the <strong>entire Earth and its 10-kilometer blanket of atmosphere are rushing upward toward it at 0.999 c!</strong>
+        To the muon, it is stationary—and the <strong>entire Earth and its 10-kilometer blanket of atmosphere are
+          rushing upward toward it at 0.999 c!</strong>
       </p>
       <p>
-        Because the atmosphere is moving at relativistic speed relative to the muon, the entire 10-kilometer atmospheric column undergoes <strong>Length Contraction</strong>:
+        Because the atmosphere is moving at relativistic speed relative to the muon, the entire 10-kilometer atmospheric
+        column undergoes <strong>Length Contraction</strong>:
       </p>
       <div class="formula-card">
         <div>L_contracted = L_Earth / γ = 10,000 meters / 22.4 ≈ 447 meters</div>
-        <div class="formula-note">To the descending muon, the entire atmosphere has contracted into a thin layer less than half a kilometer deep!</div>
+        <div class="formula-note">To the descending muon, the entire atmosphere has contracted into a thin layer less
+          than half a kilometer deep!</div>
       </div>
       <p>
-        In 2.2 microseconds, travelling at nearly <span class="math-badge">c</span>, the muon easily covers 660 meters—more than enough distance to pierce the 447-meter contracted atmosphere and reach the detectors on the Earth's surface!
+        In 2.2 microseconds, travelling at nearly <span class="math-badge">c</span>, the muon easily covers 660
+        meters—more than enough distance to pierce the 447-meter contracted atmosphere and reach the detectors on the
+        Earth's surface!
       </p>
       <p>
-        Toggle between Earth’s view and the Muon’s cockpit in the simulation below to see how both perspectives describe the exact same physical outcome:
+        Toggle between Earth’s view and the Muon’s cockpit in the simulation below to see how both perspectives describe
+        the exact same physical outcome:
       </p>
 
       <!-- INTERACTIVE WIDGET 8: MUON CONTRACTION -->
@@ -859,7 +1012,8 @@
           <div>
             <span class="artifact-badge">Interactive Simulation 08</span>
             <div class="artifact-title">The Muon's Cockpit: Two Sides of the Same Coin</div>
-            <div class="artifact-desc">Toggle between Earth's View (Time Dilation) and Muon's View (Length Contraction) to see how physics guarantees the exact same survival outcome.</div>
+            <div class="artifact-desc">Toggle between Earth's View (Time Dilation) and Muon's View (Length Contraction)
+              to see how physics guarantees the exact same survival outcome.</div>
           </div>
         </div>
         <div class="canvas-viewport">
@@ -889,8 +1043,10 @@
               <span>Select Observer Perspective</span>
             </div>
             <div class="preset-chips">
-              <button class="chip-btn chip-muon-view active" data-view="earth">1. Earth Observer: Atmosphere = 10 km (Time Dilation ON)</button>
-              <button class="chip-btn chip-muon-view" data-view="muon">2. Muon Cockpit: Atmosphere = 447 m (Length Contraction ON)</button>
+              <button class="chip-btn chip-muon-view active" data-view="earth">1. Earth Observer: Atmosphere = 10 km
+                (Time Dilation ON)</button>
+              <button class="chip-btn chip-muon-view" data-view="muon">2. Muon Cockpit: Atmosphere = 447 m (Length
+                Contraction ON)</button>
             </div>
           </div>
           <div class="control-item">
@@ -905,7 +1061,8 @@
               <span>▶</span><span>Auto Play</span>
             </button>
             <div class="math-badge readout-muon-unified-badge">
-              Time Dilation and Length Contraction are not separate phenomena—they are the exact same spacetime geometry seen from two different frames.
+              Time Dilation and Length Contraction are not separate phenomena—they are the exact same spacetime geometry
+              seen from two different frames.
             </div>
           </div>
         </div>
@@ -919,7 +1076,9 @@
         <li>To the muon, the atmosphere was contracted.</li>
       </ul>
       <p>
-        They measure different times and different distances, but they agree completely on the physical reality: the muon reaches the detector. Time Dilation and Length Contraction are not separate tricks—they are two aspects of the exact same geometric fabric.
+        They measure different times and different distances, but they agree completely on the physical reality: the
+        muon reaches the detector. Time Dilation and Length Contraction are not separate tricks—they are two aspects of
+        the exact same geometric fabric.
       </p>
 
       <!-- SECTION 9 -->
@@ -928,21 +1087,31 @@
         Across these three essays, we have assembled the complete geometric foundation of Special Relativity:
       </p>
       <ol>
-        <li><strong>The Cosmic Speed Limit:</strong> All entities move through the combined dimensions of spacetime at a single invariant magnitude, <span class="math-badge">c</span>.</li>
-        <li><strong>Time Dilation:</strong> Moving across space diverts motion away from time, causing moving clocks to tick more slowly.</li>
-        <li><strong>Coordinate Spacetime:</strong> Scaling time by <span class="math-badge">c</span> maps histories as worldlines inside a 45° Cosmic Light Cone.</li>
-        <li><strong>The Spacetime Loaf:</strong> Reality can be pictured as a continuous block formed by stacking moments of space across time.</li>
-        <li><strong>Relativity of Simultaneity:</strong> Motion tilts an observer's slice of the present upward into the future ahead and downward into the past behind.</li>
-        <li><strong>Length Contraction:</strong> Measuring length requires simultaneous boundaries; taking a cross-section of a tilted worldtube on the bias causes moving bodies to measure shorter along their direction of motion.</li>
+        <li><strong>The Cosmic Speed Limit:</strong> All entities move through the combined dimensions of spacetime at a
+          single invariant magnitude, <span class="math-badge">c</span>.</li>
+        <li><strong>Time Dilation:</strong> Moving across space diverts motion away from time, causing moving clocks to
+          tick more slowly.</li>
+        <li><strong>Coordinate Spacetime:</strong> Scaling time by <span class="math-badge">c</span> maps histories as
+          worldlines inside a 45° Cosmic Light Cone.</li>
+        <li><strong>The Spacetime Loaf:</strong> Reality can be pictured as a continuous block formed by stacking
+          moments of space across time.</li>
+        <li><strong>Relativity of Simultaneity:</strong> Motion tilts an observer's slice of the present upward into the
+          future ahead and downward into the past behind.</li>
+        <li><strong>Length Contraction:</strong> Measuring length requires simultaneous boundaries; taking a
+          cross-section of a tilted worldtube on the bias causes moving bodies to measure shorter along their direction
+          of motion.</li>
       </ol>
       <p>
-        Throughout all of this, our spacetime loaf has remained flat and uniform: worldlines were straight, grid lines were square, and planes of simultaneity were planar surfaces.
+        Throughout all of this, our spacetime loaf has remained flat and uniform: worldlines were straight, grid lines
+        were square, and planes of simultaneity were planar surfaces.
       </p>
       <p>
         What happens when massive objects—like stars, planets, and black holes—are placed into this fabric?
       </p>
       <p>
-        In <strong>Part 4: Gravity as Geometry</strong>, we will watch mass bend and stretch the loaf itself, discovering why objects falling under gravity are simply following straight paths through curved spacetime, and why time runs slower near the surface of a massive world.
+        In <strong>Part 4: Gravity as Geometry</strong>, we will watch mass bend and stretch the loaf itself,
+        discovering why objects falling under gravity are simply following straight paths through curved spacetime, and
+        why time runs slower near the surface of a massive world.
       </p>
 
       <!-- SERIES PAGER -->
@@ -961,7 +1130,8 @@
         <div>
           <h4>Aayush Agarwal</h4>
           <p>
-            Exploring physics, mathematics, and machine learning through intuitive visual geometry and explorable interactive simulations.
+            Exploring physics, mathematics, and machine learning through intuitive visual geometry and explorable
+            interactive simulations.
           </p>
         </div>
       </div>
@@ -975,7 +1145,9 @@
     <div class="wide-container">
       <p><strong>Intuition First</strong> · An Explorable Science & Mathematics Series by Aayush Agarwal</p>
       <p style="margin-top: 0.5rem;">
-        <a href="../index.html">Series Home</a> · <a href="01-motion-and-time.html">Part 1: Motion &amp; Time</a> · <a href="02-light-cone.html">Part 2: The Cosmic Light Cone</a> · <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
+        <a href="../index.html">Series Home</a> · <a href="01-motion-and-time.html">Part 1: Motion &amp; Time</a> · <a
+          href="02-light-cone.html">Part 2: The Cosmic Light Cone</a> · <a
+          href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
       </p>
     </div>
   </footer>
@@ -984,4 +1156,5 @@
   <script src="../js/core.js"></script>
   <script src="../js/post-03.js"></script>
 </body>
+
 </html>
