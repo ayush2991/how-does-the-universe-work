@@ -572,14 +572,14 @@
       drawGrid(ctx, ox, oy, width, height, 32);
       drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
 
-      // Axis speed marks at 0.5 c and 1.0 c
+      // Axis speed marks at 50% V and 100% V
       ctx.fillStyle = c.axisText || c.subtleText;
       ctx.strokeStyle = c.axisLine;
       ctx.font = '10px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
 
-      [{ v: 0.5, label: '0.5 c' }, { v: 1.0, label: '1.0 c' }].forEach(function (tick) {
+      [{ v: 0.5, label: '50% V' }, { v: 1.0, label: '100% V' }].forEach(function (tick) {
         var px = ox + tick.v * radius;
         var py = oy - tick.v * radius;
 
@@ -601,7 +601,7 @@
         ctx.textAlign = 'center';
       });
 
-      // Invariant Speed Limit Arc Constraint (dashed)
+      // Constant Total Speed Arc Constraint (dashed)
       ctx.strokeStyle = c.invariantColor || '#8a5cf6';
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
@@ -609,15 +609,6 @@
       ctx.arc(ox, oy, radius, -Math.PI / 2, 0, false);
       ctx.stroke();
       ctx.setLineDash([]);
-
-      // Speed Arc Constraint Pill Badge
-      var arcMidA = -Math.PI / 4;
-      var arcPillX = ox + radius * Math.cos(arcMidA);
-      var arcPillY = oy + radius * Math.sin(arcMidA);
-      drawLabelPill(ctx, '|V| = 1.00 c circle', arcPillX + 24, arcPillY - 10, {
-        textColor: c.invariantColor || '#8a5cf6',
-        font: 'bold 10px "JetBrains Mono", monospace'
-      });
 
       // Origin dot
       drawGlowingDot(ctx, ox, oy, c.axisLine, 4);
@@ -630,7 +621,7 @@
         font: 'bold 10px "JetBrains Mono", monospace'
       });
 
-      // Invariant speed vector always has constant length c pointing 100% into time
+      // Speed vector has constant length V pointing 100% into time
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
@@ -648,7 +639,7 @@
       ctx.fill();
 
       // Label for Observer Vector & glowing tip
-      drawLabelPill(ctx, 'V_Observer (1.00 c)', ox - 35, tipY - 16, {
+      drawLabelPill(ctx, 'V_Observer (100% of V)', ox - 35, tipY - 16, {
         textColor: c.timeColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
@@ -704,280 +695,498 @@
     window.addEventListener('resize', draw);
   }
 
-  // Widget 3: Thought Experiment (Space vs Time Speed Trade-off)
+  // Snapshot Grid: 2x2 snapshots of moving observer at t=0, 1, 2, 3
+  function initWidgetMovingSnapshots(containerId) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var panels = container.querySelectorAll('canvas.motion-panel');
+    if (!panels || panels.length === 0) return;
+
+    var MAX_T = 3.0;
+    var MAX_DIST = 30.0;
+    var SPEED = 8.0; // 8 meters per second
+
+    function drawPanel(canvas, t) {
+      var ret = setupRetinaCanvas(canvas);
+      var ctx = ret.ctx, w = ret.width, h = ret.height;
+      var colors = getThemeColors();
+
+      ctx.clearRect(0, 0, w, h);
+
+      var ox = 38;
+      var oy = h - 34;
+      var scaleX = w - 54;
+      var scaleY = h - 54;
+
+      drawGrid(ctx, ox, oy, w, h, 24);
+      drawAxes(ctx, ox, oy, w, h, 'Space x (m)', 'Time t (s)');
+
+      // Axis ticks
+      ctx.fillStyle = colors.axisText || colors.subtleText;
+      ctx.strokeStyle = colors.axisLine;
+      ctx.font = '9.5px "JetBrains Mono", monospace';
+
+      // Space ticks at 10, 20, 30 m
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      [10, 20, 30].forEach(function (m) {
+        var px = ox + (m / MAX_DIST) * scaleX;
+        if (px <= w - 16) {
+          ctx.beginPath();
+          ctx.moveTo(px, oy - 3);
+          ctx.lineTo(px, oy + 3);
+          ctx.stroke();
+          ctx.fillText(m + '', px, oy + 5);
+        }
+      });
+
+      // Time ticks at 1, 2, 3 s
+      [1, 2, 3].forEach(function (timeSec) {
+        var py = oy - (timeSec / 3.5) * scaleY;
+        ctx.beginPath();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(timeSec + 's', ox - 5, py);
+        ctx.textAlign = 'center';
+      });
+
+      // Full projected worldline guideline (dashed)
+      var maxProjX = ox + ((3.0 * SPEED) / MAX_DIST) * scaleX;
+      var maxProjY = oy - (3.0 / 3.5) * scaleY;
+      ctx.strokeStyle = colors.axisLine;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(maxProjX, maxProjY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Current position for snapshot t
+      var currentDist = t * SPEED;
+      var curX = ox + (currentDist / MAX_DIST) * scaleX;
+      var curY = oy - (t / 3.5) * scaleY;
+
+      // Solid trajectory line traced up to t
+      if (t > 0) {
+        ctx.strokeStyle = colors.spaceColor;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(ox, oy);
+        ctx.lineTo(curX, curY);
+        ctx.stroke();
+
+        // Dashed coordinate drop lines
+        ctx.strokeStyle = colors.spaceColor;
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 3]);
+
+        // Horizontal drop to time axis
+        ctx.beginPath();
+        ctx.moveTo(curX, curY);
+        ctx.lineTo(ox, curY);
+        ctx.stroke();
+
+        // Vertical drop to space axis
+        ctx.beginPath();
+        ctx.moveTo(curX, curY);
+        ctx.lineTo(curX, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Right angle marker
+        var sq = 6;
+        if (curX - ox > sq + 2 && oy - curY > sq + 2) {
+          ctx.strokeStyle = colors.axisLine;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(ox, curY + sq);
+          ctx.lineTo(ox + sq, curY + sq);
+          ctx.lineTo(ox + sq, curY);
+          ctx.stroke();
+        }
+      }
+
+      // Origin dot
+      drawGlowingDot(ctx, ox, oy, colors.axisLine, 3.5);
+
+      // Current Observer position glowing dot
+      drawGlowingDot(ctx, curX, curY, colors.spaceColor, 5.5);
+
+      // Top-Left Snapshot Header Pill Badge
+      var pillW = 60, pillH = 20, pillX = 8, pillY = 8;
+      ctx.fillStyle = colors.pillBg;
+      ctx.strokeStyle = colors.pillBorder;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(pillX, pillY, pillW, pillH, 5);
+      } else {
+        ctx.rect(pillX, pillY, pillW, pillH);
+      }
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.font = '700 9.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = colors.pillText;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('t = ' + t + ' s', pillX + pillW / 2, pillY + pillH / 2);
+
+      // In-canvas position coordinate callout
+      var labelX = curX + (curX > w - 80 ? -48 : 42);
+      var labelY = curY + (t === 0 ? -14 : (curY < 40 ? 14 : -12));
+      var labelText = t === 0 ? 'Start (0 m, 0 s)' : '(' + currentDist.toFixed(1) + ' m, ' + t + ' s)';
+
+      drawLabelPill(ctx, labelText, labelX, labelY, {
+        textColor: colors.spaceColor,
+        font: 'bold 9.5px "JetBrains Mono", monospace'
+      });
+    }
+
+    function renderAll() {
+      for (var i = 0; i < panels.length; i++) {
+        var tVal = parseFloat(panels[i].getAttribute('data-t'));
+        if (!isNaN(tVal)) {
+          drawPanel(panels[i], tVal);
+        }
+      }
+    }
+
+    registerDraw(renderAll);
+    window.addEventListener('resize', renderAll);
+    renderAll();
+  }
+
+  // Widget 3: Thought Experiment (Space vs Time Speed Trade-off — Dual View)
   function initWidgetTradeoff(containerId) {
     var container = document.getElementById(containerId);
     if (!container) return;
 
-    var canvas = container.querySelector('canvas');
-    var sliderSpeed = container.querySelector('.slider-speed');
+    var canvasMap = container.querySelector('.canvas-map');
+    var canvasVel = container.querySelector('.canvas-vel');
     var sliderTime = container.querySelector('.slider-time');
-    var btnPlay = container.querySelector('.btn-play');
-    var timeVal = container.querySelector('.val-time');
+    var sliderSpeed = container.querySelector('.slider-speed');
+    var valTimeLabel = container.querySelector('.val-time-label');
     var readoutVx = container.querySelector('.readout-vx');
-    var readoutVt = container.querySelector('.readout-vt');
+    var tradeoffPresetChips = container.querySelectorAll('.chip-preset-tradeoff');
+    var btnPlay = container.querySelector('.btn-play');
 
-    var speedFraction = sliderSpeed ? parseFloat(sliderSpeed.value) / 1000 : 0.866;
-    var sweepForward = true;
+    var animTime = 3.5; // 0 to 6.0 s
+    var speedFraction = 0.866; // 0 to 1.0
     var isPlaying = false;
     var lastTimestamp = null;
     var animFrame = null;
 
-    function update() {
+    function updateReadouts() {
       var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
+      if (valTimeLabel) valTimeLabel.innerText = animTime.toFixed(2) + ' s';
       if (readoutVx) readoutVx.innerText = (speedFraction * 100).toFixed(1) + '% of V';
-      if (readoutVt) readoutVt.innerText = (vt * 100).toFixed(1) + '% of V';
-      if (timeVal) timeVal.innerText = (speedFraction * 100).toFixed(0) + '%';
     }
 
-    function draw() {
+    function drawMap() {
+      if (!canvasMap) return;
       var c = getThemeColors();
-      var ret = setupRetinaCanvas(canvas);
+      var ret = setupRetinaCanvas(canvasMap);
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var ox = width * 0.25;
-      var oy = height * 0.82;
-      var scale = Math.min(width * 0.58, height * 0.68);
+      var ox = 48;
+      var oy = height - 42;
+      var maxTime = 6.0;
+      var maxDistMeters = 30;
+      var scaleY = height - 70;
+      var scaleX = width - 75;
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
-      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
+      drawAxes(ctx, ox, oy, width, height, 'Space Position x (m)', 'Elapsed Time t (s)');
 
-      var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
-      // Invariant vector always has constant length scale (V)
-      var tipX = ox + scale * speedFraction;
-      var tipY = oy - scale * vt;
+      // Axis Ticks
+      ctx.fillStyle = c.axisText || c.subtleText;
+      ctx.strokeStyle = c.axisLine;
+      ctx.font = '10px "JetBrains Mono", monospace';
 
-      // Right-angle component projections on axes
-      ctx.strokeStyle = c.invariantColor;
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([3, 3]);
+      // Space ticks at 10, 20, 30 m
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      [10, 20, 30].forEach(function (m) {
+        var px = ox + (m / maxDistMeters) * scaleX;
+        if (px <= width - 20) {
+          ctx.beginPath();
+          ctx.moveTo(px, oy - 3);
+          ctx.lineTo(px, oy + 3);
+          ctx.stroke();
+          ctx.fillText(m + '', px, oy + 6);
+        }
+      });
+
+      // Time ticks at 2, 4, 6 s
+      [2, 4, 6].forEach(function (t) {
+        var py = oy - (t / maxTime) * scaleY;
+        ctx.beginPath();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(t + ' s', ox - 6, py);
+        ctx.textAlign = 'center';
+      });
+
+      // Max distance reached at maxTime (6s)
+      var totalDistAt6s = speedFraction * maxDistMeters;
+      var endWorldlineX = ox + (totalDistAt6s / maxDistMeters) * scaleX;
+      var endWorldlineY = oy - scaleY;
+
+      // Full projected worldline guideline (dashed)
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 4]);
       ctx.beginPath();
-      ctx.moveTo(tipX, tipY);
-      ctx.lineTo(ox, tipY);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(tipX, tipY);
-      ctx.lineTo(tipX, oy);
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(endWorldlineX, endWorldlineY);
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Constant-length total velocity vector
-      ctx.strokeStyle = c.invariantColor;
+      // Current position at animTime
+      var currentDist = (animTime / maxTime) * totalDistAt6s;
+      var currentX = ox + (currentDist / maxDistMeters) * scaleX;
+      var currentY = oy - (animTime / maxTime) * scaleY;
+
+      // Traveled Worldline Path
+      var pathColor = speedFraction > 0.01 ? c.spaceColor : c.timeColor;
+      ctx.strokeStyle = pathColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(currentX, currentY);
+      ctx.stroke();
+
+      // Right-angle drop lines from current position to axes
+      if (speedFraction > 0.02 && animTime > 0.1) {
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 3]);
+
+        // Horizontal drop to time axis
+        ctx.beginPath();
+        ctx.moveTo(currentX, currentY);
+        ctx.lineTo(ox, currentY);
+        ctx.stroke();
+
+        // Vertical drop to space axis
+        ctx.beginPath();
+        ctx.moveTo(currentX, currentY);
+        ctx.lineTo(currentX, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Right angle marker
+        var sq = 7;
+        if (currentX - ox > sq + 3 && oy - currentY > sq + 3) {
+          ctx.strokeStyle = c.axisLine;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(ox, currentY + sq);
+          ctx.lineTo(ox + sq, currentY + sq);
+          ctx.lineTo(ox + sq, currentY);
+          ctx.stroke();
+        }
+      }
+
+      // Origin dot
+      drawGlowingDot(ctx, ox, oy, c.axisLine, 4);
+
+      // Current Observer position dot
+      drawGlowingDot(ctx, currentX, currentY, pathColor, 6);
+
+      // Status pill at current position
+      var pillLabel = speedFraction > 0.01
+        ? 'Observer: (' + currentDist.toFixed(1) + ' m, ' + animTime.toFixed(2) + ' s)'
+        : 'Observer: x = 0 m, t = ' + animTime.toFixed(2) + ' s';
+
+      var pillX = currentX + (currentX > width - 110 ? -70 : 65);
+      var pillY = currentY - 14;
+      drawLabelPill(ctx, pillLabel, pillX, pillY, {
+        textColor: pathColor,
+        font: 'bold 10.5px "JetBrains Mono", monospace'
+      });
+    }
+
+    function drawVel() {
+      if (!canvasVel) return;
+      var c = getThemeColors();
+      var ret = setupRetinaCanvas(canvasVel);
+      var ctx = ret.ctx, width = ret.width, height = ret.height;
+      ctx.clearRect(0, 0, width, height);
+
+      var ox = 48;
+      var oy = height - 42;
+      var radius = Math.min(width - 75, height - 70);
+
+      drawGrid(ctx, ox, oy, width, height, 32);
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
+
+      // Axis speed marks at 50% V and 100% V
+      ctx.fillStyle = c.axisText || c.subtleText;
+      ctx.strokeStyle = c.axisLine;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      [{ v: 0.5, label: '50% V' }, { v: 1.0, label: '100% V' }].forEach(function (tick) {
+        var px = ox + tick.v * radius;
+        var py = oy - tick.v * radius;
+
+        // Space speed tick
+        ctx.beginPath();
+        ctx.moveTo(px, oy - 3);
+        ctx.lineTo(px, oy + 3);
+        ctx.stroke();
+        ctx.fillText(tick.label, px, oy + 6);
+
+        // Time speed tick
+        ctx.beginPath();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(tick.label, ox - 6, py);
+        ctx.textAlign = 'center';
+      });
+
+      // Constant Total Speed Arc Constraint (dashed)
+      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.arc(ox, oy, radius, -Math.PI / 2, 0, false);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
+      var tipX = ox + speedFraction * radius;
+      var tipY = oy - vt * radius;
+      var thetaRad = Math.asin(Math.min(1, Math.max(0, speedFraction)));
+      var thetaDeg = (thetaRad * 180) / Math.PI;
+
+      // Angle Theta Arc at Origin
+      if (thetaDeg > 2) {
+        var arcR = Math.min(46, radius * 0.35);
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(ox, oy, arcR, -Math.PI / 2, -Math.PI / 2 + thetaRad, false);
+        ctx.stroke();
+
+        // Arrowhead on arc
+        var endA = -Math.PI / 2 + thetaRad;
+        var arrowX = ox + arcR * Math.cos(endA);
+        var arrowY = oy + arcR * Math.sin(endA);
+        var tangentA = endA + Math.PI / 2;
+        ctx.fillStyle = c.spaceColor;
+        ctx.beginPath();
+        ctx.moveTo(arrowX, arrowY);
+        ctx.lineTo(arrowX - 5 * Math.cos(tangentA - 0.45), arrowY - 5 * Math.sin(tangentA - 0.45));
+        ctx.lineTo(arrowX - 5 * Math.cos(tangentA + 0.45), arrowY - 5 * Math.sin(tangentA + 0.45));
+        ctx.closePath();
+        ctx.fill();
+
+        // Theta label
+        var midA = -Math.PI / 2 + thetaRad / 2;
+        var badgeDist = arcR + 18;
+        var badgeX = ox + badgeDist * Math.cos(midA);
+        var badgeY = oy + badgeDist * Math.sin(midA);
+        drawLabelPill(ctx, 'θ = ' + Math.round(thetaDeg) + '°', badgeX + (thetaRad > 0.8 ? 6 : 0), badgeY, {
+          textColor: c.spaceColor,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
+      }
+
+      // Right-Triangle Decomposition Dashed Lines
+      if (speedFraction > 0.02 && speedFraction < 0.98) {
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+
+        // Horizontal line from tip to vertical Time axis
+        ctx.beginPath();
+        ctx.moveTo(tipX, tipY);
+        ctx.lineTo(ox, tipY);
+        ctx.stroke();
+
+        // Vertical line from tip down to Space axis
+        ctx.beginPath();
+        ctx.moveTo(tipX, tipY);
+        ctx.lineTo(tipX, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Small square for right angle
+        var sq = 8;
+        if (tipX - ox > sq + 4 && oy - tipY > sq + 4) {
+          ctx.strokeStyle = c.axisLine;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(ox, tipY + sq);
+          ctx.lineTo(ox + sq, tipY + sq);
+          ctx.lineTo(ox + sq, tipY);
+          ctx.stroke();
+        }
+
+        // Component label: v_space
+        if (tipX - ox > 35) {
+          drawLabelPill(ctx, 'v_space = ' + (speedFraction * 100).toFixed(0) + '% of V', (ox + tipX) / 2, tipY - 12, {
+            textColor: c.spaceColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
+        }
+
+        // Component label: v_time
+        if (oy - tipY > 25) {
+          drawLabelPill(ctx, 'v_time = ' + (vt * 100).toFixed(0) + '% of V', Math.min(width - 55, tipX + 55), (oy + tipY) / 2, {
+            textColor: c.timeColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
+        }
+      }
+
+      // Invariant total speed vector
+      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
       ctx.lineWidth = 3.5;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
       ctx.lineTo(tipX, tipY);
       ctx.stroke();
 
-      drawGlowingDot(ctx, tipX, tipY, c.invariantColor, 6.5);
+      // Arrowhead for Invariant Vector
+      var arrowAng = Math.atan2(tipY - oy, tipX - ox);
+      ctx.fillStyle = c.invariantColor || '#8a5cf6';
+      ctx.beginPath();
+      ctx.moveTo(tipX + 5 * Math.cos(arrowAng), tipY + 5 * Math.sin(arrowAng));
+      ctx.lineTo(tipX - 6 * Math.cos(arrowAng - 0.5), tipY - 6 * Math.sin(arrowAng - 0.5));
+      ctx.lineTo(tipX - 6 * Math.cos(arrowAng + 0.5), tipY - 6 * Math.sin(arrowAng + 0.5));
+      ctx.closePath();
+      ctx.fill();
 
-      drawLabelPill(ctx, 'v_time = ' + (vt * 100).toFixed(0) + '%', ox - 55, tipY + 4, {
-        textColor: c.timeColor,
-        font: 'bold 11px "JetBrains Mono", monospace'
+      // Label for Vector
+      var vectorPillX = tipX + (speedFraction > 0.7 ? -15 : 30);
+      var vectorPillY = tipY + (speedFraction > 0.7 ? -18 : 6);
+      drawLabelPill(ctx, 'Total Speed Vector V', vectorPillX, vectorPillY, {
+        textColor: c.invariantColor || '#8a5cf6',
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
-      drawLabelPill(ctx, 'v_space = ' + (speedFraction * 100).toFixed(0) + '%', tipX, oy + 22, {
-        textColor: c.spaceColor,
-        font: 'bold 11px "JetBrains Mono", monospace'
-      });
-      drawLabelPill(ctx, 'Total Speed |V| = Const', (ox + tipX) / 2 + 10, (oy + tipY) / 2 - 12, {
-        textColor: c.invariantColor,
-        font: 'bold 10px "JetBrains Mono", monospace'
-      });
-    }
-
-    function loop(now) {
-      if (!lastTimestamp) lastTimestamp = now;
-      var dt = (now - lastTimestamp) / 1000;
-      lastTimestamp = now;
-
-      if (isPlaying) {
-        if (sweepForward) {
-          speedFraction += dt * 0.35;
-          if (speedFraction >= 0.98) {
-            speedFraction = 0.98;
-            sweepForward = false;
-          }
-        } else {
-          speedFraction -= dt * 0.35;
-          if (speedFraction <= 0.02) {
-            speedFraction = 0.02;
-            sweepForward = true;
-          }
-        }
-        if (sliderSpeed) sliderSpeed.value = speedFraction * 1000;
-        update();
-      }
-      draw();
-      if (isPlaying) {
-        animFrame = requestAnimationFrame(loop);
-      }
-    }
-
-    var tradeoffPresetChips = container.querySelectorAll('.chip-preset-tradeoff');
-    tradeoffPresetChips.forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        tradeoffPresetChips.forEach(function (c) { c.classList.remove('active'); });
-        chip.classList.add('active');
-        speedFraction = parseFloat(chip.getAttribute('data-val'));
-        if (sliderSpeed) sliderSpeed.value = speedFraction * 1000;
-        update();
-        draw();
-      });
-    });
-
-    if (sliderSpeed) {
-      sliderSpeed.addEventListener('input', function (e) {
-        speedFraction = e.target.value / 1000;
-        tradeoffPresetChips.forEach(function (c) { c.classList.remove('active'); });
-        update();
-        draw();
-      });
-    }
-
-    if (btnPlay) {
-      btnPlay.addEventListener('click', function () {
-        isPlaying = !isPlaying;
-        btnPlay.innerHTML = isPlaying ? '<span>⏸</span><span>Pause</span>' : '<span>▶</span><span>Auto Sweep</span>';
-        if (isPlaying) {
-          lastTimestamp = null;
-          animFrame = requestAnimationFrame(loop);
-        } else if (animFrame) {
-          cancelAnimationFrame(animFrame);
-        }
-      });
-    }
-
-    update();
-    registerDraw(draw);
-    draw();
-    window.addEventListener('resize', draw);
-  }
-
-  // Widget 4: Time Dilation & Live Twin Clocks
-  function initWidgetTimeDilation(containerId) {
-    var container = document.getElementById(containerId);
-    if (!container) return;
-
-    var canvas = container.querySelector('canvas');
-    var sliderSpeed = container.querySelector('.slider-speed');
-    var sliderTime = container.querySelector('.slider-time');
-    var btnPlay = container.querySelector('.btn-play');
-    var clockEarth = container.querySelector('.clock-earth');
-    var clockRocket = container.querySelector('.clock-rocket');
-    var readoutSpeed = container.querySelector('.readout-speed');
-    var readoutMath = container.querySelector('.readout-math');
-    var readoutGamma = container.querySelector('.readout-gamma');
-    var presetChips = container.querySelectorAll('.chip-preset');
-
-    var speedFraction = 0.866;
-    var animTime = 0;
-    var isPlaying = false;
-    var lastTimestamp = null;
-    var animFrame = null;
-
-    function update() {
-      var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
-      var gamma = speedFraction >= 0.999 ? 22.36 : 1 / Math.sqrt(Math.max(0.001, 1 - speedFraction * speedFraction));
-
-      if (readoutSpeed) readoutSpeed.innerText = 'v = ' + speedFraction.toFixed(3) + ' c';
-      if (readoutMath) readoutMath.innerText = vt.toFixed(3) + ' c';
-      if (readoutGamma) readoutGamma.innerText = gamma.toFixed(2);
-
-      var rocketBadge = container.querySelector('.clock-card.amber .clock-badge');
-      if (rocketBadge) {
-        if (speedFraction === 0) {
-          rocketBadge.innerText = '1.00x Rest Rate';
-        } else {
-          rocketBadge.innerText = vt.toFixed(2) + 'x Dilated';
-        }
-      }
-
-      var rocketLabel = container.querySelector('.clock-card.amber .clock-label');
-      if (rocketLabel && rocketLabel.getAttribute('data-dynamic') !== 'false') {
-        rocketLabel.innerText = speedFraction === 0 ? 'Spacecraft (At Rest)' : 'Spacecraft (v = ' + speedFraction.toFixed(3) + 'c)';
-      }
-
-      var earthSec = animTime;
-      var rocketSec = animTime * vt;
-      if (clockEarth) clockEarth.innerHTML = earthSec.toFixed(2) + ' <span>s</span>';
-      if (clockRocket) clockRocket.innerHTML = rocketSec.toFixed(2) + ' <span>s</span>';
+      drawGlowingDot(ctx, tipX, tipY, c.invariantColor || '#8a5cf6', 5.5);
     }
 
     function draw() {
-      var c = getThemeColors();
-      var ret = setupRetinaCanvas(canvas);
-      var ctx = ret.ctx, width = ret.width, height = ret.height;
-      ctx.clearRect(0, 0, width, height);
-
-      var ox = width * 0.22;
-      var oy = height * 0.82;
-      var scale = Math.min(width * 0.58, height * 0.68);
-      var progress = animTime / 6.0;
-
-      drawGrid(ctx, ox, oy, width, height, 32);
-      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
-      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
-
-      var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
-      // Invariant speed vectors have constant length c anchored on the circle
-      var e_tip_x = ox;
-      var e_tip_y = oy - scale;
-      var r_tip_x = ox + scale * speedFraction;
-      var r_tip_y = oy - scale * vt;
-
-      // Rocket speed component dashed lines
-      ctx.strokeStyle = c.spaceColor;
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([3, 3]);
-      ctx.beginPath();
-      ctx.moveTo(r_tip_x, r_tip_y);
-      ctx.lineTo(ox, r_tip_y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(r_tip_x, r_tip_y);
-      ctx.lineTo(r_tip_x, oy);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Earth Velocity Vector (constant length c straight up)
-      ctx.strokeStyle = c.timeColor;
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(ox, oy);
-      ctx.lineTo(e_tip_x, e_tip_y);
-      ctx.stroke();
-
-      // Rocket Velocity Vector (constant length c tilted)
-      ctx.strokeStyle = c.spaceColor;
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(ox, oy);
-      ctx.lineTo(r_tip_x, r_tip_y);
-      ctx.stroke();
-
-      drawGlowingDot(ctx, e_tip_x, e_tip_y, c.timeColor, 6);
-      drawGlowingDot(ctx, r_tip_x, r_tip_y, c.spaceColor, 6);
-
-      // Time pulses showing relative clock ticking rate along each vector
-      if (progress > 0.02) {
-        var e_pulse_y = oy - (progress * scale);
-        drawGlowingDot(ctx, ox, e_pulse_y, c.timeColor, 4.5);
-
-        var r_pulse_x = ox + (progress * scale * speedFraction);
-        var r_pulse_y = oy - (progress * scale * vt);
-        drawGlowingDot(ctx, r_pulse_x, r_pulse_y, c.spaceColor, 4.5);
-      }
-
-      drawLabelPill(ctx, 'Earth (v_space = 0)', e_tip_x - 10, e_tip_y - 18, {
-        textColor: c.timeColor,
-        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
-      });
-      drawLabelPill(ctx, 'Rocket (v = ' + speedFraction.toFixed(3) + 'c)', r_tip_x + 55, r_tip_y + 4, {
-        textColor: c.spaceColor,
-        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
-      });
+      drawMap();
+      drawVel();
     }
 
     function loop(now) {
@@ -989,7 +1198,7 @@
         animTime += dt * 1.5;
         if (animTime > 6.0) animTime = 0;
         if (sliderTime) sliderTime.value = (animTime / 6.0) * 1000;
-        update();
+        updateReadouts();
       }
       draw();
       if (isPlaying) {
@@ -997,30 +1206,30 @@
       }
     }
 
-    if (sliderSpeed) {
-      sliderSpeed.addEventListener('input', function (e) {
-        speedFraction = e.target.value / 1000;
-        presetChips.forEach(function (c) { c.classList.remove('active'); });
-        update();
-        draw();
-      });
-    }
-
     if (sliderTime) {
       sliderTime.addEventListener('input', function (e) {
         animTime = (e.target.value / 1000) * 6.0;
-        update();
+        updateReadouts();
         draw();
       });
     }
 
-    presetChips.forEach(function (chip) {
+    if (sliderSpeed) {
+      sliderSpeed.addEventListener('input', function (e) {
+        speedFraction = e.target.value / 1000;
+        tradeoffPresetChips.forEach(function (c) { c.classList.remove('active'); });
+        updateReadouts();
+        draw();
+      });
+    }
+
+    tradeoffPresetChips.forEach(function (chip) {
       chip.addEventListener('click', function () {
-        presetChips.forEach(function (c) { c.classList.remove('active'); });
+        tradeoffPresetChips.forEach(function (c) { c.classList.remove('active'); });
         chip.classList.add('active');
         speedFraction = parseFloat(chip.getAttribute('data-val'));
         if (sliderSpeed) sliderSpeed.value = speedFraction * 1000;
-        update();
+        updateReadouts();
         draw();
       });
     });
@@ -1038,7 +1247,266 @@
       });
     }
 
-    update();
+    updateReadouts();
+    registerDraw(draw);
+    draw();
+    window.addEventListener('resize', draw);
+  }
+
+  // Widget 4: Time Dilation & Live Twin Clocks (Velocity Space & Direct Component Decomposition)
+  function initWidgetTimeDilation(containerId) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    var canvas = container.querySelector('canvas');
+    var sliderSpeed = container.querySelector('.slider-speed');
+    var readoutSpeed = container.querySelector('.readout-speed');
+    var readoutVx = container.querySelector('.readout-vx');
+    var readoutMath = container.querySelector('.readout-math');
+    var presetChips = container.querySelectorAll('.chip-preset');
+
+    var speedFraction = 0.866;
+
+    function updateReadouts() {
+      var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
+
+      if (readoutSpeed) readoutSpeed.innerText = 'v = ' + speedFraction.toFixed(3) + ' c';
+      if (readoutVx) readoutVx.innerText = speedFraction.toFixed(3) + ' c';
+      if (readoutMath) readoutMath.innerText = vt.toFixed(3) + ' c';
+    }
+
+    function draw() {
+      if (!canvas) return;
+      var c = getThemeColors();
+      var ret = setupRetinaCanvas(canvas);
+      var ctx = ret.ctx, width = ret.width, height = ret.height;
+      ctx.clearRect(0, 0, width, height);
+
+      var ox = Math.max(52, width * 0.14);
+      var oy = height - 44;
+      var radius = Math.min(width - ox - 65, height - 70);
+
+      drawGrid(ctx, ox, oy, width, height, 32);
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
+
+      // Axis speed marks at 0.5 c and 1.0 c
+      ctx.fillStyle = c.axisText || c.subtleText;
+      ctx.strokeStyle = c.axisLine;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      [{ v: 0.5, label: '0.5 c' }, { v: 1.0, label: '1.0 c' }].forEach(function (tick) {
+        var px = ox + tick.v * radius;
+        var py = oy - tick.v * radius;
+
+        // Space speed tick
+        ctx.beginPath();
+        ctx.moveTo(px, oy - 3);
+        ctx.lineTo(px, oy + 3);
+        ctx.stroke();
+        ctx.fillText(tick.label, px, oy + 6);
+
+        // Time speed tick
+        ctx.beginPath();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(tick.label, ox - 6, py);
+        ctx.textAlign = 'center';
+      });
+
+      // Invariant Speed Limit Arc Constraint (dashed)
+      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.arc(ox, oy, radius, -Math.PI / 2, 0, false);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Speed Arc Constraint Pill Badge
+      var arcMidA = -Math.PI / 4;
+      var arcPillX = ox + radius * Math.cos(arcMidA);
+      var arcPillY = oy + radius * Math.sin(arcMidA);
+      drawLabelPill(ctx, '|V| = 1.00 c (Speed Limit)', Math.min(width - 85, arcPillX + 35), arcPillY - 8, {
+        textColor: c.invariantColor || '#8a5cf6',
+        font: 'bold 9.5px "JetBrains Mono", monospace'
+      });
+
+      var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
+      var eTipX = ox;
+      var eTipY = oy - radius;
+      var rTipX = ox + radius * speedFraction;
+      var rTipY = oy - radius * vt;
+
+      var thetaRad = Math.asin(Math.min(1, Math.max(0, speedFraction)));
+      var thetaDeg = (thetaRad * 180) / Math.PI;
+
+      // Angle Theta Arc at Origin
+      if (thetaDeg > 3) {
+        var arcR = Math.min(46, radius * 0.35);
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.arc(ox, oy, arcR, -Math.PI / 2, -Math.PI / 2 + thetaRad, false);
+        ctx.stroke();
+
+        var endA = -Math.PI / 2 + thetaRad;
+        var arrowX = ox + arcR * Math.cos(endA);
+        var arrowY = oy + arcR * Math.sin(endA);
+        var tangentA = endA + Math.PI / 2;
+        ctx.fillStyle = c.spaceColor;
+        ctx.beginPath();
+        ctx.moveTo(arrowX, arrowY);
+        ctx.lineTo(arrowX - 4 * Math.cos(tangentA - 0.45), arrowY - 4 * Math.sin(tangentA - 0.45));
+        ctx.lineTo(arrowX - 4 * Math.cos(tangentA + 0.45), arrowY - 4 * Math.sin(tangentA + 0.45));
+        ctx.closePath();
+        ctx.fill();
+
+        var midA = -Math.PI / 2 + thetaRad / 2;
+        var badgeDist = arcR + 16;
+        var badgeX = ox + badgeDist * Math.cos(midA);
+        var badgeY = oy + badgeDist * Math.sin(midA);
+        drawLabelPill(ctx, 'θ = ' + Math.round(thetaDeg) + '°', badgeX + (thetaRad > 0.8 ? 6 : 0), badgeY, {
+          textColor: c.spaceColor,
+          font: 'bold 9.5px "JetBrains Mono", monospace'
+        });
+      }
+
+      // Rocket Right-Triangle Decomposition Dashed Lines & In-Canvas Pills
+      if (speedFraction > 0.02 && speedFraction < 0.995) {
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([3, 3]);
+
+        // Horizontal line from tip to vertical Time axis
+        ctx.beginPath();
+        ctx.moveTo(rTipX, rTipY);
+        ctx.lineTo(ox, rTipY);
+        ctx.stroke();
+
+        // Vertical line from tip down to Space axis
+        ctx.beginPath();
+        ctx.moveTo(rTipX, rTipY);
+        ctx.lineTo(rTipX, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Small square for right angle
+        var sq = 7;
+        if (rTipX - ox > sq + 3 && oy - rTipY > sq + 3) {
+          ctx.strokeStyle = c.axisLine;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(ox, rTipY + sq);
+          ctx.lineTo(ox + sq, rTipY + sq);
+          ctx.lineTo(ox + sq, rTipY);
+          ctx.stroke();
+        }
+
+        // Component label: v_space
+        if (rTipX - ox > 35) {
+          var vxText = 'v_space = ' + (speedFraction * 100).toFixed(0) + '% c';
+          drawLabelPill(ctx, vxText, (ox + rTipX) / 2, Math.min(oy - 12, rTipY - 12), {
+            textColor: c.spaceColor,
+            font: 'bold 9.5px "JetBrains Mono", monospace'
+          });
+        }
+
+        // Component label: v_time
+        if (oy - rTipY > 25) {
+          var vtText = 'v_time = ' + (vt * 100).toFixed(0) + '% c';
+          var vtPillX = Math.min(width - 65, rTipX + 56);
+          drawLabelPill(ctx, vtText, vtPillX, (oy + rTipY) / 2, {
+            textColor: c.timeColor,
+            font: 'bold 9.5px "JetBrains Mono", monospace'
+          });
+        }
+      }
+
+      // Earth Velocity Vector (constant length c straight up)
+      ctx.strokeStyle = c.timeColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(eTipX, eTipY);
+      ctx.stroke();
+
+      // Earth Arrowhead
+      ctx.fillStyle = c.timeColor;
+      ctx.beginPath();
+      ctx.moveTo(eTipX, eTipY - 6);
+      ctx.lineTo(eTipX - 5, eTipY + 4);
+      ctx.lineTo(eTipX + 5, eTipY + 4);
+      ctx.closePath();
+      ctx.fill();
+
+      // Rocket Velocity Vector (constant length c tilted)
+      ctx.strokeStyle = c.spaceColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(rTipX, rTipY);
+      ctx.stroke();
+
+      // Rocket Arrowhead
+      var arrowAng = Math.atan2(rTipY - oy, rTipX - ox);
+      ctx.fillStyle = c.spaceColor;
+      ctx.beginPath();
+      ctx.moveTo(rTipX + 5 * Math.cos(arrowAng), rTipY + 5 * Math.sin(arrowAng));
+      ctx.lineTo(rTipX - 6 * Math.cos(arrowAng - 0.5), rTipY - 6 * Math.sin(arrowAng - 0.5));
+      ctx.lineTo(rTipX - 6 * Math.cos(arrowAng + 0.5), rTipY - 6 * Math.sin(arrowAng + 0.5));
+      ctx.closePath();
+      ctx.fill();
+
+      // Vector Tip Dots
+      drawGlowingDot(ctx, eTipX, eTipY, c.timeColor, 5.5);
+      drawGlowingDot(ctx, rTipX, rTipY, c.spaceColor, 5.5);
+
+      // Twin Clock Rate Badges
+      var earthPillText = 'Earth Clock: 100% Rate (v = 0)';
+      var rocketRatePercent = (vt * 100).toFixed(1);
+      var rocketPillText = 'Rocket Clock: ' + rocketRatePercent + '% Rate'
+
+      // Earth label pill at top
+      drawLabelPill(ctx, earthPillText, eTipX + 80, Math.max(16, eTipY - 14), {
+        textColor: c.timeColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+
+      // Rocket label pill
+      var rocketPillX = rTipX + (speedFraction > 0.72 ? -28 : 65);
+      var rocketPillY = rTipY + (speedFraction > 0.72 ? -20 : 8);
+      drawLabelPill(ctx, rocketPillText, Math.min(width - 80, Math.max(ox + 80, rocketPillX)), Math.max(22, rocketPillY), {
+        textColor: c.spaceColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+    }
+
+    if (sliderSpeed) {
+      sliderSpeed.addEventListener('input', function (e) {
+        speedFraction = e.target.value / 1000;
+        presetChips.forEach(function (c) { c.classList.remove('active'); });
+        updateReadouts();
+        draw();
+      });
+    }
+
+    presetChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        presetChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        speedFraction = parseFloat(chip.getAttribute('data-val'));
+        if (sliderSpeed) sliderSpeed.value = speedFraction * 1000;
+        updateReadouts();
+        draw();
+      });
+    });
+
+    updateReadouts();
     registerDraw(draw);
     draw();
     window.addEventListener('resize', draw);
@@ -1062,9 +1530,9 @@
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var ox = width * 0.25;
-      var oy = height * 0.82;
-      var scale = Math.min(width * 0.55, height * 0.68);
+      var ox = Math.max(48, width * 0.16);
+      var oy = height - 44;
+      var scale = Math.min(width * 0.52, height - 70);
 
       drawGrid(ctx, ox, oy, width, height, 32);
       drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
@@ -1080,7 +1548,7 @@
       ctx.fillRect(forbidStartX, 25, forbidEndX - forbidStartX, oy - 25);
 
       ctx.strokeStyle = c.dangerColor;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1.5;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
       ctx.moveTo(forbidStartX, oy);
@@ -1088,31 +1556,31 @@
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Forbidden Text clearly centered in the forbidden area
-      drawLabelPill(ctx, 'FORBIDDEN (v > c)', forbidMidX, oy - 14, {
+      // Forbidden Text clearly positioned in the upper portion of the forbidden zone
+      drawLabelPill(ctx, 'FORBIDDEN (v > c)', forbidMidX, 52, {
         textColor: c.dangerColor,
         borderColor: c.dangerColor,
-        font: 'bold 11px "JetBrains Mono", monospace'
+        font: 'bold 10.5px "JetBrains Mono", monospace'
       });
 
-      drawLabelPill(ctx, 'Exceeds total motion', forbidMidX, oy + 12, {
+      drawLabelPill(ctx, 'Exceeds cosmic speed limit', forbidMidX, 78, {
         textColor: c.dangerColor,
-        font: '600 10px sans-serif'
+        font: '600 9.5px sans-serif'
       });
 
       // Boundary Tick at v = c
-      ctx.strokeStyle = c.photonColor;
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(forbidStartX, oy - 8);
-      ctx.lineTo(forbidStartX, oy + 8);
+      ctx.moveTo(forbidStartX, oy - 4);
+      ctx.lineTo(forbidStartX, oy + 4);
       ctx.stroke();
 
-      drawLabelPill(ctx, 'v_space = c', forbidStartX, oy + 14, {
-        textColor: c.photonColor,
-        borderColor: c.photonColor,
-        font: 'bold 10px "JetBrains Mono", monospace'
-      });
+      ctx.fillStyle = c.axisText || c.subtleText;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText('1.0 c', forbidStartX, oy + 6);
 
       // 2. Active Mode Vector
       var v_space = 1.0;
@@ -1136,6 +1604,24 @@
       var tipX = ox + scale * v_space;
       var tipY = oy - scale * v_time;
 
+      // Rocket Right-Triangle Decomposition in rocket mode
+      if (mode === 'rocket') {
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 3]);
+
+        ctx.beginPath();
+        ctx.moveTo(tipX, tipY);
+        ctx.lineTo(ox, tipY);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(tipX, tipY);
+        ctx.lineTo(tipX, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
       ctx.strokeStyle = color;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
@@ -1143,25 +1629,37 @@
       ctx.lineTo(tipX, tipY);
       ctx.stroke();
 
-      drawGlowingDot(ctx, tipX, tipY, color, 7);
+      // Arrowhead for active vector
+      var arrowAng = Math.atan2(tipY - oy, tipX - ox);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(tipX + 5 * Math.cos(arrowAng), tipY + 5 * Math.sin(arrowAng));
+      ctx.lineTo(tipX - 6 * Math.cos(arrowAng - 0.5), tipY - 6 * Math.sin(arrowAng - 0.5));
+      ctx.lineTo(tipX - 6 * Math.cos(arrowAng + 0.5), tipY - 6 * Math.sin(arrowAng + 0.5));
+      ctx.closePath();
+      ctx.fill();
+
+      drawGlowingDot(ctx, tipX, tipY, color, 6);
 
       if (mode === 'photon') {
-        var photonLabelX = width < 450 ? Math.min(width - 85, Math.max(ox + 65, tipX - 70)) : tipX - 105;
-        drawLabelPill(ctx, width < 380 ? 'Photon (v_space = c)' : 'Photon (v_space = c, v_time = 0)', photonLabelX, oy - 14, {
+        var photonLabelText = width < 420 ? 'Photon (v = c)' : 'Photon (v_space = c, v_time = 0)';
+        var photonPillX = Math.min(width - 90, Math.max(ox + 80, forbidStartX - 70));
+        drawLabelPill(ctx, photonLabelText, photonPillX, oy - 22, {
           textColor: c.photonColor,
-          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+          font: 'bold 10.5px "Plus Jakarta Sans", sans-serif'
         });
       } else if (mode === 'rocket') {
-        var rocketLabelX = width < 450 ? Math.min(width - 65, tipX + 55) : tipX + 90;
-        drawLabelPill(ctx, 'Fast Rocket (v_space = 0.866c)', rocketLabelX, tipY - 8, {
+        var rocketLabelX = Math.min(width - 85, Math.max(ox + 80, tipX + (width < 450 ? -20 : 65)));
+        var rocketLabelY = Math.max(24, tipY + (width < 450 ? -18 : 6));
+        drawLabelPill(ctx, 'Fast Rocket (v_space = 0.866c)', rocketLabelX, rocketLabelY, {
           textColor: c.spaceColor,
-          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+          font: 'bold 10.5px "Plus Jakarta Sans", sans-serif'
         });
       } else {
-        var restLabelX = width < 450 ? Math.min(width - 65, tipX + 65) : tipX + 90;
-        drawLabelPill(ctx, 'Observer at Rest (v_space = 0)', restLabelX, tipY, {
+        var restLabelX = ox + 75;
+        drawLabelPill(ctx, 'Observer at Rest (v_space = 0)', restLabelX, Math.max(22, tipY), {
           textColor: c.timeColor,
-          font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+          font: 'bold 10.5px "Plus Jakarta Sans", sans-serif'
         });
       }
     }
@@ -1760,6 +2258,7 @@
   function initAllPost01() {
     initWidgetCars('widget-cars');
     initWidgetStationary('widget-stationary');
+    initWidgetMovingSnapshots('widget-moving-snapshots');
     initWidgetTradeoff('widget-tradeoff');
     initWidgetTimeDilation('widget-time-dilation');
     initWidgetSpeedLimit('widget-speed-limit');
@@ -1769,6 +2268,7 @@
 
   sim.initWidgetCars = initWidgetCars;
   sim.initWidgetStationary = initWidgetStationary;
+  sim.initWidgetMovingSnapshots = initWidgetMovingSnapshots;
   sim.initWidgetTradeoff = initWidgetTradeoff;
   sim.initWidgetTimeDilation = initWidgetTimeDilation;
   sim.initWidgetSpeedLimit = initWidgetSpeedLimit;

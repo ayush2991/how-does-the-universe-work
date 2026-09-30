@@ -162,8 +162,9 @@ Every interactive simulation follows a standardized visual hierarchy, tactile co
 | :--- | :--- | :--- | :--- |
 | **01** | `widget-cars` | `initWidgetCars` | Dual-view comparison: Position Map ($x_1, x_2$) vs Velocity Space ($V_E = 60\sin\theta, V_N = 60\cos\theta$) on 60 mph circle |
 | **02** | `widget-stationary` | `initWidgetStationary` | Sitting at rest ($x=0$) carries you forward through Time at 100% capacity |
-| **03** | `widget-tradeoff` | `initWidgetTradeoff` | Spatial velocity tradeoffs reducing speed through time ($v_t = \sqrt{c^2 - v_x^2}$) |
-| **04** | `widget-time-dilation` | `initWidgetTimeDilation` | Live Twin Clocks demonstrating time dilation ($t' = t / \gamma$) |
+| **02b** | `widget-moving-snapshots` | `initWidgetMovingSnapshots` | 2×2 grid of position snapshots ($x$ vs $t$) for a moving observer at $t=0,1,2,3$ |
+| **03** | `widget-tradeoff` | `initWidgetTradeoff` | Dual-view comparison: Position Map ($x$ vs $t$) vs Velocity Space ($v_t = \sqrt{c^2 - v_x^2}$) |
+| **04** | `widget-time-dilation` | `initWidgetTimeDilation` | Velocity Space ($v_t = \sqrt{c^2 - v_x^2}$) with invariant speed circle, direct component drops, and live twin clocks |
 | **05** | `widget-speed-limit` | `initWidgetSpeedLimit` | Cosmic speed limit $c$, the timeless photon, and forbidden regions |
 | **06** | `widget-muon` | `initWidgetMuon` | Atmospheric muon decay: Relativistic survival vs Newtonian prediction |
 | **07** | `widget-3d-spacetime` | `initWidget3DSpacetime` | 3D spacetime volume ($x_1, x_2, t$) with rotatable camera and Now-Slice |
