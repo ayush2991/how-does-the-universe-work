@@ -240,24 +240,23 @@
       <!-- SECTION 2 -->
       <h2>2. The Cosmic Speedometer: Speed Through Space vs. Speed Through Time</h2>
       <p>
-        Now, let us take this geometric idea and apply it to how we move through the universe.
+        In everyday experience, we treat space and time as fundamentally separate categories. Space is the three-dimensional arena we move through, while time is simply the parameter that elapses as we do so.
       </p>
       <p>
-        In Section 1, we plotted the cars' velocity vectors in a 2D Velocity Space, dividing total speed between East
-        (<span class="math-badge">V_East</span>) and North (<span class="math-badge">V_North</span>).
+        When examining the cars on the field, we simplified three-dimensional space down to a two-dimensional surface (<span class="math-badge">x₁</span> and <span class="math-badge">x₂</span>) to visualize how a fixed total speed is distributed between perpendicular directions.
       </p>
       <p>
-        What if we do something identical for our existence in the cosmos?
+        What if we apply that exact geometric reasoning to the universe as a whole?
       </p>
       <p>
-        Just as we drew a velocity space for the cars on the field, we can draw a cosmic speedometer where the axes
-        represent the two ways to move through spacetime:
+        Instead of treating time as an independent background parameter, we can treat it as a dimension of a unified four-dimensional continuum: <strong>spacetime</strong>.
       </p>
       <p>
-        • The horizontal axis represents <strong>Speed Through Space</strong> (<span class="math-badge">v_space</span>),
-        measuring how fast an object travels across the room or across the galaxy.<br>
-        • The vertical axis represents <strong>Speed Through Time</strong> (<span class="math-badge">v_time</span>),
-        measuring the rate at which an object's personal clock ticks and progresses into the future.
+        To keep the geometry clear, we can begin with a single dimension of space—such as the East–West direction (<span class="math-badge">x</span>)—and pair it directly with the dimension of time (<span class="math-badge">t</span>). In this two-dimensional cross-section, an object’s motion is partitioned between space and time:
+      </p>
+      <p>
+        • The horizontal axis represents <strong>Speed Through Space</strong> (<span class="math-badge">v_space</span>), measuring the rate of displacement along this spatial direction.<br>
+        • The vertical axis represents <strong>Speed Through Time</strong> (<span class="math-badge">v_time</span>), measuring the rate at which an object's personal clock advances into the future.
       </p>
       <p>
         What does it mean to move along this vertical axis?
@@ -275,41 +274,59 @@
       </p>
 
       <!-- INTERACTIVE WIDGET 2: STATIONARY -->
-      <div id="widget-stationary" class="interactive-artifact">
+      <div id="widget-stationary" class="interactive-artifact artifact-wide">
         <div class="artifact-header">
           <div>
-            <div class="artifact-badge">SIMULATION 02 · VELOCITY SPACE AT REST</div>
+            <div class="artifact-badge">SIMULATION 02 · POSITION MAP &amp; VELOCITY SPACE AT REST</div>
           </div>
         </div>
-        <div class="artifact-split">
-          <div class="split-canvas-col">
-            <canvas></canvas>
-          </div>
-          <div class="split-controls-col">
-            <div>
-              <div class="clock-card cyan" style="margin-bottom: 0.85rem;">
-                <div class="clock-meta">
-                  <span class="clock-label">Observer Wristwatch (At Rest)</span>
-                  <span class="clock-badge">100% Rate</span>
-                </div>
-                <div class="clock-time clock-val">0.00 <span>s</span></div>
-                <p class="clock-subtext">Every second on the watch is forward progress along the Time axis.</p>
-              </div>
-              <div class="control-item" style="margin-bottom: 0.85rem;">
-                <div class="control-header">
-                  <span>Scrub Passage of Time</span>
-                  <span class="control-val cyan">0 to 6.00 s</span>
-                </div>
-                <input type="range" class="range-slider slider-time" min="0" max="1000" value="580">
-              </div>
+        <div class="comparison-grid">
+          <!-- Left Column: Position Map / Spacetime Trail -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>POSITION OVER TIME</span>
+              <span class="canvas-col-tag">Space x vs Elapsed Time t</span>
             </div>
-            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+            <canvas class="canvas-map"></canvas>
+          </div>
+          <!-- Right Column: Velocity Space -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>VELOCITY SPACE</span>
+              <span class="canvas-col-tag">Speed v_space vs v_time</span>
+            </div>
+            <canvas class="canvas-vel"></canvas>
+          </div>
+        </div>
+        <!-- Controls -->
+        <div class="artifact-controls"
+          style="padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.85rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; align-items: center;">
+            <div class="clock-card cyan" style="margin: 0;">
+              <div class="clock-meta">
+                <span class="clock-label">Observer Wristwatch (At Rest)</span>
+                <span class="clock-badge">100% Rate</span>
+              </div>
+              <div class="clock-time clock-val">3.50 <span>s</span></div>
+              <p class="clock-subtext">Every second on the watch is steady progress forward along the Time axis.</p>
+            </div>
+            <div class="control-item">
+              <div class="control-header">
+                <span>Scrub Passage of Time</span>
+                <span class="control-val cyan val-time-label">3.50 s</span>
+              </div>
+              <input type="range" class="range-slider slider-time" min="0" max="1000" value="583">
+            </div>
+          </div>
+          <div
+            style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+            <div class="toolbar-bottom" style="padding: 0;">
               <button class="btn-primary btn-play">
                 <span>▶</span><span>Auto Play</span>
               </button>
-              <div class="math-badge">
-                v_space = <strong>0</strong> | v_time = <strong>1.000 c</strong>
-              </div>
+            </div>
+            <div class="math-badge">
+              v_space = <strong>0</strong> | v_time = <strong>1.000 c</strong>
             </div>
           </div>
         </div>

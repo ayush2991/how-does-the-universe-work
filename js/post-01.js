@@ -452,10 +452,12 @@
     var container = document.getElementById(containerId);
     if (!container) return;
 
-    var canvas = container.querySelector('canvas');
+    var canvasMap = container.querySelector('.canvas-map');
+    var canvasVel = container.querySelector('.canvas-vel');
     var sliderTime = container.querySelector('.slider-time');
     var btnPlay = container.querySelector('.btn-play');
     var clockDisplay = container.querySelector('.clock-time');
+    var valTimeLabel = container.querySelector('.val-time-label');
 
     var animTime = 3.5;
     var isPlaying = false;
@@ -464,36 +466,171 @@
 
     function update() {
       if (clockDisplay) clockDisplay.innerHTML = animTime.toFixed(2) + ' <span>s</span>';
+      if (valTimeLabel) valTimeLabel.innerText = animTime.toFixed(2) + ' s';
     }
 
-    function draw() {
+    function drawMap() {
+      if (!canvasMap) return;
       var c = getThemeColors();
-      var ret = setupRetinaCanvas(canvas);
+      var ret = setupRetinaCanvas(canvasMap);
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var ox = width * 0.35;
-      var oy = height * 0.82;
-      var scale = Math.min(width * 0.5, height * 0.68);
-      var progress = animTime / 6.0;
+      var ox = 48;
+      var oy = height - 42;
+      var maxTime = 6.0;
+      var maxDistMeters = 30;
+      var scaleY = height - 70;
+      var scaleX = width - 75;
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
-      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
+      drawAxes(ctx, ox, oy, width, height, 'Space Position x (m)', 'Elapsed Time t (s)');
 
-      var tipY = oy - scale;
+      // Axis Ticks
+      ctx.fillStyle = c.axisText || c.subtleText;
+      ctx.strokeStyle = c.axisLine;
+      ctx.font = '10px "JetBrains Mono", monospace';
 
-      ctx.fillStyle = c.timeColor;
+      // Space ticks at 10, 20, 30 m
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      [10, 20, 30].forEach(function (m) {
+        var px = ox + (m / maxDistMeters) * scaleX;
+        if (px <= width - 20) {
+          ctx.beginPath();
+          ctx.moveTo(px, oy - 3);
+          ctx.lineTo(px, oy + 3);
+          ctx.stroke();
+          ctx.fillText(m + '', px, oy + 6);
+        }
+      });
+
+      // Time ticks at 2, 4, 6 s
+      [2, 4, 6].forEach(function (t) {
+        var py = oy - (t / maxTime) * scaleY;
+        ctx.beginPath();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(t + ' s', ox - 6, py);
+        ctx.textAlign = 'center';
+      });
+
+      // Projected vertical timeline guide (dashed)
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 4]);
       ctx.beginPath();
-      ctx.arc(ox, oy, 4, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ox, oy - scaleY);
+      ctx.stroke();
+      ctx.setLineDash([]);
 
-      drawLabelPill(ctx, 'v_space = 0 (At rest in space)', ox + 105, oy + 18, {
-        textColor: c.axisLabel,
+      var currentY = oy - (animTime / maxTime) * scaleY;
+
+      // Traveled Worldline Path (pure vertical through time at x=0)
+      ctx.strokeStyle = c.timeColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ox, currentY);
+      ctx.stroke();
+
+      // Origin dot
+      drawGlowingDot(ctx, ox, oy, c.axisLine, 4);
+
+      // Current Observer position dot
+      drawGlowingDot(ctx, ox, currentY, c.timeColor, 6);
+
+      // Status pill at current position
+      drawLabelPill(ctx, 'Observer: x = 0 m, t = ' + animTime.toFixed(2) + ' s', ox + 72, currentY - 14, {
+        textColor: c.timeColor,
         font: 'bold 11px "JetBrains Mono", monospace'
       });
 
-      // Invariant speed vector always has constant length c
+      // Spatial annotation at base
+      drawLabelPill(ctx, 'Stationary in space (x = 0)', ox + 80, oy + 22, {
+        textColor: c.axisLabel,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+    }
+
+    function drawVel() {
+      if (!canvasVel) return;
+      var c = getThemeColors();
+      var ret = setupRetinaCanvas(canvasVel);
+      var ctx = ret.ctx, width = ret.width, height = ret.height;
+      ctx.clearRect(0, 0, width, height);
+
+      var ox = 48;
+      var oy = height - 42;
+      var radius = Math.min(width - 75, height - 70);
+      var progress = animTime / 6.0;
+
+      drawGrid(ctx, ox, oy, width, height, 32);
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
+
+      // Axis speed marks at 0.5 c and 1.0 c
+      ctx.fillStyle = c.axisText || c.subtleText;
+      ctx.strokeStyle = c.axisLine;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      [{ v: 0.5, label: '0.5 c' }, { v: 1.0, label: '1.0 c' }].forEach(function (tick) {
+        var px = ox + tick.v * radius;
+        var py = oy - tick.v * radius;
+
+        // Space speed tick
+        ctx.beginPath();
+        ctx.moveTo(px, oy - 3);
+        ctx.lineTo(px, oy + 3);
+        ctx.stroke();
+        ctx.fillText(tick.label, px, oy + 6);
+
+        // Time speed tick
+        ctx.beginPath();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(tick.label, ox - 6, py);
+        ctx.textAlign = 'center';
+      });
+
+      // Invariant Speed Limit Arc Constraint (dashed)
+      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.arc(ox, oy, radius, -Math.PI / 2, 0, false);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Speed Arc Constraint Pill Badge
+      var arcMidA = -Math.PI / 4;
+      var arcPillX = ox + radius * Math.cos(arcMidA);
+      var arcPillY = oy + radius * Math.sin(arcMidA);
+      drawLabelPill(ctx, '|V| = 1.00 c circle', arcPillX + 24, arcPillY - 10, {
+        textColor: c.invariantColor || '#8a5cf6',
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+
+      // Origin dot
+      drawGlowingDot(ctx, ox, oy, c.axisLine, 4);
+
+      var tipY = oy - radius;
+
+      // Rest state indicator along space axis
+      drawLabelPill(ctx, 'v_space = 0 (At rest)', ox + radius * 0.48, oy + 22, {
+        textColor: c.axisLabel,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+
+      // Invariant speed vector always has constant length c pointing 100% into time
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
@@ -501,23 +638,26 @@
       ctx.lineTo(ox, tipY);
       ctx.stroke();
 
-      drawGlowingDot(ctx, ox, tipY, c.timeColor, 7);
+      // Arrowhead for Observer Time Vector
+      ctx.fillStyle = c.timeColor;
+      ctx.beginPath();
+      ctx.moveTo(ox, tipY - 5);
+      ctx.lineTo(ox - 5, tipY + 4);
+      ctx.lineTo(ox + 5, tipY + 4);
+      ctx.closePath();
+      ctx.fill();
 
-      // Time pulse indicator moving along the vector to visualize the steady flow of time
-      if (progress > 0.02) {
-        var pulseY = oy - (progress * scale);
-        ctx.strokeStyle = c.isLight ? 'rgba(9, 105, 218, 0.4)' : 'rgba(88, 166, 255, 0.4)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(ox, pulseY, 8, 0, Math.PI * 2);
-        ctx.stroke();
-        drawGlowingDot(ctx, ox, pulseY, c.timeColor, 4.5);
-      }
-
-      drawLabelPill(ctx, 'Observer at Rest (v_time = 1.00 c)', ox - 110, tipY, {
+      // Label for Observer Vector & glowing tip
+      drawLabelPill(ctx, 'V_Observer (1.00 c)', ox - 35, tipY - 16, {
         textColor: c.timeColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
+      drawGlowingDot(ctx, ox, tipY, c.timeColor, 5.5);
+    }
+
+    function draw() {
+      drawMap();
+      drawVel();
     }
 
     function loop(now) {
