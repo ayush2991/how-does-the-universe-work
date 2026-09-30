@@ -646,8 +646,8 @@
         var e_pulse_y = oy - (progress * scale);
         drawGlowingDot(ctx, ox, e_pulse_y, c.timeColor, 4.5);
 
-        var r_pulse_x = ox + (progress * vt * scale * speedFraction);
-        var r_pulse_y = oy - (progress * vt * scale * vt);
+        var r_pulse_x = ox + (progress * scale * speedFraction);
+        var r_pulse_y = oy - (progress * scale * vt);
         drawGlowingDot(ctx, r_pulse_x, r_pulse_y, c.spaceColor, 4.5);
       }
 
