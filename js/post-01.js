@@ -278,7 +278,7 @@
     var btnPlay = container.querySelector('.btn-play');
     var clockDisplay = container.querySelector('.clock-time');
 
-    var animTime = 0;
+    var animTime = 3.5;
     var isPlaying = false;
     var lastTimestamp = null;
     var animFrame = null;
@@ -299,30 +299,43 @@
       var progress = animTime / 6.0;
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawAxes(ctx, ox, oy, width, height, 'Space (x)', 'Time (t)');
+      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
 
-      var currY = oy - (progress * scale);
+      var tipY = oy - scale;
 
       ctx.fillStyle = c.timeColor;
       ctx.beginPath();
       ctx.arc(ox, oy, 4, 0, Math.PI * 2);
       ctx.fill();
 
-      drawLabelPill(ctx, 'x = 0 (No spatial motion)', ox + 95, oy + 18, {
+      drawLabelPill(ctx, 'v_space = 0 (At rest in space)', ox + 105, oy + 18, {
         textColor: c.axisLabel,
         font: 'bold 11px "JetBrains Mono", monospace'
       });
 
+      // Invariant speed vector always has constant length c
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
-      ctx.lineTo(ox, currY);
+      ctx.lineTo(ox, tipY);
       ctx.stroke();
 
-      drawGlowingDot(ctx, ox, currY, c.timeColor, 7);
+      drawGlowingDot(ctx, ox, tipY, c.timeColor, 7);
 
-      drawLabelPill(ctx, 'Observer at Rest (v = 0)', ox - 90, currY - 6, {
+      // Time pulse indicator moving along the vector to visualize the steady flow of time
+      if (progress > 0.02) {
+        var pulseY = oy - (progress * scale);
+        ctx.strokeStyle = c.isLight ? 'rgba(9, 105, 218, 0.4)' : 'rgba(88, 166, 255, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(ox, pulseY, 8, 0, Math.PI * 2);
+        ctx.stroke();
+        drawGlowingDot(ctx, ox, pulseY, c.timeColor, 4.5);
+      }
+
+      drawLabelPill(ctx, 'Observer at Rest (v_time = 1.00 c)', ox - 110, tipY, {
         textColor: c.timeColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
@@ -386,7 +399,7 @@
     var readoutVt = container.querySelector('.readout-vt');
 
     var speedFraction = sliderSpeed ? parseFloat(sliderSpeed.value) / 1000 : 0.866;
-    var progress = sliderTime ? parseFloat(sliderTime.value) / 1000 : 0.70;
+    var sweepForward = true;
     var isPlaying = false;
     var lastTimestamp = null;
     var animFrame = null;
@@ -395,7 +408,7 @@
       var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
       if (readoutVx) readoutVx.innerText = (speedFraction * 100).toFixed(1) + '% of V';
       if (readoutVt) readoutVt.innerText = (vt * 100).toFixed(1) + '% of V';
-      if (timeVal) timeVal.innerText = (progress * 100).toFixed(0) + '%';
+      if (timeVal) timeVal.innerText = (speedFraction * 100).toFixed(0) + '%';
     }
 
     function draw() {
@@ -409,26 +422,29 @@
       var scale = Math.min(width * 0.58, height * 0.68);
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      // Constraint arc removed for clarity
-      drawAxes(ctx, ox, oy, width, height, 'Space (x)', 'Time (t)');
+      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
 
       var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
-      var tipX = ox + (progress * scale * speedFraction);
-      var tipY = oy - (progress * scale * vt);
+      // Invariant vector always has constant length scale (V)
+      var tipX = ox + scale * speedFraction;
+      var tipY = oy - scale * vt;
 
-      if (progress > 0.05) {
-        ctx.strokeStyle = c.invariantColor;
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([3, 3]);
-        ctx.beginPath();
-        ctx.moveTo(tipX, tipY);
-        ctx.lineTo(ox, tipY);
-        ctx.lineTo(tipX, tipY);
-        ctx.lineTo(tipX, oy);
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
+      // Right-angle component projections on axes
+      ctx.strokeStyle = c.invariantColor;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(tipX, tipY);
+      ctx.lineTo(ox, tipY);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(tipX, tipY);
+      ctx.lineTo(tipX, oy);
+      ctx.stroke();
+      ctx.setLineDash([]);
 
+      // Constant-length total velocity vector
       ctx.strokeStyle = c.invariantColor;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
@@ -446,6 +462,10 @@
         textColor: c.spaceColor,
         font: 'bold 11px "JetBrains Mono", monospace'
       });
+      drawLabelPill(ctx, 'Total Speed |V| = Const', (ox + tipX) / 2 + 10, (oy + tipY) / 2 - 12, {
+        textColor: c.invariantColor,
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
     }
 
     function loop(now) {
@@ -454,9 +474,20 @@
       lastTimestamp = now;
 
       if (isPlaying) {
-        progress += dt * 0.25;
-        if (progress > 1.0) progress = 0;
-        if (sliderTime) sliderTime.value = progress * 1000;
+        if (sweepForward) {
+          speedFraction += dt * 0.35;
+          if (speedFraction >= 0.98) {
+            speedFraction = 0.98;
+            sweepForward = false;
+          }
+        } else {
+          speedFraction -= dt * 0.35;
+          if (speedFraction <= 0.02) {
+            speedFraction = 0.02;
+            sweepForward = true;
+          }
+        }
+        if (sliderSpeed) sliderSpeed.value = speedFraction * 1000;
         update();
       }
       draw();
@@ -465,17 +496,22 @@
       }
     }
 
-    if (sliderSpeed) {
-      sliderSpeed.addEventListener('input', function (e) {
-        speedFraction = e.target.value / 1000;
+    var tradeoffPresetChips = container.querySelectorAll('.chip-preset-tradeoff');
+    tradeoffPresetChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        tradeoffPresetChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        speedFraction = parseFloat(chip.getAttribute('data-val'));
+        if (sliderSpeed) sliderSpeed.value = speedFraction * 1000;
         update();
         draw();
       });
-    }
+    });
 
-    if (sliderTime) {
-      sliderTime.addEventListener('input', function (e) {
-        progress = e.target.value / 1000;
+    if (sliderSpeed) {
+      sliderSpeed.addEventListener('input', function (e) {
+        speedFraction = e.target.value / 1000;
+        tradeoffPresetChips.forEach(function (c) { c.classList.remove('active'); });
         update();
         draw();
       });
@@ -484,7 +520,7 @@
     if (btnPlay) {
       btnPlay.addEventListener('click', function () {
         isPlaying = !isPlaying;
-        btnPlay.innerHTML = isPlaying ? '<span>⏸</span><span>Pause</span>' : '<span>▶</span><span>Auto Play</span>';
+        btnPlay.innerHTML = isPlaying ? '<span>⏸</span><span>Pause</span>' : '<span>▶</span><span>Auto Sweep</span>';
         if (isPlaying) {
           lastTimestamp = null;
           animFrame = requestAnimationFrame(loop);
@@ -562,51 +598,64 @@
       var progress = animTime / 6.0;
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawAxes(ctx, ox, oy, width, height, 'Space (x)', 'Time (ct)');
+      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
 
       var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
-      var e_x = ox;
-      var e_y = oy - (progress * scale);
-      var r_x = ox + (progress * scale * speedFraction);
-      var r_y = oy - (progress * scale * vt);
+      // Invariant speed vectors have constant length c anchored on the circle
+      var e_tip_x = ox;
+      var e_tip_y = oy - scale;
+      var r_tip_x = ox + scale * speedFraction;
+      var r_tip_y = oy - scale * vt;
 
-      if (progress > 0.05) {
-        ctx.strokeStyle = c.spaceColor;
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([3, 3]);
-        ctx.beginPath();
-        ctx.moveTo(r_x, r_y);
-        ctx.lineTo(ox, r_y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(r_x, r_y);
-        ctx.lineTo(r_x, oy);
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
+      // Rocket speed component dashed lines
+      ctx.strokeStyle = c.spaceColor;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(r_tip_x, r_tip_y);
+      ctx.lineTo(ox, r_tip_y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(r_tip_x, r_tip_y);
+      ctx.lineTo(r_tip_x, oy);
+      ctx.stroke();
+      ctx.setLineDash([]);
 
+      // Earth Velocity Vector (constant length c straight up)
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
-      ctx.lineTo(e_x, e_y);
+      ctx.lineTo(e_tip_x, e_tip_y);
       ctx.stroke();
 
+      // Rocket Velocity Vector (constant length c tilted)
       ctx.strokeStyle = c.spaceColor;
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
-      ctx.lineTo(r_x, r_y);
+      ctx.lineTo(r_tip_x, r_tip_y);
       ctx.stroke();
 
-      drawGlowingDot(ctx, e_x, e_y, c.timeColor, 6);
-      drawGlowingDot(ctx, r_x, r_y, c.spaceColor, 6);
+      drawGlowingDot(ctx, e_tip_x, e_tip_y, c.timeColor, 6);
+      drawGlowingDot(ctx, r_tip_x, r_tip_y, c.spaceColor, 6);
 
-      drawLabelPill(ctx, 'Earth (Rest)', e_x - 10, e_y - 18, {
+      // Time pulses showing relative clock ticking rate along each vector
+      if (progress > 0.02) {
+        var e_pulse_y = oy - (progress * scale);
+        drawGlowingDot(ctx, ox, e_pulse_y, c.timeColor, 4.5);
+
+        var r_pulse_x = ox + (progress * vt * scale * speedFraction);
+        var r_pulse_y = oy - (progress * vt * scale * vt);
+        drawGlowingDot(ctx, r_pulse_x, r_pulse_y, c.spaceColor, 4.5);
+      }
+
+      drawLabelPill(ctx, 'Earth (v_space = 0)', e_tip_x - 10, e_tip_y - 18, {
         textColor: c.timeColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
-      drawLabelPill(ctx, 'Rocket (Moving)', r_x + 55, r_y + 4, {
+      drawLabelPill(ctx, 'Rocket (v = ' + speedFraction.toFixed(3) + 'c)', r_tip_x + 55, r_tip_y + 4, {
         textColor: c.spaceColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
@@ -700,7 +749,7 @@
 
       drawGrid(ctx, ox, oy, width, height, 32);
       drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
-      drawAxes(ctx, ox, oy, width, height, 'Space (x)', 'Time (t)');
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
 
       // 1. Forbidden Zone (v > c)
       var forbidStartX = ox + scale;
@@ -740,7 +789,7 @@
       ctx.lineTo(forbidStartX, oy + 8);
       ctx.stroke();
 
-      drawLabelPill(ctx, 'v = c', forbidStartX, oy + 14, {
+      drawLabelPill(ctx, 'v_space = c', forbidStartX, oy + 14, {
         textColor: c.photonColor,
         borderColor: c.photonColor,
         font: 'bold 10px "JetBrains Mono", monospace'
@@ -779,19 +828,19 @@
 
       if (mode === 'photon') {
         var photonLabelX = width < 450 ? Math.min(width - 85, Math.max(ox + 65, tipX - 70)) : tipX - 105;
-        drawLabelPill(ctx, width < 380 ? 'Photon (v = c)' : 'Photon (Speed of Light, v = c)', photonLabelX, oy - 14, {
+        drawLabelPill(ctx, width < 380 ? 'Photon (v_space = c)' : 'Photon (v_space = c, v_time = 0)', photonLabelX, oy - 14, {
           textColor: c.photonColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
       } else if (mode === 'rocket') {
         var rocketLabelX = width < 450 ? Math.min(width - 65, tipX + 55) : tipX + 90;
-        drawLabelPill(ctx, 'Fast Rocket (v = 0.866c)', rocketLabelX, tipY - 8, {
+        drawLabelPill(ctx, 'Fast Rocket (v_space = 0.866c)', rocketLabelX, tipY - 8, {
           textColor: c.spaceColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
       } else {
         var restLabelX = width < 450 ? Math.min(width - 65, tipX + 65) : tipX + 90;
-        drawLabelPill(ctx, 'Observer at Rest (v = 0)', restLabelX, tipY, {
+        drawLabelPill(ctx, 'Observer at Rest (v_space = 0)', restLabelX, tipY, {
           textColor: c.timeColor,
           font: 'bold 11px "Plus Jakarta Sans", sans-serif'
         });
@@ -1198,15 +1247,15 @@
       ctx.stroke();
 
       // Axis Labels
-      drawLabelPill(ctx, 'East (x₁)', pX1.x + 35, pX1.y + 4, {
+      drawLabelPill(ctx, 'East Speed (v_x1)', pX1.x + 45, pX1.y + 4, {
         textColor: c.axisLabel,
         font: 'bold 11px "JetBrains Mono", monospace'
       });
-      drawLabelPill(ctx, 'North (x₂)', pX2.x - 35, pX2.y + 14, {
+      drawLabelPill(ctx, 'North Speed (v_x2)', pX2.x - 45, pX2.y + 14, {
         textColor: c.axisLabel,
         font: 'bold 11px "JetBrains Mono", monospace'
       });
-      drawLabelPill(ctx, 'Time (ct)', pZ.x, pZ.y - 14, {
+      drawLabelPill(ctx, 'Time Speed (v_time)', pZ.x, pZ.y - 14, {
         textColor: c.timeColor,
         font: 'bold 11px "JetBrains Mono", monospace'
       });
@@ -1223,7 +1272,7 @@
       var pX1Pt = p3(vx1, 0, 0);
       var pX2Pt = p3(0, vx2, 0);
 
-      // 4. Now-Slice Plane (Spacetime Loaf Slice)
+      // 4. Now-Slice Plane (Spacetime Loaf Slice Preview)
       if (showLoafSlice && vt > 0.02) {
         var sliceSize = 1.15;
         var pCorn1 = p3(-sliceSize, -sliceSize, vt);
@@ -1246,7 +1295,7 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        drawLabelPill(ctx, 'Spacetime Loaf Slice ("Now" Plane: t = ' + vt.toFixed(2) + ' c)', pCorn2.x - 20, pCorn2.y - 10, {
+        drawLabelPill(ctx, 'Spacetime Loaf Slice ("Now" Plane: v_time = ' + vt.toFixed(2) + ' c)', pCorn2.x - 20, pCorn2.y - 10, {
           textColor: c.timeColor,
           font: 'bold 10px "JetBrains Mono", monospace'
         });
