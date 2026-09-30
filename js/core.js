@@ -297,10 +297,247 @@
     updateProgress();
   }
 
+  // ==========================================================================
+  // Series Article Catalog & Side Navigation Drawer
+  // ==========================================================================
+  var SERIES_ARTICLES = [
+    {
+      seriesId: 'relativity',
+      seriesName: 'Series 01: Special Relativity',
+      part: 1,
+      partNumber: '01',
+      title: 'Why Motion Through Space Affects Time',
+      shortTitle: 'Motion & Time',
+      subtitle: 'The cosmic speed limit, velocity trade-off, and why moving clocks tick slower.',
+      tag: 'Special Relativity',
+      filename: '01-motion-and-time.html',
+      readTime: '10 min',
+      status: 'live'
+    },
+    {
+      seriesId: 'relativity',
+      seriesName: 'Series 01: Special Relativity',
+      part: 2,
+      partNumber: '02',
+      title: 'The Cosmic Light Cone: Mapping Space & Time',
+      shortTitle: 'The Light Cone',
+      subtitle: 'Coordinate spacetime maps, light cone boundaries, and causal Horizons.',
+      tag: 'Spacetime Geometry',
+      filename: '02-light-cone.html',
+      readTime: '12 min',
+      status: 'live'
+    },
+    {
+      seriesId: 'relativity',
+      seriesName: 'Series 01: Special Relativity',
+      part: 3,
+      partNumber: '03',
+      title: 'The Spacetime Loaf & Length Contraction',
+      shortTitle: 'The Loaf & Length',
+      subtitle: 'Relativity of simultaneity, tilted slices of Now, and geometric projection.',
+      tag: 'Simultaneity & Length',
+      filename: '03-spacetime-loaf.html',
+      readTime: '14 min',
+      status: 'live'
+    },
+    {
+      seriesId: 'entropy',
+      seriesName: 'Series 02: Information and Entropy',
+      part: 1,
+      partNumber: '01',
+      title: 'Thermodynamic vs. Shannon Entropy',
+      shortTitle: 'Thermodynamic vs. Shannon',
+      subtitle: 'Counting microstates, surprise, and how thermal disorder connects to bits.',
+      tag: 'Information & Entropy',
+      filename: '#',
+      readTime: 'Coming Soon',
+      status: 'coming-soon'
+    },
+    {
+      seriesId: 'entropy',
+      seriesName: 'Series 02: Information and Entropy',
+      part: 2,
+      partNumber: '02',
+      title: 'Cross-Entropy & Kullback-Leibler Divergence',
+      shortTitle: 'Cross-Entropy & KL',
+      subtitle: 'Probability geometry, surprise, and why cross-entropy powers modern AI loss functions.',
+      tag: 'Information & Entropy',
+      filename: '#',
+      readTime: 'Coming Soon',
+      status: 'coming-soon'
+    }
+  ];
 
+  function initSeriesNavigation() {
+    // Only run on article pages or pages with .wide-reading-container
+    var isArticlePage = !!document.querySelector('.wide-reading-container') ||
+      window.location.pathname.indexOf('/posts/') !== -1 ||
+      window.location.pathname.indexOf('01-') !== -1 ||
+      window.location.pathname.indexOf('02-') !== -1 ||
+      window.location.pathname.indexOf('03-') !== -1;
+
+    if (!isArticlePage) return;
+
+    // Determine current filename to mark active article
+    var currentPath = window.location.pathname;
+    var currentFile = currentPath.substring(currentPath.lastIndexOf('/') + 1) || '01-motion-and-time.html';
+    // If running in index or edge case, default check
+    var isInPostsDir = currentPath.indexOf('/posts/') !== -1 || document.querySelector('link[href="../css/style.css"]');
+    var rootPrefix = isInPostsDir ? '../' : './';
+    var postPrefix = isInPostsDir ? '' : 'posts/';
+
+    // Create Backdrop
+    var backdrop = document.createElement('div');
+    backdrop.className = 'article-nav-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(backdrop);
+
+    // Create Left Floating Tab
+    var tabBtn = document.createElement('button');
+    tabBtn.className = 'article-nav-tab';
+    tabBtn.setAttribute('aria-label', 'Open series article navigation');
+    tabBtn.setAttribute('title', 'Browse all series and essays');
+    tabBtn.innerHTML =
+      '<span class="article-nav-tab-icon">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<line x1="3" y1="12" x2="21" y2="12"></line>' +
+          '<line x1="3" y1="6" x2="21" y2="6"></line>' +
+          '<line x1="3" y1="18" x2="21" y2="18"></line>' +
+        '</svg>' +
+      '</span>' +
+      '<span class="article-nav-tab-label">Series</span>' +
+      '<span class="article-nav-tab-badge">3</span>';
+    document.body.appendChild(tabBtn);
+
+    // Create Drawer Sidebar
+    var drawer = document.createElement('aside');
+    drawer.className = 'article-nav-drawer';
+    drawer.setAttribute('aria-label', 'Series Navigation');
+    drawer.setAttribute('aria-hidden', 'true');
+
+    // Build articles list HTML grouped by series
+    var listHtml = '';
+    var lastSeries = '';
+
+    for (var i = 0; i < SERIES_ARTICLES.length; i++) {
+      var item = SERIES_ARTICLES[i];
+      if (item.seriesName !== lastSeries) {
+        lastSeries = item.seriesName;
+        listHtml += '<li class="drawer-group-divider" style="list-style:none; padding: 0.75rem 0.25rem 0.35rem; font-family:var(--font-mono); font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted);">' + item.seriesName + '</li>';
+      }
+
+      var isLive = item.status === 'live';
+      var isActive = isLive && ((currentFile === item.filename) || (i === 0 && currentFile === ''));
+      var activeClass = isActive ? ' is-active' : (isLive ? '' : ' is-coming-soon');
+      var itemHref = isLive ? (postPrefix + item.filename) : '#';
+
+      listHtml +=
+        '<li class="drawer-article-item' + activeClass + '" style="' + (isLive ? '' : 'opacity:0.65;') + '">' +
+          '<a href="' + itemHref + '" class="drawer-article-link"' + (isActive ? ' aria-current="page"' : '') + (isLive ? '' : ' onclick="return false;"') + '>' +
+            '<div class="drawer-article-meta">' +
+              '<span class="drawer-part-badge" style="' + (item.seriesId === 'entropy' ? 'color:var(--color-emerald);' : '') + '">Part ' + item.partNumber + '</span>' +
+              '<span class="drawer-time-tag">' + item.readTime + '</span>' +
+            '</div>' +
+            '<h4 class="drawer-article-title">' + item.title + '</h4>' +
+            '<p class="drawer-article-sub">' + item.subtitle + '</p>' +
+            (isActive ? '<span class="drawer-active-pill">Reading Now</span>' : '') +
+          '</a>' +
+        '</li>';
+    }
+
+    drawer.innerHTML =
+      '<div class="drawer-header">' +
+        '<div class="drawer-header-brand">' +
+          '<a href="' + rootPrefix + 'index.html" class="drawer-brand-link">' +
+            '<span class="brand-badge" style="font-size:0.78rem;">IF</span>' +
+            '<div>' +
+              '<div class="drawer-brand-title">INTUITION FIRST</div>' +
+              '<div class="drawer-brand-sub">Explorable Science & Math</div>' +
+            '</div>' +
+          '</a>' +
+        '</div>' +
+        '<button class="drawer-close-btn" aria-label="Close navigation" title="Close">' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<line x1="18" y1="6" x2="6" y2="18"></line>' +
+            '<line x1="6" y1="6" x2="18" y2="18"></line>' +
+          '</svg>' +
+        '</button>' +
+      '</div>' +
+      '<div class="drawer-scroll-body">' +
+        '<div class="drawer-section-heading">' +
+          '<span>Table of Contents</span>' +
+          '<span class="drawer-count">2 Series</span>' +
+        '</div>' +
+        '<ol class="drawer-articles-list" style="padding-left:0; list-style:none;">' +
+          listHtml +
+        '</ol>' +
+      '</div>' +
+      '<div class="drawer-footer">' +
+        '<a href="' + rootPrefix + 'index.html" class="drawer-footer-link">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>' +
+            '<polyline points="9 22 9 12 15 12 15 22"></polyline>' +
+          '</svg>' +
+          '<span>All Series & Overview</span>' +
+        '</a>' +
+      '</div>';
+
+    document.body.appendChild(drawer);
+
+    // Event Handlers for Drawer
+    var isOpen = false;
+
+    function openDrawer() {
+      isOpen = true;
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      backdrop.classList.add('is-visible');
+      tabBtn.classList.add('is-active');
+      document.body.classList.add('drawer-open-lock');
+    }
+
+    function closeDrawer() {
+      isOpen = false;
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden', 'true');
+      backdrop.classList.remove('is-visible');
+      tabBtn.classList.remove('is-active');
+      document.body.classList.remove('drawer-open-lock');
+    }
+
+    function toggleDrawer() {
+      if (isOpen) closeDrawer();
+      else openDrawer();
+    }
+
+    tabBtn.addEventListener('click', toggleDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    var closeBtn = drawer.querySelector('.drawer-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeDrawer);
+    }
+
+    // Keyboard navigation (Esc to close)
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen) {
+        closeDrawer();
+      }
+    });
+
+    // Also support any element on page with .btn-toggle-articles
+    var customToggles = document.querySelectorAll('.btn-toggle-articles');
+    for (var k = 0; k < customToggles.length; k++) {
+      customToggles[k].addEventListener('click', function (e) {
+        e.preventDefault();
+        toggleDrawer();
+      });
+    }
+  }
 
   // Global Registry & Initialization
   window.UniverseSimulations = window.UniverseSimulations || {};
+  window.UniverseSimulations.SERIES_ARTICLES = SERIES_ARTICLES;
   window.UniverseSimulations.getThemeColors = getThemeColors;
   window.UniverseSimulations.setupRetinaCanvas = setupRetinaCanvas;
   window.UniverseSimulations.drawLabelPill = drawLabelPill;
@@ -312,14 +549,17 @@
   window.UniverseSimulations.redrawAll = redrawAll;
   window.UniverseSimulations.initThemeManager = initThemeManager;
   window.UniverseSimulations.initReadingProgress = initReadingProgress;
+  window.UniverseSimulations.initSeriesNavigation = initSeriesNavigation;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initThemeManager();
       initReadingProgress();
+      initSeriesNavigation();
     });
   } else {
     initThemeManager();
     initReadingProgress();
+    initSeriesNavigation();
   }
 })(window);
