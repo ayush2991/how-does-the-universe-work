@@ -1,139 +1,92 @@
 # Intuition First — Agent Guide
 
-## Project Overview
-An interactive, explorable scientific and mathematical publishing series explaining complex physics, mathematics, and machine learning from the ground up using intuitive visual thought experiments, interactive HTML5/Canvas simulations, and clean typography.
-The project is **100% static** (zero build step, zero npm dependencies, runs directly via `file://` or GitHub Pages).
+## 1. Project Overview & Architecture
+
+*Intuition First* is an interactive, explorable scientific and mathematical publishing series explaining complex physics, mathematics, and information theory from the ground up using intuitive visual thought experiments, interactive HTML5/Canvas simulations, and clean typography.
+
+### Core Architectural Invariants
+- **100% Static & Zero Build Step**: No npm, webpack, vite, or bundlers. Every page runs directly via `file://` or GitHub Pages.
+- **Single Source of Truth**:
+  - Global styles: `css/style.css`
+  - Universal runtime utilities & theme engine: `js/core.js`
+  - Modular essay simulation engines: `js/post-01.js`, `js/post-02.js`, `js/post-03.js`, `js/post-04.js`, etc.
+  - Landing hub: `index.html`
+  - Longform essays: `posts/01-motion-and-time.html`, `posts/02-light-cone.html`, `posts/03-spacetime-loaf.html`, `posts/04-understanding-entropy.html`
 
 ---
 
-## Editorial Philosophy
+## 2. Editorial Philosophy
 
-This series teaches physics and mathematics **bottom-up**, not top-down. Every agent working on prose must internalise and consistently apply the following principles.
+This series teaches physics and mathematics **bottom-up**, not top-down. Every agent working on prose must internalize and consistently apply these 8 core principles.
 
 ### 1. Build from what the reader already knows — never from what they don't
-
-Every new concept must grow organically out of something the reader already holds: direct physical intuition, everyday experience, or knowledge established in a previous section or article. We do not start from the destination (a fact, a formula, a named concept) and work backward to justify it. We start from what is already solid and ask the natural next question.
-
+Every new concept must grow organically out of direct physical intuition, everyday experience, or knowledge established in a previous section. Never start from the destination (a formula or textbook concept) and work backward to justify it.
 - ✅ *"That picture tells us how velocity is partitioned — but not where anyone actually is. The natural next question is: can we draw a map?"*
 - ❌ *"Textbooks use a spacetime diagram with space on the horizontal axis. This can be confusing because…"*
 
 ### 2. Never introduce confusion first
-
-Do not frame a new section by announcing what is confusing, contradictory, or commonly misunderstood before the reader has encountered it themselves. That approach assumes prior textbook exposure and makes the reader feel lost before they have a reason to be. A reader who has never seen a spacetime diagram is not confused by it — they simply haven't seen it yet. Approach it as something new to discover, not something to fix.
-
-- ✅ Pose open questions from within the narrative: *"But what angle does a photon's worldline actually make?"*
-- ❌ Pre-announce the answer: *"Watch how 90° in Velocity Space maps directly into a 45° diagonal."*
-- ❌ Frame via contrast with external knowledge: *"In those textbook diagrams, the photon is at 45°, not 90° — why?"*
+Do not frame a section by announcing what is confusing, contradictory, or commonly misunderstood before the reader encounters it themselves. Approach concepts as discoveries, not fixes for misconceptions.
+- ✅ Pose open questions: *"But what angle does a photon's worldline actually make?"*
+- ❌ Pre-announce answers: *"Watch how 90° in Velocity Space maps directly into a 45° diagonal."*
+- ❌ Contrast with external curricula: *"In traditional textbooks, the photon is at 45°, not 90° — why?"*
 
 ### 3. Pure Constructive Elevation (Zero Complaining)
-
-We teach by illuminating the natural beauty and geometric inevitability of ideas, not by contrasting against poor pedagogy or complaining about the outside world.
-- ✅ Frame physics as an adventure of direct deduction: *"Let us follow the geometry to its natural conclusion."*
-- ❌ Never dismiss other media or educators: *"Unlike conventional dry courses that bog students down in meaningless algebra..."* or *"Traditional physics professors confuse students with..."*
-- The universe stands on its own merits without needing a foil to look profound.
+Teach by illuminating the natural beauty and geometric inevitability of ideas. Never disparage other educators, textbooks, or pedagogical approaches. The universe stands on its own merits without needing a foil.
+- ✅ *"Let us follow the geometry to its natural conclusion."*
+- ❌ *"Unlike dry university courses that bog students down in meaningless algebra..."*
 
 ### 4. The "Pacing of Wonder": Earned Revelation
-
-Revelations must feel inevitable yet breathtaking. We build tension through simple, concrete setups (two cars on a field, two clocks, a loaf of film frames) before revealing deep cosmic symmetries.
-- Every section should end on an unanswered question or a tantalizing geometric consequence that creates natural momentum into the next section.
+Build tension through tangible setups (two cars on a field, two synchronized clocks, a loaf of film frames) before revealing deep cosmic symmetries.
 - **Narrative Arc**:
-  1. *Familiar Anchor*: Everyday analogies rooted in tangible physical intuition.
-  2. *The Natural Question*: Pushing that intuition toward its physical extremes.
-  3. *The Geometric Bridge*: Mapping that intuition into clean coordinate space.
+  1. *Familiar Anchor*: Everyday tangible intuition.
+  2. *The Natural Question*: Pushing intuition toward physical extremes.
+  3. *The Geometric Bridge*: Mapping intuition into clean coordinate space.
   4. *The Inevitable Insight*: The mathematical formulation arrives purely as a description of what was already drawn.
 
 ### 5. Let visualizations deliver the insight — prose sets up the question
-
-Interactive simulations are not illustrations of something the prose has already fully explained. They are the moment of discovery. Prose before a widget should build the setup, name the travellers, pose the open question, and explain what the axes mean. The widget then answers the question. Prose after the widget unpacks what was observed and draws conclusions.
-
-- **Before the widget**: establish context, introduce characters, name the open question.
-- **The widget itself**: delivers the answer through direct interaction.
-- **After the widget**: explain why the answer is what it is, connect it to the broader picture.
+Simulations are moments of active discovery, not redundant illustrations of pre-explained facts.
+- **Before the widget**: Establish context, introduce characters, name the open question.
+- **The widget itself**: Delivers the answer through direct interaction.
+- **After the widget**: Explain why the answer occurred and connect it to the broader picture.
 
 ### 6. Introduce characters and terms before using them
+Every named entity (Alice, Bob, a photon, a muon) must be introduced with a clear physical situation before being referenced. Every technical term (worldline, proper time, light cone, entropy) must be coined at the exact moment it becomes necessary.
 
-Any named entity (Alice, Bob, a photon, a muon) must be introduced with a clear description of their situation before being referenced. The reader should never encounter a name that hasn't been given a face. Similarly, any technical term (worldline, proper time, light cone) must be coined within the prose at the moment it first becomes necessary — not assumed.
-
-### 7. The series is self-contained — no assumed external knowledge
-
-The reader is assumed to arrive with only everyday intuition and curiosity. No physics education, no textbook exposure. Do not reference how "physicists" map things, what "any textbook" shows, or what "general relativity" says. If a concept matters, we derive or motivate it ourselves from first principles within the series.
+### 7. Self-contained — no assumed external knowledge
+The reader arrives with everyday intuition and curiosity. Do not reference what "physicists know" or what "general relativity states". If a concept matters, derive or motivate it directly from first principles.
 
 ### 8. Section headings reflect discovery, not taxonomy
-
-Section headings should sound like the next step in an unfolding journey, not like chapter labels in a textbook.
-
+Headings should sound like steps in an unfolding journey, not chapter titles from an encyclopedia.
 - ✅ *"Drawing the Map: Coordinate Spacetime"*
-- ✅ *"Building Up the Picture"*
+- ✅ *"The Angle of 'Now'"*
 - ❌ *"The Side-by-Side Bridge: Speed Space vs Coordinate Spacetime"*
 - ❌ *"Why Spacetime Cannot Have a 90° Worldline"*
 
 ---
 
-## File Architecture & Single Source of Truth
+## 3. Semantic Physics & Editorial Color Palette
 
-The repository uses a strict **Single Source of Truth** architecture with **zero build step, zero npm dependencies, and 100% `file://` compatibility**:
+Colors across the publication represent immutable physical concepts and editorial surfaces. Always pull colors dynamically from `UniverseSimulations.getThemeColors()` rather than hardcoding static hex codes into canvas scripts.
 
-1. **Series Hub / Landing Page**:
-   - `index.html`
-   - Loads `css/style.css` and `js/core.js`.
-   - Features the "Why Intuition First?" manifesto, mission statement, and multi-series catalog (Series 01: Special Relativity, Series 02: Information and Entropy).
-2. **Live Essay Articles**:
-   - Part 1: `posts/01-motion-and-time.html` (loads `../css/style.css`, `../js/core.js`, `../js/post-01.js`)
-   - Part 2: `posts/02-light-cone.html` (loads `../css/style.css`, `../js/core.js`, `../js/post-02.js`)
-   - Part 3: `posts/03-spacetime-loaf.html` (loads `../css/style.css`, `../js/core.js`, `../js/post-03.js`)
-3. **Core Utilities & Design Engine**:
-   - `js/core.js`: Universal shared utilities (Light/Dark Theme Manager, reading progress bar, retina canvas setup, axis, grid, label pills, drawer navigation, and constraint primitives). Automatically initializes theme, progress bar, and series drawer on DOMContentLoaded.
-   - `css/style.css`: Unified design system supporting Light Mode (default, warm paper minimal), Obsidian Dark Mode (`[data-theme="dark"]`), reading progress bar, math badges, series-specific color themes, and responsive mobile layouts.
-4. **Modular Essay Simulation Engines**:
-   - `js/post-01.js`: Part 1 simulation widgets (`initAllPost01`).
-   - `js/post-02.js`: Part 2 simulation widgets (`initAllPost02`).
-   - `js/post-03.js`: Part 3 simulation widgets (`initAllPost03`).
-   *(Each script automatically initializes its widgets on DOMContentLoaded without boilerplate).*
+| Semantic Concept | Light Mode | Obsidian Dark Mode | Usage / Physical Meaning |
+| :--- | :--- | :--- | :--- |
+| **Canvas Background** | `#fbfbf9` (`--bg-space`) | `#0d0f14` (`--bg-space`) | Main interactive canvas background |
+| **Card Surface** | `#ffffff` (`--bg-card`) | `#131720` (`--bg-card`) | Simulation card wrapper & controls |
+| **Card Subtle** | `#f6f6f2` (`--bg-card-subtle`) | `#090b0e` (`--bg-card-subtle`) | Readout dashboard cards, chip background |
+| **Time / Rest Frame** | `#0969da` | `#58a6ff` | Motion through time, Alice's rest frame, $ct$-axis |
+| **Space / Motion** | `#d95d18` | `#f0883e` | Spatial displacement, Bob's motion, $v_x$, coordinate distance |
+| **Cosmic Invariant ($c$)** | `#6e40c9` | `#bc8cff` | Invariant speed hypotenuse $c$, 45° light cone boundary |
+| **Light / Wavefronts** | `#b45309` | `#e3b341` | Outgoing photon wavefronts, beacon flashes, light signals |
+| **Sync / Agreement / Entropy** | `#0f766e` | `#3dd68c` | Simultaneous events, invariant intervals, information entropy |
+| **Forbidden / Causality Lag** | `#cf222e` | `#ff7b72` | Speeds exceeding $c$, causality disconnect, time lag |
 
 ---
 
-## Simulation Catalog
+## 4. Interactive Simulation Engineering
 
-### Part 1: Why Motion Through Space Affects Time
-| #        | Container ID                    | Function                 | Purpose                                                                 |
-| -------- | ------------------------------- | ------------------------ | ----------------------------------------------------------------------- |
-| **01**   | `widget-cars`                   | `initWidgetCars`         | Two cars on 2D grid ($V_E = 60\sin\theta, V_N = 60\cos\theta$)          |
-| **02**   | `widget-stationary`             | `initWidgetStationary`   | Sitting at rest ($x=0$) carries you forward through Time at 100%        |
-| **03**   | `widget-tradeoff`               | `initWidgetTradeoff`     | Thought experiment: trading space for time ($v_t = \sqrt{V^2 - v_x^2}$) |
-| **04**   | `widget-time-dilation`          | `initWidgetTimeDilation` | Live Twin Clocks and time dilation ($t' = t / \gamma$)                  |
-| **05**   | `widget-speed-limit`            | `initWidgetSpeedLimit`   | Cosmic speed limit $c$ and the timeless photon                          |
-| **06**   | `widget-muon`                   | `initWidgetMuon`         | Relativistic atmospheric muon decay vs. Newtonian prediction            |
-| **07**   | `widget-3d-spacetime`           | `initWidget3DSpacetime`  | 3D spacetime volume ($x_1, x_2, t$) with rotatable camera and Now-Slice |
+Every interactive simulation follows a standardized visual hierarchy, tactile control interface, and deterministic rendering lifecycle.
 
-### Part 2: The Cosmic Light Cone: Mapping Space & Time
-| #       | Container ID               | Function                        | Purpose                                                                                                                                 |
-| ------- | -------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| **01**  | `widget-dual-bridge`       | `initWidgetDualSpeedSpacetime`  | Side-by-side comparison: Speed Space vs Coordinate Spacetime Map                                                                        |
-| **01b** | `widget-expanding-circles` | `initWidgetExpandingCircles`    | 2×2 grid of four static panels showing the outgoing circle of light at $t=0,1,2,3$ in the $x$–$y$ plane (eases reader into the 3D cone) |
-| **01c** | `widget-synthesis-grid`    | `initWidgetSynthesisGrid`       | 2×2 visual synthesis grid bridging Velocity Space ($v_x, v_t$) to Coordinate Spacetime ($\phi$) across 4 archetypes                     |
-| **02**  | `widget-3d-light-cone`     | `initWidget3DLightConeExplorer` | Full 3D rotatable Light Cone volume ($x_1, x_2, ct$) with dynamic Now-Slice                                                             |
-| **03**  | `widget-cosmic-horizon`    | `initWidgetCosmicHorizon`       | Coordinated Dual-View: physical stellar radar & lifespan bubble vs $(x, ct)$ spacetime past light cone                                  |
-
-### Part 3: The Spacetime Loaf & Length Contraction
-| #      | Container ID                | Function                      | Purpose                                                                              |
-| ------ | --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------ |
-| **01** | `widget-loaf-alice`         | `initWidgetLoafAlice`         | 3D spacetime loaf volume with Alice's horizontal slice and expanding light wavefront |
-| **02** | `widget-loaf-bob`           | `initWidgetLoafBob`           | Bob in motion: slanting the worldtube across the spacetime loaf                      |
-| **03** | `widget-beacons-bob`        | `initWidgetBeaconsBob`        | Bob's rest frame: simultaneous light beacon arrival inside the coach ($\Delta t = 0$) |
-| **04** | `widget-beacons-alice`      | `initWidgetBeaconsAlice`      | Alice's platform frame: moving coach causes desynchronized beacon hits ($\Delta t > 0$) |
-| **05** | `widget-simultaneity-slice` | `initWidgetSimultaneitySlice` | The angle of "Now": tilting the simultaneity hyperplane obliquely ($\tan\phi = v/c$) |
-| **06** | `widget-length-contraction` | `initWidgetLengthContraction` | Geometric projection: Bob's tilted 10m coach projecting onto Alice's horizontal present via cos(θ) & real-world tracks |
-| **07** | `widget-dual-frame`         | `initWidgetDualFrame`         | Mutual relativity: invariant 10m coaches and cos(θ) projections from both Alice's and Bob's frames   |
-| **08** | `widget-muon-contraction`   | `initWidgetMuonContraction`   | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction)       |
-
----
-
----
-
-## Interactive Simulation Anatomy & Interaction Principles
-
-Interactive simulations are the heartbeat of the publication. Every widget must adhere to a strict visual and functional anatomy.
-
+### Widget Anatomy
 ```
 +-----------------------------------------------------------------------------------+
 |  [SIMULATION 0X · TAXONOMY BADGE]                                                 |
@@ -141,141 +94,108 @@ Interactive simulations are the heartbeat of the publication. Every widget must 
 |  1-2 sentence subtitle describing the exact physical tradeoff being observed       |
 +-----------------------------------------------------------------------------------+
 |  [CANVAS VIEWPORT] (Retina-scaled, crisp geometry, unified physics palette)       |
-|                                                                                   |
-|    - High contrast axes (ct vs x) with readable tick labels & arrows              |
-|    - Bounded pill labels with auto-clamping on narrow viewports                   |
-|    - Color-coded vectors matching text & sliders (Sky=Time, Radiant=Space, etc.)  |
+|    - High contrast axes with readable tick labels & arrows                        |
+|    - Bounded label pills with viewport edge clamping                              |
+|    - Color-coded vectors matching text & sliders (Blue=Time, Orange=Space, etc.)  |
 |    - 3D projections with smooth touch/drag orbit, presets, and reset buttons     |
 +-----------------------------------------------------------------------------------+
-|  [READOUT DASHBOARD] (Multi-column live metric grid)                               |
+|  [READOUT DASHBOARD] (Multi-column live metric grid with tabular monospace nums)  |
 |    [ v_space: 0.866 c ]   [ v_time: 0.500 c ]   [ Gamma: 2.00 ]   [ Delta-t: 0 ]  |
 +-----------------------------------------------------------------------------------+
 |  [INTERACTIVE CONTROLS & TIMELINE]                                                |
 |    [ ▶ Auto Play / ⏸ Pause ]   [ ↺ Reset ]   [ Preset Chips: 0.0c, 0.6c, 0.866c ] |
-|    Slider: Speed (v/c) / Time (t) / Angle (θ) with live value badge               |
+|    Slider: Speed (v/c) / Time (t) / Probability (p) with live value badge         |
 +-----------------------------------------------------------------------------------+
 ```
 
-### Core Visualization Rules
-1. **Interactive, Not Passive**: Every visual must offer a degree of freedom (time scrub, velocity slider, 3D orbit angle, preset buttons) so the reader proves the concept to themselves through tactile manipulation.
-2. **Deterministic & Bidirectional**:
-   - Scrubbing forward and backward must behave cleanly without state drift or accumulation errors.
-   - When a user changes speed, all dependent readouts (spatial speed, time speed, Lorentz factor, angle) update synchronously in lockstep across canvas and text badges.
-3. **No Decorative Clutter**: Every line, dot, dashed guide, and angle arc in the canvas must represent a physical quantity or coordinate boundary. If it does not build intuition, cut it.
-4. **Auto-Play + Manual Scrubbing**: Always pair continuous auto-play animations with scrubbable range inputs. Auto-play demonstrates continuous flow; manual scrubbing allows stop-and-inspect contemplation.
+### Core Canvas & State Principles
+1. **Retina DPI Setup**: Always initialize canvases with `setupRetinaCanvas(canvas)` to ensure crisp line drawing on high-DPI displays.
+2. **Deterministic & Bidirectional**: Scrubbing forward and backward must never accumulate state drift. Speed or parameter adjustments must instantly and synchronously update readouts, sliders, and canvas graphics.
+3. **Auto-Play + Manual Scrubbing**: Pair continuous animations with interactive range sliders (`.slider-speed`, `.slider-time`, `.slider-prob`). Auto-play demonstrates dynamics; scrubbing allows stop-and-inspect contemplation.
+4. **Theme & Resize Awareness**: Register draw callbacks via `registerDraw(draw)` and `window.addEventListener('resize', draw)`. Never set inline canvas width/height attributes; dimensions are managed responsively via CSS.
+5. **Edge Clamping for Label Pills**: Always clamp pill coordinates (`Math.min(width - padRight, Math.max(padLeft, x))`) so floating annotations never clip outside viewport boundaries on narrow screens.
+6. **Tabular Numerals**: Numeric metrics and readouts must use monospace fonts with tabular numbers (`JetBrains Mono` / `tnum`) to eliminate layout jitter during live updates.
 
 ---
 
-## Semantic Physics & Editorial Color Palette (Single Source of Truth)
+## 5. Responsive Layout & Design Standards
 
-Colors across the series represent immutable physical concepts and editorial surfaces. Never pick colors arbitrarily:
+### 1. Dual-Container Discipline
+- **Narrow Prose Flow (`.editorial-prose`, max ~680px–740px)**: Longform reading text stays in a focused column where line length (characters per line) maintains optimal reading ergonomics.
+- **Wide Interactive Viewport (`.wide-reading-container`, `.wide-container`, max ~1100px–1200px)**: Multi-panel comparative matrices, 3D coordinate volumes, and dual-observer views expand horizontally for optimal spatial clarity.
 
-- **Surface & Background Tokens**:
-  - Light Mode: Canvas `--bg-space: #fbfbf9` (Warm natural paper/parchment), Card `--bg-card: #ffffff`, Subtle `--bg-card-subtle: #f6f6f2`.
-  - Dark Mode: Canvas `--bg-space: #0d0f14` (Deep obsidian cosmic canvas), Card `--bg-card: #131720`, Subtle `--bg-card-subtle: #090b0e`.
-- **Time / Rest / Earth Observer**:
-  - Light Mode: `#0969da` (Deep Cobalt) | Dark Mode: `#58a6ff` (Prismatic Azure)
-  - Meaning: Forward motion through time, Alice's rest frame, Earth frame, stationary coordinate axes.
-- **Space / Motion / Velocity**:
-  - Light Mode: `#d95d18` (Radiant Terracotta) | Dark Mode: `#f0883e` (Radiant Amber-Coral)
-  - Meaning: Spatial displacement, Bob's motion, spatial velocity vectors $v_x$, coordinate distance.
-- **Universal Invariant / Cosmic Speed Limit ($c$)**:
-  - Light Mode: `#6e40c9` (Deep Violet) | Dark Mode: `#bc8cff` (Prismatic Violet)
-  - Meaning: The total invariant speed needle $c$, the quarter-circle hypotenuse arc, the 45° spacetime light cone boundary.
-- **Light / Photons / Causality Boundaries**:
-  - Light Mode: `#b45309` (Warm Amber) | Dark Mode: `#e3b341` (Golden Sun)
-  - Meaning: Outgoing light wavefronts, photon paths, beacons, flash events.
-- **Agreement / Synchronization / Entropy**:
-  - Light Mode: `#0f766e` (Verdigris / Antique Pine) | Dark Mode: `#3dd68c` (Phosphor Mint)
-  - Meaning: Synchronized beacon hits, rest length agreement, invariant intervals, Series 02 Information & Entropy theme.
-- **Forbidden / Lag / Causality Violation**:
-  - Light Mode: `#cf222e` (Crimson) | Dark Mode: `#ff7b72` (Soft Red)
-  - Meaning: Speeds exceeding $c$, time lag, causal disconnect.
+### 2. Responsive Canvas Heights
+- **Desktop (> 768px)**: `380px` (or `420px` for 3D loaves)
+- **Tablet (<= 768px)**: `300px`
+- **Mobile (<= 640px)**: `240px` (preserves landscape aspect ratio for coordinate systems)
+- **Ultra-compact (<= 380px)**: `220px`
+
+### 3. Mobile Layout Rules
+- **Side-by-Side Twin Clocks**: **Never collapse twin clocks into a vertical stack on mobile.** Clocks must remain side-by-side (`grid-template-columns: 1fr 1fr; gap: 0.5rem;`) to preserve direct visual comparison.
+- **Multi-Panel & 2×2 Grids**: On screens `<= 720px`, collapse 2×2 comparative grids into a single-column stack (`grid-template-columns: 1fr;`) using standardized classes (`.multi-panel-grid`, `.synthesis-grid`, `.expanding-circles-grid`) to give canvas axes adequate horizontal resolution.
+- **Sticky Navigation Bar**: On mobile, keep navigation clean (`height: 3.25rem; padding: 0 1rem;`). Auxiliary badges (`.brand-tag`) and secondary navigation links (`.nav-link-secondary`) are hidden on small viewports to prevent collisions.
+
+### 4. Home Page & Section Cadence
+- **Brand Identity**: Monogram seal (`IF`) with clean monospaced brand text `INTUITION FIRST` without decorative gimmick ribbons or build bragging.
+- **Zero Gap Stacking**: Avoid multiple stacked paddings. The first series group has `border-top: none; padding-top: 0;` so content flows naturally without empty visual voids.
+- **Structured 2-Column Grid**: `.series-grid` renders as `repeat(2, minmax(0, 1fr))` on desktop, collapsing to `1fr` on mobile.
 
 ---
 
-## Static Figures, Diagramming & Image Asset Guidelines
+## 6. Live Simulation Catalog
 
-When static figures, diagrams, or generated image assets are incorporated:
-1. **Identical Lighting & Background**: Use neutral transparent backgrounds or match `--bg-card` / `--bg-canvas` (`#ffffff` light, `#0d0f14` dark).
-2. **Minimalist Vector Linework**: Diagrams must echo our 2D canvas primitives: clean 1.5px - 2px hairline strokes, circular nodes with white centers, dashed projection lines (`[4, 4]`), and pill callouts.
-3. **No Skeuomorphic Clutter**: Avoid photorealistic 3D rendering of cars, trains, or people. Use clean stylized wireframes, geometric silhouettes, or 2D/3D stick figures (as codified in `post-03.js`).
-4. **Dark/Light Mode Dual Assets**: When an image asset is rasterized, provide light/dark adaptive rendering (via CSS `<picture>` tags or SVG `currentColor`).
-5. **Tabular Numerals**: Numeric metrics and formulas must use monospace fonts with tabular numbers (`JetBrains Mono` / `tnum`) so layouts never jitter or shift during updates.
+### Series 01: Special Relativity — The Fabric of Spacetime
 
----
+#### Part 1: Why Motion Through Space Affects Time (`posts/01-motion-and-time.html` / `js/post-01.js`)
+| # | Container ID | Function | Physical Concept & Purpose |
+| :--- | :--- | :--- | :--- |
+| **01** | `widget-cars` | `initWidgetCars` | Two cars on a 2D grid partitioning total velocity ($V_E = 60\sin\theta, V_N = 60\cos\theta$) |
+| **02** | `widget-stationary` | `initWidgetStationary` | Sitting at rest ($x=0$) carries you forward through Time at 100% capacity |
+| **03** | `widget-tradeoff` | `initWidgetTradeoff` | Spatial velocity tradeoffs reducing speed through time ($v_t = \sqrt{c^2 - v_x^2}$) |
+| **04** | `widget-time-dilation` | `initWidgetTimeDilation` | Live Twin Clocks demonstrating time dilation ($t' = t / \gamma$) |
+| **05** | `widget-speed-limit` | `initWidgetSpeedLimit` | Cosmic speed limit $c$, the timeless photon, and forbidden regions |
+| **06** | `widget-muon` | `initWidgetMuon` | Atmospheric muon decay: Relativistic survival vs Newtonian prediction |
+| **07** | `widget-3d-spacetime` | `initWidget3DSpacetime` | 3D spacetime volume ($x_1, x_2, t$) with rotatable camera and Now-Slice |
 
-## Home Page & Editorial Hub Architecture
+#### Part 2: The Cosmic Light Cone: Mapping Space & Time (`posts/02-light-cone.html` / `js/post-02.js`)
+| # | Container ID | Function | Physical Concept & Purpose |
+| :--- | :--- | :--- | :--- |
+| **01** | `widget-dual-bridge` | `initWidgetDualSpeedSpacetime` | Side-by-side comparison: Speed Space vs Coordinate Spacetime Map |
+| **01b** | `widget-expanding-circles` | `initWidgetExpandingCircles` | 2×2 grid of outgoing light circles at $t=0,1,2,3$ in the $x$–$y$ plane |
+| **01c** | `widget-synthesis-grid` | `initWidgetSynthesisGrid` | 2×2 synthesis grid bridging Velocity Space ($v_x, v_t$) to Spacetime ($\phi$) across 4 archetypes |
+| **02** | `widget-3d-light-cone` | `initWidget3DLightConeExplorer` | Full 3D rotatable Light Cone volume ($x_1, x_2, ct$) with dynamic Now-Slice |
+| **03** | `widget-cosmic-horizon` | `initWidgetCosmicHorizon` | Coordinated dual-view: Physical stellar radar bubble vs $(x, ct)$ past light cone |
 
-To maintain a bespoke, museum-grade aesthetic that avoids generic AI presets:
-1. **Brand Identity**: Monogram seal (`IF`) in monospaced geometry with hairline framing and tactile elevation.
-2. **Hero Header**: Balanced vertical padding (`4rem 1.5rem 2.5rem` desktop, `2.25rem 0.5rem 1.75rem` mobile), display serif accents, volume badge (`Volume 01`), and an editorial publication ribbon.
-3. **Split Series Headers**: Dual-column layout on desktop (`.series-group-header-split`) pairing title and taxonomy on the left with narrative scope on the right; collapsing gracefully to single-column on mobile.
-4. **Structured 2-Column Grid**: `.series-grid` strictly renders as `repeat(2, minmax(0, 1fr))` on desktop to avoid orphan wrapping, collapsing to `1fr` on mobile with tactile hover states (`translateY(-3px)` + top accent bar).
-5. **Upcoming Essays**: Understated architectural wireframe treatment (`dashed` border, subtle muted background) rather than low-opacity faded cards.
-
----
-
-## Canvas & UI Conventions
-
-- **Canvas Rendering**:
-  - Always use `setupRetinaCanvas(canvas)` for crisp display on high-DPI screens.
-  - Pull colors dynamically via `getThemeColors()` (`c.timeColor`, `c.spaceColor`, `c.invariantColor`, `c.axisLine`, `c.gridLine`, etc.).
-  - Register render callbacks with `registerDraw(draw)` and `window.addEventListener('resize', draw)` to handle theme switching and responsive resizes.
-  - Never hardcode canvas `height` or `width` inside HTML inline styles; dimensions are governed responsively by CSS.
-- **Controls & Playback**:
-  - Sliders use standard classes: `.slider-speed`, `.slider-time`, `.slider-angle`.
-  - Readouts use: `.readout-*` (e.g. `.readout-vx`, `.readout-vt`, `.readout-gamma`) and `.val-*`.
-  - Autoplay buttons use `.btn-primary.btn-play` with standard markup:
-    ```html
-    <button class="btn-primary btn-play">
-      <span>▶</span><span>Auto Play</span>
-    </button>
-    ```
-    and toggle to `<span>⏸</span><span>Pause</span>` during `requestAnimationFrame` playback.
-- **Reading Progress Bar**:
-  - Fixed at the top of the viewport: `<div class="reading-progress-bar" id="reading-progress"></div>`.
-  - Initialized automatically via `initReadingProgress()` in `js/core.js`.
+#### Part 3: The Spacetime Loaf & Length Contraction (`posts/03-spacetime-loaf.html` / `js/post-03.js`)
+| # | Container ID | Function | Physical Concept & Purpose |
+| :--- | :--- | :--- | :--- |
+| **01** | `widget-loaf-alice` | `initWidgetLoafAlice` | 3D spacetime loaf volume with Alice's horizontal slice and expanding wavefront |
+| **02** | `widget-loaf-bob` | `initWidgetLoafBob` | Bob in motion: slanting the worldtube across the spacetime loaf |
+| **03** | `widget-beacons-bob` | `initWidgetBeaconsBob` | Bob's rest frame: simultaneous light beacon hits inside the coach ($\Delta t = 0$) |
+| **04** | `widget-beacons-alice` | `initWidgetBeaconsAlice` | Alice's frame: moving coach causes desynchronized beacon hits ($\Delta t > 0$) |
+| **05** | `widget-simultaneity-slice` | `initWidgetSimultaneitySlice` | Tilting the simultaneity hyperplane obliquely ($\tan\phi = v/c$) |
+| **06** | `widget-length-contraction` | `initWidgetLengthContraction` | Geometric projection: Bob's tilted coach projecting onto Alice's present via $\cos\theta$ |
+| **07** | `widget-dual-frame` | `initWidgetDualFrame` | Mutual relativity: invariant 10m coaches and reciprocal $\cos\theta$ projections |
+| **08** | `widget-muon-contraction` | `initWidgetMuonContraction` | Atmospheric muons from both perspectives (Time Dilation vs Length Contraction) |
 
 ---
 
-## Mobile & Responsive Layout Rules
+### Series 02: Information & Entropy — The Order of the Universe
 
-To ensure compact, space-efficient rendering without awkward layout shifts or excessive scrolling on mobile:
-
-1. **Dual-Container Layout Discipline**:
-   - **Narrow Prose Flow (`.editorial-prose`, max ~680px-740px)**: Longform reading text stays in a focused column where line length (characters per line) maintains optimal reading ergonomics.
-   - **Wide Interactive Viewport (`.wide-reading-container`, `.wide-container`, max ~1100px-1200px)**: Interactive artifacts, dual comparison matrices, 3D loaves, and stellar radar diagrams expand into wide viewports to present spatial relationships side-by-side.
-2. **Responsive Canvas Heights**:
-   - Desktop (> 768px): `380px` (or `420px` for 3D loaves)
-   - Tablet (<= 768px): `300px`
-   - Mobile (<= 640px): `240px` (maintains landscape aspect ratio for physics coordinate systems)
-   - Ultra-compact (<= 380px): `220px`
-3. **Side-by-Side Twin Clocks**:
-   - **Never collapse twin clocks into a vertical stack on mobile.** Clocks must remain side-by-side (`grid-template-columns: 1fr 1fr; gap: 0.5rem;`) to preserve direct visual comparison.
-   - Use compact padding (`0.5rem 0.625rem`) and scaled clock digits (`1.25rem`) on mobile.
-4. **Container & Margin Discipline**:
-   - Mobile reading container padding is `1.5rem 1rem 3.5rem` (reclaiming horizontal canvas width).
-   - `.canvas-viewport` padding is `0.5rem` on mobile.
-   - Section heading (`h2`) margins are kept compact (`margin-top: 1.75rem; margin-bottom: 0.75rem; padding-top: 0;`).
-5. **Sticky Navigation Bar**:
-   - Mobile navbar height is `3.25rem` with `0 1rem` padding.
-   - `.brand-tag` is hidden on mobile (`display: none;`).
-   - Secondary nav links (`.nav-link-secondary`) are hidden on mobile to prevent navbar text collisions or line wraps.
-6. **Canvas Label Bounds Checking**:
-   - In 2D/3D canvas renderers, clamp label pill horizontal positions (e.g., `Math.min(width - 55, ...)`) to ensure label pills never clip outside canvas borders on narrow screens (`width < 420px`).
-   - For vertical tracks (like the atmospheric Muon widget), adapt `padLeft` and `padRight` responsively when `width < 420px`.
-7. **Multi-Panel & 2×2 Comparative Grids**:
-   - **Desktop / Tablet (> 720px)**: Render as a 2×2 matrix (`grid-template-columns: 1fr 1fr; gap: 0.875rem;`). This allows compact spatial scanning without vertical bloat.
-   - **Mobile (<= 720px)**: **Always collapse into a single-column stack** (`grid-template-columns: 1fr;`). Unlike twin numeric clocks (which must stay side-by-side), multi-panel canvas diagrams require adequate horizontal width (~320px–380px) to render axes, tick marks, and projection rays legibly.
-   - Use standardized classes (`.multi-panel-grid`, `.synthesis-grid`, `.expanding-circles-grid`) rather than hardcoded inline styles so responsive stacking is strictly maintained.
+#### Part 1: An Intuitive Guide To Entropy (`posts/04-understanding-entropy.html` / `js/post-04.js`)
+| # | Container ID | Function | Physical Concept & Purpose |
+| :--- | :--- | :--- | :--- |
+| **01** | `widget-certainty-coin` | `initWidgetCertaintyCoin` | The Predictability Spectrum: Certain coin vs uncertain coin outcomes |
+| **02** | `widget-surprise-curve` | `initWidgetSurpriseCurve` | The Logarithmic Surprise Curve ($S(p) = -\log_2(p)$) and bit-depth of surprise |
+| **03** | `widget-expected-entropy` | `initWidgetExpectedEntropy` | Expected Surprise / Shannon Entropy Curve ($H(p) = -p\log_2 p - (1-p)\log_2(1-p)$) |
+| **04** | `widget-household-chaos` | `initWidgetHouseholdChaos` | Microstates vs Macrostates: Why messy rooms are statistically inevitable |
 
 ---
 
-## Git & Deployment Protocol
+## 7. Verification & Quality Checklist
 
-- **Zero-Build Deployment**: The repository deploys directly to GitHub Pages from the `main` branch root.
-- **Pre-Commit Verification**:
-  1. Test both **Light Mode** and **Obsidian Dark Mode**.
-  2. Verify responsive simulation behavior down to 360px mobile width.
-- **Publishing**: Commit with clear semantic commit messages and push to `origin/main`.
+Before completing changes or authoring new simulations, verify:
+- [ ] **Dual Theme Support**: Check both Light Mode (Warm Paper) and Dark Mode (Obsidian Cosmic) for contrast and color consistency.
+- [ ] **Responsive Breakpoints**: Test layout down to 360px width. Ensure label pills do not clip canvas edges and twin clocks remain side-by-side.
+- [ ] **Bidirectional Determinism**: Verify sliders and scrubbers update in real time without state accumulation or drift.
+- [ ] **Zero Console Errors**: Confirm pure vanilla JS execution with zero external runtime dependencies.

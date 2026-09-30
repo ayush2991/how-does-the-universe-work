@@ -251,6 +251,41 @@ body {
   color: var(--color-time);
 }
 
+/* Top Navbar Articles Trigger Button */
+.nav-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 550;
+  transition: color 0.15s ease;
+}
+
+.nav-link-btn:hover {
+  color: var(--color-time);
+}
+
+.nav-badge-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+
 /* Theme Toggle Button */
 .theme-toggle-btn {
   display: inline-flex;
@@ -1191,45 +1226,19 @@ body {
    Hero & Hub Layout Classes ("Intuition First")
    ========================================================================== */
 .hero-header {
-  padding: 4rem 1.5rem 2.5rem;
+  padding: 3.5rem 1.5rem 1.25rem;
   text-align: center;
-  max-width: 820px;
+  max-width: 780px;
   margin: 0 auto;
 }
 
-.hero-issue-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  background: var(--bg-card);
-  padding: 0.35rem 0.85rem;
-  border-radius: 4px;
-  border: 1px solid var(--border-subtle);
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-.hero-issue-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-emerald);
-  box-shadow: 0 0 6px var(--color-emerald);
-}
-
 .hero-title {
-  font-size: 3.5rem;
+  font-size: 3.25rem;
   font-weight: 800;
   letter-spacing: -0.04em;
   color: var(--text-primary);
   line-height: 1.1;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .hero-title em {
@@ -1241,81 +1250,39 @@ body {
 
 .hero-subtitle {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--text-secondary);
-  line-height: 1.68;
+  line-height: 1.65;
   max-width: 640px;
-  margin: 0 auto 2rem;
-}
-
-/* Publication Index Ribbon */
-.hero-index-ribbon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 0.85rem 1.25rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 8px;
-  max-width: 720px;
   margin: 0 auto;
-  box-shadow: var(--shadow-card);
-}
-
-.ribbon-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 0.02em;
-}
-
-.ribbon-item strong {
-  color: var(--text-primary);
-  font-weight: 700;
-}
-
-.ribbon-divider {
-  color: var(--border-medium);
 }
 
 /* Series Hub Layout */
 .series-section {
-  padding-bottom: 5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
 }
 
 .series-group {
-  margin-bottom: 4rem;
-  padding-top: 2.5rem;
+  margin-bottom: 3.25rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--border-subtle);
 }
 
-.series-group-header-split {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
-  margin-bottom: 1.75rem;
+.series-group:first-of-type {
+  border-top: none;
+  padding-top: 0;
 }
 
-.series-header-main {
-  flex: 1 1 55%;
-}
-
-.series-header-side {
-  flex: 1 1 45%;
+.series-group-header {
+  margin-bottom: 1.25rem;
 }
 
 .series-group-meta {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .series-group-tag {
@@ -1327,20 +1294,12 @@ body {
 }
 
 .series-group-title {
-  font-size: 2rem;
+  font-size: 1.85rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.03em;
   margin: 0;
   line-height: 1.2;
-}
-
-.series-group-desc {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin: 0;
 }
 
 /* Series 1 Palette: Relativity (Cobalt & Indigo) */
@@ -1418,8 +1377,8 @@ body {
 }
 
 .philosophy-section {
-  padding-top: 2rem;
-  padding-bottom: 4rem;
+  padding-top: 0;
+  padding-bottom: 3.5rem;
 }
 
 .philosophy-card {
@@ -1516,12 +1475,7 @@ body {
 
   /* Hero & Hub Typography */
   .hero-header {
-    padding: 2.25rem 0.5rem 1.75rem;
-  }
-  .hero-issue-badge {
-    font-size: 0.65rem;
-    padding: 0.25rem 0.65rem;
-    margin-bottom: 1rem;
+    padding: 2rem 0.5rem 0.75rem;
   }
   .hero-title {
     font-size: 2.15rem;
@@ -1531,31 +1485,23 @@ body {
   .hero-subtitle {
     font-size: 1.05rem;
     line-height: 1.55;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0;
   }
-  .hero-index-ribbon {
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    align-items: flex-start;
-  }
-  .ribbon-divider {
-    display: none;
+  .series-section {
+    padding-top: 1rem;
   }
   .series-group {
     margin-bottom: 2.5rem;
     padding-top: 1.75rem;
   }
-  .series-group-header-split {
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
+  .series-group:first-of-type {
+    padding-top: 0;
+  }
+  .series-group-header {
+    margin-bottom: 1rem;
   }
   .series-group-title {
     font-size: 1.5rem;
-  }
-  .series-group-desc {
-    font-size: 0.95rem;
   }
   .series-grid {
     grid-template-columns: 1fr;
@@ -2569,5 +2515,71 @@ body.drawer-open-lock {
   }
   .article-nav-tab-label {
     display: none;
+  }
+}
+
+/* --- Entropy Series Interactive Widgets Spacing & Layout --- */
+.household-sliders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+}
+
+.household-room-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.household-room-row:hover {
+  border-color: var(--border-medium);
+}
+
+.household-room-label {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 650;
+  width: 105px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-primary);
+}
+
+.household-room-slider {
+  flex: 1;
+  min-width: 0;
+}
+
+.household-room-val {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: 50px;
+  flex-shrink: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-time);
+}
+
+@media (max-width: 480px) {
+  .household-room-row {
+    gap: 0.5rem;
+    padding: 0.3rem 0.4rem;
+  }
+  .household-room-label {
+    width: 88px;
+    font-size: 0.72rem;
+  }
+  .household-room-val {
+    width: 44px;
+    font-size: 0.7rem;
   }
 }

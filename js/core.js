@@ -345,13 +345,13 @@
       seriesName: 'Series 02: Information and Entropy',
       part: 1,
       partNumber: '01',
-      title: 'Thermodynamic vs. Shannon Entropy',
-      shortTitle: 'Thermodynamic vs. Shannon',
-      subtitle: 'Counting microstates, surprise, and how thermal disorder connects to bits.',
+      title: 'An Intuitive Guide To Entropy',
+      shortTitle: 'Guide To Entropy',
+      subtitle: 'Understanding why entropy is a measure of chaos from first principles.',
       tag: 'Information & Entropy',
-      filename: '#',
-      readTime: 'Coming Soon',
-      status: 'coming-soon'
+      filename: '04-understanding-entropy.html',
+      readTime: '8 min',
+      status: 'live'
     },
     {
       seriesId: 'entropy',
@@ -532,6 +532,10 @@
         e.preventDefault();
         toggleDrawer();
       });
+      var countBadge = customToggles[k].querySelector('.nav-badge-count');
+      if (countBadge) {
+        countBadge.textContent = String(SERIES_ARTICLES.length);
+      }
     }
   }
 
