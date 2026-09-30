@@ -101,6 +101,20 @@
     if (baseline === 'middle') pillY = y - pillH / 2;
     else if (baseline === 'bottom') pillY = y - pillH;
 
+    // Automatic Canvas Edge Clamping
+    if (ctx.canvas && ctx.canvas.width) {
+      var dpr = window.devicePixelRatio || 1;
+      var maxCanvasW = ctx.canvas.width / dpr;
+      var maxCanvasH = ctx.canvas.height / dpr;
+      var clampPad = 6;
+      if (maxCanvasW > pillW + clampPad * 2) {
+        pillX = Math.max(clampPad, Math.min(maxCanvasW - pillW - clampPad, pillX));
+      }
+      if (maxCanvasH > pillH + clampPad * 2) {
+        pillY = Math.max(clampPad, Math.min(maxCanvasH - pillH - clampPad, pillY));
+      }
+    }
+
     // Draw background pill
     ctx.fillStyle = bgColor;
     ctx.strokeStyle = borderColor;
@@ -178,20 +192,24 @@
     ctx.fill();
 
     // Labels with crisp pill background
-    drawLabelPill(ctx, xLabel, width - 60, oy + 18, {
-      font: 'bold 11px "JetBrains Mono", monospace',
-      align: 'center',
-      baseline: 'middle',
-      paddingX: 5,
-      paddingY: 2
-    });
-    drawLabelPill(ctx, yLabel, ox, 14, {
-      font: 'bold 11px "JetBrains Mono", monospace',
-      align: 'center',
-      baseline: 'middle',
-      paddingX: 5,
-      paddingY: 2
-    });
+    if (xLabel) {
+      drawLabelPill(ctx, xLabel, width - 20, oy + 18, {
+        font: 'bold 11px "JetBrains Mono", monospace',
+        align: 'right',
+        baseline: 'middle',
+        paddingX: 5,
+        paddingY: 2
+      });
+    }
+    if (yLabel) {
+      drawLabelPill(ctx, yLabel, ox, 14, {
+        font: 'bold 11px "JetBrains Mono", monospace',
+        align: 'left',
+        baseline: 'middle',
+        paddingX: 5,
+        paddingY: 2
+      });
+    }
   }
 
   function drawConstraintArc(ctx, ox, oy, radius, color) {

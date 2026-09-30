@@ -36,7 +36,7 @@
         <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
           <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="12" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
             <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
@@ -87,7 +87,7 @@
       </p>
 
       <div style="margin: 1.5rem 0; overflow-x: auto;">
-        <table style="width: 100%; max-width: 440px; margin: 0 auto; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.9rem;">
+        <table style="width: 100%; max-width: 440px; margin: 0 auto; border-collapse: collapse; font-size: 0.95rem;">
           <thead>
             <tr style="border-bottom: 2px solid var(--border-medium); background: var(--bg-card-subtle);">
               <th style="padding: 0.65rem 1rem; text-align: left;">Outcome</th>
@@ -96,25 +96,25 @@
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 0.65rem 1rem;">Heads (<span class="math-badge">H</span>)</td>
-              <td style="padding: 0.65rem 1rem; text-align: right; font-weight: 700; color: var(--color-time);">1</td>
+              <td style="padding: 0.65rem 1rem;">Heads (<em>H</em>)</td>
+              <td style="padding: 0.65rem 1rem; text-align: right; font-weight: 700; color: var(--color-time);">1.0</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 0.65rem 1rem;">Tails (<span class="math-badge">T</span>)</td>
-              <td style="padding: 0.65rem 1rem; text-align: right; color: var(--text-faint);">0</td>
+              <td style="padding: 0.65rem 1rem;">Tails (<em>T</em>)</td>
+              <td style="padding: 0.65rem 1rem; text-align: right; color: var(--text-faint);">0.0</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <p>
-        These values indicate that the coin always shows up Heads (<span class="math-badge">H</span>).
+        These values indicate that the coin always shows up Heads (<em>H</em>).
       </p>
       <p>
-        If we know in advance that the outcome will always be Heads, we experience <strong>zero surprise</strong> when we see the actual outcome. It is always <span class="math-badge">H</span>. There is no uncertainty and no information gained when the coin lands.
+        If we know in advance that the outcome will always be Heads, we experience <strong>zero surprise</strong> when we see the actual outcome. It is always <em>H</em>. There is no uncertainty and no information gained when the coin lands.
       </p>
       <p>
-        Test this baseline in the simulation below. Notice what happens when you flip a coin with <span class="math-badge">p = 1.0</span>:
+        Test this baseline in the simulation below. Notice what happens when you flip a coin with <em>p</em> = 1.0:
       </p>
 
       <!-- INTERACTIVE WIDGET 1: CERTAINTY COIN -->
@@ -138,7 +138,7 @@
                   <span class="clock-badge readout-toss-count">0 tosses</span>
                 </div>
                 <div class="clock-time readout-last-outcome" style="font-size: 1.35rem;">Heads (H)</div>
-                <p class="clock-subtext">Experienced Surprise: <strong class="readout-last-surprise" style="color:var(--text-primary);">0.00 bits</strong></p>
+                <p class="clock-subtext">Experienced Surprise: <strong class="readout-last-surprise" style="color:var(--text-primary);">0.000 nats</strong></p>
               </div>
 
               <div class="control-item" style="margin-bottom: 0.85rem;">
@@ -157,7 +157,7 @@
 
             <div class="toolbar-bottom" style="padding-top: 0.75rem; display: flex; gap: 0.5rem;">
               <button class="btn-primary btn-toss" style="flex: 1;">
-                <span>🪙</span><span>Flip Coin</span>
+                <span>Flip Coin</span>
               </button>
               <button class="btn-secondary btn-auto-toss" style="flex: 1;">
                 <span>▶</span><span>Auto Flip</span>
@@ -170,31 +170,31 @@
       <!-- SECTION 2 -->
       <h2>2. Generalizing Surprise</h2>
       <p>
-        More generally, say <span class="math-badge">p</span> is the probability of outcome <span class="math-badge">H</span>.
+        More generally, say <em>p</em> is the probability of outcome <em>H</em>.
       </p>
       <p>
-        If we use <span class="math-badge">X</span> to denote a random variable which records the outcome of a coin toss, then <span class="math-badge">X</span> takes values in <span class="math-badge">{H, T}</span>. Then:
+        If we use <em>X</em> to denote a random variable which records the outcome of a coin toss, then <em>X</em> takes values in {<em>H</em>, <em>T</em>}. Then:
       </p>
-      <p style="text-align: center; margin: 1rem 0;">
-        <span class="math-badge">Pr(X = H) = p</span> &nbsp;&nbsp;&nbsp;&nbsp; and &nbsp;&nbsp;&nbsp;&nbsp; <span class="math-badge">Pr(X = T) = 1 - p</span>
+      <p style="text-align: center; margin: 1.25rem 0; font-size: 1.1rem;">
+        Pr(<em>X</em> = <em>H</em>) = <em>p</em> &nbsp;&nbsp;&nbsp;&nbsp; and &nbsp;&nbsp;&nbsp;&nbsp; Pr(<em>X</em> = <em>T</em>) = 1 − <em>p</em>
       </p>
 
       <div style="margin: 1.5rem 0; overflow-x: auto;">
-        <table style="width: 100%; max-width: 440px; margin: 0 auto; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.9rem;">
+        <table style="width: 100%; max-width: 440px; margin: 0 auto; border-collapse: collapse; font-size: 0.95rem;">
           <thead>
             <tr style="border-bottom: 2px solid var(--border-medium); background: var(--bg-card-subtle);">
-              <th style="padding: 0.65rem 1rem; text-align: left;">X</th>
-              <th style="padding: 0.65rem 1rem; text-align: right;">Pr(X)</th>
+              <th style="padding: 0.65rem 1rem; text-align: left;"><em>X</em></th>
+              <th style="padding: 0.65rem 1rem; text-align: right;">Pr(<em>X</em>)</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 0.65rem 1rem; font-weight: 700;">H</td>
-              <td style="padding: 0.65rem 1rem; text-align: right; color: var(--color-time); font-weight: 600;">p</td>
+              <td style="padding: 0.65rem 1rem; font-weight: 700;"><em>H</em></td>
+              <td style="padding: 0.65rem 1rem; text-align: right; color: var(--color-time); font-weight: 600;"><em>p</em></td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 0.65rem 1rem; font-weight: 700;">T</td>
-              <td style="padding: 0.65rem 1rem; text-align: right; color: var(--color-space); font-weight: 600;">1 - p</td>
+              <td style="padding: 0.65rem 1rem; font-weight: 700;"><em>T</em></td>
+              <td style="padding: 0.65rem 1rem; text-align: right; color: var(--color-space); font-weight: 600;">1 − <em>p</em></td>
             </tr>
           </tbody>
         </table>
@@ -212,19 +212,16 @@
       <p>
         1. <strong>When an outcome is unlikely:</strong> the surprise upon its occurring should be <strong>high</strong>.<br>
         2. <strong>When an outcome is quite likely:</strong> the surprise must be <strong>low</strong>.<br>
-        3. <strong>In the extreme case where p = 1.0:</strong> the outcome <span class="math-badge">H</span> is certain, and the surprise associated with it must be <strong>zero</strong>.
+        3. <strong>In the extreme case where <em>p</em> = 1.0:</strong> the outcome <em>H</em> is certain, and the surprise associated with it must be <strong>zero</strong>.
       </p>
       <p>
-        To satisfy these properties, we use <span class="math-badge">log(1/p)</span> to quantify the surprise associated with an outcome of probability <span class="math-badge">p</span>.
+        To satisfy these properties, we use ln(1/<em>p</em>) to quantify the surprise associated with an outcome of probability <em>p</em>.
       </p>
       <div class="formula-card">
-        <div>Surprise: S(p) = log( 1 / p ) = -log( p )</div>
-        <div class="formula-note">For guaranteed outcomes with p = 1.0, log(1/1) = 0. Outcomes with small values of p result in a large surprise.</div>
+        <div style="font-weight: 600; font-size: 1.05rem;">Surprise: <em>S</em>(<em>p</em>) = ln( 1 / <em>p</em> ) = −ln( <em>p</em> ) &nbsp;[nats]</div>
+        <div class="formula-note">For guaranteed outcomes with <em>p</em> = 1.0, ln(1/1) = 0. Outcomes with small values of <em>p</em> result in a large surprise. Using the natural logarithm measures surprise in <strong>nats</strong>.</div>
       </div>
 
-      <p>
-        Using base 2 logarithm gives units of bits.
-      </p>
       <p>
         The curve below shows how surprise varies with probability:
       </p>
@@ -234,7 +231,7 @@
         <div class="artifact-header">
           <div>
             <div class="artifact-badge">SIMULATION 02 · QUANTIFYING SURPRISE</div>
-            <div class="artifact-title">The Surprise Curve: S(p) = log₂(1/p)</div>
+            <div class="artifact-title">The Surprise Curve: S(p) = ln(1/p)</div>
             <div class="artifact-desc">Move the probability slider to observe how surprise scales inversely with probability.</div>
           </div>
         </div>
@@ -250,15 +247,15 @@
                     <span class="clock-label">Surprise S(H)</span>
                     <span class="clock-badge">p</span>
                   </div>
-                  <div class="clock-time readout-surprise-heads" style="font-size: 1.15rem; color:var(--color-time);">0.32 bits</div>
+                  <div class="clock-time readout-surprise-heads" style="font-size: 1.15rem; color:var(--color-time);">0.223 nats</div>
                   <p class="clock-subtext">If coin lands Heads.</p>
                 </div>
                 <div class="clock-card" style="border-left: 3px solid var(--color-space);">
                   <div class="clock-meta">
                     <span class="clock-label" style="color:var(--color-space);">Surprise S(T)</span>
-                    <span class="clock-badge">1 - p</span>
+                    <span class="clock-badge">1 − p</span>
                   </div>
-                  <div class="clock-time readout-surprise-tails" style="font-size: 1.15rem; color:var(--color-space);">2.32 bits</div>
+                  <div class="clock-time readout-surprise-tails" style="font-size: 1.15rem; color:var(--color-space);">1.609 nats</div>
                   <p class="clock-subtext">If coin lands Tails.</p>
                 </div>
               </div>
@@ -278,8 +275,8 @@
               </div>
             </div>
             <div class="toolbar-bottom" style="padding-top: 0.75rem;">
-              <div class="math-badge" style="width: 100%; text-align: center;">
-                S(p) = -log₂(p) &nbsp;•&nbsp; S(1.0) = 0 bits
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; width: 100%; text-align: center; color: var(--text-secondary);">
+                S(p) = −ln(p) &nbsp;•&nbsp; S(1.0) = 0.000 nats
               </div>
             </div>
           </div>
@@ -292,29 +289,29 @@
         Given this formulation, over the course of many coin tosses, we experience:
       </p>
       <p>
-        • A surprise <span class="math-badge">S(H) = log(1/p)</span> whenever the coin shows up Heads.<br>
-        • A surprise <span class="math-badge">S(T) = log(1/(1-p))</span> whenever it shows up Tails.
+        • A surprise <em>S</em>(<em>H</em>) = ln(1/<em>p</em>) whenever the coin shows up Heads.<br>
+        • A surprise <em>S</em>(<em>T</em>) = ln(1/(1−<em>p</em>)) whenever it shows up Tails.
       </p>
 
       <div style="margin: 1.5rem 0; overflow-x: auto;">
-        <table style="width: 100%; max-width: 480px; margin: 0 auto; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.9rem;">
+        <table style="width: 100%; max-width: 480px; margin: 0 auto; border-collapse: collapse; font-size: 0.95rem;">
           <thead>
             <tr style="border-bottom: 2px solid var(--border-medium); background: var(--bg-card-subtle);">
-              <th style="padding: 0.65rem 1rem; text-align: left;">X</th>
-              <th style="padding: 0.65rem 1rem; text-align: center;">Pr(X)</th>
-              <th style="padding: 0.65rem 1rem; text-align: right;">S(X)</th>
+              <th style="padding: 0.65rem 1rem; text-align: left;"><em>X</em></th>
+              <th style="padding: 0.65rem 1rem; text-align: center;">Pr(<em>X</em>)</th>
+              <th style="padding: 0.65rem 1rem; text-align: right;"><em>S</em>(<em>X</em>) [nats]</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 0.65rem 1rem; font-weight: 700;">H</td>
-              <td style="padding: 0.65rem 1rem; text-align: center; color: var(--color-time); font-weight: 600;">p</td>
-              <td style="padding: 0.65rem 1rem; text-align: right; font-weight: 600;">log(1/p)</td>
+              <td style="padding: 0.65rem 1rem; font-weight: 700;"><em>H</em></td>
+              <td style="padding: 0.65rem 1rem; text-align: center; color: var(--color-time); font-weight: 600;"><em>p</em></td>
+              <td style="padding: 0.65rem 1rem; text-align: right; font-weight: 600;">ln(1/<em>p</em>)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 0.65rem 1rem; font-weight: 700;">T</td>
-              <td style="padding: 0.65rem 1rem; text-align: center; color: var(--color-space); font-weight: 600;">1 - p</td>
-              <td style="padding: 0.65rem 1rem; text-align: right; font-weight: 600;">log(1/(1-p))</td>
+              <td style="padding: 0.65rem 1rem; font-weight: 700;"><em>T</em></td>
+              <td style="padding: 0.65rem 1rem; text-align: center; color: var(--color-space); font-weight: 600;">1 − <em>p</em></td>
+              <td style="padding: 0.65rem 1rem; text-align: right; font-weight: 600;">ln(1/(1−<em>p</em>))</td>
             </tr>
           </tbody>
         </table>
@@ -329,17 +326,17 @@
       <p>
         To calculate the average surprise, we use the <strong>expected value</strong> of a discrete random variable:
       </p>
-      <p style="text-align: center; margin: 1rem 0;">
-        <span class="math-badge">E[Y] = ∑ y · Pr(Y = y)</span>
+      <p style="text-align: center; margin: 1.25rem 0; font-size: 1.15rem; font-weight: 600;">
+        E[<em>Y</em>] = ∑ <em>y</em> · Pr(<em>Y</em> = <em>y</em>)
       </p>
       <p>
-        Applying this to the surprise variable <span class="math-badge">S(X)</span>:
+        Applying this to the surprise variable <em>S</em>(<em>X</em>):
       </p>
       <div class="formula-card">
-        <div>E[ S(X) ] = p · log(1/p) + (1 - p) · log(1/(1 - p))</div>
-        <div class="formula-note">Using log(1/a) = -log(a), this is rewritten as:</div>
+        <div style="font-weight: 600; font-size: 1.05rem;">E[ <em>S</em>(<em>X</em>) ] = <em>p</em> · ln( 1 / <em>p</em> ) + (1 − <em>p</em>) · ln( 1 / (1 − <em>p</em>) )</div>
+        <div class="formula-note">Using ln(1/a) = −ln(a), this is rewritten as:</div>
         <div style="margin-top: 0.5rem; font-size: 1.15rem; font-weight: 700; color: var(--color-time);">
-          Entropy = - [ p · log(p) + (1 - p) · log(1 - p) ]
+          Entropy <em>H</em>(<em>X</em>) = − [ <em>p</em> · ln(<em>p</em>) + (1 − <em>p</em>) · ln(1 − <em>p</em>) ] &nbsp;[nats]
         </div>
       </div>
       <p>
@@ -349,16 +346,16 @@
       <!-- SECTION 5 -->
       <h2>5. Why Entropy is a Measure of Chaos</h2>
       <p>
-        Consider how this formula behaves across different values of <span class="math-badge">p</span>:
+        Consider how this formula behaves across different values of <em>p</em>:
       </p>
       <p>
-        • <strong>When p = 1.0 (Guaranteed Heads):</strong> <span class="math-badge">Entropy = -[ 1 · log(1) + 0 ] = 0</span>.<br>
-        • <strong>When p = 0.0 (Guaranteed Tails):</strong> <span class="math-badge">Entropy = -[ 0 + 1 · log(1) ] = 0</span>.<br>
-        • <strong>When p = 0.5 (Fair Coin):</strong> Both outcomes are equally unpredictable. The formula gives:
+        • <strong>When <em>p</em> = 1.0 (Guaranteed Heads):</strong> Entropy = −[ 1 · ln(1) + 0 ] = 0 nats.<br>
+        • <strong>When <em>p</em> = 0.0 (Guaranteed Tails):</strong> Entropy = −[ 0 + 1 · ln(1) ] = 0 nats.<br>
+        • <strong>When <em>p</em> = 0.5 (Fair Coin):</strong> Both outcomes are equally unpredictable. The formula gives:
       </p>
       <div class="formula-card">
-        <div>Entropy = - [ 0.5 · log₂(0.5) + 0.5 · log₂(0.5) ] = 1.0 bit</div>
-        <div class="formula-note">At p = 0.5, entropy reaches its maximum value of 1.0 bit (or 0.693 nats with the natural logarithm).</div>
+        <div style="font-weight: 600; font-size: 1.05rem;">Entropy = − [ 0.5 · ln(0.5) + 0.5 · ln(0.5) ] = ln(2) ≈ 0.693 nats</div>
+        <div class="formula-note">At <em>p</em> = 0.5, entropy reaches its maximum value of ln(2) ≈ 0.693 nats.</div>
       </div>
 
       <p>
@@ -366,45 +363,39 @@
       </p>
 
       <div style="margin: 1.5rem 0; overflow-x: auto;">
-        <table style="width: 100%; max-width: 520px; margin: 0 auto; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.88rem;">
+        <table style="width: 100%; max-width: 500px; margin: 0 auto; border-collapse: collapse; font-size: 0.95rem;">
           <thead>
             <tr style="border-bottom: 2px solid var(--border-medium); background: var(--bg-card-subtle);">
-              <th style="padding: 0.65rem 1rem; text-align: center;">Probability (p)</th>
+              <th style="padding: 0.65rem 1rem; text-align: center;">Probability (<em>p</em>)</th>
               <th style="padding: 0.65rem 1rem; text-align: center;">Entropy (nats)</th>
-              <th style="padding: 0.65rem 1rem; text-align: center;">Entropy (bits)</th>
               <th style="padding: 0.65rem 1rem; text-align: left;">System State</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
               <td style="padding: 0.65rem 1rem; text-align: center; font-weight: 700;">0.0</td>
-              <td style="padding: 0.65rem 1rem; text-align: center;">0.000</td>
               <td style="padding: 0.65rem 1rem; text-align: center; color: var(--color-emerald); font-weight: 700;">0.000</td>
-              <td style="padding: 0.65rem 1rem; font-size: 0.8rem; color: var(--text-muted);">Certain Tails (Zero Chaos)</td>
+              <td style="padding: 0.65rem 1rem; font-size: 0.88rem; color: var(--text-muted);">Certain Tails (Zero Chaos)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
               <td style="padding: 0.65rem 1rem; text-align: center; font-weight: 700;">0.1</td>
               <td style="padding: 0.65rem 1rem; text-align: center;">0.325</td>
-              <td style="padding: 0.65rem 1rem; text-align: center;">0.469</td>
-              <td style="padding: 0.65rem 1rem; font-size: 0.8rem; color: var(--text-muted);">Biased (Low Chaos)</td>
+              <td style="padding: 0.65rem 1rem; font-size: 0.88rem; color: var(--text-muted);">Biased (Low Chaos)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(9, 105, 218, 0.05);">
               <td style="padding: 0.65rem 1rem; text-align: center; font-weight: 700; color: var(--color-time);">0.5</td>
               <td style="padding: 0.65rem 1rem; text-align: center; font-weight: 700; color: var(--color-time);">0.693</td>
-              <td style="padding: 0.65rem 1rem; text-align: center; font-weight: 700; color: var(--color-time);">1.000</td>
-              <td style="padding: 0.65rem 1rem; font-size: 0.8rem; font-weight: 700; color: var(--color-time);">Fair Coin (Maximum Chaos)</td>
+              <td style="padding: 0.65rem 1rem; font-size: 0.88rem; font-weight: 700; color: var(--color-time);">Fair Coin (Maximum Chaos)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
               <td style="padding: 0.65rem 1rem; text-align: center; font-weight: 700;">0.9</td>
               <td style="padding: 0.65rem 1rem; text-align: center;">0.325</td>
-              <td style="padding: 0.65rem 1rem; text-align: center;">0.469</td>
-              <td style="padding: 0.65rem 1rem; font-size: 0.8rem; color: var(--text-muted);">Biased (Low Chaos)</td>
+              <td style="padding: 0.65rem 1rem; font-size: 0.88rem; color: var(--text-muted);">Biased (Low Chaos)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
               <td style="padding: 0.65rem 1rem; text-align: center; font-weight: 700;">1.0</td>
-              <td style="padding: 0.65rem 1rem; text-align: center;">0.000</td>
               <td style="padding: 0.65rem 1rem; text-align: center; color: var(--color-emerald); font-weight: 700;">0.000</td>
-              <td style="padding: 0.65rem 1rem; font-size: 0.8rem; color: var(--text-muted);">Certain Heads (Zero Chaos)</td>
+              <td style="padding: 0.65rem 1rem; font-size: 0.88rem; color: var(--text-muted);">Certain Heads (Zero Chaos)</td>
             </tr>
           </tbody>
         </table>
@@ -434,7 +425,7 @@
                   <span class="clock-label">Total System Entropy H(X)</span>
                   <span class="clock-badge">Expected Surprise</span>
                 </div>
-                <div class="clock-time readout-entropy" style="font-size: 1.5rem; color:var(--color-time);">1.000 bits</div>
+                <div class="clock-time readout-entropy" style="font-size: 1.5rem; color:var(--color-time);">0.693 nats</div>
                 <p class="clock-subtext readout-status">Maximum Chaos (Peak Uncertainty)</p>
               </div>
 
@@ -453,12 +444,12 @@
                 </div>
               </div>
             </div>
-            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+            <div class="toolbar-bottom" style="padding-top: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
               <button class="btn-primary btn-play">
                 <span>▶</span><span>Auto Sweep</span>
               </button>
-              <div class="math-badge">
-                H = -∑ pᵢ log₂(pᵢ)
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary);">
+                H = −∑ pᵢ · ln(pᵢ)
               </div>
             </div>
           </div>
@@ -466,48 +457,48 @@
       </div>
 
       <p>
-        Entropy is a measure of the inherent chaos of the system, rather than an observer's knowledge. When a system is predictable (<span class="math-badge">p = 1</span> or <span class="math-badge">p = 0</span>), there is no uncertainty and entropy is zero. When outcomes are evenly balanced (<span class="math-badge">p = 0.5</span>), uncertainty is at its maximum.
+        Entropy is a measure of the inherent chaos of the system, rather than an observer's knowledge. When a system is predictable (<em>p</em> = 1 or <em>p</em> = 0), there is no uncertainty and entropy is zero. When outcomes are evenly balanced (<em>p</em> = 0.5), uncertainty is at its maximum.
       </p>
 
       <!-- SECTION 6 -->
       <h2>6. Generalizing Beyond the Coin</h2>
       <p>
-        This principle extends directly to any discrete random variable with <span class="math-badge">n</span> possible outcomes:
+        This principle extends directly to any discrete random variable with <em>n</em> possible outcomes:
       </p>
       <div class="formula-card">
-        <div>Entropy(X) = - ∑ᵢ₌₁ⁿ pᵢ · log(pᵢ)</div>
-        <div class="formula-note">Where pᵢ is the probability of the i-th outcome, and ∑ pᵢ = 1.</div>
+        <div style="font-weight: 600; font-size: 1.05rem;">Entropy(<em>X</em>) = − ∑ᵢ₌₁ⁿ <em>p</em>ᵢ · ln(<em>p</em>ᵢ) &nbsp;[nats]</div>
+        <div class="formula-note">Where <em>p</em>ᵢ is the probability of the <em>i</em>-th outcome, and ∑ <em>p</em>ᵢ = 1.</div>
       </div>
       <p>
-        To connect this to everyday intuition, consider searching for an object in a house—such as a <strong>book</strong> or an <strong>omelette pan</strong>.
+        To connect this to everyday intuition, consider searching for an object in a house—such as a <strong>book</strong> or a <strong>pan</strong>.
       </p>
       <p>
         Suppose the object can be in one of four locations:
       </p>
-      <p style="text-align: center; margin: 1rem 0;">
-        <span class="math-badge">1. The Bookshelf</span> &nbsp;•&nbsp; 
-        <span class="math-badge">2. Under the Sofa</span> &nbsp;•&nbsp; 
-        <span class="math-badge">3. The Kitchen</span> &nbsp;•&nbsp; 
-        <span class="math-badge">4. The Bathroom</span>
+      <p style="text-align: center; margin: 1.25rem 0; font-size: 1.05rem;">
+        <strong>1. Bookshelf</strong> &nbsp;•&nbsp; 
+        <strong>2. Under Sofa</strong> &nbsp;•&nbsp; 
+        <strong>3. Kitchen</strong> &nbsp;•&nbsp; 
+        <strong>4. Bathroom</strong>
       </p>
       <p>
         Consider three different scenarios:
       </p>
       <p>
-        • <strong>Scenario A (Chaotic Environment):</strong> If the object is equally likely to be in any of the four spots (<span class="math-badge">p = 0.25</span> each), the environment is unpredictable. You have no indication where to begin searching. Because the probability is uniformly distributed, entropy is maximized:
+        • <strong>Scenario A (Chaotic Environment):</strong> If the object is equally likely to be in any of the four spots (<em>p</em> = 0.25 each), the environment is unpredictable. You have no indication where to begin searching. Because the probability is uniformly distributed across all 4 locations, entropy is maximized:
       </p>
       <div class="formula-card">
-        <div>H = - 4 · [ 0.25 · log₂(0.25) ] = log₂(4) = 2.0 bits</div>
-        <div class="formula-note">With 4 equally likely locations, entropy reaches its maximum of 2.0 bits (or 1.386 nats).</div>
+        <div style="font-weight: 600; font-size: 1.05rem;"><em>H</em> = − 4 · [ 0.25 · ln(0.25) ] = ln(4) ≈ 1.386 nats</div>
+        <div class="formula-note">With 4 equally likely locations, each state contributes 0.25 × 1.386 = 0.347 nats, reaching the maximum possible entropy of ln(4) ≈ 1.386 nats.</div>
       </div>
       <p>
-        • <strong>Scenario B (Orderly Environment):</strong> If the object is on the <strong>bookshelf 94% of the time</strong> (<span class="math-badge">p = 0.94</span>), with only a 2% chance of being in any other room, the environment is orderly. You can reliably look on the shelf first. Entropy drops to approximately <span class="math-badge">0.44 bits</span> (or <span class="math-badge">0.31 nats</span>).
+        • <strong>Scenario B (Orderly Environment):</strong> If the object is on the <strong>bookshelf 94% of the time</strong> (<em>p</em> = 0.94), with only a 2% chance of being in any other room, the environment is orderly. You can reliably look on the shelf first. Entropy drops to approximately <strong>0.309 nats</strong>.
       </p>
       <p>
-        • <strong>Scenario C (Certain Location):</strong> If the object is always under the sofa with certainty (<span class="math-badge">p = 1.0</span>), the arrangement might be unconventional, but mathematically it contains no uncertainty. Since you know where it is in advance, surprise is zero, and entropy is strictly <span class="math-badge">0</span>.
+        • <strong>Scenario C (Certain Location):</strong> If the object is always under the sofa with certainty (<em>p</em> = 1.0), the arrangement might be unconventional, but mathematically it contains no uncertainty. Since you know where it is in advance, surprise is zero, and entropy is strictly <strong>0 nats</strong>.
       </p>
       <p>
-        In the simulation below, adjust the probabilities across the four locations to observe how the distribution affects entropy:
+        In the simulation below, adjust the probabilities across the four locations to observe how the distribution affects entropy and inspect the exact terms contributing to the sum:
       </p>
 
       <!-- INTERACTIVE WIDGET 4: HOUSEHOLD ENTROPY -->
@@ -531,15 +522,15 @@
                     <span class="clock-label">Current Entropy</span>
                     <span class="clock-badge">H</span>
                   </div>
-                  <div class="clock-time readout-household-entropy" style="font-size: 1.15rem; color:var(--color-time);">2.000 bits</div>
-                  <p class="clock-subtext readout-household-nats">1.386 nats</p>
+                  <div class="clock-time readout-household-entropy" style="font-size: 1.25rem; color:var(--color-time);">1.386 nats</div>
+                  <p class="clock-subtext">Sum of state contributions.</p>
                 </div>
                 <div class="clock-card" style="border-left: 3px solid var(--color-space);">
                   <div class="clock-meta">
                     <span class="clock-label" style="color:var(--color-space);">Max Possible</span>
-                    <span class="clock-badge">log₂(4)</span>
+                    <span class="clock-badge">ln(4)</span>
                   </div>
-                  <div class="clock-time readout-max-household-entropy" style="font-size: 1.15rem; color:var(--color-space);">2.000 bits</div>
+                  <div class="clock-time readout-max-household-entropy" style="font-size: 1.25rem; color:var(--color-space);">1.386 nats</div>
                   <p class="clock-subtext">Uniform limit.</p>
                 </div>
               </div>
@@ -549,14 +540,14 @@
                   <span>Tracked Item</span>
                 </div>
                 <div class="preset-chips" style="margin-top: 0.25rem;">
-                  <button class="chip-btn btn-item-toggle active" data-item="book">📖 The Lost Book</button>
-                  <button class="chip-btn btn-item-toggle" data-item="pan">🍳 The Omelette Pan</button>
+                  <button class="chip-btn btn-item-toggle active" data-item="book">Object: Book</button>
+                  <button class="chip-btn btn-item-toggle" data-item="pan">Object: Pan</button>
                 </div>
               </div>
 
               <div class="control-item" style="margin-bottom: 0.85rem;">
                 <div class="control-header">
-                  <span>Household Presets</span>
+                  <span>Distribution Presets</span>
                 </div>
                 <div class="preset-chips" style="margin-top: 0.3rem;">
                   <button class="chip-btn btn-room-preset active" data-preset="chaotic">Uniform (25% each)</button>
@@ -566,10 +557,20 @@
               </div>
 
               <div class="sliders-outcome-list household-sliders-list"></div>
+
+              <!-- Live Component Decomposition Display -->
+              <div class="entropy-decomposition-card" style="margin-top: 0.85rem; padding: 0.85rem 1rem; background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 8px;">
+                <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.35rem;">
+                  Live Component Summation: H(X) = ∑ pᵢ · S(pᵢ)
+                </div>
+                <div class="readout-decomposition-formula" style="font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.6; color: var(--text-primary); word-break: break-word;">
+                  <!-- Populated dynamically by post-04.js -->
+                </div>
+              </div>
             </div>
             <div class="toolbar-bottom" style="padding-top: 0.75rem;">
-              <div class="math-badge readout-household-status" style="width: 100%; text-align: center;">
-                Uniform distribution maximizes entropy across the house
+              <div class="readout-household-status" style="width: 100%; text-align: center; font-size: 0.88rem;">
+                Uniform distribution maximizes entropy across the house (ln 4 ≈ 1.386 nats)
               </div>
             </div>
           </div>
@@ -583,8 +584,8 @@
       </p>
       <p>
         1. <strong>Certain outcomes deliver zero surprise.</strong> If an outcome is known in advance, observing it provides no new information.<br>
-        2. <strong>Rarity dictates surprise.</strong> An outcome with probability <span class="math-badge">p</span> carries surprise <span class="math-badge">S(p) = log(1/p)</span>.<br>
-        3. <strong>Entropy is expected surprise.</strong> Across repeated trials, the average surprise experienced is <span class="math-badge">-∑ pᵢ · log(pᵢ)</span>.<br>
+        2. <strong>Rarity dictates surprise.</strong> An outcome with probability <em>p</em> carries surprise <em>S</em>(<em>p</em>) = ln(1/<em>p</em>) nats.<br>
+        3. <strong>Entropy is expected surprise.</strong> Across repeated trials, the average surprise experienced is −∑ <em>p</em>ᵢ · ln(<em>p</em>ᵢ) nats.<br>
         4. <strong>Entropy measures the inherent chaos of the system.</strong> Because the outcome of a non-deterministic process cannot be determined in advance, each event carries some surprise.
       </p>
       <p>

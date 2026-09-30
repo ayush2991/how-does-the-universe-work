@@ -1,6 +1,6 @@
 /**
  * post-04.js - Part 1 Interactive Simulations: An Intuitive Guide To Entropy
- * Focuses on Surprise, Expected Value, and Maximum Chaos across Coins & Dice.
+ * Focuses on Surprise, Expected Value, and Maximum Chaos formulated in Nats (ln).
  */
 
 (function (window) {
@@ -15,14 +15,14 @@
   var drawLabelPill = function (ctx, txt, x, y, opts) { sim.drawLabelPill(ctx, txt, x, y, opts); };
   var drawGlowingDot = function (ctx, x, y, c, r) { sim.drawGlowingDot(ctx, x, y, c, r); };
 
-  // Helper: log2 calculation
-  function log2(val) {
-    if (val <= 0) return 0;
-    return Math.log2 ? Math.log2(val) : Math.log(val) / Math.LN2;
+  // Natural logarithm helper for nats
+  function natLog(val) {
+    if (val <= 0.000001) return 0;
+    return Math.log(val);
   }
 
   // ==========================================================================
-  // WIDGET 1: THE PREDICTABILITY SPECTRUM (CERTAIN COIN VS UNCERTAIN COIN)
+  // WIDGET 1: CERTAINTY BASELINE & SURPRISE (COIN TOSS)
   // ==========================================================================
   function initWidgetCertaintyCoin(containerId) {
     var container = document.getElementById(containerId);
@@ -38,8 +38,8 @@
     var readoutSurprise = container.querySelector('.readout-last-surprise');
     var readoutTossCount = container.querySelector('.readout-toss-count');
 
-    var pHeads = 1.0; // Starts at guaranteed Heads (original article starting point)
-    var tossHistory = []; // { outcome: 'H'|'T', p: number, surprise: number }
+    var pHeads = 1.0; // Starts at guaranteed Heads
+    var tossHistory = []; // { outcome: 'H'|'T', prob: number, surprise: number }
     var maxHistory = 24;
     var isAutoPlaying = false;
     var autoTimer = null;
@@ -48,9 +48,9 @@
     var spinAnimId = null;
 
     function calcSurprise(pVal) {
-      if (pVal <= 0.0001) return 8.0; // capped for visualization
+      if (pVal <= 0.0001) return 5.5; // capped for visualization
       if (pVal >= 0.9999) return 0.0;
-      return -log2(pVal);
+      return -Math.log(pVal);
     }
 
     function doToss() {
@@ -76,13 +76,13 @@
           '<span style="color:var(--color-space); font-weight:700;">Tails (T)</span>';
       }
       if (readoutSurprise) {
-        readoutSurprise.innerText = surprise.toFixed(2) + ' bits';
+        readoutSurprise.innerText = surprise.toFixed(3) + ' nats';
       }
       if (readoutTossCount) {
         readoutTossCount.innerText = tossHistory.length + ' tosses shown';
       }
 
-      // Quick coin spin animation
+      // Coin spin animation
       isSpinning = true;
       var startTime = performance.now();
       function animateCoin(now) {
@@ -130,7 +130,6 @@
       var coinCenterY = height * 0.44;
       var coinRadius = Math.min(44, height * 0.25);
 
-      // Draw Coin with 3D elliptical compression if spinning
       ctx.save();
       ctx.translate(coinCenterX, coinCenterY);
       var scaleX = Math.cos(coinSpinAngle);
@@ -160,7 +159,7 @@
       ctx.restore();
 
       // Label under coin
-      drawLabelPill(ctx, (pHeads === 1.0 ? 'Certain H (p=1.0)' : (pHeads === 0.0 ? 'Certain T (p=0.0)' : 'p(H) = ' + pHeads.toFixed(2))), coinCenterX, height * 0.84, {
+      drawLabelPill(ctx, (pHeads === 1.0 ? 'Certain H (p=1.0)' : (pHeads === 0.0 ? 'Certain T (p=0.0)' : 'Pr(H) = ' + pHeads.toFixed(2))), coinCenterX, height * 0.84, {
         textColor: c.axisLabel,
         bgColor: c.pillBg,
         borderColor: c.pillBorder,
@@ -173,7 +172,6 @@
       var laneY = Math.round(height * 0.38);
 
       ctx.save();
-      // Axis track for stream
       ctx.strokeStyle = c.gridLine;
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -185,7 +183,7 @@
       ctx.fillStyle = c.subtleText;
       ctx.font = '600 10px "JetBrains Mono", monospace';
       ctx.textAlign = 'left';
-      ctx.fillText('CONSECUTIVE TOSSES & SURPRISE S(X)', historyStartX, 22);
+      ctx.fillText('CONSECUTIVE TOSSES & SURPRISE S(X) [nats]', historyStartX, 22);
 
       // Render each toss in history
       var spacing = Math.max(26, Math.min(38, historyWidth / (tossHistory.length || 1)));
@@ -211,21 +209,21 @@
 
         // Surprise spike bar below
         var maxSpikeH = height - (laneY + 16) - 24;
-        var barH = Math.min(maxSpikeH, item.surprise * 12);
+        var barH = Math.min(maxSpikeH, item.surprise * 18);
         if (barH > 1) {
-          ctx.fillStyle = item.surprise > 2.5 ? c.dangerColor : (isH ? c.timeColor : c.spaceColor);
+          ctx.fillStyle = item.surprise > 1.8 ? c.dangerColor : (isH ? c.timeColor : c.spaceColor);
           ctx.fillRect(itemX - 3, laneY + 16, 6, barH);
         }
 
-        // Surprise value text
+        // Surprise value text in nats
         ctx.fillStyle = c.subtleText;
         ctx.font = '9px "JetBrains Mono", monospace';
-        ctx.fillText(item.surprise.toFixed(1), itemX, laneY + 16 + barH + 11);
+        ctx.fillText(item.surprise.toFixed(2), itemX, laneY + 16 + barH + 11);
       }
 
       if (tossHistory.length === 0) {
         ctx.fillStyle = c.subtleText;
-        ctx.font = 'italic 12px "Plus Jakarta Sans", sans-serif';
+        ctx.font = 'italic 12px "Newsreader", serif';
         ctx.textAlign = 'left';
         ctx.fillText('Click "Flip Coin" or "Auto Flip" to generate tosses...', historyStartX, laneY + 5);
       }
@@ -266,7 +264,7 @@
       });
     }
 
-    // Initial setup with a pre-populated history of certain heads to match the article opener
+    // Initial setup with pre-populated history of certain heads
     for (var k = 0; k < 6; k++) {
       tossHistory.push({ outcome: 'H', prob: 1.0, surprise: 0.0, timestamp: Date.now() });
     }
@@ -276,7 +274,7 @@
   }
 
   // ==========================================================================
-  // WIDGET 2: QUANTIFYING SURPRISE — THE S(p) = log(1/p) CURVE
+  // WIDGET 2: QUANTIFYING SURPRISE — THE S(p) = ln(1/p) CURVE IN NATS
   // ==========================================================================
   function initWidgetSurpriseCurve(containerId) {
     var container = document.getElementById(containerId);
@@ -296,11 +294,11 @@
       if (sliderP) sliderP.value = Math.round(pCurrent * 100);
       if (valProb) valProb.innerText = pCurrent.toFixed(2);
 
-      var sh = -log2(pCurrent);
-      var st = -log2(1 - pCurrent);
+      var sh = -Math.log(pCurrent);
+      var st = -Math.log(1 - pCurrent);
 
-      if (readoutSh) readoutSh.innerText = sh.toFixed(2) + ' bits';
-      if (readoutSt) readoutSt.innerText = st.toFixed(2) + ' bits';
+      if (readoutSh) readoutSh.innerText = sh.toFixed(3) + ' nats';
+      if (readoutSt) readoutSt.innerText = st.toFixed(3) + ' nats';
 
       chips.forEach(function (btn) {
         var targetVal = parseFloat(btn.getAttribute('data-p'));
@@ -330,18 +328,18 @@
       var plotW = width - padLeft - padRight;
       var plotH = height - padTop - padBottom;
 
-      // Coordinate scaling
+      // Coordinate scaling in Nats
       // X axis: Probability p from 0 to 1
-      // Y axis: Surprise S(p) = -log2(p) from 0 to 5 bits (capped visually at 5)
-      var maxBits = 5.0;
+      // Y axis: Surprise S(p) = -ln(p) from 0 to 3.5 nats
+      var maxNats = 3.5;
 
       function mapX(p) { return ox + p * plotW; }
-      function mapY(s) { return oy - (s / maxBits) * plotH; }
+      function mapY(s) { return oy - (s / maxNats) * plotH; }
 
       // Grid & Axes
       drawGrid(ctx, ox, oy, width, height, 40);
 
-      // Horizontal dashed guide at S = 0, 1, 2, 3, 4 bits
+      // Horizontal dashed guides at S = 0, 1, 2, 3 nats
       ctx.strokeStyle = c.gridLine;
       ctx.lineWidth = 1;
       ctx.fillStyle = c.subtleText;
@@ -349,13 +347,13 @@
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
 
-      for (var b = 0; b <= maxBits; b += 1) {
+      for (var b = 0; b <= 3.0; b += 1.0) {
         var yPos = mapY(b);
         ctx.beginPath();
         ctx.moveTo(ox, yPos);
         ctx.lineTo(ox + plotW, yPos);
         ctx.stroke();
-        ctx.fillText(b.toFixed(1) + ' bits', ox - 8, yPos);
+        ctx.fillText(b.toFixed(1) + ' nats', ox - 8, yPos);
       }
 
       // X ticks
@@ -368,16 +366,16 @@
         ctx.fillText(xVal.toFixed(1), xPos, oy + 8);
       }
 
-      drawAxes(ctx, ox, oy, width, height, 'Probability p', 'Surprise S(p) = log₂(1/p)');
+      drawAxes(ctx, ox, oy, width, height, 'Probability p', 'Surprise S(p) = ln(1/p) [nats]');
 
-      // Plot Theoretical Surprise Curve S(p) = -log2(p)
+      // Plot Theoretical Surprise Curve S(p) = -ln(p)
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       var first = true;
-      for (var px = 0.02; px <= 1.0001; px += 0.01) {
-        var sVal = -log2(px);
-        var clampedS = Math.min(maxBits + 0.5, sVal);
+      for (var px = 0.03; px <= 1.0001; px += 0.01) {
+        var sVal = -Math.log(px);
+        var clampedS = Math.min(maxNats + 0.5, sVal);
         var sx = mapX(px);
         var sy = mapY(clampedS);
         if (first) {
@@ -390,11 +388,10 @@
       ctx.stroke();
 
       // Highlighting current Heads point
-      var sh = -log2(pCurrent);
+      var sh = -Math.log(pCurrent);
       var ptHx = mapX(pCurrent);
-      var ptHy = mapY(Math.min(maxBits, sh));
+      var ptHy = mapY(Math.min(maxNats, sh));
 
-      // Dashed drop lines for Heads
       ctx.setLineDash([4, 4]);
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 1.2;
@@ -407,23 +404,22 @@
 
       drawGlowingDot(ctx, ptHx, ptHy, c.timeColor, 5.5);
 
-      // Pill label for Heads surprise - clamped within bounds
-      var headLabelX = ptHx > width - 130 ? ptHx - 70 : Math.max(ox + 65, ptHx + 12);
+      // Pill label for Heads surprise
+      var headLabelX = ptHx > width - 140 ? ptHx - 80 : Math.max(ox + 75, ptHx + 12);
       var headLabelY = Math.max(padTop + 14, Math.min(oy - 20, ptHy - 12));
-      drawLabelPill(ctx, 'Heads: S(H) = ' + sh.toFixed(2) + ' bits', headLabelX, headLabelY, {
+      drawLabelPill(ctx, 'Heads: S(H) = ' + sh.toFixed(2) + ' nats', headLabelX, headLabelY, {
         textColor: c.timeColor,
         bgColor: c.pillBg,
         borderColor: c.timeColor,
         font: 'bold 11px "JetBrains Mono", monospace'
       });
 
-      // Highlighting current Tails point (1 - pCurrent)
+      // Highlighting current Tails point
       var q = 1 - pCurrent;
-      var st = -log2(q);
+      var st = -Math.log(q);
       var ptTx = mapX(q);
-      var ptTy = mapY(Math.min(maxBits, st));
+      var ptTy = mapY(Math.min(maxNats, st));
 
-      // Dashed drop lines for Tails
       ctx.setLineDash([4, 4]);
       ctx.strokeStyle = c.spaceColor;
       ctx.lineWidth = 1.2;
@@ -436,10 +432,10 @@
 
       drawGlowingDot(ctx, ptTx, ptTy, c.spaceColor, 5.5);
 
-      // Pill label for Tails surprise - clamped within bounds
-      var tailLabelX = ptTx > width - 130 ? ptTx - 70 : Math.max(ox + 65, ptTx + 12);
+      // Pill label for Tails surprise
+      var tailLabelX = ptTx > width - 140 ? ptTx - 80 : Math.max(ox + 75, ptTx + 12);
       var tailLabelY = Math.max(padTop + 14, Math.min(oy - 20, Math.abs(ptHx - ptTx) < 40 ? ptHy + 22 : ptTy + 12));
-      drawLabelPill(ctx, 'Tails: S(T) = ' + st.toFixed(2) + ' bits', tailLabelX, tailLabelY, {
+      drawLabelPill(ctx, 'Tails: S(T) = ' + st.toFixed(2) + ' nats', tailLabelX, tailLabelY, {
         textColor: c.spaceColor,
         bgColor: c.pillBg,
         borderColor: c.spaceColor,
@@ -466,7 +462,7 @@
   }
 
   // ==========================================================================
-  // WIDGET 3: EXPECTED SURPRISE & THE ENTROPY ARC (MAXIMUM CHAOS AT p = 0.5)
+  // WIDGET 3: EXPECTED SURPRISE & BINARY ENTROPY ARC IN NATS
   // ==========================================================================
   function initWidgetExpectedEntropy(containerId) {
     var container = document.getElementById(containerId);
@@ -488,7 +484,7 @@
     function calcBinaryEntropy(p) {
       if (p <= 0.00001 || p >= 0.99999) return 0;
       var q = 1 - p;
-      return -(p * log2(p) + q * log2(q));
+      return -(p * Math.log(p) + q * Math.log(q));
     }
 
     function updateP(newP) {
@@ -497,11 +493,11 @@
       if (valProb) valProb.innerText = pVal.toFixed(2);
 
       var H = calcBinaryEntropy(pVal);
-      if (readoutEntropy) readoutEntropy.innerText = H.toFixed(3) + ' bits';
+      if (readoutEntropy) readoutEntropy.innerText = H.toFixed(3) + ' nats';
 
       if (readoutStatus) {
         if (Math.abs(pVal - 0.5) < 0.04) {
-          readoutStatus.innerHTML = '<strong style="color:var(--color-time);">Maximum Uncertainty (Fair Odds)</strong>';
+          readoutStatus.innerHTML = '<strong style="color:var(--color-time);">Maximum Uncertainty (Fair Odds: ln 2 ≈ 0.693 nats)</strong>';
         } else if (pVal <= 0.05 || pVal >= 0.95) {
           readoutStatus.innerHTML = '<strong style="color:var(--color-emerald);">Low Uncertainty (Predictable)</strong>';
         } else {
@@ -538,22 +534,22 @@
       var plotH = height - padTop - padBottom;
 
       // X maps p in [0, 1]
-      // Y maps H in [0, 1.2] bits
-      var maxH = 1.2;
+      // Y maps H in [0, 0.85] nats (peak is ln 2 ≈ 0.693)
+      var maxH = 0.85;
 
       function mapX(p) { return ox + p * plotW; }
       function mapY(h) { return oy - (h / maxH) * plotH; }
 
       drawGrid(ctx, ox, oy, width, height, 40);
 
-      // Y-axis guide lines for 0.0, 0.5, 1.0 bits
+      // Y-axis guide lines for 0.0, 0.2, 0.4, 0.6, 0.693 nats
       ctx.strokeStyle = c.gridLine;
       ctx.fillStyle = c.subtleText;
       ctx.font = '10px "JetBrains Mono", monospace';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
 
-      var hTicks = [0.0, 0.25, 0.5, 0.75, 1.0];
+      var hTicks = [0.0, 0.2, 0.4, 0.6];
       for (var i = 0; i < hTicks.length; i++) {
         var hVal = hTicks[i];
         var yCoord = mapY(hVal);
@@ -561,17 +557,20 @@
         ctx.moveTo(ox, yCoord);
         ctx.lineTo(ox + plotW, yCoord);
         ctx.stroke();
-        ctx.fillText(hVal.toFixed(2) + ' bits', ox - 8, yCoord);
+        ctx.fillText(hVal.toFixed(1) + ' nats', ox - 8, yCoord);
       }
 
-      // Peak Highlight line at H = 1.0 bit
+      // Peak Highlight line at H = ln(2) ≈ 0.693 nats
+      var peakVal = Math.log(2);
       ctx.save();
-      ctx.strokeStyle = 'rgba(239, 68, 68, 0.3)';
+      ctx.strokeStyle = 'rgba(9, 105, 218, 0.4)';
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
-      ctx.moveTo(ox, mapY(1.0));
-      ctx.lineTo(ox + plotW, mapY(1.0));
+      ctx.moveTo(ox, mapY(peakVal));
+      ctx.lineTo(ox + plotW, mapY(peakVal));
       ctx.stroke();
+      ctx.fillStyle = c.timeColor;
+      ctx.fillText('ln(2) ≈ 0.693 nats', ox + plotW - 4, mapY(peakVal) - 8);
       ctx.restore();
 
       // X-ticks for p
@@ -584,7 +583,7 @@
         ctx.fillText(pCoord.toFixed(1) + (pCoord === 0.5 ? ' (Fair)' : ''), xCoord, oy + 8);
       }
 
-      drawAxes(ctx, ox, oy, width, height, 'Probability of Heads (p)', 'Entropy H(X) = E[S(X)]');
+      drawAxes(ctx, ox, oy, width, height, 'Probability of Heads (p)', 'Entropy H(p) = E[S(X)] [nats]');
 
       // Fill area under entropy curve
       ctx.save();
@@ -597,14 +596,14 @@
       }
       ctx.lineTo(mapX(1), oy);
       ctx.closePath();
-      var grad = ctx.createLinearGradient(0, mapY(1.0), 0, oy);
+      var grad = ctx.createLinearGradient(0, mapY(peakVal), 0, oy);
       grad.addColorStop(0, c.isLight ? 'rgba(9, 105, 218, 0.18)' : 'rgba(56, 189, 248, 0.25)');
       grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = grad;
       ctx.fill();
       ctx.restore();
 
-      // Draw the inverted Entropy curve
+      // Draw the Entropy curve
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3;
       ctx.beginPath();
@@ -621,7 +620,6 @@
       var curX = mapX(pVal);
       var curY = mapY(currentH);
 
-      // Dashed vertical guide to x-axis
       ctx.save();
       ctx.setLineDash([4, 4]);
       ctx.strokeStyle = c.axisLine;
@@ -632,12 +630,10 @@
       ctx.stroke();
       ctx.restore();
 
-      // Glowing Tracer on curve
       drawGlowingDot(ctx, curX, curY, pVal === 0.5 ? c.dangerColor : c.invariantColor, 6);
 
-      // Label Pill over tracer
-      var labelText = 'p = ' + pVal.toFixed(2) + ' → H = ' + currentH.toFixed(2) + ' bits';
-      var pillX = Math.min(width - 80, Math.max(ox + 80, curX));
+      var labelText = 'p = ' + pVal.toFixed(2) + ' → H = ' + currentH.toFixed(3) + ' nats';
+      var pillX = Math.min(width - 90, Math.max(ox + 90, curX));
       var pillY = curY - 18;
       drawLabelPill(ctx, labelText, pillX, pillY, {
         textColor: pVal === 0.5 ? c.dangerColor : c.axisLabel,
@@ -696,7 +692,7 @@
   }
 
   // ==========================================================================
-  // WIDGET 4: HOUSEHOLD ENTROPY (THE LOST BOOK / OMELETTE PAN ACROSS 4 ROOMS)
+  // WIDGET 4: MULTI-STATE SYSTEM & HOUSEHOLD LOCATIONS IN NATS
   // ==========================================================================
   function initWidgetHouseholdChaos(containerId) {
     var container = document.getElementById(containerId);
@@ -705,28 +701,20 @@
     var canvas = container.querySelector('canvas');
     var btnItemToggles = container.querySelectorAll('.btn-item-toggle');
     var btnRoomPresets = container.querySelectorAll('.btn-room-preset');
-    var readoutHBits = container.querySelector('.readout-household-entropy');
-    var readoutHNats = container.querySelector('.readout-household-nats');
+    var readoutH = container.querySelector('.readout-household-entropy');
+    var readoutMaxH = container.querySelector('.readout-max-household-entropy');
     var readoutStatus = container.querySelector('.readout-household-status');
-    var sliderList = container.querySelector('.sliders-outcome-list');
+    var readoutDecomp = container.querySelector('.readout-decomposition-formula');
+    var sliderList = container.querySelector('.household-sliders-list');
 
     var currentItem = 'book'; // 'book' or 'pan'
 
     var locations = [
-      { id: 'bookshelf', name: 'Bookshelf', icon: '📚', color: '#0969da', p: 0.25 },
-      { id: 'sofa',      name: 'Under Sofa',icon: '🛋️', color: '#d95d18', p: 0.25 },
-      { id: 'kitchen',   name: 'Kitchen',   icon: '🍳', color: '#0f766e', p: 0.25 },
-      { id: 'bathroom',  name: 'Bathroom',  icon: '🚿', color: '#6e40c9', p: 0.25 }
+      { id: 'bookshelf', name: 'Bookshelf',  code: 'S₁', color: '#0969da', p: 0.25 },
+      { id: 'sofa',      name: 'Under Sofa', code: 'S₂', color: '#d95d18', p: 0.25 },
+      { id: 'kitchen',   name: 'Kitchen',    code: 'S₃', color: '#0f766e', p: 0.25 },
+      { id: 'bathroom',  name: 'Bathroom',   code: 'S₄', color: '#6e40c9', p: 0.25 }
     ];
-
-    function calcTotalEntropyBits() {
-      var total = 0;
-      for (var i = 0; i < locations.length; i++) {
-        var p = locations[i].p;
-        if (p > 0.00001) total += -p * log2(p);
-      }
-      return total;
-    }
 
     function calcTotalEntropyNats() {
       var total = 0;
@@ -771,39 +759,77 @@
     }
 
     function renderSliders() {
-      if (!sliderList) return;
-      sliderList.innerHTML = '';
-
-      var hBits = calcTotalEntropyBits();
       var hNats = calcTotalEntropyNats();
+      var maxNats = Math.log(4); // ln(4) ≈ 1.386 nats
 
-      if (readoutHBits) readoutHBits.innerText = hBits.toFixed(3) + ' bits';
-      if (readoutHNats) readoutHNats.innerText = hNats.toFixed(3) + ' nats';
+      if (readoutH) readoutH.innerText = hNats.toFixed(3) + ' nats';
+      if (readoutMaxH) readoutMaxH.innerText = maxNats.toFixed(3) + ' nats';
 
       if (readoutStatus) {
-        if (Math.abs(hBits - 2.0) < 0.02) {
-          readoutStatus.innerHTML = '<strong style="color:var(--color-time);">Maximum Uncertainty (Uniform distribution)</strong>';
-        } else if (hBits < 0.05) {
-          readoutStatus.innerHTML = '<strong style="color:var(--color-emerald);">Zero Uncertainty (Certain location)</strong>';
-        } else if (hBits < 0.6) {
-          readoutStatus.innerHTML = '<strong style="color:var(--color-time);">Low Uncertainty (Orderly)</strong>';
+        if (Math.abs(hNats - maxNats) < 0.02) {
+          readoutStatus.innerHTML = '<strong style="color:var(--color-time);">Uniform distribution maximizes entropy across the house (ln 4 ≈ 1.386 nats)</strong>';
+        } else if (hNats < 0.05) {
+          readoutStatus.innerHTML = '<strong style="color:var(--color-emerald);">Zero Uncertainty (Certain location: H ≈ 0 nats)</strong>';
+        } else if (hNats < 0.45) {
+          readoutStatus.innerHTML = '<strong style="color:var(--color-time);">Low Uncertainty (Orderly environment)</strong>';
         } else {
-          readoutStatus.innerHTML = '<strong style="color:var(--text-secondary);">Moderate Uncertainty</strong>';
+          readoutStatus.innerHTML = '<strong style="color:var(--text-secondary);">Moderate Uncertainty (Dispersed search)</strong>';
         }
       }
+
+      // Render Dynamic Component Breakdown Summation
+      if (readoutDecomp) {
+        var terms = [];
+        var termSums = [];
+        for (var t = 0; t < locations.length; t++) {
+          var locItem = locations[t];
+          var pVal = locItem.p;
+          var sVal = pVal > 0.00001 ? -Math.log(pVal) : 0;
+          var contrib = pVal * sVal;
+          termSums.push(contrib);
+
+          terms.push(
+            '<span style="color:' + locItem.color + '; font-weight:600;" title="' + locItem.name + ' (' + locItem.code + '): p=' + pVal.toFixed(2) + ', S=' + sVal.toFixed(2) + ' nats">' +
+            '(' + pVal.toFixed(2) + '×' + sVal.toFixed(2) + ')' +
+            '</span>'
+          );
+        }
+
+        var sumParts = termSums.map(function (v, idx) {
+          return '<span style="color:' + locations[idx].color + '; font-weight:600;">' + v.toFixed(3) + '</span>';
+        });
+
+        readoutDecomp.innerHTML =
+          '<div><em>H</em>(<em>X</em>) = ' + terms.join(' + ') + '</div>' +
+          '<div style="margin-top: 0.25rem;">= ' + sumParts.join(' + ') + ' = <strong style="color:var(--color-time);">' + hNats.toFixed(3) + ' nats</strong></div>';
+      }
+
+      if (!sliderList) return;
+      sliderList.innerHTML = '';
 
       for (var i = 0; i < locations.length; i++) {
         (function (idx) {
           var loc = locations[idx];
           var p = loc.p;
-          var s = p > 0 ? -log2(p) : 0;
+          var s = p > 0.00001 ? -Math.log(p) : 0;
+          var contribution = p * s;
 
           var row = document.createElement('div');
           row.className = 'household-room-row';
+          row.style.display = 'flex';
+          row.style.alignItems = 'center';
+          row.style.gap = '0.75rem';
+          row.style.margin = '0.45rem 0';
 
           var label = document.createElement('span');
           label.className = 'household-room-label';
-          label.innerHTML = '<span>' + loc.icon + '</span><span>' + loc.name + '</span>';
+          label.style.minWidth = '120px';
+          label.style.fontSize = '0.85rem';
+          label.style.display = 'flex';
+          label.style.alignItems = 'center';
+          label.style.gap = '0.4rem';
+          label.innerHTML = '<span style="display:inline-block; width:18px; font-weight:700; color:' + loc.color + ';">' + loc.code + '</span>' +
+                            '<span style="color:var(--text-primary); font-weight:550;">' + loc.name + '</span>';
 
           var slider = document.createElement('input');
           slider.type = 'range';
@@ -811,10 +837,26 @@
           slider.min = '1';
           slider.max = '99';
           slider.value = Math.round(p * 100);
+          slider.style.flex = '1';
 
           var valBadge = document.createElement('span');
           valBadge.className = 'household-room-val';
+          valBadge.style.minWidth = '65px';
+          valBadge.style.textAlign = 'right';
+          valBadge.style.fontFamily = 'var(--font-mono)';
+          valBadge.style.fontSize = '0.82rem';
+          valBadge.style.fontWeight = '600';
+          valBadge.style.color = loc.color;
           valBadge.innerText = (p * 100).toFixed(1) + '%';
+
+          var contribBadge = document.createElement('span');
+          contribBadge.style.minWidth = '85px';
+          contribBadge.style.textAlign = 'right';
+          contribBadge.style.fontFamily = 'var(--font-mono)';
+          contribBadge.style.fontSize = '0.78rem';
+          contribBadge.style.color = 'var(--text-muted)';
+          contribBadge.title = 'State contribution: p × S(p)';
+          contribBadge.innerText = '+' + contribution.toFixed(3) + ' n';
 
           slider.addEventListener('input', function () {
             normalize(idx, parseInt(slider.value, 10) / 100);
@@ -823,6 +865,7 @@
           row.appendChild(label);
           row.appendChild(slider);
           row.appendChild(valBadge);
+          row.appendChild(contribBadge);
           sliderList.appendChild(row);
         })(i);
       }
@@ -834,10 +877,10 @@
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var padLeft = 48;
-      var padRight = 24;
-      var padTop = 32;
-      var padBottom = 48;
+      var padLeft = 56;
+      var padRight = 32;
+      var padTop = 36;
+      var padBottom = 54;
 
       var ox = padLeft;
       var oy = height - padBottom;
@@ -845,16 +888,32 @@
       var plotH = height - padTop - padBottom;
 
       drawGrid(ctx, ox, oy, width, height, 36);
-      drawAxes(ctx, ox, oy, width, height, 'Household Location Bays', 'Probability of Finding ' + (currentItem === 'book' ? 'Book' : 'Pan'));
+
+      // Y-axis tick guidelines at 0.0, 0.25, 0.5, 0.75, 1.0
+      ctx.strokeStyle = c.gridLine;
+      ctx.fillStyle = c.subtleText;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      for (var pr = 0; pr <= 1.0; pr += 0.25) {
+        var yGuideline = oy - pr * plotH;
+        ctx.beginPath();
+        ctx.moveTo(ox, yGuideline);
+        ctx.lineTo(ox + plotW, yGuideline);
+        ctx.stroke();
+        ctx.fillText((pr * 100).toFixed(0) + '%', ox - 8, yGuideline);
+      }
+
+      drawAxes(ctx, ox, oy, width, height, 'States / Locations', 'Probability Pr(X = xᵢ)');
 
       var numBays = locations.length;
       var slotW = plotW / numBays;
-      var barW = Math.min(68, slotW * 0.65);
+      var barW = Math.min(68, slotW * 0.62);
 
       for (var i = 0; i < numBays; i++) {
         var loc = locations[i];
         var p = loc.p;
-        var s = p > 0 ? -log2(p) : 0;
+        var s = p > 0.00001 ? -Math.log(p) : 0;
         var contribution = p * s;
 
         var barCenterX = ox + i * slotW + slotW / 2;
@@ -862,7 +921,7 @@
         var barHeight = p * plotH;
         var barY = oy - barHeight;
 
-        // Draw Room Pillar Background track
+        // Draw Pillar Background track
         ctx.fillStyle = c.isLight ? 'rgba(15, 23, 42, 0.03)' : 'rgba(255, 255, 255, 0.03)';
         ctx.fillRect(barLeftX - 4, padTop, barW + 8, plotH);
 
@@ -870,45 +929,51 @@
         ctx.fillStyle = loc.color;
         ctx.fillRect(barLeftX, barY, barW, barHeight);
 
-        // Draw Object Icon floating on top of bar
-        var iconY = Math.max(padTop + 14, barY - 12);
-        ctx.font = '16px sans-serif';
+        // State Code Indicator above bar
+        var badgeY = Math.max(padTop + 14, barY - 14);
+        drawLabelPill(ctx, (p * 100).toFixed(1) + '%', barCenterX, badgeY, {
+          textColor: loc.color,
+          bgColor: c.pillBg,
+          borderColor: loc.color,
+          font: 'bold 10px "JetBrains Mono", monospace'
+        });
+
+        // Location text below axis
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(currentItem === 'book' ? '📖' : '🍳', barCenterX, iconY);
-
-        // Percentage label above icon
-        ctx.fillStyle = c.axisLabel;
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textBaseline = 'bottom';
-        ctx.fillText((p * 100).toFixed(0) + '%', barCenterX, iconY - 12);
-
-        // Location icon & label below axis
         ctx.textBaseline = 'top';
-        ctx.font = '12px sans-serif';
-        ctx.fillText(loc.icon, barCenterX, oy + 6);
-        ctx.fillStyle = c.subtleText;
-        ctx.font = 'bold 9px "JetBrains Mono", monospace';
+        ctx.fillStyle = loc.color;
+        ctx.font = 'bold 11px "JetBrains Mono", monospace';
+        ctx.fillText(loc.code, barCenterX, oy + 8);
+
+        ctx.fillStyle = c.axisLabel;
+        ctx.font = '550 10px "Plus Jakarta Sans", sans-serif';
         ctx.fillText(loc.name, barCenterX, oy + 22);
 
-        // Surprise callout inside bar if tall enough
-        if (barHeight > 38) {
+        // Surprise callouts inside/above bar
+        if (barHeight > 42) {
           ctx.fillStyle = '#ffffff';
           ctx.font = 'bold 9px "JetBrains Mono", monospace';
+          ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('S=' + s.toFixed(1) + 'b', barCenterX, barY + 14);
-          ctx.fillText('pS=' + contribution.toFixed(2), barCenterX, barY + 26);
+          ctx.fillText('S=' + s.toFixed(2) + 'n', barCenterX, barY + 14);
+          ctx.fillText('+ ' + contribution.toFixed(3) + 'n', barCenterX, barY + 28);
+        } else if (p > 0.001) {
+          ctx.fillStyle = c.subtleText;
+          ctx.font = '9px "JetBrains Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText('+' + contribution.toFixed(2) + 'n', barCenterX, barY - 26);
         }
       }
 
-      // Banner Pill at top
-      var hBits = calcTotalEntropyBits();
+      // Top banner pill
       var hNats = calcTotalEntropyNats();
-      var isPeak = Math.abs(hBits - 2.0) < 0.02;
+      var maxNats = Math.log(4);
+      var isPeak = Math.abs(hNats - maxNats) < 0.02;
 
-      var bannerText = 'H = ' + hBits.toFixed(2) + ' bits (' + hNats.toFixed(2) + ' nats)' + (isPeak ? ' · Uniform maximum' : (hBits < 0.05 ? ' · Certain' : ''));
+      var bannerText = 'H(X) = ' + hNats.toFixed(3) + ' nats' + (isPeak ? ' · Uniform maximum (ln 4)' : (hNats < 0.05 ? ' · Certain location (0 nats)' : ''));
       drawLabelPill(ctx, bannerText, width / 2, 16, {
-        textColor: isPeak ? c.timeColor : (hBits < 0.05 ? c.emeraldColor || '#0f766e' : c.axisLabel),
+        textColor: isPeak ? c.timeColor : (hNats < 0.05 ? c.emeraldColor || '#0f766e' : c.axisLabel),
         bgColor: c.pillBg,
         borderColor: isPeak ? c.timeColor : c.pillBorder,
         font: 'bold 11px "JetBrains Mono", monospace'
