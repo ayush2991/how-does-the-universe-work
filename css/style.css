@@ -546,32 +546,100 @@ body {
 .math-display-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--color-time);
-  padding: 1.25rem 1.5rem;
-  border-radius: 0 0.75rem 0.75rem 0;
-  margin: 2rem 0;
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  color: var(--text-primary);
+  border-left: 3.5px solid var(--color-time);
+  border-radius: 0.75rem;
+  margin: 2.25rem 0;
   box-shadow: var(--shadow-card);
-  transition: background 0.25s ease, border-color 0.25s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.formula-card:hover,
+.math-display-card:hover {
+  border-color: var(--border-medium);
 }
 
 .math-display-card {
   border-left-color: var(--color-invariant);
-  text-align: center;
+}
+
+.formula-card-header {
+  padding: 0.85rem 1.4rem 0.35rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.formula-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-time);
+}
+
+.math-display-card .formula-tag {
+  color: var(--color-invariant);
+}
+
+.formula-body,
+.formula-expression,
+.formula-card > div:first-child:not(.formula-note):not(.formula-card-header),
+.math-display-card > div:first-child:not(.formula-note):not(.formula-card-header) {
+  padding: 1.15rem 1.4rem;
+  font-family: var(--font-mono);
   font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.6;
+  letter-spacing: 0.015em;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.formula-card-header + .formula-body,
+.formula-card-header + .formula-expression {
+  padding-top: 0.25rem;
+}
+
+.formula-card strong,
+.math-display-card strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.math-display-card > div:first-child:not(.formula-note):not(.formula-card-header),
+.formula-card.text-center > div:first-child:not(.formula-note):not(.formula-card-header),
+.formula-expression.text-center {
+  text-align: center;
 }
 
 .formula-card .formula-note,
 .math-display-card .formula-note {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 0.5rem;
-  line-height: 1.5;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.62;
   text-align: left;
+  background: var(--bg-card-subtle);
+  border-top: 1px solid var(--border-subtle);
+  padding: 0.85rem 1.4rem;
+  margin: 0;
+  transition: background 0.25s ease;
+}
+
+.formula-card .formula-note strong,
+.math-display-card .formula-note strong {
+  color: var(--text-primary);
+}
+
+.formula-card .formula-note em,
+.math-display-card .formula-note em {
+  color: var(--text-primary);
+  font-style: italic;
 }
 
 /* Interactive Explorable Card Container (Unibody Design) */
@@ -1597,15 +1665,26 @@ body {
   }
   .formula-card,
   .math-display-card {
-    padding: 0.75rem 1rem;
-    margin: 1.125rem 0;
-    font-size: 0.88rem;
-    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 0;
+    margin: 1.35rem 0;
+    border-radius: 0.625rem;
+  }
+  .formula-card-header {
+    padding: 0.65rem 1rem 0.2rem 1rem;
+  }
+  .formula-body,
+  .formula-expression,
+  .formula-card > div:first-child:not(.formula-note):not(.formula-card-header),
+  .math-display-card > div:first-child:not(.formula-note):not(.formula-card-header) {
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
   }
   .formula-card .formula-note,
   .math-display-card .formula-note {
-    font-size: 0.78rem;
-    margin-top: 0.3rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem;
+    line-height: 1.55;
   }
   .series-pager {
     flex-direction: column;

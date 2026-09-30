@@ -19,14 +19,16 @@
     var container = document.getElementById(containerId);
     if (!container) return;
 
-    var canvas = container.querySelector('canvas');
+    var canvasMap = container.querySelector('.canvas-map');
+    var canvasVel = container.querySelector('.canvas-vel');
     var sliderTime = container.querySelector('.slider-time');
     var sliderAngle = container.querySelector('.slider-angle');
     var btnPlay = container.querySelector('.btn-play');
-    var timeVal = container.querySelector('.val-time');
-    var angleVal = container.querySelector('.val-angle');
+    var valAngle = container.querySelector('.val-angle');
+    var valTime = container.querySelector('.val-time');
+    var valAngleLabel = container.querySelector('.val-angle-label');
+    var valTimeLabel = container.querySelector('.val-time-label');
     var readoutC1 = container.querySelector('.readout-c1');
-    var readoutC2 = container.querySelector('.readout-c2');
     var readoutVx = container.querySelector('.readout-vx');
     var readoutVy = container.querySelector('.readout-vy');
 
@@ -37,122 +39,122 @@
     var animFrame = null;
 
     function updateReadouts() {
-      var rad = angleDeg * Math.PI / 180;
-      var vEast = (60 * Math.sin(rad)).toFixed(1);
-      var vNorth = (60 * Math.cos(rad)).toFixed(1);
+      var rad = (angleDeg * Math.PI) / 180;
+      var vEast = 60 * Math.sin(rad);
+      var vNorth = 60 * Math.cos(rad);
 
-      if (timeVal) timeVal.innerText = progress.toFixed(2) + ' hr';
-      if (angleVal) angleVal.innerText = angleDeg + '°';
+      if (valTime) valTime.innerText = progress.toFixed(2) + ' hr';
+      if (valTimeLabel) valTimeLabel.innerText = progress.toFixed(2) + ' hr';
+      if (valAngle) valAngle.innerText = Math.round(angleDeg) + '°';
+      if (valAngleLabel) valAngleLabel.innerText = Math.round(angleDeg) + '°';
       if (readoutC1) readoutC1.innerText = '60.0 mph';
-      if (readoutC2) readoutC2.innerText = vNorth + ' mph North, ' + vEast + ' mph East';
-      if (readoutVx) readoutVx.innerText = vEast + ' mph';
-      if (readoutVy) readoutVy.innerText = vNorth + ' mph';
+      if (readoutVx) readoutVx.innerText = vEast.toFixed(1) + ' mph';
+      if (readoutVy) readoutVy.innerText = vNorth.toFixed(1) + ' mph';
     }
 
-    function draw() {
+    function drawMap() {
+      if (!canvasMap) return;
       var c = getThemeColors();
-      var ret = setupRetinaCanvas(canvas);
+      var ret = setupRetinaCanvas(canvasMap);
       var ctx = ret.ctx, width = ret.width, height = ret.height;
       ctx.clearRect(0, 0, width, height);
 
-      var ox = width * 0.22;
-      var oy = height * 0.82;
-      var scale = Math.min(width * 0.58, height * 0.68);
+      var ox = 48;
+      var oy = height - 42;
+      var maxDistMiles = 60;
+      var scale = Math.min(width - 75, height - 70);
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawAxes(ctx, ox, oy, width, height, 'East (x₁)', 'North (x₂)');
+      drawAxes(ctx, ox, oy, width, height, 'East x₁ (mi)', 'North x₂ (mi)');
 
-      var rad = angleDeg * Math.PI / 180;
-      var c1_x = ox;
-      var c1_y = oy - (progress * scale);
-      var c2_x = ox + (progress * scale * Math.sin(rad));
-      var c2_y = oy - (progress * scale * Math.cos(rad));
-      var vEast = (60 * Math.sin(rad)).toFixed(1);
-      var vNorth = (60 * Math.cos(rad)).toFixed(1);
+      // Axis Tick marks for 20, 40, 60 miles
+      ctx.fillStyle = c.axisText;
+      ctx.strokeStyle = c.axisLine;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
 
-      // 1. Angle Theta Arc at Origin (from North axis clockwise to Car 2 vector)
-      if (angleDeg > 2) {
-        var arcR = 48;
-        ctx.strokeStyle = c.spaceColor;
-        ctx.lineWidth = 2;
+      [20, 40, 60].forEach(function (m) {
+        var px = ox + (m / maxDistMiles) * scale;
+        var py = oy - (m / maxDistMiles) * scale;
+
+        // East tick
         ctx.beginPath();
-        ctx.arc(ox, oy, arcR, -Math.PI / 2, -Math.PI / 2 + rad, false);
+        ctx.moveTo(px, oy - 3);
+        ctx.lineTo(px, oy + 3);
         ctx.stroke();
+        ctx.fillText(m + '', px, oy + 6);
 
-        // Arrowhead on arc pointing clockwise
-        var endA = -Math.PI / 2 + rad;
-        var arrowX = ox + arcR * Math.cos(endA);
-        var arrowY = oy + arcR * Math.sin(endA);
-        var tangentA = endA + Math.PI / 2;
-        ctx.fillStyle = c.spaceColor;
+        // North tick
         ctx.beginPath();
-        ctx.moveTo(arrowX, arrowY);
-        ctx.lineTo(arrowX - 6 * Math.cos(tangentA - 0.45), arrowY - 6 * Math.sin(tangentA - 0.45));
-        ctx.lineTo(arrowX - 6 * Math.cos(tangentA + 0.45), arrowY - 6 * Math.sin(tangentA + 0.45));
-        ctx.closePath();
-        ctx.fill();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(m + '', ox - 6, py);
+        ctx.textAlign = 'center';
+      });
 
-        // Theta label badge
-        var midA = -Math.PI / 2 + rad / 2;
-        var badgeDist = arcR + 20;
-        var badgeX = ox + badgeDist * Math.cos(midA);
-        var badgeY = oy + badgeDist * Math.sin(midA);
+      var rad = (angleDeg * Math.PI) / 180;
+      var c1_dist = progress * maxDistMiles;
+      var c1_x = ox;
+      var c1_y = oy - (c1_dist / maxDistMiles) * scale;
 
-        drawLabelPill(ctx, 'θ = ' + Math.round(angleDeg) + '°', badgeX + (rad > 0.8 ? 8 : 0), badgeY, {
-          textColor: c.spaceColor,
-          font: 'bold 11px "JetBrains Mono", monospace'
-        });
-      }
+      var c2_x1 = c1_dist * Math.sin(rad);
+      var c2_x2 = c1_dist * Math.cos(rad);
+      var c2_x = ox + (c2_x1 / maxDistMiles) * scale;
+      var c2_y = oy - (c2_x2 / maxDistMiles) * scale;
 
-      // 2. Dashed Projections (Right Triangle Components for Car 2)
-      if (progress > 0.08) {
+      // Full projected track guidelines (dashed)
+      ctx.strokeStyle = c.axisLine;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 4]);
+
+      // Blue track guideline
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ox, oy - scale);
+      ctx.stroke();
+
+      // Orange track guideline
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ox + scale * Math.sin(rad), oy - scale * Math.cos(rad));
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Orange coordinate dashed drop lines (to East and North axes)
+      if (progress > 0.05 && angleDeg > 2 && angleDeg < 88) {
         ctx.strokeStyle = c.spaceColor;
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 3]);
 
-        // Horizontal line from Car 2 to Vertical North Axis
         ctx.beginPath();
         ctx.moveTo(c2_x, c2_y);
         ctx.lineTo(ox, c2_y);
         ctx.stroke();
 
-        // Vertical line from Car 2 down to Ground East Axis
         ctx.beginPath();
         ctx.moveTo(c2_x, c2_y);
         ctx.lineTo(c2_x, oy);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Small Right Angle symbol at (ox, c2_y)
-        var sqSize = 8;
-        if (c2_x - ox > sqSize + 4 && oy - c2_y > sqSize + 4) {
+        // Right angle symbol at (ox, c2_y)
+        var sq = 7;
+        if (c2_x - ox > sq + 3 && oy - c2_y > sq + 3) {
           ctx.strokeStyle = c.axisLine;
-          ctx.lineWidth = 1;
           ctx.beginPath();
-          ctx.moveTo(ox, c2_y + sqSize);
-          ctx.lineTo(ox + sqSize, c2_y + sqSize);
-          ctx.lineTo(ox + sqSize, c2_y);
+          ctx.moveTo(ox, c2_y + sq);
+          ctx.lineTo(ox + sq, c2_y + sq);
+          ctx.lineTo(ox + sq, c2_y);
           ctx.stroke();
-        }
-
-        // Horizontal Eastward Component Value Label (v_East = 52.0 mph)
-        if (c2_x - ox > 35) {
-          drawLabelPill(ctx, 'V_East = ' + vEast + ' mph', (ox + c2_x) / 2, c2_y - 12, {
-            textColor: c.spaceColor,
-            font: 'bold 10px "JetBrains Mono", monospace'
-          });
-        }
-
-        // Vertical Northward Component Value Label (v_North = 30.0 mph)
-        if (oy - c2_y > 25) {
-          drawLabelPill(ctx, 'V_North = ' + vNorth + ' mph', Math.min(width - 55, c2_x + 55), (oy + c2_y) / 2, {
-            textColor: c.spaceColor,
-            font: 'bold 10px "JetBrains Mono", monospace'
-          });
         }
       }
 
-      // 3. Car 1 Vector (Purely North)
+      // Traveled Path Lines
+      // Blue Path
       ctx.strokeStyle = c.timeColor;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
@@ -160,15 +162,7 @@
       ctx.lineTo(c1_x, c1_y);
       ctx.stroke();
 
-      // Car 1 Speed Value Label along vertical vector
-      if (oy - c1_y > 35) {
-        drawLabelPill(ctx, '60 mph', ox - 32, (oy + c1_y) / 2, {
-          textColor: c.timeColor,
-          font: 'bold 10px "JetBrains Mono", monospace'
-        });
-      }
-
-      // 4. Car 2 Vector (Diagonal)
+      // Orange Path
       ctx.strokeStyle = c.spaceColor;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
@@ -176,30 +170,229 @@
       ctx.lineTo(c2_x, c2_y);
       ctx.stroke();
 
-      // Car 2 Total Speed Value Label (along diagonal)
-      if (progress > 0.18) {
-        var diagMidX = (ox + c2_x) / 2;
-        var diagMidY = (oy + c2_y) / 2;
-        var nx = -Math.cos(rad);
-        var ny = -Math.sin(rad);
-        drawLabelPill(ctx, '60 mph', diagMidX + nx * 18, diagMidY + ny * 18, {
+      // Origin dot
+      drawGlowingDot(ctx, ox, oy, c.axisLine, 4);
+
+      // Car nodes
+      drawGlowingDot(ctx, c1_x, c1_y, c.timeColor, 6);
+      drawGlowingDot(ctx, c2_x, c2_y, c.spaceColor, 6);
+
+      // Position badges
+      var pillYOffset = 18;
+      drawLabelPill(ctx, 'Blue: ' + c1_dist.toFixed(1) + ' mi N', c1_x + (c2_x - c1_x < 50 && c1_x > ox ? -50 : 0), c1_y - pillYOffset, {
+        textColor: c.timeColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
+
+      var orangeLabelX = c2_x + (angleDeg > 70 ? -10 : 35);
+      var orangeLabelY = c2_y + (angleDeg > 70 ? -18 : 4);
+      drawLabelPill(ctx, 'Orange: (' + c2_x1.toFixed(1) + ', ' + c2_x2.toFixed(1) + ') mi', orangeLabelX, orangeLabelY, {
+        textColor: c.spaceColor,
+        font: 'bold 11px "Plus Jakarta Sans", sans-serif'
+      });
+    }
+
+    function drawVel() {
+      if (!canvasVel) return;
+      var c = getThemeColors();
+      var ret = setupRetinaCanvas(canvasVel);
+      var ctx = ret.ctx, width = ret.width, height = ret.height;
+      ctx.clearRect(0, 0, width, height);
+
+      var ox = 48;
+      var oy = height - 42;
+      var radius = Math.min(width - 75, height - 70);
+
+      drawGrid(ctx, ox, oy, width, height, 32);
+      drawAxes(ctx, ox, oy, width, height, 'V_East (mph)', 'V_North (mph)');
+
+      // Axis speed marks at 30, 60 mph
+      ctx.fillStyle = c.axisText;
+      ctx.strokeStyle = c.axisLine;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      [30, 60].forEach(function (v) {
+        var px = ox + (v / 60) * radius;
+        var py = oy - (v / 60) * radius;
+
+        ctx.beginPath();
+        ctx.moveTo(px, oy - 3);
+        ctx.lineTo(px, oy + 3);
+        ctx.stroke();
+        ctx.fillText(v + '', px, oy + 6);
+
+        ctx.beginPath();
+        ctx.moveTo(ox - 3, py);
+        ctx.lineTo(ox + 3, py);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(v + '', ox - 6, py);
+        ctx.textAlign = 'center';
+      });
+
+      // Invariant 60 mph Speed Circle Constraint Arc
+      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.arc(ox, oy, radius, -Math.PI / 2, 0, false);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Speed Arc Constraint Pill Badge
+      var arcMidA = -Math.PI / 4;
+      var arcPillX = ox + radius * Math.cos(arcMidA);
+      var arcPillY = oy + radius * Math.sin(arcMidA);
+      drawLabelPill(ctx, '|V| = 60 mph circle', arcPillX + 22, arcPillY - 10, {
+        textColor: c.invariantColor || '#8a5cf6',
+        font: 'bold 10px "JetBrains Mono", monospace'
+      });
+
+      var rad = (angleDeg * Math.PI) / 180;
+      var vEast = 60 * Math.sin(rad);
+      var vNorth = 60 * Math.cos(rad);
+      var tipX = ox + radius * Math.sin(rad);
+      var tipY = oy - radius * Math.cos(rad);
+
+      // Angle Theta Arc at Origin
+      if (angleDeg > 2) {
+        var arcR = Math.min(46, radius * 0.35);
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(ox, oy, arcR, -Math.PI / 2, -Math.PI / 2 + rad, false);
+        ctx.stroke();
+
+        // Arrowhead on arc
+        var endA = -Math.PI / 2 + rad;
+        var arrowX = ox + arcR * Math.cos(endA);
+        var arrowY = oy + arcR * Math.sin(endA);
+        var tangentA = endA + Math.PI / 2;
+        ctx.fillStyle = c.spaceColor;
+        ctx.beginPath();
+        ctx.moveTo(arrowX, arrowY);
+        ctx.lineTo(arrowX - 5 * Math.cos(tangentA - 0.45), arrowY - 5 * Math.sin(tangentA - 0.45));
+        ctx.lineTo(arrowX - 5 * Math.cos(tangentA + 0.45), arrowY - 5 * Math.sin(tangentA + 0.45));
+        ctx.closePath();
+        ctx.fill();
+
+        // Theta label
+        var midA = -Math.PI / 2 + rad / 2;
+        var badgeDist = arcR + 18;
+        var badgeX = ox + badgeDist * Math.cos(midA);
+        var badgeY = oy + badgeDist * Math.sin(midA);
+        drawLabelPill(ctx, 'θ = ' + Math.round(angleDeg) + '°', badgeX + (rad > 0.8 ? 6 : 0), badgeY, {
           textColor: c.spaceColor,
           font: 'bold 10px "JetBrains Mono", monospace'
         });
       }
 
-      // 5. Glowing Dots & Vehicle Names
-      drawGlowingDot(ctx, c1_x, c1_y, c.timeColor, 6);
-      drawGlowingDot(ctx, c2_x, c2_y, c.spaceColor, 6);
+      // Right-Triangle Decomposition Dashed Lines for Orange Car
+      if (angleDeg > 2 && angleDeg < 88) {
+        ctx.strokeStyle = c.spaceColor;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
 
-      drawLabelPill(ctx, 'Car 1 (60 mph North)', c1_x, c1_y - 18, {
+        // Horizontal line from tip to vertical North axis
+        ctx.beginPath();
+        ctx.moveTo(tipX, tipY);
+        ctx.lineTo(ox, tipY);
+        ctx.stroke();
+
+        // Vertical line from tip down to East axis
+        ctx.beginPath();
+        ctx.moveTo(tipX, tipY);
+        ctx.lineTo(tipX, oy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Small square for right angle
+        var sq = 8;
+        if (tipX - ox > sq + 4 && oy - tipY > sq + 4) {
+          ctx.strokeStyle = c.axisLine;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(ox, tipY + sq);
+          ctx.lineTo(ox + sq, tipY + sq);
+          ctx.lineTo(ox + sq, tipY);
+          ctx.stroke();
+        }
+
+        // Component label: V_East
+        if (tipX - ox > 35) {
+          drawLabelPill(ctx, 'V_East = ' + vEast.toFixed(1) + ' mph', (ox + tipX) / 2, tipY - 12, {
+            textColor: c.spaceColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
+        }
+
+        // Component label: V_North
+        if (oy - tipY > 25) {
+          drawLabelPill(ctx, 'V_North = ' + vNorth.toFixed(1) + ' mph', Math.min(width - 55, tipX + 55), (oy + tipY) / 2, {
+            textColor: c.spaceColor,
+            font: 'bold 10px "JetBrains Mono", monospace'
+          });
+        }
+      }
+
+      // Blue Car Velocity Vector (North: 0, 60 mph)
+      ctx.strokeStyle = c.timeColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ox, oy - radius);
+      ctx.stroke();
+
+      // Arrowhead for Blue Vector
+      ctx.fillStyle = c.timeColor;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy - radius - 5);
+      ctx.lineTo(ox - 5, oy - radius + 4);
+      ctx.lineTo(ox + 5, oy - radius + 4);
+      ctx.closePath();
+      ctx.fill();
+
+      // Label for Blue Vector
+      drawLabelPill(ctx, 'V_Blue (60 mph)', ox - 35, oy - radius - 16, {
         textColor: c.timeColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
-      drawLabelPill(ctx, 'Car 2 (' + angleDeg + '°)', c2_x + 48, c2_y + 4, {
+      drawGlowingDot(ctx, ox, oy - radius, c.timeColor, 5);
+
+      // Orange Car Velocity Vector (Tilted: vEast, vNorth)
+      ctx.strokeStyle = c.spaceColor;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(tipX, tipY);
+      ctx.stroke();
+
+      // Arrowhead for Orange Vector
+      var arrowAng = Math.atan2(tipY - oy, tipX - ox);
+      ctx.fillStyle = c.spaceColor;
+      ctx.beginPath();
+      ctx.moveTo(tipX + 5 * Math.cos(arrowAng), tipY + 5 * Math.sin(arrowAng));
+      ctx.lineTo(tipX - 6 * Math.cos(arrowAng - 0.5), tipY - 6 * Math.sin(arrowAng - 0.5));
+      ctx.lineTo(tipX - 6 * Math.cos(arrowAng + 0.5), tipY - 6 * Math.sin(arrowAng + 0.5));
+      ctx.closePath();
+      ctx.fill();
+
+      // Label for Orange Vector
+      var orangePillX = tipX + (angleDeg > 70 ? -15 : 30);
+      var orangePillY = tipY + (angleDeg > 70 ? -18 : 6);
+      drawLabelPill(ctx, 'V_Orange (' + Math.round(angleDeg) + '°)', orangePillX, orangePillY, {
         textColor: c.spaceColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
+      drawGlowingDot(ctx, tipX, tipY, c.spaceColor, 5);
+    }
+
+    function draw() {
+      drawMap();
+      drawVel();
     }
 
     function loop(now) {

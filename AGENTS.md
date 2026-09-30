@@ -149,7 +149,7 @@ Every interactive simulation follows a standardized visual hierarchy, tactile co
 #### Part 1: Why Motion Through Space Affects Time (`posts/01-motion-and-time.html` / `js/post-01.js`)
 | # | Container ID | Function | Physical Concept & Purpose |
 | :--- | :--- | :--- | :--- |
-| **01** | `widget-cars` | `initWidgetCars` | Two cars on a 2D grid partitioning total velocity ($V_E = 60\sin\theta, V_N = 60\cos\theta$) |
+| **01** | `widget-cars` | `initWidgetCars` | Dual-view comparison: Position Map ($x_1, x_2$) vs Velocity Space ($V_E = 60\sin\theta, V_N = 60\cos\theta$) on 60 mph circle |
 | **02** | `widget-stationary` | `initWidgetStationary` | Sitting at rest ($x=0$) carries you forward through Time at 100% capacity |
 | **03** | `widget-tradeoff` | `initWidgetTradeoff` | Spatial velocity tradeoffs reducing speed through time ($v_t = \sqrt{c^2 - v_x^2}$) |
 | **04** | `widget-time-dilation` | `initWidgetTimeDilation` | Live Twin Clocks demonstrating time dilation ($t' = t / \gamma$) |

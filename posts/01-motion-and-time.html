@@ -131,13 +131,25 @@
           class="math-badge">60°</span> toward the <strong>East</strong> (away from North) along a diagonal.
       </p>
       <p>
+        To understand what is happening geometrically, we can view this scenario through two complementary lenses:
+      </p>
+      <p>
+        • <strong>Position Space (The Map):</strong> Where the cars are located on the ground (<span
+          class="math-badge">x₁, x₂</span>). As time passes, both cars travel outward from the origin along their
+        tracks.<br>
+        • <strong>Velocity Space (The Speed Vectors):</strong> How each car’s fixed <span class="math-badge">60 mph</span>
+        speed is distributed into directional vectors (<span class="math-badge">V_East, V_North</span>). Because both
+        cars travel at a constant total speed, their velocity vectors both touch a circle of radius <span
+          class="math-badge">60 mph</span>.
+      </p>
+      <p>
         Consider a simple question: <strong>After driving for an hour, will the Orange Car be at the same Northward
           position as the Blue Car?</strong>
       </p>
       <p>
         Intuitively, we know it will not. Because the Orange Car angled toward the East, its fixed <span
-          class="math-badge">60 mph</span> speed is now shared between two perpendicular directions. We can see exactly
-        how that speed is split by looking at the right triangle formed by its heading:
+          class="math-badge">60 mph</span> speed is now shared between two perpendicular directions. In Velocity Space, we
+        can see exactly how that speed vector is split into right-triangle components:
       </p>
       <p>
         • <strong>Speed Eastward (x₁):</strong> Scales with the sine of the angle:<br>
@@ -151,62 +163,108 @@
       </p>
       <p>
         Notice where that <span class="math-badge">52 mph</span> comes from: because <span class="math-badge">sin(60°) ≈
-          0.866</span>, the car directs about <span class="math-badge">86.6%</span> of its speed toward the East. And
-        because <span class="math-badge">cos(60°) = 0.5</span>, its progress Northward is cut exactly in half, down to
-        <span class="math-badge">30 mph</span>.
+          0.866</span>, the car directs about <span class="math-badge">86.6%</span> of its speed vector toward the
+        East. And because <span class="math-badge">cos(60°) = 0.5</span>, its progress Northward is cut exactly in half,
+        down to <span class="math-badge">30 mph</span>.
       </p>
 
-      <!-- INTERACTIVE WIDGET 1: CARS -->
-      <div id="widget-cars" class="interactive-artifact">
+      <!-- INTERACTIVE WIDGET 1: CARS (POSITION MAP & VELOCITY SPACE) -->
+      <div id="widget-cars" class="interactive-artifact artifact-wide">
         <div class="artifact-header">
           <div>
-            <div class="artifact-badge">SIMULATION 01 · 2D VECTOR DECOMPOSITION</div>
-            <div class="artifact-title">Two Cars on a 2D Grid: The Spatial Trade-Off</div>
-            <div class="artifact-desc">Scrub time or change the heading angle to watch the speed components trade off in
-              real time.</div>
+            <div class="artifact-badge">SIMULATION 01 · 2D POSITION MAP &amp; VELOCITY SPACE</div>
+            <div class="artifact-title">Two Cars: Physical Map vs. Velocity Space</div>
+            <div class="artifact-desc">
+              Watch how physical position over time (left) connects directly to constant-speed velocity vectors on a 60 mph circle (right).
+            </div>
           </div>
         </div>
-        <div class="artifact-split">
-          <div class="split-canvas-col">
-            <canvas></canvas>
-          </div>
-          <div class="split-controls-col">
-            <div>
-              <div class="control-item" style="margin-bottom: 0.85rem;">
-                <div class="control-header">
-                  <span>Simulate Elapsed Time</span>
-                  <span class="control-val cyan val-time">0.60 hr</span>
-                </div>
-                <input type="range" class="range-slider slider-time" min="0" max="1000" value="600">
-              </div>
-              <div class="control-item" style="margin-bottom: 0.85rem;">
-                <div class="control-header">
-                  <span>Heading Angle (θ from North)</span>
-                  <span class="control-val amber val-angle">60°</span>
-                </div>
-                <input type="range" class="range-slider amber slider-angle" min="0" max="90" value="60">
-                <div class="preset-chips" style="margin-top: 0.4rem;">
-                  <button class="chip-btn chip-angle" data-angle="0">0° (North)</button>
-                  <button class="chip-btn chip-angle" data-angle="30">30°</button>
-                  <button class="chip-btn chip-angle active" data-angle="60">60°</button>
-                  <button class="chip-btn chip-angle" data-angle="90">90° (East)</button>
-                </div>
-              </div>
+        <div class="comparison-grid">
+          <!-- Left Column: Position Map -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>POSITION MAP (ON THE FIELD)</span>
+              <span class="canvas-col-tag">Position x₁ vs x₂ (miles)</span>
             </div>
-            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
+            <canvas class="canvas-map"></canvas>
+          </div>
+          <!-- Right Column: Velocity Space -->
+          <div class="canvas-col">
+            <div class="canvas-col-header">
+              <span>VELOCITY SPACE (THE SPEED VECTORS)</span>
+              <span class="canvas-col-tag">Speed V_East vs V_North (mph)</span>
+            </div>
+            <canvas class="canvas-vel"></canvas>
+          </div>
+        </div>
+        <!-- Shared Telemetry Row -->
+        <div class="telemetry-row">
+          <div class="telemetry-item">
+            <div class="label">HEADING ANGLE θ</div>
+            <div class="value val-angle" style="color: var(--color-space);">60°</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">ELAPSED TIME</div>
+            <div class="value val-time" style="color: var(--color-time);">0.60 hr</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">BLUE CAR (NORTH)</div>
+            <div class="value readout-c1" style="color: var(--color-time);">60.0 mph</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">ORANGE CAR (EAST)</div>
+            <div class="value readout-vx" style="color: var(--color-space);">52.0 mph</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">ORANGE CAR (NORTH)</div>
+            <div class="value readout-vy" style="color: var(--color-space);">30.0 mph</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="label">TOTAL SPEED |V|</div>
+            <div class="value" style="color: var(--color-invariant);">60.0 mph</div>
+          </div>
+        </div>
+        <!-- Controls -->
+        <div class="artifact-controls" style="padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.85rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div class="control-item">
+              <div class="control-header">
+                <span>Simulate Elapsed Time</span>
+                <span class="control-val cyan val-time-label">0.60 hr</span>
+              </div>
+              <input type="range" class="range-slider slider-time" min="0" max="1000" value="600">
+            </div>
+            <div class="control-item">
+              <div class="control-header">
+                <span>Heading Angle (θ from North)</span>
+                <span class="control-val amber val-angle-label">60°</span>
+              </div>
+              <input type="range" class="range-slider amber slider-angle" min="0" max="90" value="60">
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+            <div class="preset-chips">
+              <button class="chip-btn chip-angle" data-angle="0">0° (North)</button>
+              <button class="chip-btn chip-angle" data-angle="30">30°</button>
+              <button class="chip-btn chip-angle active" data-angle="60">60°</button>
+              <button class="chip-btn chip-angle" data-angle="90">90° (East)</button>
+            </div>
+            <div class="toolbar-bottom" style="padding: 0;">
               <button class="btn-primary btn-play">
                 <span>▶</span><span>Auto Play</span>
               </button>
-              <div class="math-badge">
-                East: <strong class="readout-vx">52.0 mph</strong> | North: <strong class="readout-vy">30.0 mph</strong>
-              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="formula-card">
-        <div><strong>The General Pythagorean Rule:</strong> V_North = √( V² - V_East² )</div>
+        <div class="formula-card-header">
+          <span class="formula-tag">The General Pythagorean Rule</span>
+        </div>
+        <div class="formula-body">
+          <em>V</em>_North = √( <em>V</em>² − <em>V</em>_East² )
+        </div>
         <div class="formula-note">When total speed is fixed, motion in one direction naturally trades off against motion
           in a perpendicular direction.</div>
       </div>
@@ -217,15 +275,15 @@
         Now, let us take this geometric idea and apply it to how we move through the universe.
       </p>
       <p>
-        In Section 1, we saw how a car's fixed speed can be divided between East (<span class="math-badge">x₁</span>)
-        and North (<span class="math-badge">x₂</span>).
+        In Section 1, we plotted the cars' velocity vectors in a 2D Velocity Space, dividing total speed between East (<span
+          class="math-badge">V_East</span>) and North (<span class="math-badge">V_North</span>).
       </p>
       <p>
-        What if we do something similar for our existence in the cosmos?
+        What if we do something identical for our existence in the cosmos?
       </p>
       <p>
-        Instead of plotting physical positions on a map, suppose we draw a cosmic speedometer—what physicists call
-        <strong>Velocity Space</strong>:
+        Just as we drew a velocity space for the cars on the field, we can draw a cosmic speedometer where the axes
+        represent the two ways to move through spacetime:
       </p>
       <p>
         • The horizontal axis represents <strong>Speed Through Space</strong> (<span class="math-badge">v_space</span>),
@@ -381,8 +439,13 @@
         vector is dedicated to moving through Space, that motion must be drawn from their motion through Time:
       </p>
       <div class="formula-card">
-        <div><strong>The Spacetime Trade-Off:</strong> v_time = √( V² - v_space² )</div>
-        <div class="formula-note">Under this rule, total speed |V| is strictly constant (no acceleration). Gaining speed
+        <div class="formula-card-header">
+          <span class="formula-tag">The Spacetime Trade-Off</span>
+        </div>
+        <div class="formula-body">
+          <em>v</em>_time = √( <em>c</em>² − <em>v</em>_space² )
+        </div>
+        <div class="formula-note">Under this rule, total speed is strictly constant. Gaining speed
           through space directly reduces speed through time.</div>
       </div>
 
@@ -511,8 +574,13 @@
           class="math-badge">c</span>, the ratio between Earth’s time and the traveler’s time is:
       </p>
       <div class="formula-card">
-        <div>γ = c / v_time = 1 / √( 1 - v² / c² )</div>
-        <div class="formula-note">At v = 0.866c, v_time = 0.50c, which yields γ = 2.00: Earth records exactly 2 seconds
+        <div class="formula-card-header">
+          <span class="formula-tag">The Lorentz Factor (Gamma)</span>
+        </div>
+        <div class="formula-body">
+          γ = <em>c</em> / <em>v</em>_time = 1 / √( 1 − <em>v</em>² / <em>c</em>² )
+        </div>
+        <div class="formula-note">At <em>v</em> = 0.866<em>c</em>, <em>v</em>_time = 0.50<em>c</em>, which yields γ = 2.00: Earth records exactly 2 seconds
           for every 1 second experienced on board.</div>
       </div>
       <p>
@@ -589,7 +657,12 @@
         <span class="math-badge">90°</span> horizontally. How much speed remains for time?
       </p>
       <div class="formula-card">
-        <div>v_time = √( c² - c² ) = 0</div>
+        <div class="formula-card-header">
+          <span class="formula-tag">Cosmic Speed Limit</span>
+        </div>
+        <div class="formula-body">
+          <em>v</em>_time = √( <em>c</em>² − <em>c</em>² ) = 0
+        </div>
         <div class="formula-note">Its motion through time drops to zero. A photon experiences zero elapsed time across
           the entire cosmos.</div>
       </div>
@@ -662,8 +735,13 @@
         before vanishing:
       </p>
       <div class="formula-card">
-        <div>Distance = Speed × Lifetime ≈ (300,000 km/s) × (0.0000022 s) ≈ 0.66 km (660 meters)</div>
-        <div class="formula-note">Starting 10 km up, virtually zero muons should ever survive to reach the ground.</div>
+        <div class="formula-card-header">
+          <span class="formula-tag">Newtonian Muon Range</span>
+        </div>
+        <div class="formula-body">
+          Distance = Speed × Lifetime ≈ (300,000 km/s) × (0.0000022 s) ≈ 0.66 km (660 m)
+        </div>
+        <div class="formula-note">Starting 10 km up, virtually zero muons should ever survive to reach the ground without time dilation.</div>
       </div>
       <p>
         Yet, particle detectors on the Earth's surface detect millions of muons every single day. Why? Test it for
@@ -752,18 +830,27 @@
         space is simply:
       </p>
       <div class="formula-card">
-        <div>v_space = √( v_x1² + v_x2² )</div>
-        <div class="formula-note">Your total spatial speed is the hypotenuse of your motion East and your motion North.
+        <div class="formula-card-header">
+          <span class="formula-tag">2D Spatial Hypotenuse</span>
         </div>
+        <div class="formula-body">
+          <em>v</em>_space = √( <em>v</em>_x1² + <em>v</em>_x2² )
+        </div>
+        <div class="formula-note">Your total spatial speed is the hypotenuse of your motion East and your motion North.</div>
       </div>
       <p>
         Now, we plug this spatial hypotenuse directly into nature's cosmic speed equation. The total speed constraint in
         3D Velocity Space becomes:
       </p>
       <div class="formula-card">
-        <div>( v_x1² + v_x2² ) + v_time² = c² ⟹ v_time = √( c² - v_x1² - v_x2² )</div>
-        <div class="formula-note">Motion across East (v_x1) and North (v_x2) both draw from the exact same finite
-          reservoir of speed through time (v_time).</div>
+        <div class="formula-card-header">
+          <span class="formula-tag">3D Velocity Space Constraint</span>
+        </div>
+        <div class="formula-body">
+          ( <em>v</em>_x1² + <em>v</em>_x2² ) + <em>v</em>_time² = <em>c</em>² &nbsp;⟹&nbsp; <em>v</em>_time = √( <em>c</em>² − <em>v</em>_x1² − <em>v</em>_x2² )
+        </div>
+        <div class="formula-note">Motion across East (<em>v</em>_x1) and North (<em>v</em>_x2) both draw from the exact same finite
+          reservoir of speed through time (<em>v</em>_time).</div>
       </div>
 
       <h3>The 3D Geometry: From a Flat Arc to a Spherical Velocity Dome</h3>
