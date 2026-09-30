@@ -62,6 +62,16 @@ Headings should sound like steps in an unfolding journey, not chapter titles fro
 - ❌ *"The Side-by-Side Bridge: Speed Space vs Coordinate Spacetime"*
 - ❌ *"Why Spacetime Cannot Have a 90° Worldline"*
 
+### 9. Single Locus of Truth & In-Canvas Direct Annotation
+Minimize cognitive load by placing dynamic labels directly where visual attention lives. If a physical value or state (e.g., angle, position, velocity component) is already drawn on canvas vectors/pills or on interactive slider header badges, do NOT duplicate it into a detached telemetry grid.
+- **In-Canvas Labels & Slider Badges**: Keep the reader's gaze focused on geometric relationships and direct controls without splitting attention.
+- **Telemetry Grids**: Reserve strictly for derived, higher-level invariant metrics that cannot be rendered in-canvas (e.g., Lorentz factor $\gamma$, bit-depth totals).
+
+### 10. Lean Widget Framing (Zero Redundant Headers)
+Do not clutter widget containers with repetitive titles or explanatory subtitles when the preceding prose and taxonomy badge already establish context. Let the simulation badge identify the module cleanly.
+- ✅ `<div class="artifact-badge">SIMULATION 01 · 2D POSITION MAP &amp; VELOCITY SPACE</div>` (Clean, focused)
+- ❌ Redundant widget title + 2-sentence subtitle repeating the preceding paragraph.
+
 ---
 
 ## 3. Semantic Physics & Editorial Color Palette
@@ -90,21 +100,21 @@ Every interactive simulation follows a standardized visual hierarchy, tactile co
 ```
 +-----------------------------------------------------------------------------------+
 |  [SIMULATION 0X · TAXONOMY BADGE]                                                 |
-|  Widget Title: The Intuitive Question or Action                                   |
-|  1-2 sentence subtitle describing the exact physical tradeoff being observed       |
+|  (Lean header: badge identifies module without redundant subtitle boilerplate)    |
 +-----------------------------------------------------------------------------------+
 |  [CANVAS VIEWPORT] (Retina-scaled, crisp geometry, unified physics palette)       |
 |    - High contrast axes with readable tick labels & arrows                        |
 |    - Bounded label pills with viewport edge clamping                              |
+|    - In-canvas dynamic state callouts (Blue: 36.0 mi N, V_East = 52 mph, θ = 60°) |
 |    - Color-coded vectors matching text & sliders (Blue=Time, Orange=Space, etc.)  |
 |    - 3D projections with smooth touch/drag orbit, presets, and reset buttons     |
 +-----------------------------------------------------------------------------------+
-|  [READOUT DASHBOARD] (Multi-column live metric grid with tabular monospace nums)  |
-|    [ v_space: 0.866 c ]   [ v_time: 0.500 c ]   [ Gamma: 2.00 ]   [ Delta-t: 0 ]  |
+|  [OPTIONAL READOUT DASHBOARD] (Only when derived metrics cannot fit in canvas)    |
+|    [ Gamma: 2.00 ]   [ Delta-t: 0.866 s ]                                         |
 +-----------------------------------------------------------------------------------+
 |  [INTERACTIVE CONTROLS & TIMELINE]                                                |
-|    [ ▶ Auto Play / ⏸ Pause ]   [ ↺ Reset ]   [ Preset Chips: 0.0c, 0.6c, 0.866c ] |
-|    Slider: Speed (v/c) / Time (t) / Probability (p) with live value badge         |
+|    [ ▶ Auto Play / ⏸ Pause ]   [ Preset Chips: 0°, 30°, 60°, 90° ]               |
+|    Slider with live value badge: Speed (v/c) / Angle (θ) / Time (t) / Prob (p)     |
 +-----------------------------------------------------------------------------------+
 ```
 
@@ -115,6 +125,7 @@ Every interactive simulation follows a standardized visual hierarchy, tactile co
 4. **Theme & Resize Awareness**: Register draw callbacks via `registerDraw(draw)` and `window.addEventListener('resize', draw)`. Never set inline canvas width/height attributes; dimensions are managed responsively via CSS.
 5. **Edge Clamping for Label Pills**: Always clamp pill coordinates (`Math.min(width - padRight, Math.max(padLeft, x))`) so floating annotations never clip outside viewport boundaries on narrow screens.
 6. **Tabular Numerals**: Numeric metrics and readouts must use monospace fonts with tabular numbers (`JetBrains Mono` / `tnum`) to eliminate layout jitter during live updates.
+7. **Cognitive Ergonomics & Single Locus of Truth**: Keep live annotations directly on the canvas elements and slider headers. Eliminate auxiliary telemetry grids unless tracking non-spatial derived invariants.
 
 ---
 

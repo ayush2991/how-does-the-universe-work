@@ -24,13 +24,8 @@
     var sliderTime = container.querySelector('.slider-time');
     var sliderAngle = container.querySelector('.slider-angle');
     var btnPlay = container.querySelector('.btn-play');
-    var valAngle = container.querySelector('.val-angle');
-    var valTime = container.querySelector('.val-time');
     var valAngleLabel = container.querySelector('.val-angle-label');
     var valTimeLabel = container.querySelector('.val-time-label');
-    var readoutC1 = container.querySelector('.readout-c1');
-    var readoutVx = container.querySelector('.readout-vx');
-    var readoutVy = container.querySelector('.readout-vy');
 
     var progress = 0.60;
     var angleDeg = 60;
@@ -39,17 +34,8 @@
     var animFrame = null;
 
     function updateReadouts() {
-      var rad = (angleDeg * Math.PI) / 180;
-      var vEast = 60 * Math.sin(rad);
-      var vNorth = 60 * Math.cos(rad);
-
-      if (valTime) valTime.innerText = progress.toFixed(2) + ' hr';
       if (valTimeLabel) valTimeLabel.innerText = progress.toFixed(2) + ' hr';
-      if (valAngle) valAngle.innerText = Math.round(angleDeg) + '°';
       if (valAngleLabel) valAngleLabel.innerText = Math.round(angleDeg) + '°';
-      if (readoutC1) readoutC1.innerText = '60.0 mph';
-      if (readoutVx) readoutVx.innerText = vEast.toFixed(1) + ' mph';
-      if (readoutVy) readoutVy.innerText = vNorth.toFixed(1) + ' mph';
     }
 
     function drawMap() {

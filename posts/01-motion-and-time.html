@@ -144,88 +144,30 @@
         cars travel at a constant total speed, their velocity vectors both touch a circle of radius <span
           class="math-badge">60 mph</span>.
       </p>
-      <p>
-        Consider a simple question: <strong>After driving for an hour, will the Orange Car be at the same Northward
-          position as the Blue Car?</strong>
-      </p>
-      <p>
-        Intuitively, we know it will not. Because the Orange Car angled toward the East, its fixed <span
-          class="math-badge">60 mph</span> speed is now shared between two perpendicular directions. In Velocity Space,
-        we
-        can see exactly how that speed vector is split into right-triangle components:
-      </p>
-      <p>
-        • <strong>Speed Eastward (x₁):</strong> Scales with the sine of the angle:<br>
-        <span class="math-badge" style="display:inline-block; margin: 4px 0;">V_East = V × sin(60°) = 60 × (√3 / 2) ≈ 60
-          × 0.866 ≈ 52 mph</span>
-      </p>
-      <p>
-        • <strong>Speed Northward (x₂):</strong> Scales with the cosine of the angle:<br>
-        <span class="math-badge" style="display:inline-block; margin: 4px 0;">V_North = V × cos(60°) = 60 × 0.5 = 30
-          mph</span>
-      </p>
-      <p>
-        Notice where that <span class="math-badge">52 mph</span> comes from: because <span class="math-badge">sin(60°) ≈
-          0.866</span>, the car directs about <span class="math-badge">86.6%</span> of its speed vector toward the
-        East. And because <span class="math-badge">cos(60°) = 0.5</span>, its progress Northward is cut exactly in half,
-        down to <span class="math-badge">30 mph</span>.
-      </p>
 
       <!-- INTERACTIVE WIDGET 1: CARS (POSITION MAP & VELOCITY SPACE) -->
       <div id="widget-cars" class="interactive-artifact artifact-wide">
         <div class="artifact-header">
           <div>
             <div class="artifact-badge">SIMULATION 01 · 2D POSITION MAP &amp; VELOCITY SPACE</div>
-            <div class="artifact-title">Two Cars: Physical Map vs. Velocity Space</div>
-            <div class="artifact-desc">
-              Watch how physical position over time (left) connects directly to constant-speed velocity vectors on a 60
-              mph circle (right).
-            </div>
           </div>
         </div>
         <div class="comparison-grid">
           <!-- Left Column: Position Map -->
           <div class="canvas-col">
             <div class="canvas-col-header">
-              <span>POSITION MAP (ON THE FIELD)</span>
-              <span class="canvas-col-tag">Position x₁ vs x₂ (miles)</span>
+              <span>POSITION MAP</span>
+              <span class="canvas-col-tag">Position x₁ vs x₂</span>
             </div>
             <canvas class="canvas-map"></canvas>
           </div>
           <!-- Right Column: Velocity Space -->
           <div class="canvas-col">
             <div class="canvas-col-header">
-              <span>VELOCITY SPACE (THE SPEED VECTORS)</span>
+              <span>VELOCITY SPACE</span>
               <span class="canvas-col-tag">Speed V_East vs V_North (mph)</span>
             </div>
             <canvas class="canvas-vel"></canvas>
-          </div>
-        </div>
-        <!-- Shared Telemetry Row -->
-        <div class="telemetry-row">
-          <div class="telemetry-item">
-            <div class="label">HEADING ANGLE θ</div>
-            <div class="value val-angle" style="color: var(--color-space);">60°</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="label">ELAPSED TIME</div>
-            <div class="value val-time" style="color: var(--color-time);">0.60 hr</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="label">BLUE CAR (NORTH)</div>
-            <div class="value readout-c1" style="color: var(--color-time);">60.0 mph</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="label">ORANGE CAR (EAST)</div>
-            <div class="value readout-vx" style="color: var(--color-space);">52.0 mph</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="label">ORANGE CAR (NORTH)</div>
-            <div class="value readout-vy" style="color: var(--color-space);">30.0 mph</div>
-          </div>
-          <div class="telemetry-item">
-            <div class="label">TOTAL SPEED |V|</div>
-            <div class="value" style="color: var(--color-invariant);">60.0 mph</div>
           </div>
         </div>
         <!-- Controls -->
@@ -274,6 +216,26 @@
         <div class="formula-note">When total speed is fixed, motion in one direction naturally trades off against motion
           in a perpendicular direction.</div>
       </div>
+      <p>
+        Consider a simple question: <strong>After driving for an hour, will the Orange Car be at the same Northward
+          position as the Blue Car?</strong>
+      </p>
+      <p>
+        Intuitively, we know it will not. Because the Orange Car angled toward the East, its fixed <span
+          class="math-badge">60 mph</span> speed is now shared between two perpendicular directions. In Velocity Space,
+        we
+        can see exactly how that speed vector is split into right-triangle components:
+      </p>
+      <p>
+        • <strong>Speed Eastward (x₁):</strong> Scales with the sine of the angle:<br>
+        <span class="math-badge" style="display:inline-block; margin: 4px 0;">V_East = V × sin(60°) = 60 × (√3 / 2) ≈ 60
+          × 0.866 ≈ 52 mph</span>
+      </p>
+      <p>
+        • <strong>Speed Northward (x₂):</strong> Scales with the cosine of the angle:<br>
+        <span class="math-badge" style="display:inline-block; margin: 4px 0;">V_North = V × cos(60°) = 60 × 0.5 = 30
+          mph</span>
+      </p>
 
       <!-- SECTION 2 -->
       <h2>2. The Cosmic Speedometer: Speed Through Space vs. Speed Through Time</h2>
