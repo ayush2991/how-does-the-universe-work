@@ -7,7 +7,7 @@
   <title>An Intuitive Guide To Entropy · Intuition First</title>
   <link rel="stylesheet" href="../css/style.css">
   <meta name="description"
-    content="Understanding why entropy is a measure of chaos. An intuitive guide to surprise, probability, and expected value from first principles.">
+    content="From coin flips to lost books: how quantifying surprise turns the mystery of entropy into an intuitive measure of uncertainty.">
   <script>
     (function () {
       var saved = null;
@@ -65,7 +65,8 @@
       <div class="category-tag">Series 02 · Information &amp; Entropy</div>
       <h1 class="article-title">An Intuitive Guide To Entropy</h1>
       <p class="article-subtitle">
-        Understanding why entropy is a measure of chaos.
+        From coin flips to lost books: how quantifying surprise turns the mystery of entropy into an intuitive measure
+        of uncertainty.
       </p>
       <div class="article-meta">
         <span>By Aayush Agarwal</span>
@@ -248,7 +249,8 @@
         </div>
         <div class="formula-note">For guaranteed outcomes with <em>p</em> = 1.0, ln(1/1) = 0. Outcomes with small values
           of <em>p</em> result in a large surprise. Using the natural logarithm measures surprise in
-          <strong>nats</strong>.</div>
+          <strong>nats</strong>.
+        </div>
       </div>
 
       <p>
@@ -375,12 +377,15 @@
           <span class="formula-tag">Expected Surprise &amp; Shannon Entropy</span>
         </div>
         <div class="formula-body">
-          E[ <em>S</em>(<em>X</em>) ] = <em>p</em> · ln( 1 / <em>p</em> ) + (1 − <em>p</em>) · ln( 1 / (1 − <em>p</em>) )
+          E[ <em>S</em>(<em>X</em>) ] = <em>p</em> · ln( 1 / <em>p</em> ) + (1 − <em>p</em>) · ln( 1 / (1 − <em>p</em>)
+          )
           <div style="margin-top: 0.5rem; color: var(--color-time); font-weight: 700;">
-            ⟹ <em>H</em>(<em>X</em>) = − [ <em>p</em> · ln(<em>p</em>) + (1 − <em>p</em>) · ln(1 − <em>p</em>) ] &nbsp;[nats]
+            ⟹ <em>H</em>(<em>X</em>) = − [ <em>p</em> · ln(<em>p</em>) + (1 − <em>p</em>) · ln(1 − <em>p</em>) ]
+            &nbsp;[nats]
           </div>
         </div>
-        <div class="formula-note">Using ln(1/<em>a</em>) = −ln(<em>a</em>), the expected surprise defines the binary entropy function.</div>
+        <div class="formula-note">Using ln(1/<em>a</em>) = −ln(<em>a</em>), the expected surprise defines the binary
+          entropy function.</div>
       </div>
       <p>
         This expected surprise is what is defined as <strong>entropy</strong>.
@@ -404,7 +409,8 @@
         <div class="formula-body">
           <em>H</em> = − [ 0.5 · ln(0.5) + 0.5 · ln(0.5) ] = ln(2) ≈ 0.693 nats
         </div>
-        <div class="formula-note">At <em>p</em> = 0.5, entropy reaches its maximum value of ln(2) ≈ 0.693 nats (1 bit).</div>
+        <div class="formula-note">At <em>p</em> = 0.5, entropy reaches its maximum value of ln(2) ≈ 0.693 nats (1 bit).
+        </div>
       </div>
 
       <p>
@@ -532,7 +538,8 @@
         <div class="formula-body">
           <em>H</em>(<em>X</em>) = − ∑ <em>p</em>_i · ln(<em>p</em>_i) &nbsp;[nats]
         </div>
-        <div class="formula-note">Where <em>p</em>_i is the probability of each outcome, and the sum of all probabilities
+        <div class="formula-note">Where <em>p</em>_i is the probability of each outcome, and the sum of all
+          probabilities
           equals 1.</div>
       </div>
       <p>
