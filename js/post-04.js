@@ -710,10 +710,10 @@
     var currentItem = 'book'; // 'book' or 'pan'
 
     var locations = [
-      { id: 'bookshelf', name: 'Bookshelf',  code: 'S₁', color: '#0969da', p: 0.25 },
-      { id: 'sofa',      name: 'Under Sofa', code: 'S₂', color: '#d95d18', p: 0.25 },
-      { id: 'kitchen',   name: 'Kitchen',    code: 'S₃', color: '#0f766e', p: 0.25 },
-      { id: 'bathroom',  name: 'Bathroom',   code: 'S₄', color: '#6e40c9', p: 0.25 }
+      { id: 'bookshelf', name: 'Bookshelf',  code: 'S1', color: '#0969da', p: 0.25 },
+      { id: 'sofa',      name: 'Under Sofa', code: 'S2', color: '#d95d18', p: 0.25 },
+      { id: 'kitchen',   name: 'Kitchen',    code: 'S3', color: '#0f766e', p: 0.25 },
+      { id: 'bathroom',  name: 'Bathroom',   code: 'S4', color: '#6e40c9', p: 0.25 }
     ];
 
     function calcTotalEntropyNats() {
@@ -904,7 +904,7 @@
         ctx.fillText((pr * 100).toFixed(0) + '%', ox - 8, yGuideline);
       }
 
-      drawAxes(ctx, ox, oy, width, height, 'States / Locations', 'Probability Pr(X = xᵢ)');
+      drawAxes(ctx, ox, oy, width, height, 'States / Locations', 'Probability Pr(X = x)');
 
       var numBays = locations.length;
       var slotW = plotW / numBays;

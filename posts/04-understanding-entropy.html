@@ -30,8 +30,6 @@
       </a>
       <div class="nav-links">
         <a href="../index.html">← All Series</a>
-        <a href="#widget-certainty-coin" class="active nav-link-secondary">Entropy &amp; Chaos</a>
-        <a href="../index.html#series-index" class="nav-link-secondary">Series 02</a>
         <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener" class="nav-link-secondary">GitHub</a>
         <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
           <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -75,9 +73,12 @@
     <!-- Editorial Prose -->
     <article class="editorial-prose">
 
-      <div class="formula-card" style="border-left: 3px solid var(--color-time); margin-bottom: 2rem;">
-        <div><strong>Prerequisite:</strong> An understanding of the Expected Value of discrete random variables.</div>
-        <div class="formula-note">If you know that the expected value is simply a probability-weighted average of all possible outcomes, you are ready to derive entropy from scratch.</div>
+      <!-- Prerequisite Callout Card -->
+      <div class="formula-card" style="border-left: 3px solid var(--color-time); margin-bottom: 2.25rem;">
+        <div style="font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin-bottom: 0.35rem;">Prerequisite</div>
+        <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+          An understanding of the Expected Value of discrete random variables. If you know that expected value is simply a probability-weighted average of all possible outcomes, you are ready to derive entropy from scratch.
+        </p>
       </div>
 
       <!-- SECTION 1 -->
@@ -114,7 +115,7 @@
         If we know in advance that the outcome will always be Heads, we experience <strong>zero surprise</strong> when we see the actual outcome. It is always <em>H</em>. There is no uncertainty and no information gained when the coin lands.
       </p>
       <p>
-        Test this baseline in the simulation below. Notice what happens when you flip a coin with <em>p</em> = 1.0:
+        Test this baseline in the simulation below. Notice what happens when you flip a coin with <span class="math-badge">p = 1.0</span>:
       </p>
 
       <!-- INTERACTIVE WIDGET 1: CERTAINTY COIN -->
@@ -176,7 +177,7 @@
         If we use <em>X</em> to denote a random variable which records the outcome of a coin toss, then <em>X</em> takes values in {<em>H</em>, <em>T</em>}. Then:
       </p>
       <p style="text-align: center; margin: 1.25rem 0; font-size: 1.1rem;">
-        Pr(<em>X</em> = <em>H</em>) = <em>p</em> &nbsp;&nbsp;&nbsp;&nbsp; and &nbsp;&nbsp;&nbsp;&nbsp; Pr(<em>X</em> = <em>T</em>) = 1 − <em>p</em>
+        <span class="math-badge">Pr(X = H) = p</span> &nbsp;&nbsp;&nbsp;&nbsp; and &nbsp;&nbsp;&nbsp;&nbsp; <span class="math-badge">Pr(X = T) = 1 − p</span>
       </p>
 
       <div style="margin: 1.5rem 0; overflow-x: auto;">
@@ -215,7 +216,7 @@
         3. <strong>In the extreme case where <em>p</em> = 1.0:</strong> the outcome <em>H</em> is certain, and the surprise associated with it must be <strong>zero</strong>.
       </p>
       <p>
-        To satisfy these properties, we use ln(1/<em>p</em>) to quantify the surprise associated with an outcome of probability <em>p</em>.
+        To satisfy these properties, we use <span class="math-badge">ln(1/p)</span> to quantify the surprise associated with an outcome of probability <em>p</em>.
       </p>
       <div class="formula-card">
         <div style="font-weight: 600; font-size: 1.05rem;">Surprise: <em>S</em>(<em>p</em>) = ln( 1 / <em>p</em> ) = −ln( <em>p</em> ) &nbsp;[nats]</div>
@@ -289,8 +290,8 @@
         Given this formulation, over the course of many coin tosses, we experience:
       </p>
       <p>
-        • A surprise <em>S</em>(<em>H</em>) = ln(1/<em>p</em>) whenever the coin shows up Heads.<br>
-        • A surprise <em>S</em>(<em>T</em>) = ln(1/(1−<em>p</em>)) whenever it shows up Tails.
+        • A surprise <span class="math-badge">S(H) = ln(1/p)</span> whenever the coin shows up Heads.<br>
+        • A surprise <span class="math-badge">S(T) = ln(1/(1−p))</span> whenever it shows up Tails.
       </p>
 
       <div style="margin: 1.5rem 0; overflow-x: auto;">
@@ -327,7 +328,7 @@
         To calculate the average surprise, we use the <strong>expected value</strong> of a discrete random variable:
       </p>
       <p style="text-align: center; margin: 1.25rem 0; font-size: 1.15rem; font-weight: 600;">
-        E[<em>Y</em>] = ∑ <em>y</em> · Pr(<em>Y</em> = <em>y</em>)
+        <span class="math-badge" style="font-size: 1.05rem; padding: 0.35rem 0.8rem;">E[Y] = ∑ y · Pr(Y = y)</span>
       </p>
       <p>
         Applying this to the surprise variable <em>S</em>(<em>X</em>):
@@ -449,7 +450,7 @@
                 <span>▶</span><span>Auto Sweep</span>
               </button>
               <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary);">
-                H = −∑ pᵢ · ln(pᵢ)
+                H = −∑ p · ln(p)
               </div>
             </div>
           </div>
@@ -466,14 +467,14 @@
         This principle extends directly to any discrete random variable with <em>n</em> possible outcomes:
       </p>
       <div class="formula-card">
-        <div style="font-weight: 600; font-size: 1.05rem;">Entropy(<em>X</em>) = − ∑ᵢ₌₁ⁿ <em>p</em>ᵢ · ln(<em>p</em>ᵢ) &nbsp;[nats]</div>
-        <div class="formula-note">Where <em>p</em>ᵢ is the probability of the <em>i</em>-th outcome, and ∑ <em>p</em>ᵢ = 1.</div>
+        <div style="font-weight: 600; font-size: 1.05rem;">Entropy(<em>X</em>) = − ∑ <em>p</em> · ln(<em>p</em>) &nbsp;[nats]</div>
+        <div class="formula-note">Where <em>p</em> is the probability of each outcome, and the sum of all probabilities equals 1.</div>
       </div>
       <p>
-        To connect this to everyday intuition, consider searching for an object in a house—such as a <strong>book</strong> or a <strong>pan</strong>.
+        To connect this to everyday intuition, consider searching for an object in a house—such as a <strong>book</strong>.
       </p>
       <p>
-        Suppose the object can be in one of four locations:
+        Suppose the book can be in one of four locations:
       </p>
       <p style="text-align: center; margin: 1.25rem 0; font-size: 1.05rem;">
         <strong>1. Bookshelf</strong> &nbsp;•&nbsp; 
@@ -485,17 +486,17 @@
         Consider three different scenarios:
       </p>
       <p>
-        • <strong>Scenario A (Chaotic Environment):</strong> If the object is equally likely to be in any of the four spots (<em>p</em> = 0.25 each), the environment is unpredictable. You have no indication where to begin searching. Because the probability is uniformly distributed across all 4 locations, entropy is maximized:
+        • <strong>Scenario A (Chaotic Environment):</strong> If the book is equally likely to be in any of the four spots (<em>p</em> = 0.25 each), the environment is unpredictable. You have no indication where to begin searching. Because the probability is uniformly distributed across all 4 locations, entropy is maximized:
       </p>
       <div class="formula-card">
         <div style="font-weight: 600; font-size: 1.05rem;"><em>H</em> = − 4 · [ 0.25 · ln(0.25) ] = ln(4) ≈ 1.386 nats</div>
         <div class="formula-note">With 4 equally likely locations, each state contributes 0.25 × 1.386 = 0.347 nats, reaching the maximum possible entropy of ln(4) ≈ 1.386 nats.</div>
       </div>
       <p>
-        • <strong>Scenario B (Orderly Environment):</strong> If the object is on the <strong>bookshelf 94% of the time</strong> (<em>p</em> = 0.94), with only a 2% chance of being in any other room, the environment is orderly. You can reliably look on the shelf first. Entropy drops to approximately <strong>0.309 nats</strong>.
+        • <strong>Scenario B (Orderly Environment):</strong> If the book is on the <strong>bookshelf 94% of the time</strong> (<em>p</em> = 0.94), with only a 2% chance of being in any other room, the environment is orderly. You can reliably look on the shelf first. Entropy drops to approximately <strong>0.309 nats</strong>.
       </p>
       <p>
-        • <strong>Scenario C (Certain Location):</strong> If the object is always under the sofa with certainty (<em>p</em> = 1.0), the arrangement might be unconventional, but mathematically it contains no uncertainty. Since you know where it is in advance, surprise is zero, and entropy is strictly <strong>0 nats</strong>.
+        • <strong>Scenario C (Certain Location):</strong> If the book is always under the sofa with certainty (<em>p</em> = 1.0), the arrangement might be unconventional, but mathematically it contains no uncertainty. Since you know where it is in advance, surprise is zero, and entropy is strictly <strong>0 nats</strong>.
       </p>
       <p>
         In the simulation below, adjust the probabilities across the four locations to observe how the distribution affects entropy and inspect the exact terms contributing to the sum:
@@ -561,7 +562,7 @@
               <!-- Live Component Decomposition Display -->
               <div class="entropy-decomposition-card" style="margin-top: 0.85rem; padding: 0.85rem 1rem; background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 8px;">
                 <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.35rem;">
-                  Live Component Summation: H(X) = ∑ pᵢ · S(pᵢ)
+                  Live Component Summation: H(X) = ∑ p · S(p)
                 </div>
                 <div class="readout-decomposition-formula" style="font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.6; color: var(--text-primary); word-break: break-word;">
                   <!-- Populated dynamically by post-04.js -->
@@ -584,12 +585,15 @@
       </p>
       <p>
         1. <strong>Certain outcomes deliver zero surprise.</strong> If an outcome is known in advance, observing it provides no new information.<br>
-        2. <strong>Rarity dictates surprise.</strong> An outcome with probability <em>p</em> carries surprise <em>S</em>(<em>p</em>) = ln(1/<em>p</em>) nats.<br>
-        3. <strong>Entropy is expected surprise.</strong> Across repeated trials, the average surprise experienced is −∑ <em>p</em>ᵢ · ln(<em>p</em>ᵢ) nats.<br>
+        2. <strong>Rarity dictates surprise.</strong> An outcome with probability <em>p</em> carries surprise <span class="math-badge">S(p) = ln(1/p)</span> nats.<br>
+        3. <strong>Entropy is expected surprise.</strong> Across repeated trials, the average surprise experienced is <span class="math-badge">−∑ p · ln(p)</span> nats.<br>
         4. <strong>Entropy measures the inherent chaos of the system.</strong> Because the outcome of a non-deterministic process cannot be determined in advance, each event carries some surprise.
       </p>
       <p>
         This randomness is an intrinsic property of the system itself and does not depend on the observer. When outcomes are equally likely, entropy reaches its maximum value. When the system is biased or deterministic, entropy decreases toward zero.
+      </p>
+      <p>
+        In real-world data science and machine learning applications, we often do not know the true probability distribution of a system in advance and must approximate it using models. Measuring how far an estimated distribution diverges from the true distribution naturally leads to the concept of <strong>Cross Entropy</strong>.
       </p>
 
     </article>

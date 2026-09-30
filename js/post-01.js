@@ -27,7 +27,6 @@
     var angleVal = container.querySelector('.val-angle');
     var readoutC1 = container.querySelector('.readout-c1');
     var readoutC2 = container.querySelector('.readout-c2');
-    var readoutLag = container.querySelector('.readout-lag');
     var readoutVx = container.querySelector('.readout-vx');
     var readoutVy = container.querySelector('.readout-vy');
 
@@ -41,13 +40,11 @@
       var rad = angleDeg * Math.PI / 180;
       var vEast = (60 * Math.sin(rad)).toFixed(1);
       var vNorth = (60 * Math.cos(rad)).toFixed(1);
-      var lagMiles = ((60 - 60 * Math.cos(rad)) * progress).toFixed(1);
 
       if (timeVal) timeVal.innerText = progress.toFixed(2) + ' hr';
       if (angleVal) angleVal.innerText = angleDeg + '°';
       if (readoutC1) readoutC1.innerText = '60.0 mph';
       if (readoutC2) readoutC2.innerText = vNorth + ' mph North, ' + vEast + ' mph East';
-      if (readoutLag) readoutLag.innerText = lagMiles + ' mi';
       if (readoutVx) readoutVx.innerText = vEast + ' mph';
       if (readoutVy) readoutVy.innerText = vNorth + ' mph';
     }
@@ -63,7 +60,6 @@
       var scale = Math.min(width * 0.58, height * 0.68);
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
       drawAxes(ctx, ox, oy, width, height, 'East (x₁)', 'North (x₂)');
 
       var rad = angleDeg * Math.PI / 180;
@@ -73,7 +69,6 @@
       var c2_y = oy - (progress * scale * Math.cos(rad));
       var vEast = (60 * Math.sin(rad)).toFixed(1);
       var vNorth = (60 * Math.cos(rad)).toFixed(1);
-      var lagMiles = ((60 - 60 * Math.cos(rad)) * progress).toFixed(1);
 
       // 1. Angle Theta Arc at Origin (from North axis clockwise to Car 2 vector)
       if (angleDeg > 2) {
@@ -193,29 +188,7 @@
         });
       }
 
-      // 5. Northward Lag Indicator
-      if (progress > 0.15 && c2_y > c1_y + 10) {
-        var lagX = ox + 45;
-        ctx.strokeStyle = c.dangerColor;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(lagX, c1_y);
-        ctx.lineTo(lagX, c2_y);
-        ctx.stroke();
-        ctx.fillStyle = c.dangerColor;
-        ctx.beginPath();
-        ctx.arc(lagX, c1_y, 2.5, 0, Math.PI * 2);
-        ctx.arc(lagX, c2_y, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        drawLabelPill(ctx, 'Northward Lag: ' + lagMiles + ' mi', lagX + 68, (c1_y + c2_y) / 2, {
-          textColor: c.dangerColor,
-          borderColor: c.dangerColor,
-          font: 'bold 10px "JetBrains Mono", monospace'
-        });
-      }
-
-      // 6. Glowing Dots & Vehicle Names
+      // 5. Glowing Dots & Vehicle Names
       drawGlowingDot(ctx, c1_x, c1_y, c.timeColor, 6);
       drawGlowingDot(ctx, c2_x, c2_y, c.spaceColor, 6);
 
@@ -589,7 +562,6 @@
       var progress = animTime / 6.0;
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawConstraintArc(ctx, ox, oy, scale, c.constraintArc);
       drawAxes(ctx, ox, oy, width, height, 'Space (x)', 'Time (ct)');
 
       var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
