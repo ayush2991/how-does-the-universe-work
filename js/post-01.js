@@ -220,7 +220,7 @@
       });
 
       // Invariant 60 mph Speed Circle Constraint Arc
-      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.strokeStyle = c.invariantColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
@@ -233,7 +233,7 @@
       var arcPillX = ox + radius * Math.cos(arcMidA);
       var arcPillY = oy + radius * Math.sin(arcMidA);
       drawLabelPill(ctx, '|V| = 60 mph circle', arcPillX + 22, arcPillY - 10, {
-        textColor: c.invariantColor || '#8a5cf6',
+        textColor: c.invariantColor,
         font: 'bold 10px "JetBrains Mono", monospace'
       });
 
@@ -342,7 +342,8 @@
       ctx.fill();
 
       // Label for Blue Vector
-      drawLabelPill(ctx, 'V_Blue (60 mph)', ox - 35, oy - radius - 16, {
+      var bluePillX = angleDeg < 5 ? ox - 50 : ox - 35;
+      drawLabelPill(ctx, 'V_Blue (60 mph)', bluePillX, oy - radius - 16, {
         textColor: c.timeColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
@@ -367,8 +368,8 @@
       ctx.fill();
 
       // Label for Orange Vector
-      var orangePillX = tipX + (angleDeg > 70 ? -15 : 30);
-      var orangePillY = tipY + (angleDeg > 70 ? -18 : 6);
+      var orangePillX = angleDeg < 5 ? ox + 55 : tipX + (angleDeg > 70 ? -15 : 30);
+      var orangePillY = angleDeg < 5 ? oy - radius - 16 : tipY + (angleDeg > 70 ? -18 : 6);
       drawLabelPill(ctx, 'V_Orange (' + Math.round(angleDeg) + '°)', orangePillX, orangePillY, {
         textColor: c.spaceColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
@@ -602,7 +603,7 @@
       });
 
       // Constant Total Speed Arc Constraint (dashed)
-      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.strokeStyle = c.invariantColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
@@ -1061,7 +1062,7 @@
       });
 
       // Constant Total Speed Arc Constraint (dashed)
-      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.strokeStyle = c.invariantColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
@@ -1157,7 +1158,7 @@
       }
 
       // Invariant total speed vector
-      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.strokeStyle = c.invariantColor;
       ctx.lineWidth = 3.5;
       ctx.beginPath();
       ctx.moveTo(ox, oy);
@@ -1166,7 +1167,7 @@
 
       // Arrowhead for Invariant Vector
       var arrowAng = Math.atan2(tipY - oy, tipX - ox);
-      ctx.fillStyle = c.invariantColor || '#8a5cf6';
+      ctx.fillStyle = c.invariantColor;
       ctx.beginPath();
       ctx.moveTo(tipX + 5 * Math.cos(arrowAng), tipY + 5 * Math.sin(arrowAng));
       ctx.lineTo(tipX - 6 * Math.cos(arrowAng - 0.5), tipY - 6 * Math.sin(arrowAng - 0.5));
@@ -1178,10 +1179,10 @@
       var vectorPillX = tipX + (speedFraction > 0.7 ? -15 : 30);
       var vectorPillY = tipY + (speedFraction > 0.7 ? -18 : 6);
       drawLabelPill(ctx, 'Total Speed Vector V', vectorPillX, vectorPillY, {
-        textColor: c.invariantColor || '#8a5cf6',
+        textColor: c.invariantColor,
         font: 'bold 11px "Plus Jakarta Sans", sans-serif'
       });
-      drawGlowingDot(ctx, tipX, tipY, c.invariantColor || '#8a5cf6', 5.5);
+      drawGlowingDot(ctx, tipX, tipY, c.invariantColor, 5.5);
     }
 
     function draw() {
@@ -1260,19 +1261,35 @@
 
     var canvas = container.querySelector('canvas');
     var sliderSpeed = container.querySelector('.slider-speed');
+    var sliderTime = container.querySelector('.slider-time');
+    var btnPlay = container.querySelector('.btn-play');
+    var valTimeLabel = container.querySelector('.val-time-label');
     var readoutSpeed = container.querySelector('.readout-speed');
-    var readoutVx = container.querySelector('.readout-vx');
-    var readoutMath = container.querySelector('.readout-math');
+    var clockEarth = container.querySelector('.clock-earth');
+    var clockRocket = container.querySelector('.clock-rocket');
+    var clockRocketRate = container.querySelector('.clock-rocket-rate');
+    var clockRocketSub = container.querySelector('.clock-rocket-sub');
     var presetChips = container.querySelectorAll('.chip-preset');
 
     var speedFraction = 0.866;
+    var animTime = 6.0; // 0 to 6.0 s
+    var isPlaying = false;
+    var lastTimestamp = null;
+    var animFrame = null;
 
     function updateReadouts() {
       var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
 
       if (readoutSpeed) readoutSpeed.innerText = 'v = ' + speedFraction.toFixed(3) + ' c';
-      if (readoutVx) readoutVx.innerText = speedFraction.toFixed(3) + ' c';
-      if (readoutMath) readoutMath.innerText = vt.toFixed(3) + ' c';
+      if (valTimeLabel) valTimeLabel.innerText = animTime.toFixed(2) + ' s';
+      if (clockEarth) clockEarth.innerHTML = animTime.toFixed(2) + ' <span>s</span>';
+      if (clockRocket) clockRocket.innerHTML = (animTime * vt).toFixed(2) + ' <span>s</span>';
+      if (clockRocketRate) clockRocketRate.innerText = (vt * 100).toFixed(1) + '% Rate';
+      if (clockRocketSub) {
+        clockRocketSub.innerText = speedFraction === 0
+          ? 'At rest, traveler clock ticks in perfect sync with Earth.'
+          : 'At ' + speedFraction.toFixed(3) + 'c, traveler ages at ' + (vt * 100).toFixed(1) + '% of Earth rate.';
+      }
     }
 
     function draw() {
@@ -1319,7 +1336,7 @@
       });
 
       // Invariant Speed Limit Arc Constraint (dashed)
-      ctx.strokeStyle = c.invariantColor || '#8a5cf6';
+      ctx.strokeStyle = c.invariantColor;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
@@ -1332,7 +1349,7 @@
       var arcPillX = ox + radius * Math.cos(arcMidA);
       var arcPillY = oy + radius * Math.sin(arcMidA);
       drawLabelPill(ctx, '|V| = 1.00 c (Speed Limit)', Math.min(width - 85, arcPillX + 35), arcPillY - 8, {
-        textColor: c.invariantColor || '#8a5cf6',
+        textColor: c.invariantColor,
         font: 'bold 9.5px "JetBrains Mono", monospace'
       });
 
@@ -1469,7 +1486,7 @@
       // Twin Clock Rate Badges
       var earthPillText = 'Earth Clock: 100% Rate (v = 0)';
       var rocketRatePercent = (vt * 100).toFixed(1);
-      var rocketPillText = 'Rocket Clock: ' + rocketRatePercent + '% Rate'
+      var rocketPillText = 'Traveler Clock: ' + rocketRatePercent + '% Rate';
 
       // Earth label pill at top
       drawLabelPill(ctx, earthPillText, eTipX + 80, Math.max(16, eTipY - 14), {
@@ -1483,6 +1500,31 @@
       drawLabelPill(ctx, rocketPillText, Math.min(width - 80, Math.max(ox + 80, rocketPillX)), Math.max(22, rocketPillY), {
         textColor: c.spaceColor,
         font: 'bold 10px "JetBrains Mono", monospace'
+      });
+    }
+
+    function loop(now) {
+      if (!lastTimestamp) lastTimestamp = now;
+      var dt = (now - lastTimestamp) / 1000;
+      lastTimestamp = now;
+
+      if (isPlaying) {
+        animTime += dt * 1.5;
+        if (animTime > 6.0) animTime = 0;
+        if (sliderTime) sliderTime.value = (animTime / 6.0) * 1000;
+        updateReadouts();
+      }
+      draw();
+      if (isPlaying) {
+        animFrame = requestAnimationFrame(loop);
+      }
+    }
+
+    if (sliderTime) {
+      sliderTime.addEventListener('input', function (e) {
+        animTime = (e.target.value / 1000) * 6.0;
+        updateReadouts();
+        draw();
       });
     }
 
@@ -1505,6 +1547,19 @@
         draw();
       });
     });
+
+    if (btnPlay) {
+      btnPlay.addEventListener('click', function () {
+        isPlaying = !isPlaying;
+        btnPlay.innerHTML = isPlaying ? '<span>⏸</span><span>Pause</span>' : '<span>▶</span><span>Auto Play</span>';
+        if (isPlaying) {
+          lastTimestamp = null;
+          animFrame = requestAnimationFrame(loop);
+        } else if (animFrame) {
+          cancelAnimationFrame(animFrame);
+        }
+      });
+    }
 
     updateReadouts();
     registerDraw(draw);
@@ -1664,17 +1719,29 @@
       }
     }
 
+    var cardParticle = container.querySelector('.card-particle');
+    var particleCardLabel = container.querySelector('.particle-card-label');
+
     function update() {
+      var c = getThemeColors();
+      var activeColor = c.photonColor;
       if (mode === 'photon') {
+        activeColor = c.photonColor;
         if (clockPhoton) clockPhoton.innerHTML = '0.000 <span>s</span>';
         if (statusNote) statusNote.innerText = 'Time is completely frozen. 100% of motion is across space.';
       } else if (mode === 'rocket') {
+        activeColor = c.spaceColor;
         if (clockPhoton) clockPhoton.innerHTML = '3.000 <span>s</span>';
         if (statusNote) statusNote.innerText = 'Time moves at 50% normal rate (v_time = 0.500 c).';
       } else {
+        activeColor = c.timeColor;
         if (clockPhoton) clockPhoton.innerHTML = '6.000 <span>s</span>';
         if (statusNote) statusNote.innerText = 'Observer sitting motionless in space moves 100% through time.';
       }
+
+      if (cardParticle) cardParticle.style.borderLeftColor = activeColor;
+      if (particleCardLabel) particleCardLabel.style.color = activeColor;
+      if (clockPhoton) clockPhoton.style.color = activeColor;
       draw();
     }
 
@@ -1783,9 +1850,17 @@
       ctx.stroke();
 
       if (isDead) {
-        ctx.fillStyle = c.dangerColor;
-        ctx.font = 'bold 16px sans-serif';
-        ctx.fillText('💥', muonX - 8, muonY + 6);
+        // Crisp vector decay burst
+        ctx.strokeStyle = c.dangerColor;
+        ctx.lineWidth = 1.5;
+        for (var bi = 0; bi < 8; bi++) {
+          var bAng = (bi / 8) * Math.PI * 2;
+          ctx.beginPath();
+          ctx.moveTo(muonX + 4 * Math.cos(bAng), muonY + 4 * Math.sin(bAng));
+          ctx.lineTo(muonX + 11 * Math.cos(bAng), muonY + 11 * Math.sin(bAng));
+          ctx.stroke();
+        }
+        drawGlowingDot(ctx, muonX, muonY, c.dangerColor, 4);
         var deadLabelX = isNarrow ? muonX : muonX + 115;
         var deadLabelY = isNarrow ? muonY - 18 : muonY;
         drawLabelPill(ctx, isNarrow ? 'Decayed (e⁻ + ν)' : 'Decayed into electron + neutrinos', deadLabelX, deadLabelY, {
@@ -1827,7 +1902,7 @@
     window.addEventListener('resize', draw);
   }
 
-  // Widget 7: 3D Spacetime Vector & Spacetime Loaf Foundation (x1, x2, t)
+  // Widget 7: 3D Spherical Velocity Dome (v_x1, v_x2, v_time)
   function initWidget3DSpacetime(containerId) {
     var container = document.getElementById(containerId);
     if (!container) return;
@@ -1836,10 +1911,8 @@
     var sliderSpeed = container.querySelector('.slider-speed');
     var sliderHeading = container.querySelector('.slider-heading');
     var sliderOrbit = container.querySelector('.slider-orbit');
-    var btnLoaf = container.querySelector('.btn-loaf-slice');
-    var readoutVx1 = container.querySelector('.readout-vx1');
-    var readoutVx2 = container.querySelector('.readout-vx2');
     var readoutVspace = container.querySelector('.readout-vspace');
+    var valHeadingLabel = container.querySelector('.val-heading-label');
     var readoutVtime = container.querySelector('.readout-vtime');
     var readoutGamma = container.querySelector('.readout-gamma');
     var speedPresetChips = container.querySelectorAll('.chip-speed');
@@ -1849,7 +1922,6 @@
     var headingDeg = 35;       // 35 degrees East of North
     var azimuth = -0.65;       // Camera azimuth radians (-37 deg)
     var elevation = 0.45;      // Camera elevation radians (26 deg)
-    var showLoafSlice = true;  // Loaf slice visible by default
 
     // Mouse drag orbit controls on canvas
     var isDragging = false;
@@ -1892,16 +1964,19 @@
       }
     });
 
+    // Touch orbit controls (non-passive to prevent page scrolling while dragging 3D model)
     canvas.addEventListener('touchstart', function (e) {
       if (e.touches.length === 1) {
         isDragging = true;
         lastMouseX = e.touches[0].clientX;
         lastMouseY = e.touches[0].clientY;
+        canvas.style.cursor = 'grabbing';
       }
     }, { passive: true });
 
     window.addEventListener('touchmove', function (e) {
       if (!isDragging || e.touches.length !== 1) return;
+      if (e.cancelable) e.preventDefault();
       var dx = e.touches[0].clientX - lastMouseX;
       var dy = e.touches[0].clientY - lastMouseY;
       lastMouseX = e.touches[0].clientX;
@@ -1910,11 +1985,21 @@
       azimuth += dx * 0.01;
       elevation += dy * 0.01;
       elevation = Math.max(0.1, Math.min(1.4, elevation));
+
+      if (sliderOrbit) {
+        var deg = Math.round((azimuth * 180 / Math.PI) % 360);
+        if (deg > 180) deg -= 360;
+        if (deg < -180) deg += 360;
+        sliderOrbit.value = deg;
+      }
       draw();
-    }, { passive: true });
+    }, { passive: false });
 
     window.addEventListener('touchend', function () {
-      isDragging = false;
+      if (isDragging) {
+        isDragging = false;
+        canvas.style.cursor = 'grab';
+      }
     });
 
     function update() {
@@ -1924,9 +2009,11 @@
       var vt = Math.sqrt(Math.max(0, 1 - vSpaceFraction * vSpaceFraction));
       var gamma = vSpaceFraction >= 0.999 ? 22.36 : 1 / Math.sqrt(Math.max(0.001, 1 - vSpaceFraction * vSpaceFraction));
 
-      if (readoutVx1) readoutVx1.innerText = vx1.toFixed(3) + ' c';
-      if (readoutVx2) readoutVx2.innerText = vx2.toFixed(3) + ' c';
       if (readoutVspace) readoutVspace.innerText = vSpaceFraction.toFixed(3) + ' c';
+      if (valHeadingLabel) {
+        var dirStr = headingDeg === 0 ? 'East (0°)' : headingDeg === 90 ? 'North (90°)' : headingDeg === 180 ? 'West (180°)' : Math.round(headingDeg) + '°';
+        valHeadingLabel.innerText = dirStr;
+      }
       if (readoutVtime) readoutVtime.innerText = vt.toFixed(3) + ' c';
       if (readoutGamma) readoutGamma.innerText = gamma.toFixed(2);
 
@@ -2003,7 +2090,7 @@
 
       // 2. 3D Spherical Constraint Dome Wireframe (radius c)
       var latLevels = [0.35, 0.70, 0.92];
-      ctx.strokeStyle = c.isLight ? 'rgba(124, 58, 237, 0.25)' : 'rgba(168, 85, 247, 0.25)';
+      ctx.strokeStyle = c.isLight ? 'rgba(124, 58, 237, 0.22)' : 'rgba(168, 85, 247, 0.25)';
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 4]);
       for (var li = 0; li < latLevels.length; li++) {
@@ -2089,36 +2176,7 @@
       var pX1Pt = p3(vx1, 0, 0);
       var pX2Pt = p3(0, vx2, 0);
 
-      // 4. Now-Slice Plane (Spacetime Loaf Slice Preview)
-      if (showLoafSlice && vt > 0.02) {
-        var sliceSize = 1.15;
-        var pCorn1 = p3(-sliceSize, -sliceSize, vt);
-        var pCorn2 = p3(sliceSize, -sliceSize, vt);
-        var pCorn3 = p3(sliceSize, sliceSize, vt);
-        var pCorn4 = p3(-sliceSize, sliceSize, vt);
-
-        ctx.fillStyle = c.isLight ? 'rgba(3, 105, 161, 0.08)' : 'rgba(56, 189, 248, 0.12)';
-        ctx.strokeStyle = c.isLight ? 'rgba(3, 105, 161, 0.4)' : 'rgba(56, 189, 248, 0.4)';
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([4, 4]);
-
-        ctx.beginPath();
-        ctx.moveTo(pCorn1.x, pCorn1.y);
-        ctx.lineTo(pCorn2.x, pCorn2.y);
-        ctx.lineTo(pCorn3.x, pCorn3.y);
-        ctx.lineTo(pCorn4.x, pCorn4.y);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        drawLabelPill(ctx, 'Spacetime Loaf Slice ("Now" Plane: v_time = ' + vt.toFixed(2) + ' c)', pCorn2.x - 20, pCorn2.y - 10, {
-          textColor: c.timeColor,
-          font: 'bold 10px "JetBrains Mono", monospace'
-        });
-      }
-
-      // 5. Ground Velocity Components (Shadow on Space Floor)
+      // 4. Ground Velocity Components (Shadow on Space Floor)
       if (vSpaceFraction > 0.05) {
         ctx.strokeStyle = c.spaceColor;
         ctx.lineWidth = 1.5;
@@ -2148,7 +2206,7 @@
 
       // Vertical projection from tip down to floor
       if (vSpaceFraction > 0.05 && vt > 0.05) {
-        ctx.strokeStyle = c.isLight ? 'rgba(194, 65, 12, 0.6)' : 'rgba(251, 146, 60, 0.6)';
+        ctx.strokeStyle = c.spaceColorSubtle || (c.isLight ? 'rgba(194, 65, 12, 0.4)' : 'rgba(251, 146, 60, 0.4)');
         ctx.lineWidth = 1.5;
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
@@ -2156,7 +2214,7 @@
         ctx.lineTo(pGroundTip.x, pGroundTip.y);
         ctx.stroke();
 
-        ctx.strokeStyle = c.isLight ? 'rgba(3, 105, 161, 0.6)' : 'rgba(56, 189, 248, 0.6)';
+        ctx.strokeStyle = c.timeColorSubtle || (c.isLight ? 'rgba(3, 105, 161, 0.4)' : 'rgba(56, 189, 248, 0.4)');
         ctx.beginPath();
         ctx.moveTo(pVectorTip.x, pVectorTip.y);
         ctx.lineTo(pTimeAxisPt.x, pTimeAxisPt.y);
@@ -2173,7 +2231,7 @@
       ctx.stroke();
       drawGlowingDot(ctx, pTimeAxisPt.x, pTimeAxisPt.y, c.timeColor, 5);
 
-      // 6. The 3D Spacetime Vector
+      // 5. The 3D Spacetime Vector
       ctx.strokeStyle = c.invariantColor;
       ctx.lineWidth = 4;
       ctx.beginPath();
@@ -2214,16 +2272,6 @@
       sliderOrbit.addEventListener('input', function (e) {
         var deg = parseFloat(e.target.value);
         azimuth = deg * Math.PI / 180;
-        draw();
-      });
-    }
-
-    if (btnLoaf) {
-      btnLoaf.addEventListener('click', function () {
-        showLoafSlice = !showLoafSlice;
-        btnLoaf.innerHTML = showLoafSlice
-          ? '<span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>'
-          : '<span>Loaf Slice: </span><strong style="color:var(--text-muted)">Hidden (OFF)</strong>';
         draw();
       });
     }

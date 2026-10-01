@@ -35,7 +35,7 @@
         <a href="../index.html">← All Series</a>
         <button type="button" class="btn-toggle-articles nav-link-btn" title="View all series essays">
           <span>Articles</span>
-          <span class="nav-badge-count">3</span>
+          <span class="nav-badge-count">5</span>
         </button>
         <a href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener"
           class="nav-link-secondary">GitHub</a>
@@ -84,22 +84,21 @@
     <!-- Editorial Prose -->
     <article class="editorial-prose">
       <p>
-        When many of us first encounter Albert Einstein’s Special Theory of Relativity, it often arrives wrapped in
-        abstract thought experiments: high-speed trains flashing light pulses at platforms, mirrors bouncing photons up
-        and down, and algebraic formulas filled with square roots.
+        Few ideas in physics sound more counterintuitive than the discovery that moving through space alters the flow
+        of time. A ticking wristwatch carried aboard a high-speed vehicle slips subtly behind a twin watch resting on the
+        ground.
       </p>
       <p>
-        While these classic explanations are mathematically rigorous, they can sometimes leave a curious reader feeling
-        ungrounded. We might follow the steps on paper, but we are still left wondering: <em>Why should moving through
-          space have anything to do with how fast a clock ticks? What is the underlying physical intuition that connects
-          space and time?</em>
+        At first glance, space and time feel like completely separate domains. Space is the three-dimensional arena we
+        travel across, while time seems to be a steady, invisible river carrying everything forward at an unchanging pace.
+        Why should shifting your position across the arena have anything to do with how fast your personal clock ticks?
       </p>
       <p>
-        Our goal in this series is to set aside the abstract formulas and build an intuitive understanding from the
-        ground up. By starting with a familiar scenario that anyone can visualize on a flat surface, we can follow a
-        natural chain of geometric reasoning that leads directly to the core insights of relativity: why moving clocks
-        run slow, why the speed of light is a natural cosmic limit, and how we all experience spacetime in our daily
-        lives.
+        The answer is rooted not in abstract formulas, but in an elegant geometric symmetry: <strong>space and time are
+          interwoven into a single unified fabric</strong>. By starting with a familiar scenario that anyone can visualize
+        on an open field, we can trace a natural chain of geometric reasoning that reveals why moving clocks run slow, why
+        the speed of light is an unbreakable cosmic limit, and how we are all traveling through spacetime every moment of
+        our lives.
       </p>
       <p>
         Let’s begin with a simple observation on a flat plane.
@@ -271,15 +270,18 @@
         What does it mean to move along this vertical axis?
       </p>
       <p>
-        Consider yourself sitting in a chair right now. You may be completely motionless relative to your room; your
-        speed through space is zero (<span class="math-badge">v_space = 0</span>).
+        Consider yourself sitting in a chair right now. You are completely motionless relative to your room; your speed
+        through space is zero (<span class="math-badge">v_space = 0</span>).
       </p>
       <p>
         Yet, are you standing still in time?
       </p>
       <p>
-        Clearly not. Each second that passes on your watch carries you steadily forward into the future. Even when you
-        are stationary in space, you are moving forward along the Speed Through Time axis at full capacity.
+        Clearly not. Each second that elapses on your watch carries you steadily forward into the future. Your clock ticks
+        forward at its maximum natural rhythm—one second of personal time per second of universal time. To make this clock
+        rate geometrically compatible with speed through space (meters per second), nature scales time by an invariant
+        conversion factor. When you sit completely still, 100% of your spacetime velocity is dedicated to moving forward
+        through time.
       </p>
 
       <!-- INTERACTIVE WIDGET 2: STATIONARY -->
@@ -395,12 +397,13 @@
         At <span class="math-badge">t = 0</span>, the traveler starts at the origin <span class="math-badge">(0,
           0)</span>.
         With every passing second, they cover distance across space while advancing upward through time. Connecting
-        these
-        snapshots reveals a slanted trajectory—a <strong>worldline</strong> in spacetime.
+        these snapshots reveals a slanted tracking path across space and time—a preview of what physicists will call a
+        <strong>worldline</strong> when we draw calibrated maps of the universe in Part 2.
       </p>
       <p>
-        Now, let us examine both lenses side-by-side: how moving across space in the <strong>Position Map</strong> tilts
-        the speed needle in <strong>Velocity Space</strong>:
+        Now, let us examine both lenses side-by-side: how moving across space traces a tilted tracking path in the
+        <strong>Position Map</strong> on the left, while tilting the speed needle in <strong>Velocity Space</strong> on the
+        right:
       </p>
 
       <!-- INTERACTIVE WIDGET 3: TRADEOFF (DUAL-VIEW) -->
@@ -531,17 +534,45 @@
             <div class="artifact-badge">SIMULATION 04 · TWIN CLOCKS &amp; TIME DILATION</div>
           </div>
         </div>
+        <div class="twin-clocks-panel"
+          style="margin: 0; border-top: none; border-bottom: 1px solid var(--border-subtle); background: var(--bg-card-subtle);">
+          <div class="clock-card cyan" style="margin: 0;">
+            <div class="clock-meta">
+              <span class="clock-label">Earth Wristwatch (At Rest)</span>
+              <span class="clock-badge">100% Rate</span>
+            </div>
+            <div class="clock-time clock-earth">6.00 <span>s</span></div>
+            <p class="clock-subtext">Rest frame: 100% of cosmic speed is directed through time.</p>
+          </div>
+          <div class="clock-card amber" style="margin: 0;">
+            <div class="clock-meta">
+              <span class="clock-label">Traveler Clock (Moving)</span>
+              <span class="clock-badge clock-rocket-rate">50.0% Rate</span>
+            </div>
+            <div class="clock-time clock-rocket" style="color:var(--color-space);">3.00 <span>s</span></div>
+            <p class="clock-subtext clock-rocket-sub">At 0.866c, clock ticks at exactly half normal speed.</p>
+          </div>
+        </div>
         <div class="canvas-viewport">
           <canvas></canvas>
         </div>
         <div class="artifact-controls"
           style="padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.85rem;">
-          <div class="control-item">
-            <div class="control-header">
-              <span>Spacecraft Velocity (v_space)</span>
-              <span class="control-val amber readout-speed">v = 0.866 c</span>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div class="control-item">
+              <div class="control-header">
+                <span>Simulate Passage of Time</span>
+                <span class="control-val cyan val-time-label">6.00 s</span>
+              </div>
+              <input type="range" class="range-slider slider-time" min="0" max="1000" value="1000">
             </div>
-            <input type="range" class="range-slider amber slider-speed" min="0" max="999" value="866">
+            <div class="control-item">
+              <div class="control-header">
+                <span>Spacecraft Velocity (v_space)</span>
+                <span class="control-val amber readout-speed">v = 0.866 c</span>
+              </div>
+              <input type="range" class="range-slider amber slider-speed" min="0" max="999" value="866">
+            </div>
           </div>
           <div
             style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
@@ -551,8 +582,10 @@
               <button class="chip-btn chip-preset active" data-val="0.866">0.866 c (½ Time)</button>
               <button class="chip-btn chip-preset" data-val="0.995">0.995 c (Muon)</button>
             </div>
-            <div class="math-badge">
-              v_space = <strong class="readout-vx">0.866 c</strong> ⟹ v_time = <strong class="readout-math">0.500 c</strong>
+            <div class="toolbar-bottom" style="padding: 0;">
+              <button class="btn-primary btn-play">
+                <span>▶</span><span>Auto Play</span>
+              </button>
             </div>
           </div>
         </div>
@@ -563,6 +596,11 @@
         traveler inside the spacecraft, everything appears completely normal—their heart beats, their thoughts flow, and
         their clocks tick in perfect rhythm with their body. But when compared to the stationary observer, the traveler
         has aged more slowly.
+      </p>
+      <p>
+        <em>A Note on Vantage Point:</em> In this diagram, we are measuring motion from the reference frame of Earth.
+        From the traveler's own perspective inside the ship, their body and spacecraft are at rest. We will explore this
+        striking symmetry—and how both perspectives fit together without contradiction—in Part 3.
       </p>
       <p>
         This effect is known as <strong>Time Dilation</strong>. It is not a mechanical defect in clocks or an optical
@@ -622,10 +660,18 @@
           </div>
           <div class="split-controls-col">
             <div>
-              <div class="clock-card" style="border-left: 3px solid #facc15; margin-bottom: 0.85rem;">
+              <div class="clock-card cyan" style="margin-bottom: 0.6rem;">
                 <div class="clock-meta">
-                  <span class="clock-label" style="color:var(--color-photon);">Particle Onboard Clock</span>
-                  <span class="clock-badge">Status</span>
+                  <span class="clock-label">Earth Reference Time</span>
+                  <span class="clock-badge">Baseline</span>
+                </div>
+                <div class="clock-time">6.000 <span>s</span></div>
+                <p class="clock-subtext">Elapsed coordinate duration in resting frame.</p>
+              </div>
+              <div class="clock-card card-particle" style="border-left: 3px solid var(--color-photon); margin-bottom: 0.85rem;">
+                <div class="clock-meta">
+                  <span class="clock-label particle-card-label" style="color:var(--color-photon);">Particle Onboard Clock</span>
+                  <span class="clock-badge particle-card-badge">Status</span>
                 </div>
                 <div class="clock-time clock-photon" style="color:var(--color-photon);">0.000 <span>s</span></div>
                 <p class="clock-subtext status-note">Time is completely frozen. 100% of motion is across space.</p>
@@ -782,7 +828,7 @@
                 </div>
                 <button class="btn-secondary btn-view-toggle"
                   style="width: 100%; justify-content: center; padding: 0.65rem 0.8rem; margin-top: 0.25rem;">
-                  <span>Mode: </span><strong class="text-sky-400">Einsteinian (Time Dilation ON)</strong>
+                  <span>Mode: </span><strong style="color:var(--color-time)">Einsteinian (Time Dilation ON)</strong>
                 </button>
               </div>
             </div>
@@ -798,9 +844,10 @@
       <p>
         Because these muons travel downward at about <span class="math-badge">99.9% of the speed of light</span> (<span
           class="math-badge">0.999c</span>), they divert almost all of their spacetime motion into space. From our
-        vantage point on Earth, their internal clocks tick about 22 times slower than normal. That fleeting 2.2
-        microseconds stretches out into nearly 50 microseconds—giving them plenty of time to complete their journey to
-        the ground.
+        vantage point on Earth, their internal clocks tick about 22 times slower than normal. While the 10-kilometer
+        journey takes about <span class="math-badge">33.4 microseconds</span> of Earth time, the muon's internal clock
+        advances by only <span class="math-badge">1.49 microseconds</span>—allowing it to safely reach particle detectors
+        on the ground before its 2.2-microsecond lifespan expires.
       </p>
 
       <!-- SECTION 7: GENERALIZING TO 3D VELOCITY SPACE -->
@@ -864,11 +911,11 @@
         plane:
       </p>
 
-      <!-- INTERACTIVE WIDGET 7: 3D SPACETIME & LOAF PREVIEW -->
+      <!-- INTERACTIVE WIDGET 7: 3D VELOCITY DOME -->
       <div id="widget-3d-spacetime" class="interactive-artifact">
         <div class="artifact-header">
           <div>
-            <div class="artifact-badge">SIMULATION 07 · 3D VELOCITY DOME & LOAF PREVIEW</div>
+            <div class="artifact-badge">SIMULATION 07 · 3D VELOCITY DOME</div>
           </div>
         </div>
         <div class="artifact-split">
@@ -877,32 +924,10 @@
           </div>
           <div class="split-controls-col">
             <div>
-              <div class="twin-clocks-panel" style="margin-bottom: 0.85rem;">
-                <div class="clock-card amber">
-                  <div class="clock-meta">
-                    <span class="clock-label">Space Speed (v_space)</span>
-                    <span class="clock-badge">√(v_x1² + v_x2²)</span>
-                  </div>
-                  <div class="clock-time readout-vspace" style="color:var(--color-space);">0.800 <span>c</span></div>
-                  <p class="clock-subtext">East: <span class="readout-vx1"
-                      style="color:var(--text-primary); font-family:var(--font-mono);">0.655 c</span> | North: <span
-                      class="readout-vx2" style="color:var(--text-primary); font-family:var(--font-mono);">0.459
-                      c</span></p>
-                </div>
-                <div class="clock-card cyan">
-                  <div class="clock-meta">
-                    <span class="clock-label">Time Speed (v_time)</span>
-                    <span class="clock-badge">√(c² - v_space²)</span>
-                  </div>
-                  <div class="clock-time readout-vtime" style="color:var(--color-time);">0.600 <span>c</span></div>
-                  <p class="clock-subtext">Lorentz Factor: γ = <span class="readout-gamma"
-                      style="color:var(--text-primary); font-family:var(--font-mono);">1.67</span></p>
-                </div>
-              </div>
               <div class="control-item" style="margin-bottom: 0.85rem;">
                 <div class="control-header">
                   <span>Total Speed Across Space (v_space)</span>
-                  <span class="control-val amber">Magnitude</span>
+                  <span class="control-val amber readout-vspace">0.800 c</span>
                 </div>
                 <input type="range" class="range-slider amber slider-speed" min="0" max="990" value="800">
                 <div class="preset-chips" style="margin-top: 0.4rem;">
@@ -915,8 +940,8 @@
               </div>
               <div class="control-item" style="margin-bottom: 0.85rem;">
                 <div class="control-header">
-                  <span>Spatial Heading on Floor (Direction in v_x1-v_x2 Plane)</span>
-                  <span class="control-val cyan">Angle Across Space</span>
+                  <span>Spatial Heading on Floor (v_x1 vs v_x2)</span>
+                  <span class="control-val cyan val-heading-label">35° (NE)</span>
                 </div>
                 <input type="range" class="range-slider slider-heading" min="0" max="360" value="35">
                 <div class="preset-chips" style="margin-top: 0.4rem;">
@@ -934,10 +959,10 @@
                 <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-37">
               </div>
             </div>
-            <div class="toolbar-bottom" style="padding-top: 0.75rem;">
-              <button class="btn-secondary btn-loaf-slice">
-                <span>Loaf Slice: </span><strong style="color:var(--color-time)">Visible (ON)</strong>
-              </button>
+            <div class="toolbar-bottom" style="padding-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; align-items: center;">
+              <div class="math-badge">
+                v_time = <strong class="readout-vtime" style="color:var(--color-time);">0.600 c</strong> | γ = <strong class="readout-gamma" style="color:var(--text-primary);">1.67</strong>
+              </div>
               <div class="math-badge">
                 Drag canvas to orbit
               </div>
@@ -947,48 +972,38 @@
       </div>
 
       <p>
-        Notice what happens as you play with the simulation above:
+        Notice what happens as you interact with the 3D dome above:
       </p>
       <p>
         • When an object is at rest (<span class="math-badge">v_space = 0</span>), its speed vector points straight up
-        at the pole of the dome with vertical height <span class="math-badge">c</span>.<br>
+        at the apex of the dome with full vertical height <span class="math-badge">c</span>.<br>
         • When it accelerates across space, its ground shadow extends outwards. Because the vector is anchored to the
-        surface of the sphere of radius <span class="math-badge">c</span>, tilting toward <em>any</em> point on the
-        ground inevitably lowers its vertical height.<br>
-        • Whether you head East, North, or any combination, all directions in space trade off against time equally.
+        spherical shell of radius <span class="math-badge">c</span>, tilting toward <em>any</em> direction on the ground
+        plane inevitably lowers its vertical height.<br>
+        • Whether you head East, North, or any combination, all directions in space trade off against time with absolute
+        symmetry.
       </p>
 
-      <h3>Planting the Seed for Part 2: From the Speedometer to the Spacetime Loaf</h3>
+      <h3>The Geometric Insight: The Universal Cosmic Dome</h3>
       <p>
         Why take this step into three dimensions?
       </p>
       <p>
-        Our real universe has three dimensions of space (<span class="math-badge">x, y, z</span>) plus one dimension of
-        time (<span class="math-badge">t</span>), making spacetime four-dimensional. But human perception is inherently
-        three-dimensional—we cannot visualize four mutually perpendicular axes simultaneously.
+        In everyday life, we are free to steer in any direction across the ground. The 3D Velocity Dome reveals that
+        nature treats all spatial directions with unified geometric elegance. Motion across East (<span
+          class="math-badge">v_x1</span>) and motion across North (<span class="math-badge">v_x2</span>) combine via the
+        Pythagorean theorem into total spatial speed:
       </p>
-      <p>
-        By retaining two spatial dimensions and one time dimension, we preserve the complete geometric behavior of
-        relativity in a form that our eyes can directly explore.
-      </p>
-      <p>
-        Imagine stacking every instant of time—past, present, and future—vertically along the time axis. Spacetime forms
-        an extended three-dimensional block: what physicist Brian Greene famously described as the <strong>Spacetime
-          Loaf</strong>.
-      </p>
-      <p>
-        For an observer at rest, a single instant in time—the collection of all events that are happening <em>right
-          now</em>—is simply a <strong>horizontal planar slice</strong> through this loaf (shown in cyan in the
-        interactive 3D simulation above).
-      </p>
-      <p>
-        This reveals the captivating question that will guide our next essay:
-      </p>
-      <p>
-        <em>If moving through space tilts your velocity vector through time, what happens to your slice of "Now"? Does a
-          moving observer cut the spacetime loaf at the exact same horizontal angle as someone at rest, or does their
-          slice of the universe tilt?</em>
-      </p>
+      <div class="formula-card">
+        <div class="formula-card-header">
+          <span class="formula-tag">The 3D Cosmic Speed Invariant</span>
+        </div>
+        <div class="formula-body">
+          <em>v</em>_x1² + <em>v</em>_x2² + <em>v</em>_time² = <em>c</em>²
+        </div>
+        <div class="formula-note">No matter how you steer across space, your total speed vector through spacetime is
+          anchored to this sphere of radius <em>c</em>.</div>
+      </div>
 
       <!-- SECTION 8: LOOKING AHEAD -->
       <h2>8. Looking Ahead: From the Cosmic Speedometer to the Spacetime Map</h2>
@@ -1057,7 +1072,8 @@
       <p><strong>Intuition First</strong> · An Explorable Science & Mathematics Series by Aayush Agarwal</p>
       <p style="margin-top: 0.5rem;">
         <a href="../index.html">Series Home</a> · <a href="02-light-cone.html">Part 2: The Cosmic Light Cone</a> · <a
-          href="03-spacetime-loaf.html">Part 3: The Loaf & Length</a> · <a
+          href="03-spacetime-loaf.html">Part 3: The Loaf &amp; Length</a> · <a
+          href="04-understanding-entropy.html">Part 4: Understanding Entropy</a> · <a
           href="https://github.com/ayush2991/how-does-the-universe-work" target="_blank" rel="noopener">GitHub</a>
       </p>
     </div>

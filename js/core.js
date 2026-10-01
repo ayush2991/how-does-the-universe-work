@@ -245,7 +245,9 @@
   // Active redraw registry for theme switches & resize
   var registeredDraws = [];
   function registerDraw(fn) {
-    registeredDraws.push(fn);
+    if (registeredDraws.indexOf(fn) === -1) {
+      registeredDraws.push(fn);
+    }
   }
 
   function redrawAll() {
@@ -424,7 +426,7 @@
         '</svg>' +
       '</span>' +
       '<span class="article-nav-tab-label">Series</span>' +
-      '<span class="article-nav-tab-badge">3</span>';
+      '<span class="article-nav-tab-badge">' + SERIES_ARTICLES.length + '</span>';
     document.body.appendChild(tabBtn);
 
     // Create Drawer Sidebar
