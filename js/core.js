@@ -1,6 +1,6 @@
 /**
  * core.js - Shared Design System & Canvas Utilities
- * How Does The Universe Work? Explorable Physics Series
+ * Intuition First - Explorable Physics & Mathematics Series
  */
 
 (function (window) {
