@@ -14,7 +14,7 @@
       try {
         savedTheme = localStorage.getItem('universe_theme');
         savedStyle = localStorage.getItem('universe_style');
-      } catch (e) {}
+      } catch (e) { }
       var theme = savedTheme ? savedTheme : 'light';
       var style = savedStyle ? savedStyle : 'monograph';
       document.documentElement.setAttribute('data-theme', theme);
@@ -45,11 +45,13 @@
         <a href="https://github.com/ayush2991/intuition-first" target="_blank" rel="noopener"
           class="nav-link-secondary">GitHub</a>
         <div class="style-toggle-group" role="group" aria-label="Reading Aesthetic">
-          <button type="button" class="style-toggle-btn active" data-style-val="monograph" title="Monograph: Archival Editorial Serif">
+          <button type="button" class="style-toggle-btn active" data-style-val="monograph"
+            title="Monograph: Archival Editorial Serif">
             <span class="style-btn-icon">🏛</span>
             <span class="style-btn-text">Monograph</span>
           </button>
-          <button type="button" class="style-toggle-btn" data-style-val="precision" title="Precision: Modern Technical HUD">
+          <button type="button" class="style-toggle-btn" data-style-val="precision"
+            title="Precision: Modern Technical HUD">
             <span class="style-btn-icon">⚡</span>
             <span class="style-btn-text">Precision</span>
           </button>
@@ -100,19 +102,24 @@
     <article class="editorial-prose">
       <p>
         Few ideas in physics sound more counterintuitive than the discovery that moving through space alters the flow
-        of time. A ticking wristwatch carried aboard a high-speed vehicle slips subtly behind a twin watch resting on the
+        of time. A ticking wristwatch carried aboard a high-speed vehicle slips subtly behind a twin watch resting on
+        the
         ground.
       </p>
       <p>
         At first glance, space and time feel like completely separate domains. Space is the three-dimensional arena we
-        travel across, while time seems to be a steady, invisible river carrying everything forward at an unchanging pace.
+        travel across, while time seems to be a steady, invisible river carrying everything forward at an unchanging
+        pace.
         Why should shifting your position across the arena have anything to do with how fast your personal clock ticks?
       </p>
       <p>
         The answer is rooted not in abstract formulas, but in an elegant geometric symmetry: <strong>space and time are
-          interwoven into a single unified fabric</strong>. By starting with a familiar scenario that anyone can visualize
-        on an open field, we can trace a natural chain of geometric reasoning that reveals why moving clocks run slow, why
-        the speed of light is an unbreakable cosmic limit, and how we are all traveling through spacetime every moment of
+          interwoven into a single unified fabric</strong>. By starting with a familiar scenario that anyone can
+        visualize
+        on an open field, we can trace a natural chain of geometric reasoning that reveals why moving clocks run slow,
+        why
+        the speed of light is an unbreakable cosmic limit, and how we are all traveling through spacetime every moment
+        of
         our lives.
       </p>
       <p>
@@ -220,16 +227,6 @@
         </div>
       </div>
 
-      <div class="formula-card">
-        <div class="formula-card-header">
-          <span class="formula-tag">The General Pythagorean Rule</span>
-        </div>
-        <div class="formula-body">
-          <em>V</em>_North = √( <em>V</em>² − <em>V</em>_East² )
-        </div>
-        <div class="formula-note">When total speed is fixed, motion in one direction naturally trades off against motion
-          in a perpendicular direction.</div>
-      </div>
       <p>
         Consider a simple question: <strong>After driving for an hour, will the Orange Car be at the same Northward
           position as the Blue Car?</strong>
@@ -251,52 +248,71 @@
           mph</span>
       </p>
 
+      <div class="formula-card">
+        <div class="formula-card-header">
+          <span class="formula-tag">The General Pythagorean Rule</span>
+        </div>
+        <div class="formula-body">
+          <em>V</em>_North = √( <em>V</em>² − <em>V</em>_East² )
+        </div>
+        <div class="formula-note">When total speed is fixed, motion in one direction naturally trades off against motion
+          in a perpendicular direction.</div>
+      </div>
+
       <!-- SECTION 2 -->
-      <h2>2. The Cosmic Speedometer: Speed Through Space vs. Speed Through Time</h2>
+      <h2>2. A New Axis: Motion Through Time</h2>
       <p>
-        In everyday experience, we treat space and time as fundamentally separate categories. Space is the
-        three-dimensional arena we move through, while time is simply the parameter that elapses as we do so.
+        In the example with the two cars, we drew a coordinate grid on an open field with two perpendicular axes:
+        <strong>East</strong> (<span class="math-badge">x₁</span>) and <strong>North</strong> (<span
+          class="math-badge">x₂</span>). At first glance, that might look like nothing more than a convenient
+        simplification of everyday three-dimensional space—flattening the world down to a flat sheet so the paths are
+        easy to sketch.
       </p>
       <p>
-        When examining the cars on the field, we simplified three-dimensional space down to a two-dimensional surface
-        (<span class="math-badge">x₁</span> and <span class="math-badge">x₂</span>) to visualize how a fixed total speed
-        is distributed between perpendicular directions.
+        What if we rethink those two axes entirely?
       </p>
       <p>
-        What if we apply that exact geometric reasoning to the universe as a whole?
+        Instead of viewing that 2D grid as a simplified version of 3D space, imagine it as a simplified slice of
+        <strong>4D spacetime</strong>.
       </p>
       <p>
-        Instead of treating time as an independent background parameter, we can treat it as a dimension of a unified
-        four-dimensional continuum: <strong>spacetime</strong>.
+        Suppose we keep one dimension of space along the horizontal axis—say, the East–West direction (<span
+          class="math-badge">x</span>)—and, for a moment, experimentally treat <strong>time</strong> (<span
+          class="math-badge">t</span>) as just another dimension along the vertical, standing perpendicular to space in
+        the exact same way North stood perpendicular to East.
       </p>
       <p>
-        To keep the geometry clear, we can begin with a single dimension of space—such as the East–West direction (<span
-          class="math-badge">x</span>)—and pair it directly with the dimension of time (<span
-          class="math-badge">t</span>). In this two-dimensional cross-section, an object’s motion is partitioned between
-        space and time:
+        If we treat time as a geometric dimension, we can examine an object's motion through the same two complementary
+        lenses we used for the cars:
       </p>
       <p>
-        • The horizontal axis represents <strong>Speed Through Space</strong> (<span class="math-badge">v_space</span>),
-        measuring the rate of displacement along this spatial direction.<br>
-        • The vertical axis represents <strong>Speed Through Time</strong> (<span class="math-badge">v_time</span>),
-        measuring the rate at which an object's personal clock advances into the future.
+        • <strong>Position Over Time (The Spacetime Map):</strong> The horizontal axis marks spatial position (<span
+          class="math-badge">x</span>). The vertical axis marks elapsed time (<span
+          class="math-badge">t</span>) on a stationary ground clock.<br>
+        • <strong>Velocity Space (The Speedometer):</strong> The horizontal axis represents <strong>Speed Through
+          Space</strong> (<span class="math-badge">v_space</span>), measuring spatial displacement. The vertical axis
+        represents <strong>Speed Through Time</strong> (<span class="math-badge">v_time</span>), measuring how fast an
+        observer's <strong>personal wristwatch</strong> ticks forward into the future.
       </p>
       <p>
-        What does it mean to move along this vertical axis?
+        This raises a natural question: <em>what does it actually mean to "move" along that vertical time axis?</em>
       </p>
       <p>
-        Consider yourself sitting in a chair right now. You are completely motionless relative to your room; your speed
-        through space is zero (<span class="math-badge">v_space = 0</span>).
+        Consider yourself sitting in a chair right now. Relative to the room around you, your spatial speed is zero
+        (<span class="math-badge">v_space = 0</span>). You are not displacing East, West, North, or South. In pure
+        space, you are completely stationary.
       </p>
       <p>
-        Yet, are you standing still in time?
+        Yet you are clearly not frozen in reality.
       </p>
       <p>
-        Clearly not. Each second that elapses on your watch carries you steadily forward into the future. Your clock ticks
-        forward at its maximum natural rhythm—one second of personal time per second of universal time. To make this clock
-        rate geometrically compatible with speed through space (meters per second), nature scales time by an invariant
-        conversion factor. When you sit completely still, 100% of your spacetime velocity is dedicated to moving forward
-        through time.
+        Second by second, your wristwatch advances. Every moment carries you steadily forward into the future. Even
+        when you remain pinned to a single point in space, you are in continuous, inescapable motion through time.
+      </p>
+      <p>
+        When you sit perfectly still, both clocks agree completely: your personal wristwatch advances at its full,
+        uninhibited pace of exactly one personal second for every second recorded on the ground clock. In Velocity
+        Space, this means <strong>100% of your motion is directed straight up along the vertical Time axis</strong>.
       </p>
 
       <!-- INTERACTIVE WIDGET 2: STATIONARY -->
@@ -360,35 +376,33 @@
       </div>
 
       <p>
-        This simple diagram reveals an important baseline: to exist is to move through time. An object sitting
-        completely still at <span class="math-badge">v_space = 0</span> is not static in spacetime; its speed needle has
-        a constant length of <span class="math-badge">V</span> pointing 100% vertically along the Speed Through Time
-        axis.
+        This reveals our foundational baseline: <strong>to exist is to move through time</strong>.
+      </p>
+      <p>
+        An object sitting at rest with <span class="math-badge">v_space = 0</span> is not stationary in spacetime. In
+        the map on the left, it traces a steady upward path as time elapses. In Velocity Space on the right, its speed
+        needle points 100% vertically at full capacity. All of its motion is devoted to advancing into the future.
+      </p>
+      <p>
+        This leads naturally to our central question: if sitting still means spending all of your capacity traveling
+        through time, <em>what happens the moment you start moving through space?</em>
       </p>
 
       <!-- SECTION 3 -->
       <h2>3. The Thought Experiment: A Fixed Speed Through Spacetime</h2>
       <p>
-        Now that we have Velocity Space with Speed Through Space on one axis and Speed Through Time on the other, let us
-        pose a hypothetical question:
+        In Section 2, we saw that sitting perfectly still devotes 100% of your motion to traveling through time.
+        Now, let us bring back the rule from our two cars and apply it to the cosmos:
       </p>
       <p>
-        <strong>What if nature operated under a single, elegant geometric rule—namely, that every object in existence
-          moves through spacetime at a single, constant total speed, V?</strong>
+        <strong>What if every object in the universe travels through spacetime at the exact same, unchanging total speed, V?</strong>
       </p>
       <p>
-        Let’s trace what such a rule requires:
+        To see what this means, imagine you stand on the ground holding a <strong>stopwatch</strong>, watching a traveler
+        dash past you down a track wearing a <strong>wristwatch</strong>.
       </p>
       <p>
-        • <strong>An Observer at Rest:</strong> If an observer sits completely still in space, their spatial velocity is
-        zero (<span class="math-badge">v_space = 0</span>). Since their total speed vector has a constant length <span
-          class="math-badge">V</span>, the entire vector points straight up along the Time axis: <span
-          class="math-badge">v_time = V</span>. All of their motion is directed through time, and their clock ticks
-        forward at its full, normal rate.<br>
-        • <strong>An Observer Moving Through Space:</strong> Now, suppose this person begins moving across space at a
-        constant speed <span class="math-badge">v_space</span>. Look at what happens to their position in coordinate
-        space
-        as time passes from <span class="math-badge">t = 0</span> to <span class="math-badge">t = 3</span>:
+        With every second that ticks on your ground stopwatch, the traveler covers ground across space:
       </p>
 
       <!-- ILLUSTRATION: 2x2 MOTION SNAPSHOTS GRID -->
@@ -409,16 +423,16 @@
       </div>
 
       <p>
-        At <span class="math-badge">t = 0</span>, the traveler starts at the origin <span class="math-badge">(0,
-          0)</span>.
-        With every passing second, they cover distance across space while advancing upward through time. Connecting
-        these snapshots reveals a slanted tracking path across space and time—a preview of what physicists will call a
-        <strong>worldline</strong> when we draw calibrated maps of the universe in Part 2.
+        At <span class="math-badge">t = 0</span>, the traveler starts at the line. As seconds tick on your stopwatch,
+        they climb upward through time while covering distance across space. Connecting the dots traces a tilted path—a
+        record of their journey that physicists call a <strong>worldline</strong>.
       </p>
       <p>
-        Now, let us examine both lenses side-by-side: how moving across space traces a tilted tracking path in the
-        <strong>Position Map</strong> on the left, while tilting the speed needle in <strong>Velocity Space</strong> on the
-        right:
+        Now comes the fascinating part. If the traveler's <em>total</em> speed through space and time combined is locked
+        to <span class="math-badge">V</span>, what happens to their personal wristwatch as they speed up across the ground?
+      </p>
+      <p>
+        Try it in <strong>Simulation 03</strong> below. Drag the speed slider to the right and watch the needle in Velocity Space:
       </p>
 
       <!-- INTERACTIVE WIDGET 3: TRADEOFF (DUAL-VIEW) -->
@@ -433,7 +447,7 @@
           <div class="canvas-col">
             <div class="canvas-col-header">
               <span>POSITION OVER TIME</span>
-              <span class="canvas-col-tag">Space x vs Elapsed Time t</span>
+              <span class="canvas-col-tag">Space x vs Ground Stopwatch t</span>
             </div>
             <canvas class="canvas-map"></canvas>
           </div>
@@ -441,7 +455,7 @@
           <div class="canvas-col">
             <div class="canvas-col-header">
               <span>VELOCITY SPACE</span>
-              <span class="canvas-col-tag">Speed v_space vs v_time</span>
+              <span class="canvas-col-tag">Speed in Space vs Traveler Wristwatch Rate</span>
             </div>
             <canvas class="canvas-vel"></canvas>
           </div>
@@ -483,12 +497,12 @@
       </div>
 
       <p>
-        Notice what happens in Velocity Space as you increase speed across space: the vertical component along the Time
-        axis <strong>must become shorter</strong>.
+        Look at what happens as you increase the traveler's speed across space: the vertical needle in Velocity Space
+        <strong>must shorten</strong>.
       </p>
       <p>
-        Just like the car in our first example, the traveler cannot create extra speed. If part of their fixed speed
-        vector is dedicated to moving through Space, that motion must be drawn from their motion through Time:
+        Just like the car that turned toward the East, the traveler cannot conjure extra speed out of thin air. Any
+        speed spent moving across space must be borrowed from their motion through time:
       </p>
       <div class="formula-card">
         <div class="formula-card-header">
@@ -497,9 +511,21 @@
         <div class="formula-body">
           <em>v</em>_time = √( <em>V</em>² − <em>v</em>_space² )
         </div>
-        <div class="formula-note">Under this rule, total speed is strictly constant. Gaining speed
-          through space directly reduces speed through time.</div>
+        <div class="formula-note">When total speed is fixed, moving faster through space directly drains your speed through time.</div>
       </div>
+      <p>
+        Now look at the extreme limit: what happens when you slide speed all the way to <strong>100%</strong> (<span class="math-badge">θ = 90°</span>)?
+      </p>
+      <p>
+        In the map on the left, the traveler still moves forward through time on your ground stopwatch—after all, it
+        still takes time to cross distance in your world. But in Velocity Space on the right, <span class="math-badge">v_time</span>
+        has dropped to <strong>zero</strong>.
+      </p>
+      <p>
+        The traveler is diverting 100% of their cosmic speed into space. There is nothing left over to push them forward
+        through time. While seconds continue ticking normally on your ground stopwatch, <strong>the traveler's personal
+        wristwatch has frozen completely.</strong>
+      </p>
 
       <!-- SECTION 4 -->
       <h2 id="interactive-clocks">4. Connecting to the Real World: The Cosmic Constant c</h2>
@@ -523,23 +549,24 @@
         In this geometric view:
       </p>
       <p>
-        • When you are sitting at rest in your chair, your speed vector points straight up: <span
-          class="math-badge">v_space = 0</span> and <span class="math-badge">v_time = c</span>. Your watch ticks at its
-        standard 100% rate.<br>
+        • When an observer on Earth remains at rest in their chair, their speed vector points straight up: <span
+          class="math-badge">v_space = 0</span> and <span class="math-badge">v_time = c</span>. The Earth reference clock ticks at its
+        full, standard 100% rate.<br>
         • If a traveler boards a spacecraft and travels through space at a significant fraction of light speed—say,
         <span class="math-badge">86.6% of c</span> (<span class="math-badge">v_space = 0.866c</span>, directly mirroring
         the <span class="math-badge">sin(60°)</span> angle from our car example)—their speed vector in Velocity Space
         tilts by <span class="math-badge">60°</span> away from vertical.
       </p>
       <p>
-        How much of their motion remains along the time dimension?
+        How much of their motion remains dedicated to their personal passage through time?
       </p>
       <p>
         <span class="math-badge" style="display:inline-block; margin: 4px 0;">v_time = √( c² - v_space² ) = √( c² -
           (0.866c)² ) = √( 0.25c² ) = 0.50c</span>
       </p>
       <p>
-        Because <span class="math-badge">cos(60°) = 0.50</span>, their progress through time is cut exactly in half!
+        Because <span class="math-badge">cos(60°) = 0.50</span>, the ticking rate of the traveler's personal wristwatch
+        is cut exactly in half!
       </p>
 
       <!-- INTERACTIVE WIDGET 4: TWIN CLOCKS & TIME DILATION -->
@@ -641,7 +668,8 @@
       <p>
         As you saw in the simulation, increasing spatial speed forces <span class="math-badge">v_time</span> to shrink
         toward zero. In this ratio, as <span class="math-badge">v_time</span> approaches zero, <span
-          class="math-badge">γ</span> soars toward infinity—meaning an infinite amount of Earth time would pass for even a
+          class="math-badge">γ</span> soars toward infinity—meaning an infinite amount of Earth time would pass for even
+        a
         single second experienced at the speed of light.
       </p>
 
@@ -683,9 +711,11 @@
                 <div class="clock-time">6.000 <span>s</span></div>
                 <p class="clock-subtext">Elapsed coordinate duration in resting frame.</p>
               </div>
-              <div class="clock-card card-particle" style="border-left: 3px solid var(--color-photon); margin-bottom: 0.85rem;">
+              <div class="clock-card card-particle"
+                style="border-left: 3px solid var(--color-photon); margin-bottom: 0.85rem;">
                 <div class="clock-meta">
-                  <span class="clock-label particle-card-label" style="color:var(--color-photon);">Particle Onboard Clock</span>
+                  <span class="clock-label particle-card-label" style="color:var(--color-photon);">Particle Onboard
+                    Clock</span>
                   <span class="clock-badge particle-card-badge">Status</span>
                 </div>
                 <div class="clock-time clock-photon" style="color:var(--color-photon);">0.000 <span>s</span></div>
@@ -723,8 +753,7 @@
         <div class="formula-body">
           <em>v</em>_time = √( <em>c</em>² − <em>c</em>² ) = 0
         </div>
-        <div class="formula-note">Its motion through time drops to zero. A photon experiences zero elapsed time across
-          the entire cosmos.</div>
+        <div class="formula-note">Its motion through time drops to zero. While light takes coordinate time to cross distance in our reference frame, the photon's personal onboard clock experiences zero elapsed time across the entire cosmos.</div>
       </div>
       <p>
         Just as a car on a 2D plane cannot travel "more than 100% East" (which would require an impossible angle greater
@@ -861,7 +890,8 @@
           class="math-badge">0.999c</span>), they divert almost all of their spacetime motion into space. From our
         vantage point on Earth, their internal clocks tick about 22 times slower than normal. While the 10-kilometer
         journey takes about <span class="math-badge">33.4 microseconds</span> of Earth time, the muon's internal clock
-        advances by only <span class="math-badge">1.49 microseconds</span>—allowing it to safely reach particle detectors
+        advances by only <span class="math-badge">1.49 microseconds</span>—allowing it to safely reach particle
+        detectors
         on the ground before its 2.2-microsecond lifespan expires.
       </p>
 
@@ -974,9 +1004,11 @@
                 <input type="range" class="range-slider slider-orbit" min="-180" max="180" value="-37">
               </div>
             </div>
-            <div class="toolbar-bottom" style="padding-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; align-items: center;">
+            <div class="toolbar-bottom"
+              style="padding-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; align-items: center;">
               <div class="math-badge">
-                v_time = <strong class="readout-vtime" style="color:var(--color-time);">0.600 c</strong> | γ = <strong class="readout-gamma" style="color:var(--text-primary);">1.67</strong>
+                v_time = <strong class="readout-vtime" style="color:var(--color-time);">0.600 c</strong> | γ = <strong
+                  class="readout-gamma" style="color:var(--text-primary);">1.67</strong>
               </div>
               <div class="math-badge">
                 Drag canvas to orbit
@@ -1087,9 +1119,9 @@
       <p><strong>Intuition First</strong> · An Explorable Science & Mathematics Series by Aayush Agarwal</p>
       <p style="margin-top: 0.5rem;">
         <a href="../index.html">Series Home</a> · <a href="02-light-cone.html">Part 2: The Cosmic Light Cone</a> · <a
-          href="03-spacetime-loaf.html">Part 3: The Loaf &amp; Length</a> · <a
-          href="04-understanding-entropy.html">Part 4: Understanding Entropy</a> · <a
-          href="https://github.com/ayush2991/intuition-first" target="_blank" rel="noopener">GitHub</a>
+          href="03-spacetime-loaf.html">Part 3: The Loaf &amp; Length</a> · <a href="04-understanding-entropy.html">Part
+          4: Understanding Entropy</a> · <a href="https://github.com/ayush2991/intuition-first" target="_blank"
+          rel="noopener">GitHub</a>
       </p>
     </div>
   </footer>

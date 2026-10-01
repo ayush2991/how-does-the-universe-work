@@ -886,7 +886,11 @@
     function updateReadouts() {
       var vt = Math.sqrt(Math.max(0, 1 - speedFraction * speedFraction));
       if (valTimeLabel) valTimeLabel.innerText = animTime.toFixed(2) + ' s';
-      if (readoutVx) readoutVx.innerText = (speedFraction * 100).toFixed(1) + '% of V';
+      if (readoutVx) {
+        var watchRateText = (vt * 100).toFixed(1) + '%';
+        if (vt < 0.005) watchRateText = '0% (Frozen)';
+        readoutVx.innerText = (speedFraction * 100).toFixed(1) + '% (Watch: ' + watchRateText + ')';
+      }
     }
 
     function drawMap() {
@@ -904,7 +908,7 @@
       var scaleX = width - 75;
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawAxes(ctx, ox, oy, width, height, 'Space Position x (m)', 'Elapsed Time t (s)');
+      drawAxes(ctx, ox, oy, width, height, 'Space Position x (m)', 'Ground Stopwatch t (s)');
 
       // Axis Ticks
       ctx.fillStyle = c.axisText || c.subtleText;
@@ -1007,8 +1011,8 @@
 
       // Status pill at current position
       var pillLabel = speedFraction > 0.01
-        ? 'Observer: (' + currentDist.toFixed(1) + ' m, ' + animTime.toFixed(2) + ' s)'
-        : 'Observer: x = 0 m, t = ' + animTime.toFixed(2) + ' s';
+        ? 'Traveler: (' + currentDist.toFixed(1) + ' m at t = ' + animTime.toFixed(2) + ' s)'
+        : 'At rest: x = 0 m, t = ' + animTime.toFixed(2) + ' s';
 
       var pillX = currentX + (currentX > width - 110 ? -70 : 65);
       var pillY = currentY - 14;
@@ -1030,7 +1034,7 @@
       var radius = Math.min(width - 75, height - 70);
 
       drawGrid(ctx, ox, oy, width, height, 32);
-      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Time Speed (v_time)');
+      drawAxes(ctx, ox, oy, width, height, 'Space Speed (v_space)', 'Traveler Watch Rate (v_time)');
 
       // Axis speed marks at 50% V and 100% V
       ctx.fillStyle = c.axisText || c.subtleText;

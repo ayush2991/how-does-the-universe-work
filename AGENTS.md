@@ -17,7 +17,7 @@
 
 ## 2. Editorial Philosophy
 
-This series teaches physics and mathematics **bottom-up**, not top-down. Every agent working on prose must internalize and consistently apply these 8 core principles.
+This series teaches physics and mathematics **bottom-up**, not top-down. Every agent working on prose must internalize and consistently apply these 12 core principles.
 
 ### 1. Build from what the reader already knows — never from what they don't
 Every new concept must grow organically out of direct physical intuition, everyday experience, or knowledge established in a previous section. Never start from the destination (a formula or textbook concept) and work backward to justify it.
@@ -45,7 +45,7 @@ Build tension through tangible setups (two cars on a field, two synchronized clo
 
 ### 5. Let visualizations deliver the insight — prose sets up the question
 Simulations are moments of active discovery, not redundant illustrations of pre-explained facts.
-- **Before the widget**: Establish context, introduce characters, name the open question.
+- **Before the widget**: Establish context, introduce characters, name the open question. **Never spoil the extreme or paradoxical behavior in advance.**
 - **The widget itself**: Delivers the answer through direct interaction.
 - **After the widget**: Explain why the answer occurred and connect it to the broader picture.
 
@@ -65,12 +65,25 @@ Headings should sound like steps in an unfolding journey, not chapter titles fro
 ### 9. Single Locus of Truth & In-Canvas Direct Annotation
 Minimize cognitive load by placing dynamic labels directly where visual attention lives. If a physical value or state (e.g., angle, position, velocity component) is already drawn on canvas vectors/pills or on interactive slider header badges, do NOT duplicate it into a detached telemetry grid.
 - **In-Canvas Labels & Slider Badges**: Keep the reader's gaze focused on geometric relationships and direct controls without splitting attention.
+- **Adjacent Axis Disambiguation**: When two side-by-side diagrams share a common dimension (e.g., "Time" on both vertical axes), disambiguate them by physical instrument or observer perspective (e.g., `Ground Stopwatch t` vs. `Traveler Watch Rate v_time`), preventing cognitive collisions when one metric varies while the other stays invariant.
 - **Telemetry Grids**: Reserve strictly for derived, higher-level invariant metrics that cannot be rendered in-canvas (e.g., Lorentz factor $\gamma$, bit-depth totals).
 
 ### 10. Lean Widget Framing (Zero Redundant Headers)
 Do not clutter widget containers with repetitive titles or explanatory subtitles when the preceding prose and taxonomy badge already establish context. Let the simulation badge identify the module cleanly.
 - ✅ `<div class="artifact-badge">SIMULATION 01 · 2D POSITION MAP &amp; VELOCITY SPACE</div>` (Clean, focused)
 - ❌ Redundant widget title + 2-sentence subtitle repeating the preceding paragraph.
+
+### 11. Concrete Physical Instruments Over Abstract Labels
+Never use formal academic terminology to resolve conceptual ambiguity. When distinguishing between reference frames, coordinates, or mathematical domains, anchor each perspective in a tangible, everyday physical object or character action.
+- ✅ *"Our ground stopwatch"* vs. *"the traveler's personal wristwatch"*
+- ❌ *"The stationary observer's coordinate time"* vs. *"the moving entity's proper time rate"*
+- ✅ *"Counting the ways socks can scatter across the floor"*
+- ❌ *"Evaluating the statistical volume of microstates in configuration space"*
+
+### 12. Launch from the Delta — Zero Baseline Backtracking
+When advancing from section $N$ to section $N+1$, never re-derive or re-explain the baseline that was already established. Summarize the anchor in a single clause and immediately introduce the new physical delta.
+- ✅ *"In Section 2, we saw that sitting still devotes 100% of motion to time. What happens when you spend some of that speed moving across space?"*
+- ❌ Re-explaining the at-rest case with bullet points and full descriptions that repeat the preceding section's widget.
 
 ---
 
