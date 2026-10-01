@@ -1291,7 +1291,7 @@
       if (clockRocketRate) clockRocketRate.innerText = (vt * 100).toFixed(1) + '% Rate';
       if (clockRocketSub) {
         clockRocketSub.innerText = speedFraction === 0
-          ? 'At rest, traveler clock ticks in perfect sync with Earth.'
+          ? 'At rest, traveler wristwatch ticks in perfect sync with Earth.'
           : 'At ' + speedFraction.toFixed(3) + 'c, traveler ages at ' + (vt * 100).toFixed(1) + '% of Earth rate.';
       }
     }
@@ -1488,9 +1488,9 @@
       drawGlowingDot(ctx, rTipX, rTipY, c.spaceColor, 5.5);
 
       // Twin Clock Rate Badges
-      var earthPillText = 'Earth Clock: 100% Rate (v = 0)';
+      var earthPillText = 'Earth Stopwatch: 100% Rate (v = 0)';
       var rocketRatePercent = (vt * 100).toFixed(1);
-      var rocketPillText = 'Traveler Clock: ' + rocketRatePercent + '% Rate';
+      var rocketPillText = 'Traveler Wristwatch: ' + rocketRatePercent + '% Rate';
 
       // Earth label pill at top
       drawLabelPill(ctx, earthPillText, eTipX + 80, Math.max(16, eTipY - 14), {
