@@ -10,10 +10,15 @@
     content="You are already moving at the speed of light. Discover how spatial motion naturally slows your passage through time.">
   <script>
     (function () {
-      var saved = null;
-      try { saved = localStorage.getItem('universe_theme'); } catch (e) { }
-      var theme = saved ? saved : 'light';
+      var savedTheme = null, savedStyle = null;
+      try {
+        savedTheme = localStorage.getItem('universe_theme');
+        savedStyle = localStorage.getItem('universe_style');
+      } catch (e) {}
+      var theme = savedTheme ? savedTheme : 'light';
+      var style = savedStyle ? savedStyle : 'monograph';
       document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('data-style', style);
     })();
   </script>
 </head>
@@ -39,11 +44,21 @@
         </button>
         <a href="https://github.com/ayush2991/intuition-first" target="_blank" rel="noopener"
           class="nav-link-secondary">GitHub</a>
+        <div class="style-toggle-group" role="group" aria-label="Reading Aesthetic">
+          <button type="button" class="style-toggle-btn active" data-style-val="monograph" title="Monograph: Archival Editorial Serif">
+            <span class="style-btn-icon">🏛</span>
+            <span class="style-btn-text">Monograph</span>
+          </button>
+          <button type="button" class="style-toggle-btn" data-style-val="precision" title="Precision: Modern Technical HUD">
+            <span class="style-btn-icon">⚡</span>
+            <span class="style-btn-text">Precision</span>
+          </button>
+        </div>
         <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
           <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="12" x2="12" y2="3"></line>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
             <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>

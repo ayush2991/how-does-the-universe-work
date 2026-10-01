@@ -3,112 +3,242 @@
    Minimal, Modern, Precision Scientific Aesthetic
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap');
 
-/* Default Theme: LIGHT MODE (Warm Minimal Paper) */
+/* ==========================================================================
+   2×2 THEME MATRIX: MONOGRAPH & PRECISION × LIGHT & DARK
+   ========================================================================== */
+
+/* 1. MONOGRAPH - LIGHT (Default: Warm Archival Parchment / Editorial Serif) */
 :root,
-[data-theme="light"] {
+[data-style="monograph"][data-theme="light"],
+[data-style="monograph"] {
   color-scheme: light;
 
-  /* Surface & Background Hierarchy */
-  --bg-space: #fbfbf9;              /* Warm natural parchment / book paper */
+  /* Surfaces */
+  --bg-space: #faf8f5;              /* Warm natural parchment */
   --bg-card: #ffffff;               /* Pure white card surface */
-  --bg-card-subtle: #f6f6f2;        /* Soft container / header tint */
-  --bg-surface-elevated: #f0f2f5;   /* Subtle elevated controls / pills */
+  --bg-card-subtle: #f4f1ea;        /* Archival plate tint */
+  --bg-surface-elevated: #ede8de;   /* Elevated archival pill */
 
-  /* Hairline Borders */
-  --border-subtle: rgba(15, 23, 42, 0.08);       /* Soft modern hairline divider */
-  --border-medium: rgba(15, 23, 42, 0.16);       /* Hover / active divider */
-  --border-active: #0969da;                      /* Active Cobalt */
+  /* Hairlines & Borders */
+  --border-subtle: #e5e0d5;
+  --border-medium: #d1cac0;
+  --border-active: #1d4ed8;
 
-  /* Typography Colors */
-  --text-primary: #0f172a;          /* Slate-900: sharp titles & headings */
-  --text-secondary: #334155;        /* Slate-700: UI labels & meta */
-  --text-prose: #1e293b;            /* Slate-800: high-contrast editorial prose */
-  --text-emphasis: #0f172a;         /* High-contrast emphasis */
-  --text-muted: #57606a;            /* Slate-600: descriptions & subtext */
-  --text-faint: #8c959f;            /* Slate-400: secondary timestamps & tags */
+  /* Typography */
+  --text-primary: #18191b;          /* Carbon Ink */
+  --text-secondary: #4a4e57;
+  --text-prose: #24272c;
+  --text-emphasis: #18191b;
+  --text-muted: #646872;
+  --text-faint: #989ba4;
 
-  /* Physics Semantic Palette (Calibrated Contrast) */
-  --color-time: #0969da;            /* Deep Cobalt: Time / Earth / Rest */
-  --color-time-glow: rgba(9, 105, 218, 0.14);
-  --color-space: #d95d18;           /* Radiant Terracotta / Motion */
-  --color-space-glow: rgba(217, 93, 24, 0.14);
-  --color-invariant: #6e40c9;       /* Deep Violet: Total Speed Arc c */
-  --color-photon: #b45309;          /* Warm Amber: Light / Bound */
-  --color-emerald: #0f766e;         /* Verdigris / Synchronized */
-  --color-danger: #cf222e;          /* Crimson: Lag / Beyond-c Forbidden */
+  /* Physics Semantic Palette (Calibrated Classical Contrast) */
+  --color-time: #1d4ed8;            /* Academic Royal Cobalt */
+  --color-time-glow: rgba(29, 78, 216, 0.12);
+  --color-space: #c2410c;           /* Terracotta Rust */
+  --color-space-glow: rgba(194, 65, 12, 0.12);
+  --color-invariant: #6d28d9;       /* Royal Amethyst */
+  --color-photon: #b45309;          /* Warm Amber */
+  --color-emerald: #0f766e;         /* Verdigris */
+  --color-danger: #b91c1c;          /* Crimson */
 
-  /* Chrome & Structural Variables */
-  --nav-bg: rgba(251, 251, 249, 0.92);
+  /* Chrome & UI Elements */
+  --nav-bg: rgba(250, 248, 245, 0.94);
+  --bg-canvas-outer: #ffffff;
+  --bg-canvas: #ffffff;
+  --border-canvas: #e5e0d5;
+  --shadow-canvas: none;
+  --slider-track: #e5e0d5;
+  --chip-bg: #ede8de;
+  --chip-hover: #e2dcd0;
+  --btn-secondary-bg: #ede8de;
+  --btn-secondary-hover: #e2dcd0;
+  --math-badge-bg: #f4f1ea;
+  --bg-footer: #f4f1ea;
+  --shadow-artifact: 0 2px 12px -2px rgba(24, 25, 27, 0.05), 0 1px 3px rgba(24, 25, 27, 0.03);
+  --shadow-card: 0 1px 3px rgba(24, 25, 27, 0.04);
+
+  /* Fonts & Sizing */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-body: var(--font-serif);
+  --body-font-size: 18px;
+  --body-line-height: 1.72;
+}
+
+/* 2. MONOGRAPH - DARK (Scholarly Archive / Warm Deep Umber) */
+[data-style="monograph"][data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg-space: #141311;              /* Warm deep scholarly umber */
+  --bg-card: #1c1a17;               /* Archival dark card */
+  --bg-card-subtle: #181613;
+  --bg-surface-elevated: #24221e;
+
+  /* Hairlines & Borders */
+  --border-subtle: rgba(232, 228, 218, 0.1);
+  --border-medium: rgba(232, 228, 218, 0.2);
+  --border-active: #60a5fa;
+
+  /* Typography */
+  --text-primary: #f4f1ea;          /* Aged Paper White */
+  --text-secondary: #d4cebf;
+  --text-prose: #e8e4da;
+  --text-emphasis: #ffffff;
+  --text-muted: #9e998e;
+  --text-faint: #736f66;
+
+  /* Physics Semantic Palette */
+  --color-time: #60a5fa;            /* Soft Archival Blue */
+  --color-time-glow: rgba(96, 165, 250, 0.18);
+  --color-space: #fb923c;           /* Warm Ochre-Coral */
+  --color-space-glow: rgba(251, 146, 60, 0.18);
+  --color-invariant: #c084fc;       /* Muted Violet */
+  --color-photon: #fbbf24;          /* Aged Gold */
+  --color-emerald: #34d399;         /* Verdigris Mint */
+  --color-danger: #f87171;
+
+  /* Chrome & UI Elements */
+  --nav-bg: rgba(20, 19, 17, 0.94);
+  --bg-canvas-outer: #181613;
+  --bg-canvas: #181613;
+  --border-canvas: rgba(232, 228, 218, 0.1);
+  --shadow-canvas: none;
+  --slider-track: #24221e;
+  --chip-bg: #24221e;
+  --chip-hover: #2e2b26;
+  --btn-secondary-bg: #24221e;
+  --btn-secondary-hover: #2e2b26;
+  --math-badge-bg: #181613;
+  --bg-footer: #0e0d0c;
+  --shadow-artifact: 0 12px 30px -6px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+
+  /* Fonts & Sizing */
+  --font-body: var(--font-serif);
+  --body-font-size: 18px;
+  --body-line-height: 1.72;
+}
+
+/* 3. PRECISION - LIGHT (Crisp Titanium Slate / Linear-style Light) */
+[data-style="precision"][data-theme="light"],
+[data-style="precision"] {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg-space: #f8fafc;              /* Crisp Titanium Slate */
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f1f5f9;
+  --bg-surface-elevated: #e2e8f0;
+
+  /* Hairlines & Borders */
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-medium: rgba(15, 23, 42, 0.16);
+  --border-active: #0284c7;
+
+  /* Typography */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-prose: #1e293b;
+  --text-emphasis: #0f172a;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+
+  /* Physics Semantic Palette */
+  --color-time: #0284c7;            /* Sky 600 */
+  --color-time-glow: rgba(2, 132, 199, 0.14);
+  --color-space: #ea580c;           /* Radiant Orange */
+  --color-space-glow: rgba(234, 88, 12, 0.14);
+  --color-invariant: #7c3aed;       /* Violet 600 */
+  --color-photon: #d97706;          /* Amber 600 */
+  --color-emerald: #0d9488;         /* Teal */
+  --color-danger: #dc2626;
+
+  /* Chrome & UI Elements */
+  --nav-bg: rgba(248, 250, 252, 0.92);
   --bg-canvas-outer: #ffffff;
   --bg-canvas: #ffffff;
   --border-canvas: rgba(15, 23, 42, 0.07);
   --shadow-canvas: none;
   --slider-track: #e2e8f0;
-  --chip-bg: #f0f2f5;
-  --chip-hover: #e2e8f0;
-  --btn-secondary-bg: #f0f2f5;
-  --btn-secondary-hover: #e2e8f0;
-  --math-badge-bg: #f6f6f2;
-  --bg-footer: #f6f6f2;
+  --chip-bg: #e2e8f0;
+  --chip-hover: #cbd5e1;
+  --btn-secondary-bg: #e2e8f0;
+  --btn-secondary-hover: #cbd5e1;
+  --math-badge-bg: #f1f5f9;
+  --bg-footer: #f1f5f9;
   --shadow-artifact: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 1px 3px -1px rgba(15, 23, 42, 0.04);
-  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04);
 
-  /* Fonts */
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* Fonts & Sizing */
+  --font-body: var(--font-sans);
+  --body-font-size: 16.5px;
+  --body-line-height: 1.68;
 }
 
-/* DARK MODE (Obsidian Deep Scientific Theme) */
-[data-theme="dark"] {
+/* 4. PRECISION - DARK (Obsidian Space / Linear HUD / Neon Telemetry) */
+[data-style="precision"][data-theme="dark"],
+[data-theme="dark"]:not([data-style="monograph"]) {
   color-scheme: dark;
 
-  /* Surface & Background Hierarchy */
-  --bg-space: #0d0f14;              /* Deep obsidian cosmic canvas */
-  --bg-card: #131720;               /* Refined dark card surface */
-  --bg-card-subtle: #090b0e;        /* Darker container / header */
-  --bg-surface-elevated: #1a202c;   /* Elevated dark badges & controls */
+  /* Surfaces */
+  --bg-space: #08090c;              /* Deep obsidian cosmic canvas */
+  --bg-card: rgba(16, 18, 26, 0.85);/* Glassmorphic card surface */
+  --bg-card-subtle: #0d0e15;
+  --bg-surface-elevated: #161822;
 
-  /* Hairline Borders */
-  --border-subtle: rgba(255, 255, 255, 0.08);   /* Clean, non-intrusive hairline */
-  --border-medium: rgba(255, 255, 255, 0.16);   /* Hover / active outline */
-  --border-active: #58a6ff;                      /* Prismatic Azure active ring */
+  /* Hairlines & Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-active: #38bdf8;
 
-  /* Typography Colors */
-  --text-primary: #f0f6fc;          /* High-clarity white headings */
-  --text-secondary: #c9d1d9;        /* Crisp slate UI text */
-  --text-prose: #e6edf3;            /* Warm readable prose */
-  --text-emphasis: #ffffff;         /* Pure white emphasis */
-  --text-muted: #8b949e;            /* Slate subtext */
-  --text-faint: #6e7681;            /* Slate secondary labels */
+  /* Typography */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-prose: #cbd5e1;
+  --text-emphasis: #ffffff;
+  --text-muted: #64748b;
+  --text-faint: #475569;
 
-  /* Physics Semantic Palette */
-  --color-time: #58a6ff;            /* Prismatic Azure: Time / Earth / Rest */
-  --color-time-glow: rgba(88, 166, 255, 0.18);
-  --color-space: #f0883e;           /* Radiant Amber-Coral: Space / Motion */
-  --color-space-glow: rgba(240, 136, 62, 0.18);
-  --color-invariant: #bc8cff;       /* Prismatic Violet: Total Speed Arc (c) */
-  --color-photon: #e3b341;          /* Golden Sun: Light / Bound */
-  --color-emerald: #3dd68c;         /* Phosphor Mint: Synchronized / Verified */
-  --color-danger: #ff7b72;          /* Soft Red: Lag / Forbidden Beyond-c */
+  /* Physics Semantic Palette (Neon HUD) */
+  --color-time: #38bdf8;            /* Neon Cyan */
+  --color-time-glow: rgba(56, 189, 248, 0.22);
+  --color-space: #fb923c;           /* Neon Amber-Coral */
+  --color-space-glow: rgba(251, 146, 60, 0.22);
+  --color-invariant: #c084fc;       /* Prismatic Violet */
+  --color-photon: #facc15;          /* Golden Sun */
+  --color-emerald: #34d399;         /* Phosphor Mint */
+  --color-danger: #f87171;
 
-  /* Chrome & Structural Variables */
-  --nav-bg: rgba(13, 15, 20, 0.92);
-  --bg-canvas-outer: #090b0e;
-  --bg-canvas: #090b0e;
-  --border-canvas: rgba(255, 255, 255, 0.07);
+  /* Chrome & UI Elements */
+  --nav-bg: rgba(8, 9, 12, 0.92);
+  --bg-canvas-outer: #060709;
+  --bg-canvas: #060709;
+  --border-canvas: rgba(255, 255, 255, 0.08);
   --shadow-canvas: none;
   --slider-track: #1b212c;
-  --chip-bg: #1a202c;
-  --chip-hover: #222938;
-  --btn-secondary-bg: #1a202c;
-  --btn-secondary-hover: #222938;
-  --math-badge-bg: #090b0e;
-  --bg-footer: #08090d;
-  --shadow-artifact: 0 16px 36px -8px rgba(0, 0, 0, 0.6);
-  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+  --chip-bg: #161822;
+  --chip-hover: #202433;
+  --btn-secondary-bg: #161822;
+  --btn-secondary-hover: #202433;
+  --math-badge-bg: #0d0e15;
+  --bg-footer: #050608;
+  --shadow-artifact: 0 16px 36px -8px rgba(0, 0, 0, 0.7);
+  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.5);
+
+  /* Fonts & Sizing */
+  --font-body: var(--font-sans);
+  --body-font-size: 16.5px;
+  --body-line-height: 1.68;
+}
+
+/* Fallback for default light */
+[data-theme="light"]:not([data-style="precision"]) {
+  color-scheme: light;
 }
 
 /* Base Reset & Document Styles */
@@ -125,14 +255,21 @@ html {
 body {
   background-color: var(--bg-space);
   color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: var(--body-font-size, 16.5px);
+  line-height: var(--body-line-height, 1.68);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+
+[data-style="precision"][data-theme="dark"] body {
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 60%, rgba(192, 132, 252, 0.04), transparent);
+  background-attachment: fixed;
 }
 
 ::selection {
@@ -286,6 +423,60 @@ body {
   color: var(--text-muted);
 }
 
+/* Style Switcher (Monograph vs Precision) */
+.style-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 2px;
+  gap: 2px;
+  transition: all 0.2s ease;
+}
+
+.style-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  padding: 0.28rem 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.style-toggle-btn .style-btn-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.style-toggle-btn:hover {
+  color: var(--text-primary);
+}
+
+.style-toggle-btn.active {
+  background: var(--bg-card);
+  color: var(--color-time);
+  border-color: var(--border-subtle);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 640px) {
+  .style-toggle-btn .style-btn-text {
+    display: none;
+  }
+  .style-toggle-btn {
+    padding: 0.3rem 0.5rem;
+  }
+}
+
 /* Theme Toggle Button */
 .theme-toggle-btn {
   display: inline-flex;
@@ -410,9 +601,46 @@ body {
 .editorial-prose dl,
 .editorial-prose dt,
 .editorial-prose dd {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-optical-sizing: auto;
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+[data-style="monograph"] .article-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+[data-style="precision"] .article-title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+[data-style="monograph"] .article-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+[data-style="precision"] .article-subtitle {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 1.15rem;
+}
+
+[data-style="monograph"] .editorial-prose h2,
+[data-style="monograph"] .editorial-prose h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+[data-style="precision"] .editorial-prose h2,
+[data-style="precision"] .editorial-prose h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .editorial-prose p {

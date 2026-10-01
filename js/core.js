@@ -10,53 +10,114 @@
   // 1. Theme Color Provider & Canvas Utilities
   // ==========================================================================
   function getThemeColors() {
-    var isLight = document.documentElement.getAttribute('data-theme') !== 'dark';
-    if (isLight) {
-      return {
-        isLight: true,
-        gridLine: 'rgba(15, 23, 42, 0.05)',
-        axisLine: '#334155',        // Slate 700: sharp visible axes
-        axisArrow: '#1e293b',       // Slate 800: sharp arrowheads
-        axisLabel: '#0f172a',       // Slate 900: high contrast labels
-        constraintArc: '#94a3b8',   // Slate 400: clearly visible speed limit arc
-        timeColor: '#0284c7',       // Sky 600 (calibrated contrast)
-        timeColorSubtle: 'rgba(2, 132, 199, 0.12)',
-        spaceColor: '#ea580c',      // Radiant Orange 600
-        spaceColorSubtle: 'rgba(234, 88, 12, 0.12)',
-        invariantColor: '#7c3aed',  // Violet 600
-        photonColor: '#d97706',     // Amber 600
-        dangerColor: '#dc2626',     // Red 600
-        subtleText: '#64748b',
-        dotCenter: '#ffffff',
-        pillBg: 'rgba(255, 255, 255, 0.95)',
-        pillBorder: 'rgba(15, 23, 42, 0.12)',
-        pillText: '#0f172a',
-        muonAtmosphereTop: 'rgba(2, 132, 199, 0.06)',
-        muonAtmosphereBottom: 'rgba(2, 132, 199, 0.18)'
-      };
+    var style = document.documentElement.getAttribute('data-style') || 'monograph';
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    if (style === 'precision') {
+      if (!isDark) {
+        // Precision Light (Titanium Minimal)
+        return {
+          isLight: true,
+          style: 'precision',
+          gridLine: 'rgba(15, 23, 42, 0.05)',
+          axisLine: '#334155',        // Slate 700: sharp visible axes
+          axisArrow: '#0f172a',       // Slate 900: sharp arrowheads
+          axisLabel: '#0f172a',       // Slate 900: high contrast labels
+          constraintArc: '#94a3b8',   // Slate 400: clearly visible speed limit arc
+          timeColor: '#0284c7',       // Sky 600
+          timeColorSubtle: 'rgba(2, 132, 199, 0.12)',
+          spaceColor: '#ea580c',      // Radiant Orange 600
+          spaceColorSubtle: 'rgba(234, 88, 12, 0.12)',
+          invariantColor: '#7c3aed',  // Violet 600
+          photonColor: '#d97706',     // Amber 600
+          dangerColor: '#dc2626',     // Red 600
+          subtleText: '#64748b',
+          dotCenter: '#ffffff',
+          pillBg: 'rgba(255, 255, 255, 0.95)',
+          pillBorder: 'rgba(15, 23, 42, 0.12)',
+          pillText: '#0f172a',
+          muonAtmosphereTop: 'rgba(2, 132, 199, 0.06)',
+          muonAtmosphereBottom: 'rgba(2, 132, 199, 0.18)'
+        };
+      } else {
+        // Precision Dark (Obsidian HUD)
+        return {
+          isLight: false,
+          style: 'precision',
+          gridLine: 'rgba(255, 255, 255, 0.05)',
+          axisLine: 'rgba(255, 255, 255, 0.25)', // Luminous dark-mode axes
+          axisArrow: '#f8fafc',
+          axisLabel: '#f8fafc',       // High-contrast white labels
+          constraintArc: 'rgba(192, 132, 252, 0.35)', // Defined violet arc
+          timeColor: '#38bdf8',       // Neon Cyan
+          timeColorSubtle: 'rgba(56, 189, 248, 0.2)',
+          spaceColor: '#fb923c',      // Radiant Coral
+          spaceColorSubtle: 'rgba(251, 146, 60, 0.2)',
+          invariantColor: '#c084fc',  // Prismatic Violet
+          photonColor: '#facc15',     // Golden Sun
+          dangerColor: '#f87171',     // Soft Red
+          subtleText: '#94a3b8',
+          dotCenter: '#ffffff',
+          pillBg: 'rgba(16, 18, 26, 0.95)',
+          pillBorder: 'rgba(255, 255, 255, 0.12)',
+          pillText: '#f8fafc',
+          muonAtmosphereTop: 'rgba(56, 189, 248, 0.06)',
+          muonAtmosphereBottom: 'rgba(56, 189, 248, 0.22)'
+        };
+      }
     } else {
-      return {
-        isLight: false,
-        gridLine: 'rgba(255, 255, 255, 0.05)',
-        axisLine: '#64748b',        // Brightened for clear dark-mode axes
-        axisArrow: '#94a3b8',
-        axisLabel: '#f8fafc',       // High-contrast white labels
-        constraintArc: '#334155',   // Defined speed limit arc
-        timeColor: '#38bdf8',       // Electric Cyan
-        timeColorSubtle: 'rgba(56, 189, 248, 0.2)',
-        spaceColor: '#fb923c',      // Radiant Coral
-        spaceColorSubtle: 'rgba(251, 146, 60, 0.2)',
-        invariantColor: '#a855f7',  // Luminous Violet
-        photonColor: '#facc15',     // Golden Sun
-        dangerColor: '#f87171',     // Soft Red
-        subtleText: '#94a3b8',
-        dotCenter: '#ffffff',
-        pillBg: 'rgba(14, 18, 26, 0.95)',
-        pillBorder: 'rgba(255, 255, 255, 0.12)',
-        pillText: '#f8fafc',
-        muonAtmosphereTop: 'rgba(56, 189, 248, 0.06)',
-        muonAtmosphereBottom: 'rgba(56, 189, 248, 0.22)'
-      };
+      // Monograph (Editorial Academic Press)
+      if (!isDark) {
+        // Monograph Light (Warm Natural Parchment)
+        return {
+          isLight: true,
+          style: 'monograph',
+          gridLine: 'rgba(24, 25, 27, 0.06)',
+          axisLine: '#18191b',        // Archival ink
+          axisArrow: '#18191b',
+          axisLabel: '#18191b',
+          constraintArc: '#d1cac0',   // Warm parchment arc
+          timeColor: '#1d4ed8',       // Deep Academic Cobalt
+          timeColorSubtle: 'rgba(29, 78, 216, 0.12)',
+          spaceColor: '#c2410c',      // Terracotta Rust
+          spaceColorSubtle: 'rgba(194, 65, 12, 0.12)',
+          invariantColor: '#6d28d9',  // Royal Amethyst
+          photonColor: '#b45309',     // Amber
+          dangerColor: '#b91c1c',     // Crimson
+          subtleText: '#646872',
+          dotCenter: '#ffffff',
+          pillBg: 'rgba(255, 255, 255, 0.96)',
+          pillBorder: '#e5e0d5',
+          pillText: '#18191b',
+          muonAtmosphereTop: 'rgba(29, 78, 216, 0.05)',
+          muonAtmosphereBottom: 'rgba(29, 78, 216, 0.16)'
+        };
+      } else {
+        // Monograph Dark (Scholarly Dark Archive)
+        return {
+          isLight: false,
+          style: 'monograph',
+          gridLine: 'rgba(232, 228, 218, 0.06)',
+          axisLine: '#d4cebf',        // Soft aged bone
+          axisArrow: '#f4f1ea',
+          axisLabel: '#f4f1ea',
+          constraintArc: 'rgba(232, 228, 218, 0.2)',
+          timeColor: '#60a5fa',       // Soft Archival Blue
+          timeColorSubtle: 'rgba(96, 165, 250, 0.2)',
+          spaceColor: '#fb923c',      // Warm Ochre-Coral
+          spaceColorSubtle: 'rgba(251, 146, 60, 0.2)',
+          invariantColor: '#c084fc',  // Muted Violet
+          photonColor: '#fbbf24',     // Aged Gold
+          dangerColor: '#f87171',
+          subtleText: '#9e998e',
+          dotCenter: '#ffffff',
+          pillBg: 'rgba(28, 26, 23, 0.95)',
+          pillBorder: 'rgba(232, 228, 218, 0.15)',
+          pillText: '#f4f1ea',
+          muonAtmosphereTop: 'rgba(96, 165, 250, 0.06)',
+          muonAtmosphereBottom: 'rgba(96, 165, 250, 0.22)'
+        };
+      }
     }
   }
 
@@ -261,9 +322,29 @@
   }
 
   // ==========================================================================
-  // 2. Theme Manager (Light by default, persists to localStorage)
+  // 2. Theme & Style Manager (Monograph/Precision + Light/Dark, persists to localStorage)
   // ==========================================================================
   function initThemeManager() {
+    function applyStyle(style) {
+      document.documentElement.setAttribute('data-style', style);
+      try {
+        localStorage.setItem('universe_style', style);
+      } catch (e) {}
+
+      var styleBtns = document.querySelectorAll('.style-toggle-btn');
+      for (var s = 0; s < styleBtns.length; s++) {
+        var val = styleBtns[s].getAttribute('data-style-val');
+        if (val === style) {
+          styleBtns[s].classList.add('active');
+          styleBtns[s].setAttribute('aria-pressed', 'true');
+        } else {
+          styleBtns[s].classList.remove('active');
+          styleBtns[s].setAttribute('aria-pressed', 'false');
+        }
+      }
+      redrawAll();
+    }
+
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       try {
@@ -279,14 +360,42 @@
       redrawAll();
     }
 
-    // Default to 'light' if not explicitly stored
-    var saved = null;
+    // Default to 'monograph' and 'light' if not explicitly stored
+    var savedStyle = null;
+    var savedTheme = null;
     try {
-      saved = localStorage.getItem('universe_theme');
+      savedStyle = localStorage.getItem('universe_style');
+      savedTheme = localStorage.getItem('universe_theme');
     } catch (e) {}
-    var theme = saved ? saved : 'light';
+
+    var style = savedStyle ? savedStyle : (document.documentElement.getAttribute('data-style') || 'monograph');
+    var theme = savedTheme ? savedTheme : (document.documentElement.getAttribute('data-theme') || 'light');
+
+    document.documentElement.setAttribute('data-style', style);
     document.documentElement.setAttribute('data-theme', theme);
 
+    // Bind Style Switcher Buttons
+    var styleBtns = document.querySelectorAll('.style-toggle-btn');
+    for (var k = 0; k < styleBtns.length; k++) {
+      (function (btn) {
+        var btnVal = btn.getAttribute('data-style-val');
+        if (btnVal === style) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-pressed', 'false');
+        }
+        btn.addEventListener('click', function () {
+          var targetStyle = this.getAttribute('data-style-val');
+          if (targetStyle) {
+            applyStyle(targetStyle);
+          }
+        });
+      })(styleBtns[k]);
+    }
+
+    // Bind Theme Toggle Buttons (Light/Dark)
     var btns = document.querySelectorAll('.theme-toggle-btn');
     for (var j = 0; j < btns.length; j++) {
       (function (btn) {
@@ -300,6 +409,10 @@
       btns[j].setAttribute('title', label);
       btns[j].setAttribute('aria-label', label);
     }
+
+    // Expose helpers on window.UniverseSimulations
+    window.UniverseSimulations.applyStyle = applyStyle;
+    window.UniverseSimulations.applyTheme = applyTheme;
   }
 
 
